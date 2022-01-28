@@ -1,3 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html,
+    body {
+        @apply scroll-smooth overflow-x-hidden scroll-pt-8;
+    }
+
+    .space {
+        background: url(/images/bg-stars.png), url(/images/bg-noise.png), #292525;
+    }
+}
+
+@layer components {
+    .container {
+        @apply max-w-xs md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto;
+    }
+
+    .paragraph {
+        @apply font-lora text-base md:text-lg leading-[160%] tracking-[2%];
+    }
+
+    @keyframes floating {
+        0% {
+            transform: translateY(0) scale(1);
+        }
+        50% {
+            transform: translateY(4rem) scale(1.05);
+        }
+        100% {
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes bgLeftToRight {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 100% 0;
+        }
+    }
+}

@@ -15,6 +15,7 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
+        "downlevelIteration": true,
         "types": ["@types/node", "@types/react"],
         "paths": {
             "@/*": ["src/*"],

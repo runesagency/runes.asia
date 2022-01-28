@@ -14,6 +14,30 @@ const config = (phase) => {
 
             return config;
         },
+        redirects: async () => {
+            return [
+                {
+                    source: "/about",
+                    destination: "/",
+                    permanent: false,
+                },
+                {
+                    source: "/services",
+                    destination: "/",
+                    permanent: false,
+                },
+                {
+                    source: "/projects",
+                    destination: "https://www.behance.net/wearerunes",
+                    permanent: false,
+                },
+                {
+                    source: "/contact",
+                    destination: "mailto:hello@runes.asia",
+                    permanent: false,
+                },
+            ];
+        },
     };
 
     if (phase !== PHASE_DEVELOPMENT_SERVER) {

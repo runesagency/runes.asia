@@ -4,20 +4,31 @@ import Head from "next/head";
 import MetaTags from "@/components/MetaTags";
 
 const metaData = {
-    title: "My Next JS Website",
-    description: "With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!",
-    url: "https://www.example.com",
-    image: "https://www.example.com/image.jpg",
-    themeColor: "#ffffff",
-    keywords: "key1, key2, key3, key4, key5, key6",
-    author: "Rafly Maulana",
+    title: "Runes",
+    description:
+        "We are a group of people gathered in a creative space known as the creative studio. We create various things and help brands, products and services become the best in their respective classes.",
+    url: "https://www.runes.asia",
+    image: "https://www.runes.asia/banner.png",
+    themeColor: "#FFC977",
+    keywords: "runes, creative, agency, studio, production, house, indonesia, tangerang, jakarta",
+    author: "Runes",
     charSet: "utf-8",
     language: "English",
     icons: [
         {
-            src: "/favicon.ico",
+            src: "/images/icon-32x32.png",
             sizes: "32x32",
-            type: "image/ico",
+            type: "image/png",
+        },
+        {
+            src: "/images/icon-64x64.png",
+            sizes: "64x64",
+            type: "image/png",
+        },
+        {
+            src: "/images/icon-128x128.png",
+            sizes: "128x128",
+            type: "image/png",
         },
     ],
 };

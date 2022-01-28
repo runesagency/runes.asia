@@ -1,19 +1,25 @@
 {
-    "name": "my-nextjs-project",
+    "name": "wearerunes",
     "version": "1.1.0",
-    "description": "NextJS project template by Rafly Maulana",
+    "description": "Official Website of Runes",
     "main": "index.js",
-    "repository": "https://github.com/raflymln/nextjs-template.git",
-    "bugs": "https://github.com/raflymln/nextjs-template",
+    "repository": "https://github.com/wearerunes/wearerunes.git",
+    "bugs": "https://github.com/wearerunes/wearerunes",
     "author": {
-        "name": "Rafly Maulana",
-        "email": "mraflymaulana@gmail.com",
-        "url": "https://raflymaulana.me"
+        "name": "Team Runes",
+        "email": "team@runes.asia",
+        "url": "https://runes.asia"
     },
-    "homepage": "https://raflymaulana.me",
+    "homepage": "https://runes.asia",
     "license": "MIT",
     "private": true,
-    "contributors": [],
+    "contributors": [
+        {
+            "name": "Rafly Maulana",
+            "email": "mraflymaulana@gmail.com",
+            "url": "https://raflymaulana.me"
+        }
+    ],
     "scripts": {
         "dev": "next dev",
         "build": "next build",
