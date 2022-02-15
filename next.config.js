@@ -23,13 +23,13 @@ const config = (phase) => {
                 },
                 {
                     source: "/services",
-                    destination: "/",
-                    permanent: false,
+                    destination: "https://drive.google.com/file/d/1q9rDMozVzqnzHo_Mp8Kbjp5nNR8banLa/view?usp=sharing",
+                    permanent: true,
                 },
                 {
                     source: "/projects",
                     destination: "https://www.behance.net/wearerunes",
-                    permanent: false,
+                    permanent: true,
                 },
                 {
                     source: "/contact",
