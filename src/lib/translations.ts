@@ -82,7 +82,7 @@ const translations: Translations = {
                 button: "Lihat Pekerjaan Kami",
             },
             contact: {
-                title: "Mari Kita Membangun Sesuatu Bersama",
+                title: "Mari Buat Sesuatu Bersama",
                 description: "Sesuatu yang hebat selalu dibuat bersama, jadi mengapa kita tidak melakukannya bersama?",
                 button: "Hubungi Kami",
             },
