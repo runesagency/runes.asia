@@ -191,49 +191,47 @@ export default function Home() {
             const lang = localStorage.getItem("lang");
             setLang(lang);
         });
-    });
 
-    useEffect(() => {
         const bound = document.getElementById("space");
         const rocket = document.getElementById("rocket");
         const stars = document.getElementById("stars");
         const meteoroid = document.getElementById("meteoroid");
 
-        const scroll = () => {
+        const bindSectionScroll = (sectionId: string, index: number) => {
+            const bound = document.getElementById(sectionId);
+            const distanceFromTop = window.scrollY + bound.getBoundingClientRect()[!index ? "bottom" : "top"] + (!index ? 0 : window.innerHeight / 2 / 2);
+            const rawPercentScrolled = (window.scrollY - distanceFromTop) / (bound.scrollHeight - window.innerHeight);
+            const percentScrolled = Math.min(Math.max(rawPercentScrolled, 0), 1);
+
+            bound.style.opacity = String(percentScrolled);
+        };
+
+        const onScroll = () => {
+            // Props
             const distanceFromTop = window.scrollY + bound.getBoundingClientRect().top;
             const rawPercentScrolled = (window.scrollY - distanceFromTop) / (bound.scrollHeight - window.innerHeight);
             const percentScrolled = Math.min(Math.max(rawPercentScrolled, 0), 1);
 
-            rocket.style.transform = `translateY(${100 - percentScrolled * 100}%)`;
+            rocket.style.transform = `translateY(${95 - percentScrolled * 100}%)`;
             meteoroid.style.transform = `translateY(${-50 + percentScrolled * 100}%)`;
             stars.style.backgroundPositionY = `${percentScrolled * 100}%`;
             for (let i = 0; i < stars.children.length; i++) {
                 document.getElementById(`star-${i}`).style.transform = `translateY(${-50 + percentScrolled * 100}%)`;
             }
 
-            window.requestAnimationFrame(scroll);
+            // Sections
+            bindSectionScroll("intro", 0);
+            bindSectionScroll("about", 1);
+            bindSectionScroll("services", 2);
+            bindSectionScroll("projects", 3);
+            bindSectionScroll("contact", 4);
+
+            // Request animation frame for next frame
+            window.requestAnimationFrame(onScroll);
         };
 
-        window.requestAnimationFrame(scroll);
-    });
-
-    useEffect(() => {
-        const sectionsId = ["intro", "about", "services", "projects", "contact"];
-
-        const scroll = () => {
-            sectionsId.map((section, index) => {
-                const bound = document.getElementById(section);
-                const distanceFromTop = window.scrollY + bound.getBoundingClientRect()[!index ? "bottom" : "top"] + (!index ? 0 : window.innerHeight / 2 / 2);
-                const rawPercentScrolled = (window.scrollY - distanceFromTop) / (bound.scrollHeight - window.innerHeight);
-                const percentScrolled = Math.min(Math.max(rawPercentScrolled, 0), 1);
-
-                bound.style.opacity = String(percentScrolled);
-            });
-
-            window.requestAnimationFrame(scroll);
-        };
-
-        window.requestAnimationFrame(scroll);
+        // Request animation frame in the beginning
+        window.requestAnimationFrame(onScroll);
     });
 
     return (
@@ -262,7 +260,7 @@ export default function Home() {
                                     <path d="M30.6429 0.807693H2.35714C1.73199 0.807693 1.13244 1.02742 0.690391 1.41853C0.248341 1.80965 0 2.34011 0 2.89323V24.1068C0 24.6599 0.248341 25.1903 0.690391 25.5815C1.13244 25.9726 1.73199 26.1923 2.35714 26.1923H30.6429C31.268 26.1923 31.8676 25.9726 32.3096 25.5815C32.7517 25.1903 33 24.6599 33 24.1068V2.89323C33 2.34011 32.7517 1.80965 32.3096 1.41853C31.8676 1.02742 31.268 0.807693 30.6429 0.807693ZM28.05 2.89323L16.5 14.0614L4.95 2.89323H28.05ZM2.35714 24.1068V3.84216L15.8282 16.1887C16.0255 16.3098 16.2599 16.3747 16.5 16.3747C16.7401 16.3747 16.9745 16.3098 17.1718 16.1887L30.6429 3.84216V24.1068H2.35714Z" />
                                 </svg>
 
-                                <p className="paragraph font-bold">team@runes.asia</p>
+                                <p className="paragraph font-bold">hello@runes.asia</p>
                             </a>
 
                             <a className="flex items-center space-x-5">
@@ -348,7 +346,7 @@ export default function Home() {
                             );
                         })}
                 </div>
-                <div id="meteoroid" className="absolute top-0 left-0 w-full z-10 h-full bg-[url(/images/bg-meteoroid.png)] bg-repeat-x bg-fixed animate-[bgLeftToRight_10s_infinite_alternate]" />
+                <div id="meteoroid" className="absolute top-0 left-0 w-full z-10 h-full bg-[url(/images/bg-meteoroid.png)] bg-repeat-x bg-fixed" />
                 <div className="absolute top-0 left-0 w-full z-0 h-full bg-[url(/images/bg-noise.png)] bg-repeat opacity-20" />
             </section>
 
@@ -360,6 +358,9 @@ export default function Home() {
                         <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5 text-yellow-light">
                             <Link href="/about">
                                 <a className="font-el-messiri font-bold text-2xl hover:opacity-70 duration-200">About Us</a>
+                            </Link>
+                            <Link href="/services">
+                                <a className="font-el-messiri font-bold text-2xl hover:opacity-70 duration-200">Services</a>
                             </Link>
                             <Link href="/projects">
                                 <a className="font-el-messiri font-bold text-2xl hover:opacity-70 duration-200">Projects</a>
