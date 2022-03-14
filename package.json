@@ -24,7 +24,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "deploy": "git pull && pnpm install && next build && next start"
     },
     "dependencies": {
         "@prisma/client": "^3.10.0",
