@@ -23,7 +23,7 @@ const config = (phase) => {
                 },
                 {
                     source: "/services",
-                    destination: "https://drive.google.com/file/d/1q9rDMozVzqnzHo_Mp8Kbjp5nNR8banLa/view?usp=sharing",
+                    destination: "https://drive.google.com/file/d/1-ejY8kA-wcAwFcBYLLkjSCt-obNYOI5l/view?usp=sharing",
                     permanent: true,
                 },
                 {
