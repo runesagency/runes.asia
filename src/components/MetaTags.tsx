@@ -26,7 +26,7 @@ export default function MetaTags({ metaData }: { metaData: Tags }) {
             ))}
 
             <meta name="viewport" content="initial-scale=1" />
-            <meta name="robots" content="index, nofollow" />
+            <meta name="robots" content="index" />
 
             <meta charSet={metaData.charSet} />
             <meta httpEquiv="Content-Type" content={`text/html; charset=${metaData.charSet}`} />
