@@ -73,20 +73,18 @@ export default function LinksPage() {
     ];
 
     return (
-        <section className="bg-black w-full h-full min-h-screen block py-14">
+        <section className="bg-black w-full h-full min-h-screen pt-24 pb-14">
             <div className="relative z-20">
                 <div className="xl:bg-contain bg-top bg-no-repeat">
                     <div className="container px-4 mx-auto">
-                        <div className="text-center mb-16">
-                            <img className="h-16 sm:h-24 md:h-32 lg:h-32 mb-6 mx-auto" src="/images/biolinks/logo.png" alt="" />
-                        </div>
+                        <img src="/images/logo-full.svg" alt="Runes" className="w-full max-w-sm mb-12 mx-auto" />
 
                         <div className="grid gap-4 w-full mx-auto max-w-xs">
                             {links.map((item, index) => {
                                 return (
                                     <a
                                         key={index}
-                                        className="paragraph block text-center py-4 px-6 text-xl text-black hover:opacity-70 duration-200 font-semibold leading-none from-yellow-light to-yellow-medium bg-gradient-to-r"
+                                        className="paragraph block text-center py-4 px-6 text-xl text-yellow-light border-yellow-light border-2 hover:text-black duration-200 font-semibold from-yellow-light to-yellow-medium hover:bg-gradient-to-r hover:border-transparent rounded-full"
                                         href={item.href}>
                                         {item.label}
                                     </a>
@@ -100,11 +98,11 @@ export default function LinksPage() {
                     <section className="grid gap-4">
                         <span className="block text-center pt-4 px-6 mb-2 sm:mb-2 text-md  text-white paragraph">Portofolio</span>
 
-                        <div className=" flex grid-cols-2 gap-4 justify-center">
+                        <div className="flex space-x-8 justify-center">
                             {portfolioIcons.map((iconis, index) => {
                                 return (
                                     <a key={index} href={iconis.href}>
-                                        <iconis.icon className="flex hover:opacity-70 duration-200 grid-cols-2 gap-4 justify-center fill-yellow-light" />
+                                        <iconis.icon className="link-icon" />
                                     </a>
                                 );
                             })}
@@ -118,7 +116,7 @@ export default function LinksPage() {
                             {socialIcons.map((iconis, index) => {
                                 return (
                                     <a key={index} href={iconis.href}>
-                                        <iconis.icon className="flex hover:opacity-70 duration-200 grid-cols-2 gap-4 justify-center fill-yellow-light" />
+                                        <iconis.icon className="link-icon" />
                                     </a>
                                 );
                             })}
