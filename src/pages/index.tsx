@@ -361,7 +361,9 @@ export default function Home() {
                     </section>
 
                     <section id="right" className="grid gap-4 text-white md:ml-auto md:text-right">
-                        <img src="/images/logo-mark.png" alt="Logo Mark" className="w-10 md:ml-auto" />
+                        <div className=" transform hover:-translate-y-5 cursor-pointer duration-500" onClick={() => alert("Easter egg is not available now, sorry :(")}>
+                            <img src="/images/logo-mark.svg" alt="Logo Mark" className="w-10 md:ml-auto transform hover:animate-[floating-small_3s_infinite]" />
+                        </div>
                         <p className="paragraph text-sm italic">
                             With <span className="not-italic">❤️</span> From Indonesia.
                         </p>
