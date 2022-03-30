@@ -1,8 +1,10 @@
+import Stars from "@/components/Stars";
+
 export default function LinksPage() {
     const links = [
         {
             label: "Website",
-            href: "https://runes.asia",
+            href: "/",
         },
         {
             label: "Whatsapp",
@@ -10,7 +12,7 @@ export default function LinksPage() {
         },
     ];
 
-    const iconed = [
+    const portfolioIcons = [
         {
             label: "Behance",
             href: "https://www.behance.net/wearerunes",
@@ -36,7 +38,7 @@ export default function LinksPage() {
         },
     ];
 
-    const iconedi = [
+    const socialIcons = [
         {
             label: "Figma",
             href: "https://figma.com/@wearerunes",
@@ -69,55 +71,63 @@ export default function LinksPage() {
             ),
         },
     ];
+
     return (
-        <section className="bg-[#292525] antialiased w-full h-full block pb-72">
-            <section className="py-20 xl:bg-contain bg-top bg-no-repeat">
-                <div className="container px-4 mx-auto">
-                    <div className="text-center mb-16">
-                        <img className="h-16 sm:h-24 md:h-32 lg:h-32 mb-6 mx-auto" src="/images/biolinks/logo.png" alt="" />
-                    </div>
-                    <div className="w-50 m-auto md:w-1/2 lg:w-1/3 px-3 mb-6">
-                        {links.map((item, index) => {
-                            return (
-                                <a
-                                    key={index}
-                                    className="paragraph block text-center py-4 px-6 mb-12 sm:mb-12 sm:mr-3 text-xl text-yellow-light hover:opacity-70 duration-200 font-semibold leading-none border-2 border-gray-400 rounded-full"
-                                    href={item.href}>
-                                    {item.label}
-                                </a>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
+        <section className="bg-black w-full h-full min-h-screen block py-14">
+            <div className="relative z-20">
+                <div className="xl:bg-contain bg-top bg-no-repeat">
+                    <div className="container px-4 mx-auto">
+                        <div className="text-center mb-16">
+                            <img className="h-16 sm:h-24 md:h-32 lg:h-32 mb-6 mx-auto" src="/images/biolinks/logo.png" alt="" />
+                        </div>
 
-            <section className="container mx-auto ">
-                <span className="block text-center pt-4 px-6 mb-2 sm:mb-2 text-md  text-white paragraph">Portofolio</span>
-                <div className=" flex grid-cols-2 gap-4 justify-center">
-                    {iconed.map((iconis, index) => {
-                        return (
-                            <>
-                                <a key={index} href={iconis.href}>
-                                    <iconis.icon className="flex hover:opacity-70 duration-200 grid-cols-2 gap-4 justify-center fill-yellow-light" />
-                                </a>
-                            </>
-                        );
-                    })}
+                        <div className="grid gap-4 w-full mx-auto max-w-xs">
+                            {links.map((item, index) => {
+                                return (
+                                    <a
+                                        key={index}
+                                        className="paragraph block text-center py-4 px-6 text-xl text-black hover:opacity-70 duration-200 font-semibold leading-none from-yellow-light to-yellow-medium bg-gradient-to-r"
+                                        href={item.href}>
+                                        {item.label}
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
 
-                <span className="block text-center pt-4 px-6 mb-2 sm:mb-2 text-md  text-white paragraph">Also visit us on</span>
-                <div className=" flex grid-cols-3 gap-6 justify-center">
-                    {iconedi.map((iconis, index) => {
-                        return (
-                            <>
-                                <a key={index} href={iconis.href}>
-                                    <iconis.icon className="flex hover:opacity-70 duration-200 grid-cols-2 gap-4 justify-center fill-yellow-light" />
-                                </a>
-                            </>
-                        );
-                    })}
+                <div className="container mx-auto space-y-8 pt-8">
+                    <section className="grid gap-4">
+                        <span className="block text-center pt-4 px-6 mb-2 sm:mb-2 text-md  text-white paragraph">Portofolio</span>
+
+                        <div className=" flex grid-cols-2 gap-4 justify-center">
+                            {portfolioIcons.map((iconis, index) => {
+                                return (
+                                    <a key={index} href={iconis.href}>
+                                        <iconis.icon className="flex hover:opacity-70 duration-200 grid-cols-2 gap-4 justify-center fill-yellow-light" />
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </section>
+
+                    <section className="grid gap-4">
+                        <span className="block text-center px-6 mb-2 sm:mb-2 text-md text-white paragraph">Also visit us on</span>
+
+                        <div className="flex space-x-8 justify-center">
+                            {socialIcons.map((iconis, index) => {
+                                return (
+                                    <a key={index} href={iconis.href}>
+                                        <iconis.icon className="flex hover:opacity-70 duration-200 grid-cols-2 gap-4 justify-center fill-yellow-light" />
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </section>
                 </div>
-            </section>
+            </div>
+
+            <Stars />
         </section>
     );
 }
