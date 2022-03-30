@@ -18,7 +18,7 @@ const config = (phase) => {
             return [
                 {
                     source: "/about",
-                    destination: "/",
+                    destination: "/#about",
                     permanent: false,
                 },
                 {
