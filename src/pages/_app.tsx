@@ -4,14 +4,14 @@ import Head from "next/head";
 import MetaTags from "@/components/MetaTags";
 
 const metaData = {
-    title: "Runes",
+    title: "Runes - Creative Studio & Agency Based in Indonesian",
     description:
         "We are a group of people gathered in a creative space known as the creative studio. We create various things and help brands, products and services become the best in their respective classes.",
-    url: "https://www.runes.asia",
-    image: "https://www.runes.asia/banner.png",
+    url: "https://runes.asia",
+    image: "https://runes.asia/banner.png",
     themeColor: "#FFC977",
     keywords: "runes, creative, agency, studio, production, house, indonesia, tangerang, jakarta",
-    author: "Runes",
+    author: "Runes, Rafly Maulana",
     charSet: "utf-8",
     language: "English",
     icons: [
