@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import translations from "@/lib/translations";
+import Stars from "@/components/Stars";
 
 const Button = {
     LeftToRight: ({ href, text, className }: { href: string; text: string; className?: string }) => (
@@ -326,26 +327,7 @@ export default function Home() {
                         <img src="/images/bg-rocket.png" alt="Rocket" className="mx-auto max-w-[200px] md:max-w-[250px] transform translate-x-[100%] md:translate-x-[50%] lg:hidden" />
                     </div>
                 </div>
-                <div id="stars" className="fixed top-0 left-0 w-full h-full z-10 bg-[url(/images/bg-stars.png)] bg-repeat bg-fixed">
-                    {Array(30)
-                        .fill(0)
-                        .map((_, i) => {
-                            const randomTransform = `translate(${Math.random() * 100}vw, ${Math.random() * 100}vh)`;
-                            const randomDelay = `${Math.random() * 2}s`;
-
-                            return (
-                                <div key={i} id={"star-" + i} className="absolute top-0 left-0 w-full h-full">
-                                    <div
-                                        className="w-[2px] h-[2px] bg-yellow-light animate-pulse"
-                                        style={{
-                                            transform: randomTransform,
-                                            animationDelay: randomDelay,
-                                        }}
-                                    />
-                                </div>
-                            );
-                        })}
-                </div>
+                <Stars id="stars" />
                 <div id="meteoroid" className="absolute top-0 left-0 w-full z-10 h-full bg-[url(/images/bg-meteoroid.png)] bg-repeat-x bg-fixed" />
                 <div className="absolute top-0 left-0 w-full z-0 h-full bg-[url(/images/bg-noise.png)] bg-repeat opacity-20" />
             </section>

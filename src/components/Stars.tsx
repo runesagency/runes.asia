@@ -1,6 +1,6 @@
-export default function Stars() {
+export default function Stars({ ...props }) {
     return (
-        <div id="stars" className="fixed top-0 left-0 w-full h-full z-10 bg-[url(/images/bg-stars.png)] bg-repeat bg-fixed">
+        <div {...props} className="fixed top-0 left-0 w-full h-full z-10 bg-[url(/images/bg-stars.png)] bg-repeat bg-fixed">
             {Array(30)
                 .fill(0)
                 .map((_, i) => {
