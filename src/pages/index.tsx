@@ -286,25 +286,39 @@ export default function Home() {
                             <Button.LeftToRight href="/services" text={translations[lang].home.services.button} className="lg:hidden" />
                         </section>
 
-                        <section id="projects" className="relative mr-auto grid gap-7 text-yellow-light max-w-xs lg:max-w-sm text-left">
+                        <section id="projects" className="relative mr-auto grid gap-7 text-yellow-light max-w-xs lg:max-w-sm text-left group">
                             <h3 className="font-el-messiri font-bold text-2xl">{translations[lang].home.clients.title}</h3>
 
                             <p className="paragraph text-white">{translations[lang].home.clients.description}</p>
 
-                            <div className="flex flex-col lg:flex-row flex-wrap lg:items-center justify-start space-y-5 lg:space-y-0 lg:space-x-5">
-                                <img src="/images/clients/tune.png" alt="Tune" className="w-32" />
-                                <img src="/images/clients/indiespices.png" alt="IndieSpices" className="w-56" />
+                            <div className="client-row">
+                                <a href="https://tunebot.org/" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/clients/tune.png" alt="Tune" className="w-32" />
+                                </a>
+                                <a href="https://indiespices.com" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/clients/indiespices.png" alt="IndieSpices" className="w-56" />
+                                </a>
                             </div>
 
-                            <div className="flex flex-col lg:flex-row flex-wrap lg:items-center justify-start space-y-5 lg:space-y-0 lg:space-x-5">
-                                <img src="/images/clients/harvport.png" alt="Harvport" className="w-16" />
-                                <img src="/images/clients/dbibybriton.png" alt="DBI By Briton" className="w-24" />
-                                <img src="/images/clients/febyputri.png" alt="Feby Putri" className="w-44" />
+                            <div className="client-row">
+                                <a href="https://harvport.com" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/clients/harvport.png" alt="Harvport" className="w-16" />
+                                </a>
+                                <a href="https://dbi.britonenglish.co.id" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/clients/dbibybriton.png" alt="DBI By Briton" className="w-24" />
+                                </a>
+                                <a href="https://byncrecords.com" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/clients/febyputri.png" alt="Feby Putri" className="w-44" />
+                                </a>
                             </div>
 
-                            <div className="flex flex-col lg:flex-row flex-wrap lg:items-center justify-start space-y-5 lg:space-y-0 lg:space-x-5">
-                                <img src="/images/clients/araloka.png" alt="Araloka" className="w-44" />
-                                <img src="/images/clients/briton.png" alt="Briton" className="w-32" />
+                            <div className="client-row">
+                                <a href="https://aralokastudios.com" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/clients/araloka.png" alt="Araloka" className="w-44" />
+                                </a>
+                                <a href="https://britonenglish.co.id" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/clients/briton.png" alt="Briton" className="w-32" />
+                                </a>
                             </div>
 
                             <Button.LeftToRight href="/projects" text={translations[lang].home.clients.button} />
