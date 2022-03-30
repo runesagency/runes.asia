@@ -302,6 +302,11 @@ export default function Home() {
                                 <img src="/images/clients/febyputri.png" alt="Feby Putri" className="w-44" />
                             </div>
 
+                            <div className="flex flex-col lg:flex-row flex-wrap lg:items-center justify-start space-y-5 lg:space-y-0 lg:space-x-5">
+                                <img src="/images/clients/araloka.png" alt="Araloka" className="w-44" />
+                                <img src="/images/clients/briton.png" alt="Briton" className="w-32" />
+                            </div>
+
                             <Button.LeftToRight href="/projects" text={translations[lang].home.clients.button} />
                         </section>
 
