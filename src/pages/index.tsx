@@ -6,26 +6,22 @@ import Stars from "@/components/Stars";
 
 const Button = {
     LeftToRight: ({ href, text, className }: { href: string; text: string; className?: string }) => (
-        <Link href={href}>
-            <a className={`flex items-center space-x-5 group ${className}`}>
-                <p className="paragraph">{text}</p>
+        <a href={href} className={`flex items-center space-x-5 group ${className}`}>
+            <p className="paragraph">{text}</p>
 
-                <svg className="fill-current transform group-hover:scale-x-150 duration-200 ease-in origin-left" width="73" height="9" viewBox="0 0 73 9">
-                    <path d="M72.3536 4.73817C72.5488 4.5429 72.5488 4.22632 72.3536 4.03106L69.1716 0.849079C68.9763 0.653817 68.6597 0.653817 68.4645 0.849079C68.2692 1.04434 68.2692 1.36092 68.4645 1.55619L71.2929 4.38461L68.4645 7.21304C68.2692 7.4083 68.2692 7.72488 68.4645 7.92015C68.6597 8.11541 68.9763 8.11541 69.1716 7.92015L72.3536 4.73817ZM0 4.88461H72V3.88461H0V4.88461Z" />
-                </svg>
-            </a>
-        </Link>
+            <svg className="fill-current transform group-hover:scale-x-150 duration-200 ease-in origin-left" width="73" height="9" viewBox="0 0 73 9">
+                <path d="M72.3536 4.73817C72.5488 4.5429 72.5488 4.22632 72.3536 4.03106L69.1716 0.849079C68.9763 0.653817 68.6597 0.653817 68.4645 0.849079C68.2692 1.04434 68.2692 1.36092 68.4645 1.55619L71.2929 4.38461L68.4645 7.21304C68.2692 7.4083 68.2692 7.72488 68.4645 7.92015C68.6597 8.11541 68.9763 8.11541 69.1716 7.92015L72.3536 4.73817ZM0 4.88461H72V3.88461H0V4.88461Z" />
+            </svg>
+        </a>
     ),
     RightToLeft: ({ href, text, className }: { href: string; text: string; className?: string }) => (
-        <Link href={href}>
-            <a className={`flex items-center space-x-5 group justify-end ${className}`}>
-                <svg className="fill-current transform group-hover:scale-x-150 duration-200 ease-in origin-right" width="73" height="9" viewBox="0 0 73 9">
-                    <path d="M0.646446 4.7382C0.451187 4.54293 0.451187 4.22635 0.646446 4.03109L3.82843 0.84911C4.02369 0.653847 4.34027 0.653847 4.53554 0.84911C4.7308 1.04437 4.7308 1.36095 4.53554 1.55622L1.70711 4.38464L4.53554 7.21307C4.7308 7.40833 4.7308 7.72492 4.53554 7.92018C4.34027 8.11544 4.02369 8.11544 3.82843 7.92018L0.646446 4.7382ZM73 4.88464H1V3.88464H73V4.88464Z" />
-                </svg>
+        <a href={href} className={`flex items-center space-x-5 group justify-end ${className}`}>
+            <svg className="fill-current transform group-hover:scale-x-150 duration-200 ease-in origin-right" width="73" height="9" viewBox="0 0 73 9">
+                <path d="M0.646446 4.7382C0.451187 4.54293 0.451187 4.22635 0.646446 4.03109L3.82843 0.84911C4.02369 0.653847 4.34027 0.653847 4.53554 0.84911C4.7308 1.04437 4.7308 1.36095 4.53554 1.55622L1.70711 4.38464L4.53554 7.21307C4.7308 7.40833 4.7308 7.72492 4.53554 7.92018C4.34027 8.11544 4.02369 8.11544 3.82843 7.92018L0.646446 4.7382ZM73 4.88464H1V3.88464H73V4.88464Z" />
+            </svg>
 
-                <p className="paragraph">{text}</p>
-            </a>
-        </Link>
+            <p className="paragraph">{text}</p>
+        </a>
     ),
 };
 

@@ -22,11 +22,6 @@ const config = (phase) => {
                     permanent: false,
                 },
                 {
-                    source: "/services",
-                    destination: "https://drive.google.com/file/d/1-ejY8kA-wcAwFcBYLLkjSCt-obNYOI5l/view?usp=sharing",
-                    permanent: true,
-                },
-                {
                     source: "/projects",
                     destination: "https://www.behance.net/wearerunes",
                     permanent: true,
