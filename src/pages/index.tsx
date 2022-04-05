@@ -298,8 +298,14 @@ export default function Home() {
 
                             <div className="client-row">
                                 <a href="https://harvport.com" target="_blank" rel="noopener noreferrer">
-                                    <img src="/images/clients/harvport.png" alt="Harvport" className="w-16" />
+                                    <img src="/images/clients/harvport.png" alt="Harvport" className="w-44" />
                                 </a>
+                                <a href="https://madayagroup.com" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/clients/madaya.png" alt="Madaya" className="w-44 -mt-4" />
+                                </a>
+                            </div>
+
+                            <div className="client-row">
                                 <a href="https://dbi.britonenglish.co.id" target="_blank" rel="noopener noreferrer">
                                     <img src="/images/clients/dbibybriton.png" alt="DBI By Briton" className="w-24" />
                                 </a>
