@@ -33,7 +33,7 @@ export default function Navigation() {
         <nav className="relative">
             <section className="relative w-full flex justify-between items-center pt-20">
                 <Link href="/" passHref>
-                    <img src="/images/logo-mark.svg" alt="logo" className="w-7 cursor-pointer" />
+                    <img src="/images/logo-full.svg" alt="logo" className="h-10 cursor-pointer" />
                 </Link>
 
                 <div className="flex items-center space-x-8 text-yellow-light">
