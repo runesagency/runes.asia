@@ -9,10 +9,6 @@
     body {
         @apply scroll-smooth overflow-x-hidden scroll-pt-12;
     }
-
-    .space {
-        background: url(/images/bg-stars.png), url(/images/bg-noise.png), #292525;
-    }
 }
 
 @layer components {
@@ -20,41 +16,60 @@
         @apply max-w-xs md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto;
     }
 
+    .title {
+        @apply font-el-messiri text-6xl md:text-8xl;
+    }
+
     .paragraph {
         @apply font-lora text-base md:text-lg leading-[160%] tracking-[2%];
     }
 
-    .client-row {
-        @apply flex flex-col lg:flex-row flex-wrap lg:items-center justify-start space-y-5 lg:space-y-0 lg:space-x-5;
+    .button {
+        @apply from-yellow-light to-yellow-medium bg-gradient-to-r paragraph w-max font-bold px-5 py-3;
     }
 
-    .client-row img {
-        @apply group-hover:opacity-75 hover:!opacity-100 cursor-pointer duration-200 transform hover:scale-110;
+    .text-linear-yellow {
+        @apply from-yellow-light to-yellow-medium bg-clip-text text-transparent;
     }
 
-    .link-icon {
-        @apply flex hover:opacity-70 duration-200 grid-cols-2 gap-4 justify-center fill-yellow-light transform hover:scale-110;
+    .form-input {
+        @apply relative inline-block w-full h-full bg-transparent border-b-4 border-black text-black placeholder-black text-xl focus:outline-none autofill:!bg-clip-text;
+    }
+
+    .spotlight {
+        @apply absolute bottom-0 z-0 h-full transform translate-x-1/4 md:translate-x-0;
+        animation-name: spotlight;
+        animation-iteration-count: infinite;
+        animation-duration: 5s;
+    }
+
+    .dots-pattern {
+        @apply absolute hidden md:block opacity-50 lg:opacity-100 z-0;
+    }
+}
+
+@layer utilities {
+    @keyframes spotlight {
+        0% {
+            transform: rotate(0deg);
+            opacity: 0.5;
+        }
+
+        100% {
+            transform: rotate(5deg);
+            opacity: 1;
+        }
     }
 
     @keyframes floating {
         0% {
-            transform: translateY(0) scale(1);
-        }
-        50% {
-            transform: translateY(4rem) scale(1.05);
-        }
-        100% {
-            transform: translateY(0) scale(1);
-        }
-    }
-
-    @keyframes floating-small {
-        0% {
             transform: translateY(0);
         }
+
         50% {
-            transform: translateY(1rem);
+            transform: translateY(30px);
         }
+
         100% {
             transform: translateY(0);
         }

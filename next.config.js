@@ -1,36 +1,26 @@
 const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
-const path = require("path");
 
 const config = (phase) => {
     let plugins = [];
     let settings = {
         reactStrictMode: true,
-        webpack: (config) => {
-            config.resolve.alias = {
-                ...config.resolve.alias,
-                "@": path.join(__dirname, "src"),
-                "@public": path.join(__dirname, "public"),
-            };
-
-            return config;
-        },
         redirects: async () => {
             return [
-                {
-                    source: "/about",
-                    destination: "/#about",
-                    permanent: false,
-                },
-                {
-                    source: "/projects",
-                    destination: "https://www.behance.net/wearerunes",
-                    permanent: true,
-                },
-                {
-                    source: "/contact",
-                    destination: "mailto:hello@runes.asia",
-                    permanent: false,
-                },
+                // {
+                //     source: "/about",
+                //     destination: "/#about",
+                //     permanent: false,
+                // },
+                // {
+                //     source: "/projects",
+                //     destination: "https://www.behance.net/wearerunes",
+                //     permanent: true,
+                // },
+                // {
+                //     source: "/contact",
+                //     destination: "mailto:hello@runes.asia",
+                //     permanent: false,
+                // },
             ];
         },
     };

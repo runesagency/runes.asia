@@ -1,5 +1,3 @@
-import Stars from "@/components/Stars";
-
 export default function LinksPage() {
     const links = [
         {
@@ -85,7 +83,8 @@ export default function LinksPage() {
                                     <a
                                         key={index}
                                         className="paragraph block text-center py-4 px-6 text-xl text-yellow-light border-yellow-light border-2 hover:text-black duration-200 font-semibold from-yellow-light to-yellow-medium hover:bg-gradient-to-r hover:border-transparent rounded-full"
-                                        href={item.href}>
+                                        href={item.href}
+                                    >
                                         {item.label}
                                     </a>
                                 );
@@ -124,8 +123,6 @@ export default function LinksPage() {
                     </section>
                 </div>
             </div>
-
-            <Stars />
         </section>
     );
 }

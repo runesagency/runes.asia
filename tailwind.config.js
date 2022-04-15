@@ -21,7 +21,11 @@ module.exports = {
             "el-messiri": ["El Messiri", "sans-serif"],
             lora: ["Lora", "serif"],
         },
-        extend: {},
+        extend: {
+            screens: {
+                "3xl": "1920px",
+            },
+        },
     },
     variants: {
         extend: {},

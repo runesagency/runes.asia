@@ -1,6 +1,8 @@
-import Link from "next/link";
-import MenuIcon from "@/components/Icons/Menu";
 import LangChooser from "@/components/LangChooser";
+import * as Icon from "@/components/Icons";
+
+import Link from "next/link";
+
 import { useState } from "react";
 
 export default function Navigation() {
@@ -30,24 +32,25 @@ export default function Navigation() {
     ];
 
     return (
-        <nav className="relative">
-            <section className="relative w-full flex justify-between items-center pt-20">
+        <nav id="navigation" className="relative">
+            <section className="relative w-full flex justify-between items-center py-16">
                 <Link href="/" passHref>
                     <img src="/images/logo-full.svg" alt="logo" className="h-10 cursor-pointer" />
                 </Link>
 
                 <div className="flex items-center space-x-8 text-yellow-light">
                     <LangChooser />
-                    <MenuIcon active={open} onClick={() => setOpen(true)} />
+                    <Icon.Menu active={open} onClick={() => setOpen(true)} />
                 </div>
             </section>
 
             <section
                 className={`fixed top-0 right-0 h-screen bg-gradient-to-b from-yellow-light to-yellow-medium z-[999] transition-all delay-500 duration-500 transform  ${
                     open ? "translate-x-0" : "translate-x-full"
-                }`}>
+                }`}
+            >
                 <div className="relative h-full w-full z-20 flex flex-col justify-between items-end pl-20 pr-10 pt-20 pb-10">
-                    <MenuIcon active={open} onClick={() => setOpen(false)} />
+                    <Icon.Menu active={open} onClick={() => setOpen(false)} />
 
                     <div className="grid gap-6 ">
                         {links.map((link, index) => (
@@ -58,7 +61,7 @@ export default function Navigation() {
                     </div>
                 </div>
 
-                <div className="absolute top-0 right-0 bg-[url(/images/bg-curl.png)] bg-no-repeat h-full w-full" />
+                <div className="absolute top-0 right-0 bg-[url(/images/utils/curly.png)] bg-no-repeat h-full w-full" />
             </section>
         </nav>
     );
