@@ -63,7 +63,7 @@ export default function ContactForm() {
                 />
             </div>
 
-            <button className="w-full py-3 bg-black font-bold text-yellow-light">Send Message</button>
+            <button className="w-full py-3 bg-black font-bold text-yellow-light hover:border-4 hover:bg-transparent duration-200 border-black hover:text-black">Send Message</button>
         </form>
     );
 }

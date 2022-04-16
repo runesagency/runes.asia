@@ -1,23 +1,263 @@
 import * as Icon from "@/components/Icons";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ContactForm from "@/components/ContactForm";
 
 import ScrollContainer from "react-indiana-drag-scroll";
 import Link from "next/link";
 
 import { theme } from "../../tailwind.config";
-import ContactForm from "@/components/ContactForm";
+import { useTypewriter } from "@/lib/hooks";
+import { memo, useEffect, useRef } from "react";
 
 const Heading = ({ title, description, className }: { title: string; description: string; className?: Record<"container" | "title" | "description", string> }) => {
     return (
         <div className={`grid gap-2 mx-auto max-w-2xl text-center ${className?.container}`}>
-            <h1 className={`title text-linear-yellow bg-gradient-to-r ${className?.title}`}>{title}</h1>
+            <h1 className={`title text-linear-yellow bg-gradient-to-r max-w-full overflow-hidden break-words ${className?.title}`} data-typewriter>
+                {title}
+            </h1>
             <p className={`paragraph text-white max-w-md mx-auto ${className?.description}`}>{description}</p>
         </div>
     );
 };
 
-export default function HomePage() {
+const Portfolio = () => {
+    const element = useRef(null);
+    const scrollSpeed = useRef(true);
+
+    type Portofolio = {
+        name: string;
+        description: string;
+        imageId: string;
+        columnSpan: number;
+        rowSpan: number;
+        link: string;
+        imagePlacement?: string;
+    };
+
+    const portfolios: Portofolio[][] = [
+        [
+            {
+                name: "Naraetos",
+                description: "One of our designer decided to try out some design in new style. What do you guys think about it? 💗",
+                imageId: "naraetos",
+                columnSpan: 1,
+                rowSpan: 1,
+                link: "https://www.instagram.com/p/CbXQwI2p6AV/",
+            },
+            {
+                name: "Runes Characters",
+                description: "A potrait of us, but in illustrations.",
+                imageId: "runes-characters",
+                columnSpan: 1,
+                rowSpan: 1,
+                link: "https://www.instagram.com/p/CbFBqLfJZ_f/",
+            },
+            {
+                name: "Foxxy Hosting",
+                description: "A website prototype design for one of our project, Foxxy, a game hosting services.",
+                imageId: "foxxy-hosting",
+                columnSpan: 2,
+                rowSpan: 2,
+                link: "https://www.behance.net/gallery/127128767/Project-Foxxy-Game-Hosting",
+            },
+            {
+                name: "Tune Discord Bot Website",
+                description: "The best music bot to accompany you while you were in Discord 24/7.",
+                imageId: "tune-website",
+                columnSpan: 2,
+                rowSpan: 2,
+                link: "https://tunebot.org",
+            },
+            {
+                name: "Foxxy Ecommerce",
+                description: "An ecommerce, side project website, for Foxxy.",
+                imageId: "foxxy-ecommerce",
+                columnSpan: 1,
+                rowSpan: 1,
+                link: "https://demo-ecommerce.runes.asia/home",
+            },
+            {
+                name: "Feby Putri",
+                description: "A site for Feby Putri, Indonesian singer-songwriter.",
+                imageId: "febyputri",
+                imagePlacement: "top",
+                columnSpan: 1,
+                rowSpan: 2,
+                link: "https://byncrecords.com",
+            },
+            {
+                name: "Duta Bahasa Inggris",
+                description: "A website project for Duta Bahasa Inggris event, hosted by Briton English Education.",
+                imageId: "dbibybriton",
+                imagePlacement: "top",
+                columnSpan: 2,
+                rowSpan: 1,
+                link: "https://dbi.britonenglish.co.id",
+            },
+            {
+                name: "Rafly Maulana Site",
+                description: "A portfolio site for Rafly Maulana.",
+                imageId: "raflymln",
+                columnSpan: 1,
+                rowSpan: 1,
+                link: "https://raflymaulana.me",
+            },
+        ],
+        [
+            {
+                name: "Harvport",
+                description: "Harvport is a group committed to helping fruit growers to export their produce cheaply and easily.",
+                imageId: "harvport",
+                imagePlacement: "top",
+                columnSpan: 2,
+                rowSpan: 1,
+                link: "https://harvport.com",
+            },
+            {
+                name: "Madaya Group",
+                description: "A website for Madaya Group, a mining company based on Indonesia.",
+                imageId: "madaya",
+                imagePlacement: "top",
+                columnSpan: 2,
+                rowSpan: 2,
+                link: "https://madayagroup.com",
+            },
+            {
+                name: "Araloka Studios",
+                description: "Araloka Studios is a Creative Home Production which is incorporated in the space of PT Karya Abadi",
+                imageId: "araloka",
+                imagePlacement: "top",
+                columnSpan: 2,
+                rowSpan: 2,
+                link: "https://aralokastudios.com",
+            },
+            {
+                name: "Rawr, Drip, Splotch",
+                description: "At the moment, we create a nature living design that livin' up your nature! 🍀.",
+                imageId: "rawr-drip-splotch",
+                columnSpan: 1,
+                rowSpan: 1,
+                link: "https://www.behance.net/gallery/138534867/Style-Test-Vol2-Runes",
+            },
+            {
+                name: "IndieSpices",
+                description: "",
+                imageId: "indiespices",
+                imagePlacement: "top",
+                columnSpan: 1,
+                rowSpan: 2,
+                link: "https://indiespices.com",
+            },
+            {
+                name: "Genesi Visual",
+                description: "GENESI is a team of wedding photographers and videographers, based in Jakarta.",
+                imageId: "genesi",
+                imagePlacement: "top",
+                columnSpan: 2,
+                rowSpan: 1,
+                link: "https://genesi.id",
+            },
+            {
+                name: "Circle, Diamond, Heart",
+                description: "A random illustration project.",
+                imageId: "circle-diamond-heart",
+                columnSpan: 1,
+                rowSpan: 1,
+                link: "https://www.instagram.com/p/CbNGghep125/",
+            },
+        ],
+    ];
+
+    useEffect(() => {
+        const portfolio: HTMLElement = element.current;
+        let direction: "right" | "left" = "right";
+
+        portfolio.onmouseover = () => {
+            scrollSpeed.current = false;
+        };
+
+        portfolio.onmouseleave = () => {
+            scrollSpeed.current = true;
+        };
+
+        const autoScroll = () => {
+            if (!scrollSpeed.current) return;
+
+            switch (direction) {
+                case "right":
+                    portfolio.scrollBy(1, 0);
+
+                    if (portfolio.scrollLeft >= portfolio.scrollWidth - portfolio.clientWidth) {
+                        direction = "left";
+                    }
+                    break;
+
+                case "left":
+                    portfolio.scrollBy(-1, 0);
+
+                    if (portfolio.scrollLeft === 0) {
+                        direction = "right";
+                    }
+            }
+        };
+
+        setInterval(autoScroll, 10);
+    }, []);
+
+    return (
+        <ScrollContainer innerRef={element} className="max-w-full cursor-move">
+            <section className="relative grid grid-cols-2 w-max gap-4 xl:gap-6">
+                {portfolios.map((row, index) => {
+                    return (
+                        <section key={index} className="relative grid grid-rows-2 grid-cols-8 gap-4 xl:gap-6 auto-cols-max auto-rows-max">
+                            {row.map((portfolio, index) => {
+                                const span = (span: number) => `span ${span} / span ${span}`;
+
+                                return (
+                                    <div
+                                        className="relative h-full flip-card overflow-hidden group"
+                                        key={index}
+                                        style={{
+                                            gridColumn: span(portfolio.columnSpan),
+                                            gridRow: span(portfolio.rowSpan),
+                                        }}
+                                    >
+                                        <img
+                                            className="h-44 w-44 lg:h-64 lg:w-64 min-h-full min-w-full object-cover transform group-hover:translate-y-full duration-200"
+                                            src={`/images/portfolio/${portfolio.imageId}.png`}
+                                            alt={portfolio.name}
+                                            style={{
+                                                objectPosition: portfolio.imagePlacement || "center",
+                                            }}
+                                        />
+
+                                        <div className="absolute top-0 left-0 h-full w-full -translate-y-full group-hover:translate-y-0 duration-200 border-yellow-light border-4 grid gap-4 auto-rows-max px-6 py-6">
+                                            <h1 className="font-el-messiri text-2xl text-yellow-light">{portfolio.name}</h1>
+                                            <p className="font-lora text-sm text-white max-w-xs leading-relaxed tracking-wide hidden lg:block">{portfolio.description}</p>
+                                            <a
+                                                className="font-lora text-base underline text-yellow-light font-bold tracking-wide hover:opacity-75 duration-200"
+                                                href={portfolio.link}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                            >
+                                                View Project
+                                            </a>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </section>
+                    );
+                })}
+            </section>
+        </ScrollContainer>
+    );
+};
+
+const HomePage = () => {
+    useTypewriter();
+
     const services = [
         {
             title: "Design",
@@ -113,7 +353,7 @@ export default function HomePage() {
     ];
 
     return (
-        <main className="bg-black">
+        <main className="relative bg-black">
             {/* Header */}
             <header className="container">
                 <Navigation />
@@ -127,9 +367,11 @@ export default function HomePage() {
                 </svg>
 
                 {/* Content */}
-                <div className="container pl-8 md:pl-24 flex justify-between items-center mt-16 mb-8">
+                <div className="container pl-8 md:pl-24 flex w-full justify-between items-start mt-16 mb-8">
                     {/* Title */}
-                    <h1 className="text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-el-messiri max-w-xl xl:max-w-3xl text-linear-yellow bg-gradient-to-b">Empowering Brands To The Fullest.</h1>
+                    <h1 className="text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-el-messiri max-w-xl xl:max-w-3xl text-linear-yellow bg-gradient-to-b" data-typewriter>
+                        Empowering Brands To The Fullest.
+                    </h1>
 
                     {/* Icons */}
                     <div className="hidden md:flex justify-evenly items-center h-44 lg:h-72 xl:h-[400px] -space-x-[50%]">
@@ -212,8 +454,8 @@ export default function HomePage() {
                 </div>
 
                 {/* Spotlight 1 */}
-                <svg className="spotlight left-0 origin-bottom-left" style={{ animationDirection: "alternate" }} viewBox="0 0 1919 1080">
-                    <path opacity="0.3" d="M0.5 979.5V1080H119L1918.5 220.5V0H385L0.5 979.5Z" fill="url(#spotlight1)" />
+                <svg className="spotlight left-0 origin-bottom-left" style={{ animationDirection: "alternate" }} viewBox="0 0 2139 1203">
+                    <path opacity="0.3" d="M0.5 979.5V1080V1203L2139 0H1918.5H385L0.5 979.5Z" fill="url(#spotlight1)" />
 
                     <defs>
                         <linearGradient id="spotlight1" x1="548" y1="1080" x2="548" y2="-0.00013015" gradientUnits="userSpaceOnUse">
@@ -224,8 +466,8 @@ export default function HomePage() {
                 </svg>
 
                 {/* Spotlight 2 */}
-                <svg className="spotlight right-0 origin-bottom-right" style={{ animationDirection: "alternate-reverse" }} viewBox="0 0 1919 1080">
-                    <path opacity="0.3" d="M1918 979.5V1080H1799.5L0 220.5V0H1533.5L1918 979.5Z" fill="url(#spotlight2)" />
+                <svg className="spotlight right-0 origin-bottom-right" style={{ animationDirection: "alternate-reverse" }} viewBox="0 0 2139 1203">
+                    <path opacity="0.3" d="M2139 979.5V1080V1203L0.5 0H221H1754.5L2139 979.5Z" fill="url(#spotlight2)" />
 
                     <defs>
                         <linearGradient id="spotlight2" x1="1370.5" y1="1080" x2="1370.5" y2="-0.00013015" gradientUnits="userSpaceOnUse">
@@ -238,24 +480,7 @@ export default function HomePage() {
 
             {/* Portfolio */}
             <section id="portfolio" className="relative grid gap-16 pb-32">
-                {/* Portofolios */}
-                <ScrollContainer className="max-w-full">
-                    <section className="relative grid grid-cols-2 w-max gap-6">
-                        {Array(2)
-                            .fill(0)
-                            .map((_, index) => (
-                                <section key={index} className="relative grid grid-rows-2 grid-cols-7 gap-4 xl:gap-6 h-72 xl:h-96 w-screen min-w-[1080px]">
-                                    <div className="col-span-1 row-span-1 bg-white mx-auto h-full w-full" />
-                                    <div className="col-span-1 row-span-1 bg-white mx-auto h-full w-full" />
-                                    <div className="col-span-2 row-span-2 bg-white mx-auto h-full w-full" />
-                                    <div className="col-span-2 row-span-2 bg-white mx-auto h-full w-full" />
-                                    <div className="col-span-1 row-span-1 bg-white mx-auto h-full w-full" />
-                                    <div className="col-span-2 row-span-1 bg-white mx-auto h-full w-full" />
-                                    <div className="col-span-1 row-span-1 bg-white mx-auto h-full w-full" />
-                                </section>
-                            ))}
-                    </section>
-                </ScrollContainer>
+                <Portfolio />
 
                 {/* More Button */}
                 <div className="flex flex-col md:flex-row justify-center items-center mx-auto space-y-5 md:space-y-0 md:space-x-5">
@@ -348,13 +573,13 @@ export default function HomePage() {
             {/* Contact */}
             <section id="contact" className="relative overflow-hidden from-yellow-light to-yellow-medium bg-gradient-to-b pb-24">
                 {/* Content */}
-                <div className="container">
+                <div className="relative container z-20">
                     <div className="max-w-2xl ml-auto grid gap-12">
                         <Heading //
                             title="Nothing Great Is Made Alone"
                             description="Something great are always made together, so why don’t we do it together?"
                             className={{
-                                container: "!text-left",
+                                container: "!text-left mx-0",
                                 title: "!text-black",
                                 description: "mx-0 !text-black",
                             }}
@@ -364,9 +589,10 @@ export default function HomePage() {
                     </div>
                 </div>
 
-                <div className="hidden lg:block absolute h-full top-0 left-0 transform -translate-x-96 3xl:-translate-x-1/4">
-                    <img src="/images/utils/rocket-outline-horizontal.svg" alt="" className="xl:hidden" />
-                    <img src="/images/utils/rocket-outline.svg" alt="" className="hidden xl:block " />
+                <div className="hidden lg:block absolute h-full top-0 left-0 transform -translate-x-96 3xl:-translate-x-1/4 z-0">
+                    <div className="h-full w-full z-10 absolute top-0 left-0" />
+                    <img src="/images/utils/rocket-outline-horizontal.svg" alt="" className="xl:hidden animate-[floating_8s_infinite]" />
+                    <img src="/images/utils/rocket-outline.svg" alt="" className="hidden xl:block animate-[floating-45_8s_infinite]" />
                 </div>
             </section>
 
@@ -376,4 +602,6 @@ export default function HomePage() {
             </section>
         </main>
     );
-}
+};
+
+export default memo(HomePage);

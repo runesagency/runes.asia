@@ -12,6 +12,10 @@
 }
 
 @layer components {
+    .text-linear-yellow {
+        @apply from-yellow-light to-yellow-medium bg-clip-text text-transparent;
+    }
+
     .container {
         @apply max-w-xs md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto;
     }
@@ -25,17 +29,15 @@
     }
 
     .button {
-        @apply from-yellow-light to-yellow-medium bg-gradient-to-r paragraph w-max font-bold px-5 py-3;
-    }
-
-    .text-linear-yellow {
-        @apply from-yellow-light to-yellow-medium bg-clip-text text-transparent;
+        @apply from-yellow-light to-yellow-medium bg-gradient-to-r paragraph w-max font-bold px-5 py-3 hover:opacity-75 duration-200;
     }
 
     .form-input {
         @apply relative inline-block w-full h-full bg-transparent border-b-4 border-black text-black placeholder-black text-xl focus:outline-none autofill:!bg-clip-text;
     }
+}
 
+@layer utilities {
     .spotlight {
         @apply absolute bottom-0 z-0 h-full transform translate-x-1/4 md:translate-x-0;
         animation-name: spotlight;
@@ -46,9 +48,7 @@
     .dots-pattern {
         @apply absolute hidden md:block opacity-50 lg:opacity-100 z-0;
     }
-}
 
-@layer utilities {
     @keyframes spotlight {
         0% {
             transform: rotate(0deg);
@@ -72,6 +72,20 @@
 
         100% {
             transform: translateY(0);
+        }
+    }
+
+    @keyframes floating-45 {
+        0% {
+            transform: translateY(0) translateX(0);
+        }
+
+        50% {
+            transform: translateY(30px) translateX(-30px);
+        }
+
+        100% {
+            transform: translateY(0) translateX(0);
         }
     }
 }

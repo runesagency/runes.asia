@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Icon from "@/components/Icons";
+import { useLanguage } from "@/lib/hooks";
 
 const LangChooser = () => {
     const languages = [
@@ -8,34 +9,17 @@ const LangChooser = () => {
             name: "English",
             flag: Icon.FlagEN,
         },
-        {
-            code: "ID",
-            name: "Indonesia",
-            flag: Icon.FlagID,
-        },
     ];
 
     const [open, setOpen] = useState(false);
-    const [lang, setLang] = useState(null);
-
-    const changeLang = (lang: string) => {
-        setLang(lang);
-        setOpen(false);
-    };
-
-    useEffect(() => {
-        const lang = localStorage.getItem("lang") || "EN";
-        setLang(lang);
-    }, []);
-
-    useEffect(() => {
-        if (lang) {
-            localStorage.setItem("lang", lang);
-            document.dispatchEvent(new Event("languageChanged"));
-        }
-    });
+    const [lang, setLangs] = useLanguage();
 
     const FlagIcon: typeof Icon["FlagEN"] = Icon[`Flag${lang}`] || Icon.FlagEN;
+
+    const changeLang = (language: typeof languages[0]) => {
+        setLangs(language.code);
+        setOpen(false);
+    };
 
     return (
         <div className="relative h-full">
@@ -55,7 +39,8 @@ const LangChooser = () => {
                             className={`flex justify-start items-center space-x-4 w-full p-2 rounded-sm duration-200 ${
                                 lang === language.code ? "bg-black text-yellow-light" : "hover:bg-black hover:bg-opacity-70 hover:text-yellow-light"
                             }`}
-                            onClick={() => changeLang(language.code)}>
+                            onClick={() => changeLang(language)}
+                        >
                             <language.flag className="flex-shrink-0 h-5" />
                             <p className="paragraph">{language.name}</p>
                         </button>
