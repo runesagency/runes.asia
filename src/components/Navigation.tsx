@@ -40,7 +40,7 @@ export default function Navigation() {
 
                 <div className="flex items-center space-x-8 text-yellow-light">
                     <LangChooser />
-                    <Icon.Menu active={open} onClick={() => setOpen(true)} />
+                    <Icon.Menu active={open} onClick={() => setOpen(!open)} />
                 </div>
             </section>
 
@@ -50,7 +50,7 @@ export default function Navigation() {
                 }`}
             >
                 <div className="relative h-full w-full z-20 flex flex-col justify-between items-end pl-20 pr-10 pt-20 pb-10">
-                    <Icon.Menu active={open} onClick={() => setOpen(false)} />
+                    <Icon.Menu active={open} onClick={() => setOpen(!open)} />
 
                     <div className="grid gap-6 ">
                         {links.map((link, index) => (
