@@ -23,7 +23,8 @@ const Heading = ({ title, description, className }: { title: string; description
 
 const Portfolio = () => {
     const element = useRef(null);
-    const scrollSpeed = useRef(true);
+    const isScrolling = useRef(true);
+    const scrollDirection = useRef("right");
 
     type Portofolio = {
         name: string;
@@ -171,33 +172,32 @@ const Portfolio = () => {
 
     useEffect(() => {
         const portfolio: HTMLElement = element.current;
-        let direction: "right" | "left" = "right";
 
         portfolio.onmouseover = () => {
-            scrollSpeed.current = false;
+            isScrolling.current = false;
         };
 
         portfolio.onmouseleave = () => {
-            scrollSpeed.current = true;
+            isScrolling.current = true;
         };
 
         const autoScroll = () => {
-            if (!scrollSpeed.current) return;
+            if (!isScrolling.current) return;
 
-            switch (direction) {
+            switch (scrollDirection.current) {
                 case "right":
                     portfolio.scrollBy(1, 0);
 
                     if (portfolio.scrollLeft >= portfolio.scrollWidth - portfolio.clientWidth) {
-                        direction = "left";
+                        scrollDirection.current = "left";
                     }
                     break;
 
                 case "left":
                     portfolio.scrollBy(-1, 0);
 
-                    if (portfolio.scrollLeft === 0) {
-                        direction = "right";
+                    if (portfolio.scrollLeft <= 0) {
+                        scrollDirection.current = "right";
                     }
             }
         };
