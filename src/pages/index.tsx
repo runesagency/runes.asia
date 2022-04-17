@@ -214,7 +214,7 @@ const Portfolio = () => {
                                         }}
                                     >
                                         <img
-                                            className="h-44 w-44 lg:h-64 lg:w-64 min-h-full min-w-full object-cover transform group-hover:translate-y-full duration-200"
+                                            className="h-44 w-44 lg:h-64 lg:w-64 min-h-full min-w-full object-cover transform group-hover:scale-110 duration-200"
                                             src={`/images/portfolio/${portfolio.imageId}.png`}
                                             alt={portfolio.name}
                                             style={{
@@ -222,8 +222,8 @@ const Portfolio = () => {
                                             }}
                                         />
 
-                                        <div className="absolute top-0 left-0 h-full w-full -translate-y-full group-hover:translate-y-0 duration-200 border-yellow-light border-4 grid gap-4 auto-rows-max px-6 py-6">
-                                            <h1 className="font-el-messiri text-2xl text-yellow-light">{portfolio.name}</h1>
+                                        <div className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-black bg-opacity-75 duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center">
+                                            <h1 className="font-el-messiri text-lg md:text-2xl text-yellow-light">{portfolio.name}</h1>
                                             <p className="font-lora text-sm text-white max-w-xs leading-relaxed tracking-wide hidden lg:block">{portfolio.description}</p>
                                             <a
                                                 className="font-lora text-base underline text-yellow-light font-bold tracking-wide hover:opacity-75 duration-200"
