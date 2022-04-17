@@ -1,14 +1,5 @@
 import type { NextApiResponse, NextApiRequest } from "next";
-import nodemailer from "nodemailer";
-
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    auth: {
-        user: "team@runes.asia",
-        pass: "uswimesofpkluzkd",
-    },
-});
+import transporter from "@/lib/nodemailer";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const data = req.body;
