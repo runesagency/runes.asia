@@ -1,11 +1,17 @@
+import type { FormEvent } from "react";
+
 import * as Icon from "@/components/Icons";
-import { FormEvent } from "react";
+
+import { useState } from "react";
 
 export default function ContactForm() {
-    const formHandler = (e: FormEvent) => {
-        e.preventDefault();
+    const [isSending, setIsSending] = useState(false);
 
-        const data = Array.from((e.target as any).elements)
+    const formHandler = async (e: FormEvent) => {
+        e.preventDefault();
+        setIsSending(true);
+
+        const data: Record<string, string> = Array.from((e.target as any).elements)
             .filter((el: Record<string, any>) => el.name)
             .reduce(
                 (a: Record<string, any>, b: Record<string, any>) => ({
@@ -13,7 +19,7 @@ export default function ContactForm() {
                     [b.name]: b.value,
                 }),
                 {}
-            );
+            ) as any;
 
         let message = "";
 
@@ -26,8 +32,38 @@ export default function ContactForm() {
             message += `${key}: ${value}\n`;
         }
 
-        alert(message);
+        try {
+            const result = await fetch("/api/send-mail", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    message,
+                    name: data.name,
+                }),
+            });
+
+            if (result.status === 200) {
+                alert("Message sent, thank you!");
+            } else {
+                alert("Something went wrong! Please try again later.");
+            }
+        } catch (error) {
+            alert("Error sending message! Please try again later.");
+        }
+
+        setIsSending(false);
     };
+
+    if (isSending) {
+        return (
+            <svg className="w-40 fill-black animate-spin m-auto" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z" opacity=".5" />
+                <path fill="currentColor" d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z" />
+            </svg>
+        );
+    }
 
     return (
         <form onSubmit={formHandler} className="grid gap-11 font-lora fill-current text-black">
