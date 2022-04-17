@@ -5,19 +5,24 @@ import { useLanguage } from "@/lib/hooks";
 const LangChooser = () => {
     const languages = [
         {
-            code: "EN",
+            code: "en",
             name: "English",
             flag: Icon.FlagEN,
+        },
+        {
+            code: "id",
+            name: "Indonesia",
+            flag: Icon.FlagID,
         },
     ];
 
     const [open, setOpen] = useState(false);
-    const [lang, setLangs] = useLanguage();
+    const { lang, setLang } = useLanguage();
 
-    const FlagIcon: typeof Icon["FlagEN"] = Icon[`Flag${lang}`] || Icon.FlagEN;
+    const FlagIcon = languages.find((l) => l.code === lang)?.flag || null;
 
     const changeLang = (language: typeof languages[0]) => {
-        setLangs(language.code);
+        setLang(language.code);
         setOpen(false);
     };
 

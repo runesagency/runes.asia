@@ -8,7 +8,7 @@ import ScrollContainer from "react-indiana-drag-scroll";
 import Link from "next/link";
 
 import { theme } from "../../tailwind.config";
-import { useTypewriter } from "@/lib/hooks";
+import { useLanguage, useTypewriter } from "@/lib/hooks";
 import { memo, useEffect, useRef } from "react";
 
 const Portfolio = () => {
@@ -247,57 +247,7 @@ const Portfolio = () => {
 
 const HomePage = () => {
     useTypewriter();
-
-    const services = [
-        {
-            title: "Design",
-            description: "Graphic, Illustration, UI/UX, 3D Art",
-            icon: Icon.Design,
-        },
-        {
-            title: "Development",
-            description: "Application, Website, API, Chatbot, AR/VR",
-            icon: Icon.Development,
-        },
-        {
-            title: "Marketing",
-            description: "SEO, Media Advertisements",
-            icon: Icon.Marketing,
-        },
-        {
-            title: "Social Media Marketing",
-            description: "WhatsApp, Instagram",
-            icon: Icon.SMM,
-        },
-        {
-            title: "Branding",
-            description: "Design, Marketing, Development, Management",
-            icon: Icon.Branding,
-        },
-    ];
-
-    const values = [
-        {
-            title: "Quality",
-            description: "We always provide the highest quality service and even strive to exceed the expectations of our clients.",
-            icon: Icon.Quality,
-        },
-        {
-            title: "Excellence",
-            description: "We always use the latest technology and the best way to produce high enough quality.",
-            icon: Icon.Excellence,
-        },
-        {
-            title: "Creativity",
-            description: "We will give you a unique idea, which will make your product or service stand out from the competition.",
-            icon: Icon.Creativity,
-        },
-        {
-            title: "Collaborative",
-            description: "We open a discussion room with our clients & partners as the work progresses, so that the results can meet the expectations of both parties.",
-            icon: Icon.Collaborative,
-        },
-    ];
+    const { locale } = useLanguage();
 
     const clients = [
         {
@@ -342,19 +292,19 @@ const HomePage = () => {
         },
     ];
 
-    const servicesIcons = [
-        Icon.Branding, //
-        Icon.Design,
-        Icon.Marketing,
+    const services = [
+        Icon.Design, //
         Icon.Development,
+        Icon.Marketing,
         Icon.SMM,
+        Icon.Branding,
     ];
 
-    const valuesIcons = [
+    const values = [
         Icon.Quality, //
-        Icon.Collaborative,
         Icon.Excellence,
         Icon.Creativity,
+        Icon.Collaborative,
     ];
 
     return (
@@ -375,7 +325,7 @@ const HomePage = () => {
                 <div className="container pl-8 md:pl-24 flex w-full justify-between items-start mt-16 mb-8">
                     {/* Title */}
                     <h1 className="text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-el-messiri max-w-xl xl:max-w-3xl text-linear-yellow bg-gradient-to-b" data-typewriter>
-                        Empowering Brands To The Fullest.
+                        {locale.home.intro.title}
                     </h1>
 
                     {/* Icons */}
@@ -399,7 +349,7 @@ const HomePage = () => {
                 <div className="relative container pl-8 md:pl-24 pt-20 z-10 grid gap-24">
                     {/* Icons */}
                     <div className="flex justify-between items-center w-full max-w-xl lg:max-w-full ml-auto text-yellow-light fill-current">
-                        {servicesIcons.map((Icon, index) => (
+                        {services.map((Icon, index) => (
                             <Icon key={index} className="w-6 md:w-10" />
                         ))}
                     </div>
@@ -408,18 +358,16 @@ const HomePage = () => {
                     <div className="grid gap-5 lg:ml-auto max-w-xl pb-24 font-lora text-xl md:text-2xl leading-normal">
                         {/* Text 1 */}
                         <p className="text-yellow-light">
-                            <b>We are creative people</b>, in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.
+                            <b>{locale.home.about.text_1.intro}</b>
+                            {locale.home.about.text_1.text}
                         </p>
 
                         {/* Text 2 */}
-                        <p className="text-white">
-                            We are established and growing in Tangerang City, Banten, <span>Indonesia</span> since 2022, and we will continue to strive to provide the best quality and maximum level of
-                            satisfaction.
-                        </p>
+                        <p className="text-white">{locale.home.about.text_2}</p>
 
                         {/* Button */}
                         <Link href={`/about`}>
-                            <a className="button">Learn More About Us</a>
+                            <a className="button">{locale.home.about.button}</a>
                         </Link>
                     </div>
                 </div>
@@ -440,17 +388,17 @@ const HomePage = () => {
                 {/* Content */}
                 <div className="relative container grid gap-24 z-10">
                     <Heading //
-                        title="What We Do"
-                        description="We provide various things from Design to AR/VR Experiences to fulfill the solutions to any problems."
+                        title={locale.home.services.title}
+                        description={locale.home.services.description}
                     />
 
                     {/* Services */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-20">
-                        {services.map((service, index) => (
+                        {services.map((Icon, index) => (
                             <article key={index} className="grid gap-5 w-72 text-center mx-auto">
-                                <service.icon className="w-8 mx-auto fill-yellow-light" />
-                                <h3 className="text-yellow-light text-4xl font-lora font-bold mx-auto leading-tight">{service.title}</h3>
-                                <p className="paragraph text-white mx-auto">{service.description}</p>
+                                <Icon className="w-8 mx-auto fill-yellow-light" />
+                                <h3 className="text-yellow-light text-4xl font-lora font-bold mx-auto leading-tight">{locale.home.services.lists[index].title}</h3>
+                                <p className="paragraph text-white mx-auto">{locale.home.services.lists[index].description}</p>
                             </article>
                         ))}
                     </div>
@@ -487,7 +435,7 @@ const HomePage = () => {
 
                 {/* More Button */}
                 <div className="flex flex-col md:flex-row justify-center items-center mx-auto space-y-5 md:space-y-0 md:space-x-5">
-                    <p className="paragraph text-white">See More of Our Portfolio At:</p>
+                    <p className="paragraph text-white">{locale.home.portfolio.button}</p>
                     <a href="https://behance.net/wearerunes" target={"_blank"} rel="noreferrer" className="button">
                         behance.net/wearerunes
                     </a>
@@ -500,28 +448,28 @@ const HomePage = () => {
                 <div className="relative container grid gap-20 z-10">
                     {/* Icons */}
                     <div className="flex justify-between items-center max-w-xl w-full mx-auto fill-yellow-light stroke-yellow-light">
-                        {valuesIcons.map((Icon, index) => (
+                        {values.map((Icon, index) => (
                             <Icon key={index} className="h-8 md:h-11" />
                         ))}
                     </div>
 
                     <Heading //
-                        title="We Deliver The Project At Its Finest"
-                        description="We always apply 4 main points in the quality of our workmanship, to ensure that our work meets our best standards."
+                        title={locale.home.values.title}
+                        description={locale.home.values.description}
                     />
 
                     {/* List */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 w-full">
-                        {values.map((value, index) => (
+                        {values.map((Icon, index) => (
                             <article key={index} className="flex flex-col-reverse lg:flex-col justify-end lg:justify-between items-start">
                                 {/* Description */}
                                 <div className="grid gap-4">
-                                    <h2 className="font-el-messiri text-4xl font-bold text-yellow-light">{value.title}</h2>
-                                    <p className="paragraph text-white">{value.description}</p>
+                                    <h2 className="font-el-messiri text-4xl font-bold text-yellow-light">{locale.home.values.lists[index].title}</h2>
+                                    <p className="paragraph text-white">{locale.home.values.lists[index].description}</p>
                                 </div>
 
                                 {/* Icon */}
-                                <value.icon className="h-12 fill-yellow-light mb-10 lg:mb-0 lg:mt-14" />
+                                <Icon className="h-12 fill-yellow-light mb-10 lg:mb-0 lg:mt-14" />
                             </article>
                         ))}
                     </div>
@@ -539,8 +487,8 @@ const HomePage = () => {
                 {/* Content */}
                 <div className="relative container grid gap-20 z-30 pb-12">
                     <Heading //
-                        title="Those Who Works With Us"
-                        description="Those who put their trust in us to grow their brand to the top."
+                        title={locale.home.clients.title}
+                        description={locale.home.clients.description}
                     />
 
                     {/* List */}
@@ -585,8 +533,8 @@ const HomePage = () => {
                 <div className="relative container z-20">
                     <div className="max-w-2xl ml-auto grid gap-12">
                         <Heading //
-                            title="Nothing Great Is Made Alone"
-                            description="Something great are always made together, so why don’t we do it together?"
+                            title={locale.home.contact.title}
+                            description={locale.home.contact.description}
                             className={{
                                 container: "!text-left !place-items-start !mx-0",
                                 title: "!text-black",
