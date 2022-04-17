@@ -4,17 +4,14 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import Heading from "@/components/Heading";
 
-import ScrollContainer from "react-indiana-drag-scroll";
 import Link from "next/link";
 
 import { theme } from "../../tailwind.config";
-import { useLanguage, useTypewriter } from "@/lib/hooks";
-import { memo, useEffect, useRef } from "react";
+import { useLanguage, useTypewriter, useDragToScroll } from "@/lib/hooks";
+import { memo, useEffect } from "react";
 
 const Portfolio = () => {
-    const element = useRef(null);
-    const isScrolling = useRef(true);
-    const scrollDirection = useRef("right");
+    const elementId = "portfolio-container";
 
     type Portofolio = {
         name: string;
@@ -160,26 +157,30 @@ const Portfolio = () => {
         ],
     ];
 
+    useDragToScroll(elementId);
+
     useEffect(() => {
-        const portfolio: HTMLElement = element.current;
+        const portfolio: HTMLElement = document.getElementById(elementId);
+        let isScrolling = true;
+        let scrollDirection = "right";
 
         portfolio.onmouseover = () => {
-            isScrolling.current = false;
+            isScrolling = false;
         };
 
         portfolio.onmouseleave = () => {
-            isScrolling.current = true;
+            isScrolling = true;
         };
 
         const autoScroll = () => {
-            if (!isScrolling.current) return;
+            if (!isScrolling) return;
 
-            switch (scrollDirection.current) {
+            switch (scrollDirection) {
                 case "right":
                     portfolio.scrollBy(1, 0);
 
                     if (portfolio.scrollLeft >= portfolio.scrollWidth - portfolio.clientWidth - 5) {
-                        scrollDirection.current = "left";
+                        scrollDirection = "left";
                     }
                     break;
 
@@ -187,7 +188,7 @@ const Portfolio = () => {
                     portfolio.scrollBy(-1, 0);
 
                     if (portfolio.scrollLeft <= 0) {
-                        scrollDirection.current = "right";
+                        scrollDirection = "right";
                     }
             }
         };
@@ -196,7 +197,7 @@ const Portfolio = () => {
     }, []);
 
     return (
-        <ScrollContainer innerRef={element} className="max-w-full cursor-move">
+        <div id={elementId} className="max-w-full cursor-move overflow-x-auto">
             <section className="relative grid grid-cols-2 w-max gap-4 xl:gap-6">
                 {portfolios.map((row, index) => {
                     return (
@@ -241,7 +242,7 @@ const Portfolio = () => {
                     );
                 })}
             </section>
-        </ScrollContainer>
+        </div>
     );
 };
 

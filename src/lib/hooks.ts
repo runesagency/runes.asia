@@ -73,7 +73,6 @@ export const useTypewriter = (selector = "data-typewriter") => {
         document.addEventListener(
             "languageChanged",
             () => {
-                console.log(1);
                 bounds = [];
 
                 if (changesTimeout) {
@@ -140,4 +139,48 @@ export const useLanguage = (keyName = "lang", defaultKey?: keyof typeof localiza
         setLang,
         locale,
     };
+};
+
+export const useDragToScroll = (elementId: string) => {
+    useEffect(() => {
+        const element = document.getElementById(elementId);
+
+        let pos = {
+            top: 0,
+            left: 0,
+            x: 0,
+            y: 0,
+        };
+
+        const mouseDownHandler = (e: MouseEvent) => {
+            // Element scroll position
+            pos.left = element.scrollLeft;
+            pos.top = element.scrollTop;
+
+            // Get the current mouse position
+            pos.x = e.clientX;
+            pos.y = e.clientY;
+
+            document.addEventListener("mousemove", mouseMoveHandler);
+            document.addEventListener("mouseup", mouseUpHandler);
+        };
+
+        const mouseMoveHandler = (e: MouseEvent) => {
+            // How far the mouse has been moved
+            const dx = e.clientX - pos.x;
+            const dy = e.clientY - pos.y;
+
+            // Scroll the element
+            element.scrollTop = pos.top - dy;
+            element.scrollLeft = pos.left - dx;
+        };
+
+        const mouseUpHandler = () => {
+            document.removeEventListener("mousemove", mouseMoveHandler);
+            document.removeEventListener("mouseup", mouseUpHandler);
+        };
+
+        // Attach the handler
+        element.addEventListener("mousedown", mouseDownHandler);
+    }, [elementId]);
 };
