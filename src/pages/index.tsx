@@ -546,7 +546,14 @@ const HomePage = () => {
                     {/* List */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 w-full group max-w-5xl mx-auto">
                         {clients.map((client, index) => (
-                            <a href={client.href} target="_blank" rel="noreferrer" key={index} className="relative m-auto group-hover:opacity-50 hover:!opacity-100 duration-200 bg-opacity-75">
+                            <a
+                                href={client.href}
+                                title={client.name}
+                                target="_blank"
+                                rel="noreferrer"
+                                key={index}
+                                className="relative m-auto group-hover:opacity-50 hover:!opacity-100 duration-200 bg-opacity-75"
+                            >
                                 <img src={`/images/clients/${client.logoId}.png`} alt={client.name} className="w-64 lg:w-auto" />
                             </a>
                         ))}
