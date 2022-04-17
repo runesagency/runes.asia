@@ -33,7 +33,7 @@
     }
 
     .form-input {
-        @apply relative inline-block w-full h-full bg-transparent border-b-4 border-black text-black placeholder-black text-xl focus:outline-none autofill:!bg-clip-text;
+        @apply relative inline-block w-full h-full bg-transparent border-b-4 border-black text-black placeholder-black text-base md:text-xl focus:outline-none autofill:!bg-clip-text;
     }
 }
 

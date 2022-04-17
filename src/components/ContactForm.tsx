@@ -7,6 +7,32 @@ import { useState } from "react";
 export default function ContactForm() {
     const [isSending, setIsSending] = useState(false);
 
+    const inputs = [
+        {
+            icon: Icon.Pen,
+            dom: "input",
+            type: "text",
+            name: "name",
+            placeholder: "Your Name",
+            required: true,
+        },
+        {
+            icon: Icon.Mail,
+            dom: "input",
+            type: "email",
+            name: "email",
+            placeholder: "Your Email",
+            required: true,
+        },
+        {
+            icon: Icon.Message,
+            dom: "textarea",
+            name: "email",
+            placeholder: "Your Email",
+            required: true,
+        },
+    ];
+
     const formHandler = async (e: FormEvent) => {
         e.preventDefault();
         setIsSending(true);
@@ -63,43 +89,36 @@ export default function ContactForm() {
                 <path fill="currentColor" d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z" />
             </svg>
         );
+    } else {
+        return (
+            <form onSubmit={formHandler} className="grid gap-11 font-lora fill-current text-black">
+                {inputs.map((input, index) => (
+                    <div key={index} className="flex justify-start items-start space-x-7">
+                        <input.icon className="w-8 md:w-10" />
+
+                        {input.dom === "input" ? (
+                            <input //
+                                type={input.type}
+                                name={input.name}
+                                placeholder={input.placeholder}
+                                required={input.required}
+                                className="form-input pb-4"
+                            />
+                        ) : //
+                        input.dom === "textarea" ? (
+                            <textarea //
+                                name={input.name}
+                                placeholder={input.placeholder}
+                                required={input.required}
+                                className="form-input pb-16"
+                            />
+                        ) : //
+                        null}
+                    </div>
+                ))}
+
+                <button className="w-full py-3 bg-black font-bold text-yellow-light hover:border-4 hover:bg-transparent duration-200 border-black hover:text-black">Send Message</button>
+            </form>
+        );
     }
-
-    return (
-        <form onSubmit={formHandler} className="grid gap-11 font-lora fill-current text-black">
-            <div className="flex justify-start items-start space-x-7">
-                <Icon.Pen className="w-10" />
-                <input //
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    className="form-input pb-4"
-                    required
-                />
-            </div>
-
-            <div className="flex justify-start items-start space-x-7">
-                <Icon.Mail className="w-10" />
-                <input //
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    className="form-input pb-4"
-                    required
-                />
-            </div>
-
-            <div className="flex justify-start items-start space-x-7">
-                <Icon.Message className="w-10" />
-                <textarea //
-                    name="message"
-                    placeholder="Message"
-                    className="form-input pb-16"
-                    required
-                />
-            </div>
-
-            <button className="w-full py-3 bg-black font-bold text-yellow-light hover:border-4 hover:bg-transparent duration-200 border-black hover:text-black">Send Message</button>
-        </form>
-    );
 }

@@ -35,7 +35,7 @@ export default function Navigation() {
         <nav id="navigation" className="relative">
             <section className="relative w-full flex justify-between items-center py-16">
                 <Link href="/" passHref>
-                    <img src="/images/logo-full.svg" alt="logo" className="h-10 cursor-pointer" />
+                    <img src="/images/logo-full.svg" alt="logo" className="h-8 md:h-10 cursor-pointer -mt-1.5" />
                 </Link>
 
                 <div className="flex items-center space-x-8 text-yellow-light">
@@ -61,7 +61,7 @@ export default function Navigation() {
                     </div>
                 </div>
 
-                <div className="absolute top-0 right-0 bg-[url(/images/utils/curly.png)] bg-no-repeat h-full w-full" />
+                <div className="absolute top-0 right-0 bg-[url(/images/others/curly.png)] bg-no-repeat h-full w-full" />
             </section>
         </nav>
     );

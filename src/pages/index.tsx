@@ -342,6 +342,21 @@ const HomePage = () => {
         },
     ];
 
+    const servicesIcons = [
+        Icon.Branding, //
+        Icon.Design,
+        Icon.Marketing,
+        Icon.Development,
+        Icon.SMM,
+    ];
+
+    const valuesIcons = [
+        Icon.Quality, //
+        Icon.Collaborative,
+        Icon.Excellence,
+        Icon.Creativity,
+    ];
+
     return (
         <main className="relative bg-black">
             {/* Header */}
@@ -376,23 +391,21 @@ const HomePage = () => {
             <section id="about" className="relative z-10">
                 {/* Map */}
                 <div className="absolute top-0 left-0 transform -translate-x-1/3 z-0">
-                    <img src="/images/utils/map.png" alt="map" className="hidden xl:block" />
-                    <img src="/images/utils/map-no-marker.png" alt="map" className="xl:hidden" />
+                    <img src="/images/others/map.png" alt="map" className="hidden xl:block" />
+                    <img src="/images/others/map-no-marker.png" alt="map" className="xl:hidden" />
                 </div>
 
                 {/* Content */}
                 <div className="relative container pl-8 md:pl-24 pt-20 z-10 grid gap-24">
                     {/* Icons */}
                     <div className="flex justify-between items-center w-full max-w-xl lg:max-w-full ml-auto text-yellow-light fill-current">
-                        <Icon.Branding className="w-10" />
-                        <Icon.Design className="w-10" />
-                        <Icon.Marketing className="w-10" />
-                        <Icon.Development className="w-10" />
-                        <Icon.SMM className="w-10" />
+                        {servicesIcons.map((Icon, index) => (
+                            <Icon key={index} className="w-6 md:w-10" />
+                        ))}
                     </div>
 
                     {/* About */}
-                    <div className="grid gap-5 lg:ml-auto max-w-xl pb-24 font-lora text-2xl leading-normal">
+                    <div className="grid gap-5 lg:ml-auto max-w-xl pb-24 font-lora text-xl md:text-2xl leading-normal">
                         {/* Text 1 */}
                         <p className="text-yellow-light">
                             <b>We are creative people</b>, in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.
@@ -487,10 +500,9 @@ const HomePage = () => {
                 <div className="relative container grid gap-20 z-10">
                     {/* Icons */}
                     <div className="flex justify-between items-center max-w-xl w-full mx-auto fill-yellow-light stroke-yellow-light">
-                        <Icon.Excellence className="h-11" />
-                        <Icon.Collaborative className="h-11" />
-                        <Icon.Quality className="h-11" />
-                        <Icon.Creativity className="h-11" />
+                        {valuesIcons.map((Icon, index) => (
+                            <Icon key={index} className="h-8 md:h-11" />
+                        ))}
                     </div>
 
                     <Heading //
@@ -501,7 +513,7 @@ const HomePage = () => {
                     {/* List */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 w-full">
                         {values.map((value, index) => (
-                            <article key={index} className="flex flex-col justify-between items-start space-y-14">
+                            <article key={index} className="flex flex-col-reverse lg:flex-col justify-end lg:justify-between items-start">
                                 {/* Description */}
                                 <div className="grid gap-4">
                                     <h2 className="font-el-messiri text-4xl font-bold text-yellow-light">{value.title}</h2>
@@ -509,17 +521,17 @@ const HomePage = () => {
                                 </div>
 
                                 {/* Icon */}
-                                <value.icon className="h-12 fill-yellow-light" />
+                                <value.icon className="h-12 fill-yellow-light mb-14 lg:mb-0 lg:mt-14" />
                             </article>
                         ))}
                     </div>
                 </div>
 
                 {/* Pattern 1 */}
-                <img src="/images/utils/dots-horizontal.svg" alt="" className="dots-pattern top-0 left-0" />
+                <img src="/images/others/dots-horizontal.svg" alt="" className="dots-pattern top-0 left-0" />
 
                 {/* Pattern 2 */}
-                <img src="/images/utils/dots-vertical.svg" alt="" className="dots-pattern bottom-0 right-0" />
+                <img src="/images/others/dots-vertical.svg" alt="" className="dots-pattern bottom-0 right-0" />
             </section>
 
             {/* Clients */}
@@ -581,8 +593,8 @@ const HomePage = () => {
 
                 <div className="hidden lg:block absolute h-full top-0 left-0 transform -translate-x-96 3xl:-translate-x-1/4 z-0">
                     <div className="h-full w-full z-10 absolute top-0 left-0" />
-                    <img src="/images/utils/rocket-outline-horizontal.svg" alt="" className="xl:hidden animate-[floating_8s_infinite]" />
-                    <img src="/images/utils/rocket-outline.svg" alt="" className="hidden xl:block animate-[floating-45_8s_infinite]" />
+                    <img src="/images/others/rocket-horizontal.svg" alt="" className="xl:hidden animate-[floating_8s_infinite]" />
+                    <img src="/images/others/rocket-skew.svg" alt="" className="hidden xl:block animate-[floating-45_8s_infinite]" />
                 </div>
             </section>
 
