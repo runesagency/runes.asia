@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import * as localization from "@/lib/localization";
 
 export const useTypewriter = (selector = "data-typewriter") => {
     useEffect(() => {
@@ -15,7 +16,8 @@ export const useTypewriter = (selector = "data-typewriter") => {
         let lastScrollEventTime = Date.now();
         const foundElements = document.querySelectorAll(`[${selector}]`);
 
-        const performTypewrite = async (bound: Bound) => {
+        const performTypewrite = async (id: number) => {
+            let bound = bounds[id];
             if (bound.isActive) return;
 
             bound.finished = false;
@@ -23,11 +25,29 @@ export const useTypewriter = (selector = "data-typewriter") => {
             bound.element.textContent = "";
 
             for (const text of bound.text) {
+                bound = bounds[id];
+                if (!bound?.isActive) return;
+
                 bound.element.textContent += text;
                 await new Promise((resolve) => setTimeout(resolve, 100));
             }
 
             bound.finished = true;
+        };
+
+        const initTypewrite = () => {
+            for (const element of foundElements) {
+                const id = bounds.push({
+                    id: bounds.length,
+                    element,
+                    text: element.textContent,
+                    isActive: false,
+                    finished: false,
+                    height: element.clientHeight,
+                });
+
+                performTypewrite(id - 1);
+            }
         };
 
         document.addEventListener("scroll", async () => {
@@ -40,7 +60,7 @@ export const useTypewriter = (selector = "data-typewriter") => {
                 const percentScrolled = 1 - Math.min(Math.max(rawPercentScrolled, 0), 1);
 
                 if (percentScrolled > 0) {
-                    await performTypewrite(bounds[id]);
+                    await performTypewrite(id);
                 } else if (finished) {
                     element.textContent = "|";
                     bounds[id].isActive = false;
@@ -48,39 +68,76 @@ export const useTypewriter = (selector = "data-typewriter") => {
             }
         });
 
-        for (const element of foundElements) {
-            const id = bounds.push({
-                id: bounds.length,
-                element,
-                text: element.textContent,
-                isActive: false,
-                finished: false,
-                height: element.clientHeight,
-            });
+        let changesTimeout: any = 0;
 
-            performTypewrite(bounds[id - 1]);
-        }
+        document.addEventListener(
+            "languageChanged",
+            () => {
+                console.log(1);
+                bounds = [];
+
+                if (changesTimeout) {
+                    clearTimeout(changesTimeout);
+                }
+
+                changesTimeout = setTimeout(initTypewrite, 1000);
+            },
+            false
+        );
+
+        setTimeout(() => {
+            if (!changesTimeout) {
+                changesTimeout = setTimeout(initTypewrite, 1000);
+            }
+        });
     }, [selector]);
 };
 
-export const useLanguage = (keyName = "lang", defaultKey?: string): [string, Dispatch<SetStateAction<string>>] => {
-    const [lang, setLang] = useState(null);
+export const useLanguage = (keyName = "lang", defaultKey?: keyof typeof localization) => {
+    if (!defaultKey) {
+        defaultKey = Object.keys(localization)[0] as keyof typeof localization;
+    }
 
+    const [lang, setLang] = useState<string>(defaultKey);
+    const [locale, setLocale] = useState<typeof localization[keyof typeof localization]>(localization[Object.keys(localization)[0]]);
+
+    // Handle on first render
     useEffect(() => {
-        let lang = localStorage.getItem(keyName);
+        let savedLang = localStorage.getItem(keyName);
 
-        if (!lang && defaultKey) {
-            lang = defaultKey;
+        if (!savedLang || (savedLang && !localization[savedLang])) {
+            savedLang = defaultKey;
         }
 
-        setLang(lang);
+        setLang(savedLang);
     }, [defaultKey, keyName]);
 
+    // Handle on language change
     useEffect(() => {
-        if (lang) {
+        if (lang && localization[lang]) {
+            const updateEvent = new CustomEvent("languageChanged", {
+                detail: {
+                    lang,
+                },
+            });
+
             localStorage.setItem(keyName, lang);
+            document.dispatchEvent(updateEvent);
+        } else {
+            console.error(`Language ${lang} is not supported.`);
         }
     }, [keyName, lang]);
 
-    return [lang, setLang];
+    // Handle on locale change (Based on document event)
+    useEffect(() => {
+        document.addEventListener("languageChanged", (e: CustomEvent) => {
+            setLocale(localization[e.detail.lang]);
+        });
+    });
+
+    return {
+        lang,
+        setLang,
+        locale,
+    };
 };
