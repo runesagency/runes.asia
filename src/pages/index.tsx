@@ -2,6 +2,7 @@ import * as Icon from "@/components/Icons";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
+import Heading from "@/components/Heading";
 
 import ScrollContainer from "react-indiana-drag-scroll";
 import Link from "next/link";
@@ -9,17 +10,6 @@ import Link from "next/link";
 import { theme } from "../../tailwind.config";
 import { useTypewriter } from "@/lib/hooks";
 import { memo, useEffect, useRef } from "react";
-
-const Heading = ({ title, description, className }: { title: string; description: string; className?: Record<"container" | "title" | "description", string> }) => {
-    return (
-        <div className={`grid gap-2 mx-auto max-w-2xl text-center ${className?.container}`}>
-            <h1 className={`title text-linear-yellow bg-gradient-to-r max-w-full overflow-hidden break-words ${className?.title}`} data-typewriter>
-                {title}
-            </h1>
-            <p className={`paragraph text-white max-w-md mx-auto ${className?.description}`}>{description}</p>
-        </div>
-    );
-};
 
 const Portfolio = () => {
     const element = useRef(null);
@@ -188,7 +178,7 @@ const Portfolio = () => {
                 case "right":
                     portfolio.scrollBy(1, 0);
 
-                    if (portfolio.scrollLeft >= portfolio.scrollWidth - portfolio.clientWidth) {
+                    if (portfolio.scrollLeft >= portfolio.scrollWidth - portfolio.clientWidth - 10) {
                         scrollDirection.current = "left";
                     }
                     break;
