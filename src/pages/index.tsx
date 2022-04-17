@@ -569,9 +569,9 @@ const HomePage = () => {
                             title="Nothing Great Is Made Alone"
                             description="Something great are always made together, so why don’t we do it together?"
                             className={{
-                                container: "!text-left mx-0",
+                                container: "!text-left !place-items-start !mx-0",
                                 title: "!text-black",
-                                description: "mx-0 !text-black",
+                                description: "!text-black",
                             }}
                         />
 
