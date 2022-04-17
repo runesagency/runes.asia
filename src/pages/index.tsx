@@ -178,7 +178,7 @@ const Portfolio = () => {
                 case "right":
                     portfolio.scrollBy(1, 0);
 
-                    if (portfolio.scrollLeft >= portfolio.scrollWidth - portfolio.clientWidth - 10) {
+                    if (portfolio.scrollLeft >= portfolio.scrollWidth - portfolio.clientWidth - 5) {
                         scrollDirection.current = "left";
                     }
                     break;
@@ -521,7 +521,7 @@ const HomePage = () => {
                                 </div>
 
                                 {/* Icon */}
-                                <value.icon className="h-12 fill-yellow-light mb-14 lg:mb-0 lg:mt-14" />
+                                <value.icon className="h-12 fill-yellow-light mb-10 lg:mb-0 lg:mt-14" />
                             </article>
                         ))}
                     </div>

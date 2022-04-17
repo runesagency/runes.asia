@@ -121,12 +121,12 @@ export default function Footer() {
                 <div className="grid gap-7 grid-cols-5 group">
                     {socials.map((social, index) => (
                         <a key={index} href={social.href} target="_blank" rel="noreferrer">
-                            <social.icon className="h-10 fill-current group-hover:opacity-50 hover:!opacity-100 duration-200" />
+                            <social.icon className="h-8 md:h-10 fill-current group-hover:opacity-50 hover:!opacity-100 duration-200" />
                         </a>
                     ))}
                 </div>
 
-                <div className="grid gap-6 font-lora text-3xl font-bold group tracking-wide">
+                <div className="grid gap-4 md:gap-6 font-lora text-2xl md:text-3xl font-bold group tracking-wide">
                     {links.map((link, index) => (
                         <Link key={index} href={link.href}>
                             <a className="group-hover:opacity-50 hover:!opacity-100 duration-200">{link.name}</a>
