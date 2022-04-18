@@ -197,7 +197,7 @@ const Portfolio = () => {
     }, []);
 
     return (
-        <div id={elementId} className="max-w-full cursor-move overflow-x-auto">
+        <div id={elementId} className="max-w-full cursor-move overflow-x-auto no-scrollbar">
             <section className="relative grid grid-cols-2 w-max gap-4 xl:gap-6">
                 {portfolios.map((row, index) => {
                     return (

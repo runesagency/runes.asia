@@ -49,6 +49,17 @@
         @apply absolute hidden md:block opacity-50 lg:opacity-100 z-0;
     }
 
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
     @keyframes spotlight {
         0% {
             transform: rotate(0deg);
