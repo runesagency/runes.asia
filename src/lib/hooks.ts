@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { Dispatch, SetStateAction } from "react";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const getComponentName = () => {
     const stack = new Error().stack;
@@ -116,6 +116,8 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
         defaultKey = Object.keys(localization)[0] as any;
     }
 
+    const uniqueId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const firstEventFired = useRef(false);
     const [lang, setLang] = useState<string>(defaultKey as string);
     const [locale, setLocale] = useState<T[keyof T]>(localization[Object.keys(localization)[0]]);
 
@@ -128,35 +130,40 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
         }
 
         setLang(savedLang);
+
+        document.addEventListener("languageChanged", (e: CustomEvent) => {
+            if (
+                e.detail.keyName === keyName && // Prevent execution for another key name
+                e.detail.uniqueId !== uniqueId // Prevent loop
+            ) {
+                setLang(e.detail.lang);
+            }
+        });
     }, [defaultKey, keyName]);
 
     // Handle on language change
     useEffect(() => {
+        // Do not fired "default language" event on first render
+        if (!firstEventFired.current && lang === defaultKey) return;
+        firstEventFired.current = true;
+
         if (lang && localization[lang]) {
             const updateEvent = new CustomEvent("languageChanged", {
                 detail: {
                     lang,
                     keyName,
+                    uniqueId,
                 },
             });
 
             localStorage.setItem(keyName, lang);
+            setLocale(localization[lang]);
+
             document.dispatchEvent(updateEvent);
         } else {
             console.error(`Language "${lang}" is not supported, found on "${componentName}" component.`);
         }
     }, [keyName, lang]);
-
-    // Handle on locale change (Based on document event)
-    useEffect(() => {
-        document.addEventListener("languageChanged", (e: CustomEvent) => {
-            if (e.detail.keyName === keyName && localization[e.detail.lang]) {
-                setLocale(localization[e.detail.lang]);
-            } else {
-                console.error(`Language ${e.detail.lang} is not supported, found on ${componentName} component.`);
-            }
-        });
-    }, []);
 
     return {
         lang,
