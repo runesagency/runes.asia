@@ -14,7 +14,7 @@ const ContactPage = () => {
     return (
         <main className="relative bg-black">
             {/* Header */}
-            <header className="container relative z-10">
+            <header className="container relative z-20">
                 <Navigation />
             </header>
 

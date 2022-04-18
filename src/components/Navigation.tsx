@@ -32,7 +32,7 @@ export default function Navigation() {
     ];
 
     return (
-        <nav id="navigation" className="relative">
+        <nav id="navigation" className="relative z-50">
             <section className="relative w-full flex justify-between items-center py-16">
                 <Link href="/" passHref>
                     <img src="/images/logo-full.svg" alt="logo" className="h-8 md:h-10 cursor-pointer -mt-1.5" />
