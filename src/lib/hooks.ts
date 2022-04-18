@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { Dispatch, SetStateAction } from "react";
 
 import { useEffect, useState } from "react";
@@ -116,7 +117,7 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
         }
 
         setLang(savedLang);
-    }, [defaultKey, keyName, localization]);
+    }, [defaultKey, keyName]);
 
     // Handle on language change
     useEffect(() => {
@@ -133,7 +134,7 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
         } else {
             console.error(`Language ${lang} is not supported.`);
         }
-    }, [keyName, lang, localization]);
+    }, [keyName, lang]);
 
     // Handle on locale change (Based on document event)
     useEffect(() => {
@@ -142,7 +143,7 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
                 setLocale(localization[e.detail.lang]);
             }
         });
-    });
+    }, []);
 
     return {
         lang,
