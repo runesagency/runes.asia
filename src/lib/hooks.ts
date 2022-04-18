@@ -1,5 +1,6 @@
+import type { Dispatch, SetStateAction } from "react";
+
 import { useEffect, useState } from "react";
-import * as localization from "@/lib/localization";
 
 export const useTypewriter = (selector = "data-typewriter") => {
     useEffect(() => {
@@ -92,24 +93,30 @@ export const useTypewriter = (selector = "data-typewriter") => {
     }, [selector]);
 };
 
-export const useLanguage = (keyName = "lang", defaultKey?: keyof typeof localization) => {
+type useLanguageReturns<T> = {
+    lang: string;
+    locale: T[keyof T];
+    setLang: Dispatch<SetStateAction<string>>;
+};
+
+export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: keyof T): useLanguageReturns<T> => {
     if (!defaultKey) {
-        defaultKey = Object.keys(localization)[0] as keyof typeof localization;
+        defaultKey = Object.keys(localization)[0] as any;
     }
 
-    const [lang, setLang] = useState<string>(defaultKey);
-    const [locale, setLocale] = useState<typeof localization[keyof typeof localization]>(localization[Object.keys(localization)[0]]);
+    const [lang, setLang] = useState<string>(defaultKey as string);
+    const [locale, setLocale] = useState<T[keyof T]>(localization[Object.keys(localization)[0]]);
 
     // Handle on first render
     useEffect(() => {
         let savedLang = localStorage.getItem(keyName);
 
         if (!savedLang || (savedLang && !localization[savedLang])) {
-            savedLang = defaultKey;
+            savedLang = defaultKey as string;
         }
 
         setLang(savedLang);
-    }, [defaultKey, keyName]);
+    }, [defaultKey, keyName, localization]);
 
     // Handle on language change
     useEffect(() => {
@@ -117,6 +124,7 @@ export const useLanguage = (keyName = "lang", defaultKey?: keyof typeof localiza
             const updateEvent = new CustomEvent("languageChanged", {
                 detail: {
                     lang,
+                    keyName,
                 },
             });
 
@@ -125,12 +133,14 @@ export const useLanguage = (keyName = "lang", defaultKey?: keyof typeof localiza
         } else {
             console.error(`Language ${lang} is not supported.`);
         }
-    }, [keyName, lang]);
+    }, [keyName, lang, localization]);
 
     // Handle on locale change (Based on document event)
     useEffect(() => {
         document.addEventListener("languageChanged", (e: CustomEvent) => {
-            setLocale(localization[e.detail.lang]);
+            if (e.detail.keyName === keyName) {
+                setLocale(localization[e.detail.lang]);
+            }
         });
     });
 
