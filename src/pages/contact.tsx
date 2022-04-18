@@ -20,7 +20,7 @@ const ContactPage = () => {
             </header>
 
             {/* Content */}
-            <section id="contact" className="relative z-10">
+            <section id="contact" className="relative z-10 pt-20">
                 <div className="relative container grid gap-32 z-10">
                     <Heading
                         title={locale.title} //
