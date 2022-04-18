@@ -5,11 +5,9 @@ import { useLanguage } from "@/lib/hooks";
 const LangChooser = ({
     className,
     tooltipAlign,
-    useLanguageDescriptor,
     ...props
 }: HTMLAttributes<HTMLDivElement> & {
     tooltipAlign?: "right" | "left";
-    useLanguageDescriptor: boolean;
 }) => {
     const [open, setOpen] = useState(false);
     const { lang, setLang, locale } = useLanguage("lang", localization);
