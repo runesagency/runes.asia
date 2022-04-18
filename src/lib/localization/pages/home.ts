@@ -1,3 +1,5 @@
+import * as Icon from "@/components/Icons";
+
 export const en = {
     intro: {
         title: "Empowering Brands To The Fullest.",
@@ -17,22 +19,27 @@ export const en = {
             {
                 title: "Design",
                 description: "Graphic, Illustration, UI/UX, 3D Art",
+                icon: Icon.Design,
             },
             {
                 title: "Development",
                 description: "Application, Website, API, Chatbot, AR/VR",
+                icon: Icon.Development,
             },
             {
                 title: "Marketing",
                 description: "SEO, Media Advertisements",
+                icon: Icon.Marketing,
             },
             {
                 title: "Social Media Management",
                 description: "WhatsApp, Instagram",
+                icon: Icon.SMM,
             },
             {
                 title: "Branding",
                 description: "Design, Marketing, Development, Management",
+                icon: Icon.Branding,
             },
         ],
     },
@@ -46,18 +53,22 @@ export const en = {
             {
                 title: "Quality",
                 description: "We always provide the highest quality service and even strive to exceed the expectations of our clients.",
+                icon: Icon.Quality,
             },
             {
                 title: "Excellence",
                 description: "We always use the latest technology and the best way to produce high enough quality.",
+                icon: Icon.Excellence,
             },
             {
                 title: "Creativity",
                 description: "We will give you a unique idea, which will make your product or service stand out from the competition.",
+                icon: Icon.Creativity,
             },
             {
                 title: "Collaborative",
                 description: "We open a discussion room with our clients & partners as the work progresses, so that the results can meet the expectations of both parties.",
+                icon: Icon.Collaborative,
             },
         ],
     },
@@ -90,22 +101,27 @@ export const id = {
             {
                 title: "Desain",
                 description: "Grafis, Ilustrasi, UI/UX, Karya 3D",
+                icon: Icon.Design,
             },
             {
                 title: "Pengembangan",
                 description: "Aplikasi, Website, API, Bot Pesan, AR/VR",
+                icon: Icon.Development,
             },
             {
                 title: "Pemasaran",
                 description: "SEO, Iklan Media",
+                icon: Icon.Marketing,
             },
             {
                 title: "Manajemen Media Sosial",
                 description: "WhatsApp, Instagram",
+                icon: Icon.SMM,
             },
             {
                 title: "Branding",
                 description: "Desain, Pemasaran, Pengembangan, Manajemen",
+                icon: Icon.Branding,
             },
         ],
     },
@@ -119,18 +135,22 @@ export const id = {
             {
                 title: "Kualitas",
                 description: "Kami selalu memberikan layanan berkualitas tinggi dan bahkan berusaha melampaui harapan klien kami.",
+                icon: Icon.Quality,
             },
             {
                 title: "Keunggulan",
                 description: "Kami selalu menggunakan teknologi terbaru dan cara terbaik untuk menghasilkan kualitas yang cukup tinggi.",
+                icon: Icon.Excellence,
             },
             {
                 title: "Kreatifitas",
                 description: "Kami akan memberi Anda ide unik, yang akan membuat produk atau layanan Anda menonjol daripada kompetitor anda.",
+                icon: Icon.Creativity,
             },
             {
                 title: "Kolaboratif",
                 description: "Kami membuka ruang diskusi dengan klien & mitra kami karena pekerjaan berlangsung, sehingga hasilnya dapat memenuhi harapan kedua belah pihak.",
+                icon: Icon.Collaborative,
             },
         ],
     },

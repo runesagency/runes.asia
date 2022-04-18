@@ -1,4 +1,3 @@
-import * as Icon from "@/components/Icons";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
@@ -294,21 +293,6 @@ const HomePage = () => {
         },
     ];
 
-    const services = [
-        Icon.Design, //
-        Icon.Development,
-        Icon.Marketing,
-        Icon.SMM,
-        Icon.Branding,
-    ];
-
-    const values = [
-        Icon.Quality, //
-        Icon.Excellence,
-        Icon.Creativity,
-        Icon.Collaborative,
-    ];
-
     return (
         <main className="relative bg-black">
             {/* Header */}
@@ -351,8 +335,8 @@ const HomePage = () => {
                 <div className="relative container pl-8 md:pl-24 pt-20 z-10 grid gap-24">
                     {/* Icons */}
                     <div className="flex justify-between items-center w-full max-w-xl lg:max-w-full ml-auto text-yellow-light fill-current">
-                        {services.map((Icon, index) => (
-                            <Icon key={index} className="w-6 md:w-10" />
+                        {locale.services.lists.map((service, index) => (
+                            <service.icon key={index} className="w-6 md:w-10" />
                         ))}
                     </div>
 
@@ -396,11 +380,11 @@ const HomePage = () => {
 
                     {/* Services */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-20">
-                        {services.map((Icon, index) => (
+                        {locale.services.lists.map((service, index) => (
                             <article key={index} className="grid gap-5 w-72 text-center mx-auto">
-                                <Icon className="w-8 mx-auto fill-yellow-light" />
-                                <h3 className="text-yellow-light text-4xl font-lora font-bold mx-auto leading-tight">{locale.services.lists[index].title}</h3>
-                                <p className="paragraph text-white mx-auto">{locale.services.lists[index].description}</p>
+                                <service.icon className="w-8 mx-auto fill-yellow-light" />
+                                <h3 className="text-yellow-light text-4xl font-lora font-bold mx-auto leading-tight">{service.title}</h3>
+                                <p className="paragraph text-white mx-auto">{service.description}</p>
                             </article>
                         ))}
                     </div>
@@ -450,8 +434,8 @@ const HomePage = () => {
                 <div className="relative container grid gap-20 z-10">
                     {/* Icons */}
                     <div className="flex justify-between items-center max-w-xl w-full mx-auto fill-yellow-light stroke-yellow-light">
-                        {values.map((Icon, index) => (
-                            <Icon key={index} className="h-8 md:h-11" />
+                        {locale.values.lists.map((value, index) => (
+                            <value.icon key={index} className="h-8 md:h-11" />
                         ))}
                     </div>
 
@@ -462,16 +446,16 @@ const HomePage = () => {
 
                     {/* List */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 w-full">
-                        {values.map((Icon, index) => (
+                        {locale.values.lists.map((value, index) => (
                             <article key={index} className="flex flex-col-reverse lg:flex-col justify-end lg:justify-between items-start">
                                 {/* Description */}
                                 <div className="grid gap-4">
-                                    <h2 className="font-el-messiri text-4xl font-bold text-yellow-light">{locale.values.lists[index].title}</h2>
-                                    <p className="paragraph text-white">{locale.values.lists[index].description}</p>
+                                    <h2 className="font-el-messiri text-4xl font-bold text-yellow-light">{value.title}</h2>
+                                    <p className="paragraph text-white">{value.description}</p>
                                 </div>
 
                                 {/* Icon */}
-                                <Icon className="h-12 fill-yellow-light mb-10 lg:mb-0 lg:mt-14" />
+                                <value.icon className="h-12 fill-yellow-light mb-10 lg:mb-0 lg:mt-14" />
                             </article>
                         ))}
                     </div>

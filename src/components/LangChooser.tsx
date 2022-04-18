@@ -1,23 +1,12 @@
+import * as localization from "@/lib/localization/components/langChooser";
 import { useState } from "react";
-import * as Icon from "@/components/Icons";
 import { useLanguage } from "@/lib/hooks";
 
 const LangChooser = () => {
-    const languages = {
-        en: {
-            name: "English",
-            flag: Icon.FlagEN,
-        },
-        id: {
-            name: "Indonesia",
-            flag: Icon.FlagID,
-        },
-    };
-
     const [open, setOpen] = useState(false);
-    const { lang, setLang } = useLanguage("lang", languages);
+    const { lang, setLang, locale } = useLanguage("lang", localization);
 
-    const FlagIcon = languages?.[lang].flag || null;
+    const FlagIcon = locale?.[lang].flag || null;
 
     const changeLang = (code: string) => {
         setLang(code);
@@ -35,8 +24,8 @@ const LangChooser = () => {
             </button>
 
             {open && (
-                <div className="grid gap-2 absolute right-0 -bottom-2 transform translate-y-full bg-yellow-light shadow-sm text-black p-4 rounded-sm">
-                    {Object.entries(languages).map(([code, language], index) => (
+                <div className="grid gap-2 absolute right-0 -bottom-2 transform translate-y-full w-max bg-yellow-light shadow-sm text-black p-4 rounded-sm">
+                    {Object.entries(locale).map(([code, language], index) => (
                         <button
                             key={index}
                             className={`flex justify-start items-center space-x-4 w-full p-2 rounded-sm duration-200 ${
@@ -45,7 +34,7 @@ const LangChooser = () => {
                             onClick={() => changeLang(code)}
                         >
                             <language.flag className="flex-shrink-0 h-5" />
-                            <p className="paragraph">{language.name}</p>
+                            <p className="paragraph text-left">{language.name}</p>
                         </button>
                     ))}
                 </div>

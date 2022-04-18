@@ -68,7 +68,7 @@ export const Socials = () => {
         {
             name: "Youtube",
             icon: Icon.Youtube,
-            href: "#",
+            href: "https://www.youtube.com/channel/UCjqFiTu3wkWZBwe3DfHSfkg",
         },
         {
             name: "WhatsApp",
