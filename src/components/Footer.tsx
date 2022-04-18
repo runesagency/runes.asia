@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import * as localization from "@/lib/localization/components/footer";
 import { useLanguage } from "@/lib/hooks";
+import LangChooser from "./LangChooser";
 
 export const Contacts = () => {
     const contacts = [
@@ -115,6 +116,8 @@ export default function Footer() {
                             <img src="/images/logo-full.svg" alt="logo" className="h-11" />
                         </a>
                     </Link>
+
+                    <LangChooser className="w-max" tooltipAlign="left" />
 
                     <Contacts />
                 </div>
