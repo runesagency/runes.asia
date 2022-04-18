@@ -3,26 +3,24 @@ import * as Icon from "@/components/Icons";
 import { useLanguage } from "@/lib/hooks";
 
 const LangChooser = () => {
-    const languages = [
-        {
-            code: "en",
+    const languages = {
+        en: {
             name: "English",
             flag: Icon.FlagEN,
         },
-        {
-            code: "id",
+        id: {
             name: "Indonesia",
             flag: Icon.FlagID,
         },
-    ];
+    };
 
     const [open, setOpen] = useState(false);
-    const { lang, setLang } = useLanguage();
+    const { lang, setLang } = useLanguage("lang", languages);
 
-    const FlagIcon = languages.find((l) => l.code === lang)?.flag || null;
+    const FlagIcon = languages?.[lang].flag || null;
 
-    const changeLang = (language: typeof languages[0]) => {
-        setLang(language.code);
+    const changeLang = (code: string) => {
+        setLang(code);
         setOpen(false);
     };
 
@@ -38,13 +36,13 @@ const LangChooser = () => {
 
             {open && (
                 <div className="grid gap-2 absolute right-0 -bottom-2 transform translate-y-full bg-yellow-light shadow-sm text-black p-4 rounded-sm">
-                    {languages.map((language, index) => (
+                    {Object.entries(languages).map(([code, language], index) => (
                         <button
                             key={index}
                             className={`flex justify-start items-center space-x-4 w-full p-2 rounded-sm duration-200 ${
-                                lang === language.code ? "bg-black text-yellow-light" : "hover:bg-black hover:bg-opacity-70 hover:text-yellow-light"
+                                lang === code ? "bg-black text-yellow-light" : "hover:bg-black hover:bg-opacity-70 hover:text-yellow-light"
                             }`}
-                            onClick={() => changeLang(language)}
+                            onClick={() => changeLang(code)}
                         >
                             <language.flag className="flex-shrink-0 h-5" />
                             <p className="paragraph">{language.name}</p>
