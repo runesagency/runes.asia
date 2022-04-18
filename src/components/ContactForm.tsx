@@ -28,7 +28,7 @@ export default function ContactForm() {
         {
             icon: Icon.Message,
             dom: "textarea",
-            name: "email",
+            name: "message",
             required: true,
         },
     ];
