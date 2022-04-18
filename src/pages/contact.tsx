@@ -6,11 +6,10 @@ import Heading from "@/components/Heading";
 import { theme } from "../../tailwind.config";
 import { memo } from "react";
 import { useLanguage, useTypewriter } from "@/lib/hooks";
-import * as localization from "@/lib/localization/contact";
 
 const ContactPage = () => {
     useTypewriter();
-    const { locale } = useLanguage("lang", localization);
+    const { locale } = useLanguage();
 
     return (
         <main className="relative bg-black">
@@ -23,8 +22,8 @@ const ContactPage = () => {
             <section id="contact" className="relative z-10">
                 <div className="relative container grid gap-32 z-10">
                     <Heading
-                        title={locale.title} //
-                        description={locale.description}
+                        title={locale.contact.title} //
+                        description={locale.contact.description}
                         className={{
                             container: "!place-items-start !text-left !mx-0",
                         }}
@@ -52,7 +51,7 @@ const ContactPage = () => {
 
                 <div className="w-full grid place-items-center pt-8 bg-black">
                     <a href="https://goo.gl/maps/3KybSxpnfC67cQ3YA" target={"_blank"} rel="noreferrer" className="button mx-auto">
-                        {locale.mapButton}
+                        {locale.contact.mapButton}
                     </a>
                 </div>
             </section>

@@ -9,7 +9,6 @@ import Link from "next/link";
 import { theme } from "../../tailwind.config";
 import { useLanguage, useTypewriter, useDragToScroll } from "@/lib/hooks";
 import { memo, useEffect } from "react";
-import * as localization from "@/lib/localization/home";
 
 const Portfolio = () => {
     const elementId = "portfolio-container";
@@ -249,7 +248,7 @@ const Portfolio = () => {
 
 const HomePage = () => {
     useTypewriter();
-    const { locale } = useLanguage("lang", localization);
+    const { locale } = useLanguage();
 
     const clients = [
         {
@@ -327,7 +326,7 @@ const HomePage = () => {
                 <div className="container pl-8 md:pl-24 flex w-full justify-between items-start mt-16 mb-8">
                     {/* Title */}
                     <h1 className="text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-el-messiri max-w-xl xl:max-w-3xl text-linear-yellow bg-gradient-to-b" data-typewriter>
-                        {locale.intro.title}
+                        {locale.home.intro.title}
                     </h1>
 
                     {/* Icons */}
@@ -360,16 +359,16 @@ const HomePage = () => {
                     <div className="grid gap-5 lg:ml-auto max-w-xl pb-24 font-lora text-xl md:text-2xl leading-normal">
                         {/* Text 1 */}
                         <p className="text-yellow-light">
-                            <b>{locale.about.text_1.intro}</b>
-                            {locale.about.text_1.text}
+                            <b>{locale.home.about.text_1.intro}</b>
+                            {locale.home.about.text_1.text}
                         </p>
 
                         {/* Text 2 */}
-                        <p className="text-white">{locale.about.text_2}</p>
+                        <p className="text-white">{locale.home.about.text_2}</p>
 
                         {/* Button */}
                         <Link href={`/about`}>
-                            <a className="button">{locale.about.button}</a>
+                            <a className="button">{locale.home.about.button}</a>
                         </Link>
                     </div>
                 </div>
@@ -390,8 +389,8 @@ const HomePage = () => {
                 {/* Content */}
                 <div className="relative container grid gap-24 z-10">
                     <Heading //
-                        title={locale.services.title}
-                        description={locale.services.description}
+                        title={locale.home.services.title}
+                        description={locale.home.services.description}
                     />
 
                     {/* Services */}
@@ -399,8 +398,8 @@ const HomePage = () => {
                         {services.map((Icon, index) => (
                             <article key={index} className="grid gap-5 w-72 text-center mx-auto">
                                 <Icon className="w-8 mx-auto fill-yellow-light" />
-                                <h3 className="text-yellow-light text-4xl font-lora font-bold mx-auto leading-tight">{locale.services.lists[index].title}</h3>
-                                <p className="paragraph text-white mx-auto">{locale.services.lists[index].description}</p>
+                                <h3 className="text-yellow-light text-4xl font-lora font-bold mx-auto leading-tight">{locale.home.services.lists[index].title}</h3>
+                                <p className="paragraph text-white mx-auto">{locale.home.services.lists[index].description}</p>
                             </article>
                         ))}
                     </div>
@@ -437,7 +436,7 @@ const HomePage = () => {
 
                 {/* More Button */}
                 <div className="flex flex-col md:flex-row justify-center items-center mx-auto space-y-5 md:space-y-0 md:space-x-5">
-                    <p className="paragraph text-white">{locale.portfolio.button}</p>
+                    <p className="paragraph text-white">{locale.home.portfolio.button}</p>
                     <a href="https://behance.net/wearerunes" target={"_blank"} rel="noreferrer" className="button">
                         behance.net/wearerunes
                     </a>
@@ -456,8 +455,8 @@ const HomePage = () => {
                     </div>
 
                     <Heading //
-                        title={locale.values.title}
-                        description={locale.values.description}
+                        title={locale.home.values.title}
+                        description={locale.home.values.description}
                     />
 
                     {/* List */}
@@ -466,8 +465,8 @@ const HomePage = () => {
                             <article key={index} className="flex flex-col-reverse lg:flex-col justify-end lg:justify-between items-start">
                                 {/* Description */}
                                 <div className="grid gap-4">
-                                    <h2 className="font-el-messiri text-4xl font-bold text-yellow-light">{locale.values.lists[index].title}</h2>
-                                    <p className="paragraph text-white">{locale.values.lists[index].description}</p>
+                                    <h2 className="font-el-messiri text-4xl font-bold text-yellow-light">{locale.home.values.lists[index].title}</h2>
+                                    <p className="paragraph text-white">{locale.home.values.lists[index].description}</p>
                                 </div>
 
                                 {/* Icon */}
@@ -489,8 +488,8 @@ const HomePage = () => {
                 {/* Content */}
                 <div className="relative container grid gap-20 z-30 pb-12">
                     <Heading //
-                        title={locale.clients.title}
-                        description={locale.clients.description}
+                        title={locale.home.clients.title}
+                        description={locale.home.clients.description}
                     />
 
                     {/* List */}
@@ -535,8 +534,8 @@ const HomePage = () => {
                 <div className="relative container z-20">
                     <div className="max-w-2xl ml-auto grid gap-12">
                         <Heading //
-                            title={locale.contact.title}
-                            description={locale.contact.description}
+                            title={locale.home.contact.title}
+                            description={locale.home.contact.description}
                             className={{
                                 container: "!text-left !place-items-start !mx-0",
                                 title: "!text-black",
