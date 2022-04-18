@@ -167,44 +167,65 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
 
 export const useDragToScroll = (elementId: string) => {
     useEffect(() => {
-        const element = document.getElementById(elementId);
+        const slider = document.getElementById(elementId);
+        let isDown = false;
+        let startX: number;
+        let scrollLeft: number;
 
-        let pos = {
-            top: 0,
-            left: 0,
-            x: 0,
-            y: 0,
+        slider.addEventListener("mousedown", (e) => {
+            isDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+            cancelMomentumTracking();
+        });
+
+        slider.addEventListener("mouseleave", () => {
+            isDown = false;
+        });
+
+        slider.addEventListener("mouseup", () => {
+            isDown = false;
+            beginMomentumTracking();
+        });
+
+        slider.addEventListener("mousemove", (e) => {
+            if (!isDown) return;
+
+            e.preventDefault();
+
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 1; //scroll-fast
+            const prevScrollLeft = slider.scrollLeft;
+
+            slider.scrollLeft = scrollLeft - walk;
+            velX = slider.scrollLeft - prevScrollLeft;
+        });
+
+        // Momentum
+
+        let velX = 0;
+        let momentumID: number;
+
+        slider.addEventListener("wheel", () => {
+            cancelMomentumTracking();
+        });
+
+        const beginMomentumTracking = () => {
+            cancelMomentumTracking();
+            momentumID = requestAnimationFrame(momentumLoop);
         };
 
-        const mouseDownHandler = (e: MouseEvent) => {
-            // Element scroll position
-            pos.left = element.scrollLeft;
-            pos.top = element.scrollTop;
-
-            // Get the current mouse position
-            pos.x = e.clientX;
-            pos.y = e.clientY;
-
-            document.addEventListener("mousemove", mouseMoveHandler);
-            document.addEventListener("mouseup", mouseUpHandler);
+        const cancelMomentumTracking = () => {
+            cancelAnimationFrame(momentumID);
         };
 
-        const mouseMoveHandler = (e: MouseEvent) => {
-            // How far the mouse has been moved
-            const dx = e.clientX - pos.x;
-            const dy = e.clientY - pos.y;
+        const momentumLoop = () => {
+            slider.scrollLeft += velX;
+            velX *= 0.95;
 
-            // Scroll the element
-            element.scrollTop = pos.top - dy;
-            element.scrollLeft = pos.left - dx;
+            if (Math.abs(velX) > 0.5) {
+                momentumID = requestAnimationFrame(momentumLoop);
+            }
         };
-
-        const mouseUpHandler = () => {
-            document.removeEventListener("mousemove", mouseMoveHandler);
-            document.removeEventListener("mouseup", mouseUpHandler);
-        };
-
-        // Attach the handler
-        element.addEventListener("mousedown", mouseDownHandler);
     }, [elementId]);
 };
