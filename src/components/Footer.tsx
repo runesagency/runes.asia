@@ -89,7 +89,7 @@ export const Socials = () => {
         {
             name: "Facebook",
             icon: Icon.Facebook,
-            href: "#",
+            href: "https://www.facebook.com/wearerunes",
         },
     ];
 
