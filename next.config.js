@@ -6,21 +6,11 @@ const config = (phase) => {
         reactStrictMode: true,
         redirects: async () => {
             return [
-                // {
-                //     source: "/about",
-                //     destination: "/#about",
-                //     permanent: false,
-                // },
-                // {
-                //     source: "/projects",
-                //     destination: "https://www.behance.net/wearerunes",
-                //     permanent: true,
-                // },
-                // {
-                //     source: "/contact",
-                //     destination: "mailto:hello@runes.asia",
-                //     permanent: false,
-                // },
+                {
+                    source: "/projects",
+                    destination: "https://www.behance.net/wearerunes",
+                    permanent: false,
+                },
             ];
         },
     };
