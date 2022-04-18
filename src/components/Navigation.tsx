@@ -4,32 +4,12 @@ import * as Icon from "@/components/Icons";
 import Link from "next/link";
 
 import { useState } from "react";
+import { useLanguage } from "@/lib/hooks";
+import * as localization from "@/lib/localization/components/navigation";
 
 export default function Navigation() {
     const [open, setOpen] = useState(false);
-
-    const links = [
-        {
-            name: "About",
-            href: "/about",
-        },
-        {
-            name: "Services",
-            href: "/services",
-        },
-        {
-            name: "Projects",
-            href: "/projects",
-        },
-        {
-            name: "Contact",
-            href: "/contact",
-        },
-        {
-            name: "Links",
-            href: "/links",
-        },
-    ];
+    const { locale } = useLanguage("lang", localization);
 
     return (
         <nav id="navigation" className="relative z-50">
@@ -53,7 +33,7 @@ export default function Navigation() {
                     <Icon.Menu active={open} onClick={() => setOpen(!open)} />
 
                     <div className="grid gap-6 ">
-                        {links.map((link, index) => (
+                        {locale.links.map((link, index) => (
                             <a href={link.href} key={index}>
                                 <h2 className="font-el-messiri text-5xl font-bold text-right text-black hover:opacity-70 duration-200 cursor-pointer">{link.name}</h2>
                             </a>
@@ -61,7 +41,7 @@ export default function Navigation() {
                     </div>
                 </div>
 
-                <div className="absolute top-0 right-0 bg-[url(/images/others/curly.png)] bg-no-repeat h-full w-full" />
+                <div className="absolute top-0 right-0 bg-[url(/images/others/curly.png)] bg-no-repeat bg-right-top h-full w-full" />
             </section>
         </nav>
     );
