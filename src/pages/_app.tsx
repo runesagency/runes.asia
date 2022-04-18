@@ -2,7 +2,6 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import MetaTags from "@/components/MetaTags";
-import { useEffect } from "react";
 
 const metaData = {
     title: "Runes - Creative Studio & Agency Based in Indonesia",
@@ -35,22 +34,6 @@ const metaData = {
 };
 
 const App = ({ Component, pageProps }: AppProps) => {
-    useEffect(() => {
-        if (process.env.NODE_ENV === "production") {
-            window.oncontextmenu = function () {
-                return false;
-            };
-            document.addEventListener("keydown", (event) => {
-                let key = event.key || event.keyCode;
-                if (key == 123) {
-                    return false;
-                } else if ((event.ctrlKey && event.shiftKey && key == 73) || (event.ctrlKey && event.shiftKey && key == 74)) {
-                    return false;
-                }
-            });
-        }
-    });
-
     return (
         <>
             <Head>
