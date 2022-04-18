@@ -2,6 +2,9 @@ import * as Icon from "@/components/Icons";
 
 import Link from "next/link";
 
+import * as localization from "@/lib/localization/components/footer";
+import { useLanguage } from "@/lib/hooks";
+
 export const Contacts = () => {
     const contacts = [
         {
@@ -101,28 +104,7 @@ export const Socials = () => {
 };
 
 export default function Footer() {
-    const links = [
-        {
-            name: "Home",
-            href: "/",
-        },
-        {
-            name: "About Us",
-            href: "/about",
-        },
-        {
-            name: "Services",
-            href: "/services",
-        },
-        {
-            name: "Projects",
-            href: "/projects",
-        },
-        {
-            name: "Contact",
-            href: "/contact",
-        },
-    ];
+    const { locale } = useLanguage("lang", localization);
 
     return (
         <footer id="footer" className="grid gap-32 text-yellow-light">
@@ -140,7 +122,7 @@ export default function Footer() {
                 <Socials />
 
                 <div className="grid gap-4 md:gap-6 font-lora text-2xl md:text-3xl font-bold group tracking-wide">
-                    {links.map((link, index) => (
+                    {locale.links.map((link, index) => (
                         <Link key={index} href={link.href}>
                             <a className="group-hover:opacity-50 hover:!opacity-100 duration-200">{link.name}</a>
                         </Link>
@@ -149,7 +131,7 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-col space-y-10 md:space-y-0 md:flex-row justify-between md:items-center">
-                <p className="paragraph text-center">Copyright © 2022 Runes. All Rights Reserved.</p>
+                <p className="paragraph text-center">{locale.copyright}</p>
 
                 <a
                     onClick={() => window.scrollTo(0, 0)} //
@@ -162,7 +144,7 @@ export default function Footer() {
                         />
                     </svg>
 
-                    <p className="text-black text-sm font-bold font-lora">Scroll To Top</p>
+                    <p className="text-black text-sm font-bold font-lora">{locale.scrollToTopButton}</p>
                 </a>
             </div>
         </footer>

@@ -3,9 +3,12 @@ import type { FormEvent } from "react";
 import * as Icon from "@/components/Icons";
 
 import { useState } from "react";
+import { useLanguage } from "@/lib/hooks";
+import * as localization from "@/lib/localization/components/contactForm";
 
 export default function ContactForm() {
     const [isSending, setIsSending] = useState(false);
+    const { locale } = useLanguage("lang", localization);
 
     const inputs = [
         {
@@ -13,7 +16,6 @@ export default function ContactForm() {
             dom: "input",
             type: "text",
             name: "name",
-            placeholder: "Your Name",
             required: true,
         },
         {
@@ -21,14 +23,12 @@ export default function ContactForm() {
             dom: "input",
             type: "email",
             name: "email",
-            placeholder: "Your Email",
             required: true,
         },
         {
             icon: Icon.Message,
             dom: "textarea",
             name: "email",
-            placeholder: "Your Email",
             required: true,
         },
     ];
@@ -100,7 +100,7 @@ export default function ContactForm() {
                             <input //
                                 type={input.type}
                                 name={input.name}
-                                placeholder={input.placeholder}
+                                placeholder={locale.inputs[index].placeholder}
                                 required={input.required}
                                 className="form-input pb-4"
                             />
@@ -108,7 +108,7 @@ export default function ContactForm() {
                         input.dom === "textarea" ? (
                             <textarea //
                                 name={input.name}
-                                placeholder={input.placeholder}
+                                placeholder={locale.inputs[index].placeholder}
                                 required={input.required}
                                 className="form-input pb-16"
                             />
@@ -117,7 +117,7 @@ export default function ContactForm() {
                     </div>
                 ))}
 
-                <button className="w-full py-3 bg-black font-bold text-yellow-light hover:border-4 hover:bg-transparent duration-200 border-black hover:text-black">Send Message</button>
+                <button className="w-full py-3 bg-black font-bold text-yellow-light hover:border-4 hover:bg-transparent duration-200 border-black hover:text-black">{locale.button}</button>
             </form>
         );
     }
