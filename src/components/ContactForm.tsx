@@ -100,7 +100,7 @@ export default function ContactForm() {
                             <input //
                                 type={input.type}
                                 name={input.name}
-                                placeholder={locale.inputs[index].placeholder}
+                                placeholder={locale.inputs[index]}
                                 required={input.required}
                                 className="form-input pb-4"
                             />
@@ -108,7 +108,7 @@ export default function ContactForm() {
                         input.dom === "textarea" ? (
                             <textarea //
                                 name={input.name}
-                                placeholder={locale.inputs[index].placeholder}
+                                placeholder={locale.inputs[index]}
                                 required={input.required}
                                 className="form-input pb-16"
                             />

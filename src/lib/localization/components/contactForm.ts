@@ -1,29 +1,9 @@
 export const en = {
-    inputs: [
-        {
-            placeholder: "Your Name",
-        },
-        {
-            placeholder: "Your Email",
-        },
-        {
-            placeholder: "Message",
-        },
-    ],
+    inputs: ["Your Name", "Your Email", "Message"],
     button: "Send Message",
 };
 
 export const id = {
-    inputs: [
-        {
-            placeholder: "Nama Anda",
-        },
-        {
-            placeholder: "Email Anda",
-        },
-        {
-            placeholder: "Pesan",
-        },
-    ],
+    inputs: ["Nama Anda", "Email Anda", "Pesan"],
     button: "Kirim Pesan",
 };
