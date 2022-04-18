@@ -3,6 +3,15 @@ import type { Dispatch, SetStateAction } from "react";
 
 import { useEffect, useState } from "react";
 
+const getComponentName = () => {
+    const stack = new Error().stack;
+    const lines = stack.split("\n");
+    const line = lines[3];
+    const match = line.match(/at (.*) \(/);
+    const name = match[1];
+    return name;
+};
+
 export const useTypewriter = (selector = "data-typewriter") => {
     useEffect(() => {
         type Bound = {
@@ -101,6 +110,8 @@ type useLanguageReturns<T> = {
 };
 
 export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: keyof T): useLanguageReturns<T> => {
+    const componentName = getComponentName();
+
     if (!defaultKey) {
         defaultKey = Object.keys(localization)[0] as any;
     }
@@ -132,15 +143,17 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
             localStorage.setItem(keyName, lang);
             document.dispatchEvent(updateEvent);
         } else {
-            console.error(`Language ${lang} is not supported.`);
+            console.error(`Language "${lang}" is not supported, found on "${componentName}" component.`);
         }
     }, [keyName, lang]);
 
     // Handle on locale change (Based on document event)
     useEffect(() => {
         document.addEventListener("languageChanged", (e: CustomEvent) => {
-            if (e.detail.keyName === keyName) {
+            if (e.detail.keyName === keyName && localization[e.detail.lang]) {
                 setLocale(localization[e.detail.lang]);
+            } else {
+                console.error(`Language ${e.detail.lang} is not supported, found on ${componentName} component.`);
             }
         });
     }, []);
