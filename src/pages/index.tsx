@@ -177,7 +177,7 @@ const Portfolio = () => {
 
             switch (scrollDirection) {
                 case "right":
-                    portfolio.scrollBy(0.8, 0);
+                    portfolio.scrollBy(1, 0);
 
                     if (portfolio.scrollLeft >= portfolio.scrollWidth - portfolio.clientWidth - 5) {
                         scrollDirection = "left";
@@ -185,7 +185,7 @@ const Portfolio = () => {
                     break;
 
                 case "left":
-                    portfolio.scrollBy(-0.8, 0);
+                    portfolio.scrollBy(-1, 0);
 
                     if (portfolio.scrollLeft <= 0) {
                         scrollDirection = "right";
