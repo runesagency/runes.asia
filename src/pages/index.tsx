@@ -9,7 +9,7 @@ import Link from "next/link";
 import { theme } from "../../tailwind.config";
 import { useLanguage, useTypewriter, useDragToScroll } from "@/lib/hooks";
 import { memo, useEffect } from "react";
-import * as localization from "@/lib/localization/home";
+import * as localization from "@/lib/localization/pages/home";
 
 const Portfolio = () => {
     const elementId = "portfolio-container";

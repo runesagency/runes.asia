@@ -6,7 +6,7 @@ import Heading from "@/components/Heading";
 import { theme } from "../../tailwind.config";
 import { memo } from "react";
 import { useLanguage, useTypewriter } from "@/lib/hooks";
-import * as localization from "@/lib/localization/contact";
+import * as localization from "@/lib/localization/pages/contact";
 
 const ContactPage = () => {
     useTypewriter();
