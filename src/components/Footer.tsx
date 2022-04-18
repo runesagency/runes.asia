@@ -2,7 +2,7 @@ import * as Icon from "@/components/Icons";
 
 import Link from "next/link";
 
-export default function Footer() {
+export const Contacts = () => {
     const contacts = [
         {
             icon: Icon.Mail,
@@ -17,10 +17,30 @@ export default function Footer() {
         {
             icon: Icon.Location,
             text: "Jl. Inpres Raya No.5, Kelurahan Gaga, Larangan, Tangerang, Banten, Indonesia 15154",
-            href: "https://goo.gl/maps/w8dPhEbQcCEZHTAR7",
+            href: "https://goo.gl/maps/3KybSxpnfC67cQ3YA",
         },
     ];
 
+    return (
+        <div className="grid gap-6 group">
+            {contacts.map((contact, index) => (
+                <a
+                    key={index}
+                    href={contact.href}
+                    title={contact.text}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex justify-start items-center space-x-7 group-hover:opacity-50 hover:!opacity-100 duration-200"
+                >
+                    <contact.icon className="w-7 flex-shrink-0 fill-current" />
+                    <p className="paragraph">{contact.text}</p>
+                </a>
+            ))}
+        </div>
+    );
+};
+
+export const Socials = () => {
     const socials = [
         {
             name: "Figma",
@@ -69,6 +89,18 @@ export default function Footer() {
         },
     ];
 
+    return (
+        <div className="grid gap-7 grid-cols-5 group">
+            {socials.map((social, index) => (
+                <a key={index} title={social.name} href={social.href} target="_blank" rel="noreferrer">
+                    <social.icon className="h-8 md:h-10 fill-current group-hover:opacity-50 hover:!opacity-100 duration-200" />
+                </a>
+            ))}
+        </div>
+    );
+};
+
+export default function Footer() {
     const links = [
         {
             name: "Home",
@@ -102,30 +134,10 @@ export default function Footer() {
                         </a>
                     </Link>
 
-                    <div className="grid gap-6 group">
-                        {contacts.map((contact, index) => (
-                            <a
-                                key={index}
-                                href={contact.href}
-                                title={contact.text}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="flex justify-start items-center space-x-7 group-hover:opacity-50 hover:!opacity-100 duration-200"
-                            >
-                                <contact.icon className="w-7 flex-shrink-0 fill-current" />
-                                <p className="paragraph">{contact.text}</p>
-                            </a>
-                        ))}
-                    </div>
+                    <Contacts />
                 </div>
 
-                <div className="grid gap-7 grid-cols-5 group">
-                    {socials.map((social, index) => (
-                        <a key={index} title={social.name} href={social.href} target="_blank" rel="noreferrer">
-                            <social.icon className="h-8 md:h-10 fill-current group-hover:opacity-50 hover:!opacity-100 duration-200" />
-                        </a>
-                    ))}
-                </div>
+                <Socials />
 
                 <div className="grid gap-4 md:gap-6 font-lora text-2xl md:text-3xl font-bold group tracking-wide">
                     {links.map((link, index) => (
