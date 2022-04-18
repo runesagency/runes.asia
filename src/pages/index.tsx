@@ -193,7 +193,7 @@ const Portfolio = () => {
             }
         };
 
-        setInterval(autoScroll, 10);
+        setInterval(autoScroll, 30);
     }, []);
 
     return (
