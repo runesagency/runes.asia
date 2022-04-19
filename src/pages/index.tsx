@@ -313,10 +313,10 @@ export default function HomePage() {
             {/* About */}
             <section id="about" className="relative z-10">
                 {/* Map */}
-                <div className="absolute top-0 left-0 transform -translate-x-1/3 z-0">
-                    <img src="/images/others/map.png" alt="map" className="hidden xl:block" />
-                    <img src="/images/others/map-no-marker.png" alt="map" className="xl:hidden" />
-                </div>
+                <picture>
+                    <source media="(min-width: 1280px)" srcSet="/images/others/map.png" />
+                    <img src="/images/others/map-no-marker.png" alt="map" className="absolute top-0 left-0 transform -translate-x-1/3 z-0" />
+                </picture>
 
                 {/* Content */}
                 <div className="relative container pl-8 md:pl-24 pt-20 z-10 grid gap-24">
@@ -348,8 +348,10 @@ export default function HomePage() {
                 {/* Peoples */}
                 <div className="container flex flex-col items-stretch">
                     {/* Persons */}
-                    <img src="/images/characters/stacked-vertical.png" alt="people" className="w-full md:hidden" />
-                    <img src="/images/characters/stacked-horizontal.png" alt="people" className="w-full hidden md:block" />
+                    <picture>
+                        <source media="(min-width:768px)" srcSet="/images/characters/stacked-horizontal.png" />
+                        <img src="/images/characters/stacked-vertical.png" alt="people" className="w-full" />
+                    </picture>
 
                     {/* Bottom Line */}
                     <div className="from-yellow-medium via-yellow-light to-yellow-medium bg-gradient-to-b h-1 w-full" />
@@ -540,8 +542,10 @@ export default function HomePage() {
 
                 <div className="hidden lg:block absolute h-full top-0 left-0 transform -translate-x-96 3xl:-translate-x-1/4 z-0">
                     <div className="h-full w-full z-10 absolute top-0 left-0" />
-                    <img src="/images/others/rocket-horizontal.svg" alt="" className="xl:hidden animate-[floating_8s_infinite]" />
-                    <img src="/images/others/rocket-skew.svg" alt="" className="hidden xl:block animate-[floating-45_8s_infinite]" />
+                    <picture>
+                        <source srcSet="/images/others/rocket-skew.svg" media="(min-width: 1280px)" />
+                        <img src="/images/others/rocket-horizontal.svg" alt="" className="animate-[floating_8s_infinite] xl:animate-[floating-45_8s_infinite]" />
+                    </picture>
                 </div>
             </section>
 
