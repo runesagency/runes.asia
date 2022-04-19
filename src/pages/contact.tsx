@@ -4,11 +4,10 @@ import ContactForm from "@/components/ContactForm";
 import Heading from "@/components/Heading";
 
 import { theme } from "../../tailwind.config";
-import { memo } from "react";
 import { useLanguage, useTypewriter } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/contact";
 
-const ContactPage = () => {
+export default function ContactPage() {
     useTypewriter();
     const { locale } = useLanguage("lang", localization);
 
@@ -83,6 +82,4 @@ const ContactPage = () => {
             </svg>
         </main>
     );
-};
-
-export default memo(ContactPage);
+}
