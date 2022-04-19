@@ -7,7 +7,7 @@ import Link from "next/link";
 
 import { theme } from "../../tailwind.config";
 import { useLanguage, useTypewriter, useDragToScroll } from "@/lib/hooks";
-import { memo, useEffect } from "react";
+import { useEffect } from "react";
 import * as localization from "@/lib/localization/pages/home";
 
 const Portfolio = () => {
@@ -246,7 +246,7 @@ const Portfolio = () => {
     );
 };
 
-const HomePage = () => {
+export default function HomePage() {
     useTypewriter();
     const { locale } = useLanguage("lang", localization);
 
@@ -545,6 +545,4 @@ const HomePage = () => {
             </section>
         </main>
     );
-};
-
-export default memo(HomePage);
+}
