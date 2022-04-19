@@ -48,16 +48,18 @@ export const useTypewriter = (selector = "data-typewriter") => {
 
         const initTypewrite = () => {
             for (const element of foundElements) {
-                const id = bounds.push({
-                    id: bounds.length,
-                    element,
-                    text: element.textContent,
-                    isActive: false,
-                    finished: false,
-                    height: element.clientHeight,
-                });
+                if (element.getAttribute(selector) === "true") {
+                    const id = bounds.push({
+                        id: bounds.length,
+                        element,
+                        text: element.textContent,
+                        isActive: false,
+                        finished: false,
+                        height: element.clientHeight,
+                    });
 
-                performTypewrite(id - 1);
+                    performTypewrite(id - 1);
+                }
             }
         };
 

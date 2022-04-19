@@ -45,6 +45,7 @@ export default function Services() {
                             <Heading //
                                 title={locale.intro.rateCard.title}
                                 description={locale.intro.rateCard.description}
+                                typewrite={false}
                                 className={{
                                     container: "lg:!text-left lg:!place-items-start lg:!mx-0",
                                     title: "text-5xl w-max",
