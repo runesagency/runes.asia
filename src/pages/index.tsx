@@ -388,6 +388,11 @@ export default function HomePage() {
                             </article>
                         ))}
                     </div>
+
+                    {/* Button */}
+                    <Link href={`/services`}>
+                        <a className="button mx-auto">{locale.services.button}</a>
+                    </Link>
                 </div>
 
                 {/* Spotlight 1 */}
@@ -458,6 +463,20 @@ export default function HomePage() {
                                 <value.icon className="h-12 fill-yellow-light mb-10 lg:mb-0 lg:mt-14" />
                             </article>
                         ))}
+                    </div>
+
+                    {/* Preview */}
+                    <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8 bg-gray py-7 px-8 md:px-12 lg:w-max mx-auto">
+                        {/* Info */}
+                        <div className="grid gap-2 max-w-md text-center md:text-left">
+                            <p className="paragraph text-white font-bold tracking-wide">{locale.values.preview.text_small}</p>
+                            <h4 className="text-xl lg:text-2xl font-lora text-yellow-light">{locale.values.preview.text_large}</h4>
+                        </div>
+
+                        {/* Button */}
+                        <a href="/compare-this-site" target={"_blank"} rel="noreferrer" className="button mx-auto h-full flex items-center">
+                            {locale.values.preview.button}
+                        </a>
                     </div>
                 </div>
 

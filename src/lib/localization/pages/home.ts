@@ -42,6 +42,7 @@ export const en = {
                 icon: Icon.Branding,
             },
         ],
+        button: "Learn More About Our Services",
     },
     portfolio: {
         button: "See More of Our Portfolio At:",
@@ -71,6 +72,11 @@ export const en = {
                 icon: Icon.Collaborative,
             },
         ],
+        preview: {
+            text_small: "Want to see an example of our work?",
+            text_large: "Compare this website's implementation with its original UI/UX Design on Figma.",
+            button: "See on Figma",
+        },
     },
     clients: {
         title: "Those Who Works With Us",
@@ -124,6 +130,7 @@ export const id = {
                 icon: Icon.Branding,
             },
         ],
+        button: "Pelajari Lebih Lanjut",
     },
     portfolio: {
         button: "Lihat Lebih Banyak Di:",
@@ -153,6 +160,11 @@ export const id = {
                 icon: Icon.Collaborative,
             },
         ],
+        preview: {
+            text_small: "Ingin melihat contoh pekerjaan kami?",
+            text_large: "Bandingkan implementasi situs web ini dengan desain UI/UX aslinya pada Figma.",
+            button: "Lihat di Figma",
+        },
     },
     clients: {
         title: "Mereka Yang Bekerja Dengan Kami",
