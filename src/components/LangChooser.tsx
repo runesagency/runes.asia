@@ -23,7 +23,7 @@ const LangChooser = ({
 
     return (
         <div className={`relative h-full ${className}`} {...props}>
-            <button className="flex justify-center items-center space-x-4" onClick={() => setOpen(!open)}>
+            <button className="flex justify-center items-center space-x-4 mx-auto" onClick={() => setOpen(!open)}>
                 <FlagIcon className="flex-shrink-0 h-5" />
 
                 <p className={`paragraph text-left ${hideNameOnMobile && "hidden md:block"}`}>{locale[lang].name}</p>
