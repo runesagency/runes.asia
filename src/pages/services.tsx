@@ -75,33 +75,29 @@ export default function Services() {
                 <img src="/images/others/dots-vertical.svg" alt="" className="dots-pattern bottom-0 right-0" />
             </section>
 
-            <section id="proposals" className="relative py-12">
-                <div className="from-yellow-light to-yellow-medium bg-gradient-to-r transform translate-y-8 z-0 relative h-1" />
-
-                <div className="container grid gap-16">
+            <section id="proposals" className="relative from-yellow-light to-yellow-medium bg-gradient-to-b py-24">
+                <div className="container grid gap-16 relative">
                     <Heading //
                         title={locale.proposals.title}
                         description={locale.proposals.description}
                         className={{
-                            container: "!bg-black relative z-10 md:w-max px-2",
-                            title: "text-6xl",
+                            container: "relative z-10 md:w-max px-2",
+                            title: "text-6xl !text-black",
+                            description: "!text-black",
                         }}
                     />
 
                     <div className="grid gap-9">
                         {locale.proposals.lists.map((proposal, index) => (
-                            <article
-                                key={index}
-                                className="from-yellow-light to-yellow-medium bg-gradient-to-r px-12 py-7 flex flex-col md:flex-row space-y-8 md:space-y-0 justify-between items-center text-black"
-                            >
+                            <article key={index} className="bg-black px-12 py-7 flex flex-col md:flex-row space-y-8 md:space-y-0 justify-between items-center text-white">
                                 <div className="grid gap-2 max-w-lg text-center md:text-left">
-                                    <h3 className="font-el-messiri text-4xl">{proposal.title}</h3>
+                                    <h3 className="font-el-messiri text-4xl text-yellow-light">{proposal.title}</h3>
                                     <p className="paragraph">{proposal.description}</p>
                                 </div>
 
                                 <div className="grid gap-4 max-w-lg flex-shrink-0">
                                     <LangChooser />
-                                    <Button href={proposal.link} target="_blank" rel="noreferrer" className="bg-none !bg-black text-yellow-light">
+                                    <Button href={proposal.link} target="_blank" rel="noreferrer" className="text-black">
                                         {locale.proposals.button}
                                     </Button>
                                 </div>
@@ -112,7 +108,7 @@ export default function Services() {
             </section>
 
             <section id="contact" className="relative py-12">
-                <div className="relative container z-20 grid gap-12 grid-cols-2 text-yellow-light py-20">
+                <div className="relative container z-20 grid gap-12 lg:grid-cols-2 text-yellow-light py-20">
                     <Heading //
                         title={locale.contact.title}
                         description={locale.contact.description}
@@ -123,6 +119,8 @@ export default function Services() {
 
                     <ContactForm theme="yellow" />
                 </div>
+
+                <div className="from-yellow-light to-yellow-medium bg-gradient-to-r transform translate-y-8 z-0 relative h-8" />
             </section>
 
             {/* Footer */}

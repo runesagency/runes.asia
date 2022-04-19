@@ -461,7 +461,7 @@ export default function HomePage() {
                         </div>
 
                         {/* Button */}
-                        <Button href="/compare-this-site" target={"_blank"} rel="noreferrer" className="mx-auto h-full flex items-center">
+                        <Button href="/compare-this-site" target={"_blank"} rel="noreferrer" className="mx-auto text-center">
                             {locale.values.preview.button}
                         </Button>
                     </div>
