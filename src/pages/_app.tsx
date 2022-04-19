@@ -4,7 +4,7 @@ import Head from "next/head";
 import MetaTags from "@/components/MetaTags";
 
 const metaData = {
-    title: "Runes - Creative Studio & Agency Based in Indonesia",
+    title: "Runes | Creative Studio & Agency Based in Indonesia",
     description:
         "We are a group of people gathered in a creative space known as the creative studio. We create various things and help brands, products and services become the best in their respective classes.",
     url: "https://runes.asia",
