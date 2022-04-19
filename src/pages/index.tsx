@@ -8,7 +8,7 @@ import Link from "next/link";
 import { theme } from "../../tailwind.config";
 import { useLanguage, useTypewriter, useDragToScroll } from "@/lib/hooks";
 import { useEffect } from "react";
-import * as localization from "@/lib/localization/pages/home";
+import * as localization from "@/lib/localization/pages";
 
 const Portfolio = () => {
     const elementId = "portfolio-container";

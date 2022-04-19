@@ -19,7 +19,7 @@ export default function Navigation() {
                 </Link>
 
                 <div className="flex items-center space-x-8 text-yellow-light">
-                    <LangChooser />
+                    <LangChooser hideNameOnMobile />
                     <Icon.Menu active={open} onClick={() => setOpen(!open)} />
                 </div>
             </section>
