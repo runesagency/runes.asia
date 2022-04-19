@@ -31,7 +31,7 @@
 
     /* Form */
     .form-input {
-        @apply relative inline-block w-full h-full bg-transparent border-b-4 text-base md:text-lg focus:outline-none autofill:!bg-clip-text;
+        @apply relative inline-block w-full h-full bg-transparent border-b-4 text-base md:text-lg focus:outline-none autofill:!bg-none;
     }
 
     .form-input.black {
