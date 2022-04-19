@@ -65,6 +65,18 @@
             "prettier/prettier": "error",
             "@next/next/no-img-element": "off",
             "react/no-unescaped-entities": "off"
+        },
+        "globals": {
+            "React": true,
+            "google": true,
+            "mount": true,
+            "mountWithRouter": true,
+            "shallow": true,
+            "shallowWithRouter": true,
+            "context": true,
+            "expect": true,
+            "jsdom": true,
+            "JSX": true
         }
     },
     "prettier": {
