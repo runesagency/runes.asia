@@ -20,6 +20,7 @@
         @apply max-w-xs md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto;
     }
 
+    /* Text */
     .title {
         @apply font-el-messiri text-6xl md:text-8xl;
     }
@@ -28,10 +29,7 @@
         @apply font-lora text-base md:text-lg leading-[160%] tracking-[2%];
     }
 
-    .button {
-        @apply from-yellow-light to-yellow-medium bg-gradient-to-r paragraph w-max font-bold px-5 py-3 hover:opacity-75 duration-200;
-    }
-
+    /* Form */
     .form-input {
         @apply relative inline-block w-full h-full bg-transparent border-b-4 text-base md:text-lg focus:outline-none autofill:!bg-clip-text;
     }

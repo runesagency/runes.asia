@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import Heading from "@/components/Heading";
-
+import Button from "@/components/Button";
 import Link from "next/link";
 
 import { theme } from "../../tailwind.config";
@@ -339,8 +339,8 @@ export default function HomePage() {
                         <p className="text-white">{locale.about.text_2}</p>
 
                         {/* Button */}
-                        <Link href={`/about`}>
-                            <a className="button">{locale.about.button}</a>
+                        <Link href={`/about`} passHref>
+                            <Button>{locale.about.button}</Button>
                         </Link>
                     </div>
                 </div>
@@ -377,8 +377,8 @@ export default function HomePage() {
                     </div>
 
                     {/* Button */}
-                    <Link href={`/services`}>
-                        <a className="button mx-auto">{locale.services.button}</a>
+                    <Link href={`/services`} passHref>
+                        <Button className="mx-auto">{locale.services.button}</Button>
                     </Link>
                 </div>
 
@@ -414,9 +414,9 @@ export default function HomePage() {
                 {/* More Button */}
                 <div className="flex flex-col md:flex-row justify-center items-center mx-auto space-y-5 md:space-y-0 md:space-x-5">
                     <p className="paragraph text-white">{locale.portfolio.button}</p>
-                    <a href="https://behance.net/wearerunes" target={"_blank"} rel="noreferrer" className="button">
+                    <Button href="https://behance.net/wearerunes" target={"_blank"} rel="noreferrer">
                         behance.net/wearerunes
-                    </a>
+                    </Button>
                 </div>
             </section>
 
@@ -461,9 +461,9 @@ export default function HomePage() {
                         </div>
 
                         {/* Button */}
-                        <a href="/compare-this-site" target={"_blank"} rel="noreferrer" className="button mx-auto h-full flex items-center">
+                        <Button href="/compare-this-site" target={"_blank"} rel="noreferrer" className="mx-auto h-full flex items-center">
                             {locale.values.preview.button}
-                        </a>
+                        </Button>
                     </div>
                 </div>
 

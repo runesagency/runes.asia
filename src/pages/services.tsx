@@ -3,12 +3,14 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import Heading from "@/components/Heading";
 import LangChooser from "@/components/LangChooser";
+import Button from "@/components/Button";
 
 import * as localization from "@/lib/localization/pages/services";
 import * as Icon from "@/components/Icons";
-import { useLanguage } from "@/lib/hooks";
+import { useLanguage, useTypewriter } from "@/lib/hooks";
 
 export default function Services() {
+    useTypewriter();
     const { locale } = useLanguage("lang", localization);
 
     const icons = [Icon.Design, Icon.Development, Icon.Marketing, Icon.SMM, Icon.Branding];
@@ -51,9 +53,9 @@ export default function Services() {
 
                             <LangChooser className="text-white" tooltipAlign="left" />
 
-                            <a href={locale.intro.rateCard.button.link} target="_blank" rel="noreferrer" className="button">
+                            <Button href={locale.intro.rateCard.button.link} target="_blank" rel="noreferrer">
                                 {locale.intro.rateCard.button.text}
-                            </a>
+                            </Button>
                         </section>
 
                         {/* Right */}
@@ -98,9 +100,9 @@ export default function Services() {
 
                                 <div className="grid gap-4 max-w-lg flex-shrink-0">
                                     <LangChooser />
-                                    <a href={proposal.link} target="_blank" rel="noreferrer" className="button bg-none !bg-black text-yellow-light">
+                                    <Button href={proposal.link} target="_blank" rel="noreferrer" className="bg-none !bg-black text-yellow-light">
                                         {locale.proposals.button}
-                                    </a>
+                                    </Button>
                                 </div>
                             </article>
                         ))}

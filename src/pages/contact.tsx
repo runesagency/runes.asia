@@ -6,6 +6,7 @@ import Heading from "@/components/Heading";
 import { theme } from "../../tailwind.config";
 import { useLanguage, useTypewriter } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/contact";
+import Button from "@/components/Button";
 
 export default function ContactPage() {
     useTypewriter();
@@ -58,9 +59,9 @@ export default function ContactPage() {
 
                     {/* Button */}
                     <div className="w-full grid place-items-center pt-8 bg-black">
-                        <a href="https://goo.gl/maps/3KybSxpnfC67cQ3YA" target={"_blank"} rel="noreferrer" className="button mx-auto">
+                        <Button href="https://goo.gl/maps/3KybSxpnfC67cQ3YA" target={"_blank"} rel="noreferrer" className="mx-auto">
                             {locale.mapButton}
-                        </a>
+                        </Button>
                     </div>
                 </div>
             </section>
