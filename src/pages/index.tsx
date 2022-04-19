@@ -15,7 +15,6 @@ const Portfolio = () => {
 
     type Portofolio = {
         name: string;
-        description: string;
         imageId: string;
         columnSpan: number;
         rowSpan: number;
@@ -27,7 +26,6 @@ const Portfolio = () => {
         [
             {
                 name: "Naraetos",
-                description: "One of our designer decided to try out some design in new style. What do you guys think about it? 💗",
                 imageId: "naraetos",
                 columnSpan: 1,
                 rowSpan: 1,
@@ -35,7 +33,6 @@ const Portfolio = () => {
             },
             {
                 name: "Runes Characters",
-                description: "A potrait of us, but in illustrations.",
                 imageId: "runes-characters",
                 columnSpan: 1,
                 rowSpan: 1,
@@ -43,7 +40,6 @@ const Portfolio = () => {
             },
             {
                 name: "Foxxy Hosting",
-                description: "A website prototype design for one of our project, Foxxy, a game hosting services.",
                 imageId: "foxxy-hosting",
                 columnSpan: 2,
                 rowSpan: 2,
@@ -51,7 +47,6 @@ const Portfolio = () => {
             },
             {
                 name: "Tune Discord Bot Website",
-                description: "The best music bot to accompany you while you were in Discord 24/7.",
                 imageId: "tune-website",
                 columnSpan: 2,
                 rowSpan: 2,
@@ -59,7 +54,6 @@ const Portfolio = () => {
             },
             {
                 name: "Foxxy Ecommerce",
-                description: "An ecommerce, side project website, for Foxxy.",
                 imageId: "foxxy-ecommerce",
                 columnSpan: 1,
                 rowSpan: 1,
@@ -67,7 +61,6 @@ const Portfolio = () => {
             },
             {
                 name: "Feby Putri",
-                description: "A site for Feby Putri, Indonesian singer-songwriter.",
                 imageId: "febyputri",
                 imagePlacement: "top",
                 columnSpan: 1,
@@ -76,7 +69,6 @@ const Portfolio = () => {
             },
             {
                 name: "Duta Bahasa Inggris",
-                description: "A website project for Duta Bahasa Inggris event, hosted by Briton English Education.",
                 imageId: "dbibybriton",
                 imagePlacement: "top",
                 columnSpan: 2,
@@ -85,7 +77,6 @@ const Portfolio = () => {
             },
             {
                 name: "Rafly Maulana Site",
-                description: "A portfolio site for Rafly Maulana.",
                 imageId: "raflymln",
                 columnSpan: 1,
                 rowSpan: 1,
@@ -95,7 +86,6 @@ const Portfolio = () => {
         [
             {
                 name: "Harvport",
-                description: "Harvport is a group committed to helping fruit growers to export their produce cheaply and easily.",
                 imageId: "harvport",
                 imagePlacement: "top",
                 columnSpan: 2,
@@ -104,7 +94,6 @@ const Portfolio = () => {
             },
             {
                 name: "Madaya Group",
-                description: "A website for Madaya Group, a mining company based on Indonesia.",
                 imageId: "madaya",
                 imagePlacement: "top",
                 columnSpan: 2,
@@ -113,7 +102,6 @@ const Portfolio = () => {
             },
             {
                 name: "Araloka Studios",
-                description: "Araloka Studios is a Creative Home Production which is incorporated in the space of PT Karya Abadi",
                 imageId: "araloka",
                 imagePlacement: "top",
                 columnSpan: 2,
@@ -122,7 +110,6 @@ const Portfolio = () => {
             },
             {
                 name: "Rawr, Drip, Splotch",
-                description: "At the moment, we create a nature living design that livin' up your nature! 🍀.",
                 imageId: "rawr-drip-splotch",
                 columnSpan: 1,
                 rowSpan: 1,
@@ -130,7 +117,6 @@ const Portfolio = () => {
             },
             {
                 name: "IndieSpices",
-                description: "",
                 imageId: "indiespices",
                 imagePlacement: "top",
                 columnSpan: 1,
@@ -139,7 +125,6 @@ const Portfolio = () => {
             },
             {
                 name: "Genesi Visual",
-                description: "GENESI is a team of wedding photographers and videographers, based in Jakarta.",
                 imageId: "genesi",
                 imagePlacement: "top",
                 columnSpan: 2,
@@ -148,7 +133,6 @@ const Portfolio = () => {
             },
             {
                 name: "Circle, Diamond, Heart",
-                description: "A random illustration project.",
                 imageId: "circle-diamond-heart",
                 columnSpan: 1,
                 rowSpan: 1,
@@ -223,16 +207,19 @@ const Portfolio = () => {
                                             }}
                                         />
 
-                                        <div className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-black bg-opacity-75 duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center">
-                                            <h1 className="font-el-messiri text-lg md:text-2xl text-yellow-light">{portfolio.name}</h1>
-                                            <p className="font-lora text-sm text-white max-w-xs leading-relaxed tracking-wide hidden lg:block">{portfolio.description}</p>
+                                        <div
+                                            className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-black bg-opacity-75 duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center"
+                                            title={portfolio.name}
+                                        >
                                             <a
                                                 className="font-lora text-base underline text-yellow-light font-bold tracking-wide hover:opacity-75 duration-200"
                                                 href={portfolio.link}
                                                 target="_blank"
                                                 rel="noreferrer"
                                             >
-                                                View Project
+                                                <svg className="w-20 fill-yellow-light" viewBox="0 0 86 86">
+                                                    <path d="M0 0V27.1579H9.05263V15.4347L23.0389 29.4211L29.4211 23.0389L15.4347 9.05263H27.1579V0H0ZM58.8421 0V9.05263H70.5653L56.5789 23.0389L62.9611 29.4211L76.9474 15.4347V27.1579H86V0H58.8421ZM27.1579 86V76.9474H15.4347L29.4211 62.9611L23.0389 56.5789L9.05263 70.5653V58.8421H0V86H27.1579ZM86 86V58.8421H76.9474V70.5653L62.9611 56.5789L56.5789 62.9611L70.5653 76.9474H58.8421V86H86Z" />
+                                                </svg>
                                             </a>
                                         </div>
                                     </div>
