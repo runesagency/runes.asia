@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/components/contactForm";
 
-export default function ContactForm() {
+export default function ContactForm({ theme }: { theme?: "yellow" | "black" }) {
     const [isSending, setIsSending] = useState(false);
     const { locale } = useLanguage("lang", localization);
 
@@ -84,14 +84,14 @@ export default function ContactForm() {
 
     if (isSending) {
         return (
-            <svg className="w-40 fill-black animate-spin m-auto" viewBox="0 0 24 24">
+            <svg className="w-40 fill-current animate-spin m-auto" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z" opacity=".5" />
                 <path fill="currentColor" d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z" />
             </svg>
         );
     } else {
         return (
-            <form onSubmit={formHandler} className="grid gap-11 font-lora fill-current text-black">
+            <form onSubmit={formHandler} className="grid gap-11 font-lora fill-current text-current">
                 {inputs.map((input, index) => (
                     <div key={index} className="flex justify-start items-start space-x-7">
                         <input.icon className="w-8 md:w-10" />
@@ -102,7 +102,7 @@ export default function ContactForm() {
                                 name={input.name}
                                 placeholder={locale.inputs[index]}
                                 required={input.required}
-                                className="form-input pb-4"
+                                className={`form-input pb-4 ${theme && theme === "yellow" ? "yellow" : "black"}`}
                             />
                         ) : //
                         input.dom === "textarea" ? (
@@ -110,14 +110,14 @@ export default function ContactForm() {
                                 name={input.name}
                                 placeholder={locale.inputs[index]}
                                 required={input.required}
-                                className="form-input pb-16"
+                                className={`form-input pb-16 ${theme && theme === "yellow" ? "yellow" : "black"}`}
                             />
                         ) : //
                         null}
                     </div>
                 ))}
 
-                <button className="w-full py-3 bg-black font-bold text-yellow-light hover:border-4 hover:bg-transparent duration-200 border-black hover:text-black">{locale.button}</button>
+                <button className={`form-button ${theme && theme === "yellow" ? "yellow" : "black"}`}>{locale.button}</button>
             </form>
         );
     }
