@@ -5,10 +5,7 @@ export const en = {
         rateCard: {
             title: "Rate Card",
             description: "Need a list of services or an overview of the prices of the services we provide?",
-            button: {
-                text: "View Rate Card",
-                link: "#",
-            },
+            button: "View Rate Card",
         },
     },
     proposals: {
@@ -19,12 +16,12 @@ export const en = {
             {
                 title: "Web Development",
                 description: "Landing Page, CMS, Company Profile, E-Commerce, etc.",
-                link: "#",
+                filePath: "#",
             },
             {
                 title: "Social Media Management",
                 description: "WhatsApp, Instagram, Facebook, Tiktok",
-                link: "#",
+                filePath: "#",
             },
         ],
     },
@@ -41,10 +38,7 @@ export const id = {
         rateCard: {
             title: "Rate Card",
             description: "Butuh daftar layanan atau gambaran umum tentang harga layanan yang kami berikan?",
-            button: {
-                text: "Lihat Rate Card",
-                link: "#",
-            },
+            button: "Lihat Rate Card",
         },
     },
     proposals: {
@@ -55,12 +49,12 @@ export const id = {
             {
                 title: "Web Development",
                 description: "Landing Page, CMS, Company Profile, E-Commerce, etc.",
-                link: "#",
+                filePath: "#",
             },
             {
                 title: "Social Media Management",
                 description: "WhatsApp, Instagram, Facebook, Tiktok",
-                link: "#",
+                filePath: "#",
             },
         ],
     },

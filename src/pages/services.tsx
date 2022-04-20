@@ -8,12 +8,20 @@ import Button from "@/components/Button";
 import * as localization from "@/lib/localization/pages/services";
 import * as Icon from "@/components/Icons";
 import { useLanguage, useTypewriter } from "@/lib/hooks";
+import { useEffect, useState } from "react";
 
 export default function Services() {
     useTypewriter();
-    const { locale } = useLanguage("lang", localization);
+    const { locale, lang } = useLanguage("lang", localization);
+    const [url, setUrl] = useState("");
 
     const icons = [Icon.Design, Icon.Development, Icon.Marketing, Icon.SMM, Icon.Branding];
+
+    useEffect(() => {
+        setUrl(`${location.protocol + "//" + window.location.host}`);
+    }, []);
+
+    const viewPdf = (path: string) => `https://docs.google.com/viewer?url=${url}${path}`;
 
     return (
         <main className="relative bg-black">
@@ -54,8 +62,8 @@ export default function Services() {
 
                             <LangChooser className="text-white" tooltipAlign="left" />
 
-                            <Button href={locale.intro.rateCard.button.link} target="_blank" rel="noreferrer">
-                                {locale.intro.rateCard.button.text}
+                            <Button href={viewPdf(`/docs/rate-card/${lang}.pdf`)} target="_blank" rel="noreferrer">
+                                {locale.intro.rateCard.button}
                             </Button>
                         </section>
 
@@ -97,7 +105,7 @@ export default function Services() {
 
                                 <div className="grid gap-4 max-w-lg flex-shrink-0">
                                     <LangChooser />
-                                    <Button href={proposal.link} target="_blank" rel="noreferrer" className="text-black">
+                                    <Button href={viewPdf(proposal.filePath)} target="_blank" rel="noreferrer" className="text-black">
                                         {locale.proposals.button}
                                     </Button>
                                 </div>
