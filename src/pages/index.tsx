@@ -181,7 +181,7 @@ const Portfolio = () => {
     }, []);
 
     return (
-        <div id={elementId} className="max-w-full cursor-move overflow-x-auto no-scrollbar">
+        <div id={elementId} className="max-w-full cursor-move overflow-x-auto no-scrollbar will-change-scroll">
             <section className="relative grid grid-cols-2 w-max gap-4 xl:gap-6">
                 {portfolios.map((row, index) => {
                     return (
@@ -504,12 +504,12 @@ export default function HomePage() {
 
                 {/* Logomark 1 */}
                 <div className="hidden xl:block absolute w-24 bottom-0 left-0 z-20 transform translate-x-20 xl:translate-x-10 2xl:translate-x-24 3xl:translate-x-60 -translate-y-32">
-                    <img src="/images/logo-mark.svg" alt="logo-mark" className="animate-[floating_5s_infinite_2s]" />
+                    <img src="/images/logo-mark.svg" alt="logo-mark" className="will-change-transform animate-[floating_5s_infinite_2s]" />
                 </div>
 
                 {/* Logomark 2 */}
                 <div className="hidden lg:block absolute w-56 bottom-0 left-0 z-0 transform -translate-x-20 3xl:translate-x-10 -translate-y-96">
-                    <img src="/images/logo-mark.svg" alt="logo-mark" className="animate-[floating_8s_infinite]" />
+                    <img src="/images/logo-mark.svg" alt="logo-mark" className="will-change-transform animate-[floating_8s_infinite]" />
                 </div>
 
                 {/* Logomark 3 */}
@@ -544,7 +544,7 @@ export default function HomePage() {
                     <div className="h-full w-full z-10 absolute top-0 left-0" />
                     <picture>
                         <source srcSet="/images/others/rocket-skew.svg" media="(min-width: 1280px)" />
-                        <img src="/images/others/rocket-horizontal.svg" alt="" className="animate-[floating_8s_infinite] xl:animate-[floating-45_8s_infinite]" />
+                        <img src="/images/others/rocket-horizontal.svg" alt="" className="will-change-transform animate-[floating_8s_infinite] xl:animate-[floating-45_8s_infinite]" />
                     </picture>
                 </div>
             </section>

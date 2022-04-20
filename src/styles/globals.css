@@ -61,6 +61,7 @@
         animation-name: spotlight;
         animation-iteration-count: infinite;
         animation-duration: 5s;
+        will-change: transform, opacity;
     }
 
     .dots-pattern {
@@ -80,23 +81,23 @@
 
     @keyframes spotlight {
         0% {
-            transform: rotate(0deg);
+            transform: rotate(0deg) translateZ(0);
             opacity: 0.5;
         }
 
         100% {
-            transform: rotate(5deg);
+            transform: rotate(5deg) translateZ(0);
             opacity: 1;
         }
     }
 
     @keyframes floating {
         0% {
-            transform: translateY(0);
+            transform: translateY(0) translateZ(0);
         }
 
         50% {
-            transform: translateY(30px);
+            transform: translateY(30px) translateZ(0);
         }
 
         100% {
@@ -106,11 +107,11 @@
 
     @keyframes floating-45 {
         0% {
-            transform: translateY(0) translateX(0);
+            transform: translateY(0) translateX(0) translateZ(0);
         }
 
         50% {
-            transform: translateY(30px) translateX(-30px);
+            transform: translateY(30px) translateX(-30px) translateZ(0);
         }
 
         100% {
