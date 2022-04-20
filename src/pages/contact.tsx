@@ -47,7 +47,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Google Maps */}
-                <div>
+                <div className="bg-black">
                     {/* Map */}
                     <iframe
                         className="relative w-full min-h-[500px] -mt-24 z-0 invert-[90%] grayscale-[10%] contrast-[100%]"
@@ -58,7 +58,7 @@ export default function ContactPage() {
                     />
 
                     {/* Button */}
-                    <div className="w-full grid place-items-center pt-8 bg-black">
+                    <div className="w-full grid place-items-center pt-8">
                         <Button href="https://goo.gl/maps/3KybSxpnfC67cQ3YA" target={"_blank"} rel="noreferrer" className="mx-auto">
                             {locale.mapButton}
                         </Button>
