@@ -314,8 +314,8 @@ export default function HomePage() {
             <section id="about" className="relative z-10">
                 {/* Map */}
                 <picture>
-                    <source media="(min-width: 1280px)" srcSet="/images/others/map.png" />
-                    <img src="/images/others/map-no-marker.png" alt="map" className="absolute top-0 left-0 transform -translate-x-1/3 z-0" />
+                    <source media="(min-width: 1280px)" srcSet="/images/others/map-default.svg" />
+                    <img src="/images/others/map-no-marker.svg" alt="map" className="absolute top-0 left-0 transform -translate-x-1/3 z-0" />
                 </picture>
 
                 {/* Content */}
