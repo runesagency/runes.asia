@@ -105,7 +105,7 @@ export default function Services() {
 
                                 <div className="grid gap-4 max-w-lg flex-shrink-0">
                                     <LangChooser />
-                                    <Button href={viewPdf(proposal.filePath)} target="_blank" rel="noreferrer" className="text-black">
+                                    <Button href={viewPdf(`/docs/proposals/${index + 1}/${lang}.pdf`)} target="_blank" rel="noreferrer" className="text-black">
                                         {locale.proposals.button}
                                     </Button>
                                 </div>

@@ -16,12 +16,10 @@ export const en = {
             {
                 title: "Web Development",
                 description: "Landing Page, CMS, Company Profile, E-Commerce, etc.",
-                filePath: "#",
             },
             {
                 title: "Social Media Management",
                 description: "WhatsApp, Instagram, Facebook, Tiktok",
-                filePath: "#",
             },
         ],
     },
@@ -47,14 +45,12 @@ export const id = {
         button: "Lihat Proposal",
         lists: [
             {
-                title: "Web Development",
+                title: "Pengembangan Situs Website",
                 description: "Landing Page, CMS, Company Profile, E-Commerce, etc.",
-                filePath: "#",
             },
             {
-                title: "Social Media Management",
+                title: "Manajemen Media Sosial",
                 description: "WhatsApp, Instagram, Facebook, Tiktok",
-                filePath: "#",
             },
         ],
     },
