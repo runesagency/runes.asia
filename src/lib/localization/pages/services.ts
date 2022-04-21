@@ -6,6 +6,7 @@ export const en = {
             title: "Rate Card",
             description: "Need a list of services or an overview of the prices of the services we provide?",
             button: "View Rate Card",
+            link: "https://drive.google.com/file/d/11Q5PDd4ct2eHXUXyUAfrxKEWAc9inkmZ/view?usp=sharing",
         },
     },
     proposals: {
@@ -16,10 +17,12 @@ export const en = {
             {
                 title: "Web Development",
                 description: "Landing Page, CMS, Company Profile, E-Commerce, etc.",
+                link: "https://drive.google.com/file/d/11etkIGfmsqSHa-EseeEDxpYCDtK-WYCn/view?usp=sharing",
             },
             {
                 title: "Social Media Management",
                 description: "WhatsApp, Instagram, Facebook, Tiktok",
+                link: "https://drive.google.com/file/d/11kZc4NLc5DA-0Mg3YTFpdK-UaI4zwYme/view?usp=sharing",
             },
         ],
     },
@@ -37,6 +40,7 @@ export const id = {
             title: "Rate Card",
             description: "Butuh daftar layanan atau gambaran umum tentang harga layanan yang kami berikan?",
             button: "Lihat Rate Card",
+            link: "https://drive.google.com/file/d/11OYeoWpQmLn1AZ1r95g6ayEuhWDYZI38/view?usp=sharing",
         },
     },
     proposals: {
@@ -47,10 +51,12 @@ export const id = {
             {
                 title: "Pengembangan Situs Website",
                 description: "Landing Page, CMS, Company Profile, E-Commerce, etc.",
+                link: "https://drive.google.com/file/d/11ZdJWybP30TgXsxGQnmfEggKc186pS_y/view?usp=sharing",
             },
             {
                 title: "Manajemen Media Sosial",
                 description: "WhatsApp, Instagram, Facebook, Tiktok",
+                link: "https://drive.google.com/file/d/11h546vR97YsZxJuG_ogVHWmH5W7wOgPW/view?usp=sharing",
             },
         ],
     },
