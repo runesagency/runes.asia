@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Vidaloka&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -12,110 +12,10 @@
 }
 
 @layer components {
-    .text-linear-yellow {
-        @apply from-yellow-light to-yellow-medium bg-clip-text text-transparent;
-    }
-
     .container {
-        @apply max-w-xs md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto;
-    }
-
-    /* Text */
-    .title {
-        @apply font-el-messiri text-6xl md:text-8xl;
-    }
-
-    .paragraph {
-        @apply font-lora text-base md:text-lg leading-[160%] tracking-[2%];
-    }
-
-    /* Form */
-    .form-input {
-        @apply relative inline-block w-full h-full bg-transparent border-b-4 text-base md:text-lg focus:outline-none autofill:!bg-none;
-    }
-
-    .form-input.black {
-        @apply border-black text-black placeholder-black;
-    }
-
-    .form-input.yellow {
-        @apply border-yellow-light text-yellow-light placeholder-yellow-light;
-    }
-
-    .form-button {
-        @apply w-full py-3 font-bold hover:border-4 hover:!bg-transparent duration-200;
-    }
-
-    .form-button.yellow {
-        @apply text-black bg-yellow-light border-yellow-light hover:text-yellow-light;
-    }
-
-    .form-button.black {
-        @apply text-yellow-light bg-black border-black hover:text-black;
+        @apply mx-auto max-w-xs md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 3xl:max-w-screen-2xl;
     }
 }
 
 @layer utilities {
-    .spotlight {
-        @apply absolute bottom-0 z-0 h-full transform translate-x-1/4 md:translate-x-0;
-        animation-name: spotlight;
-        animation-iteration-count: infinite;
-        animation-duration: 5s;
-        will-change: transform, opacity;
-    }
-
-    .dots-pattern {
-        @apply absolute hidden md:block opacity-50 lg:opacity-100 z-0;
-    }
-
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Hide scrollbar for IE, Edge and Firefox */
-    .no-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-    }
-
-    @keyframes spotlight {
-        0% {
-            transform: rotate(0deg) translateZ(0);
-            opacity: 0.5;
-        }
-
-        100% {
-            transform: rotate(5deg) translateZ(0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes floating {
-        0% {
-            transform: translateY(0) translateZ(0);
-        }
-
-        50% {
-            transform: translateY(30px) translateZ(0);
-        }
-
-        100% {
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes floating-45 {
-        0% {
-            transform: translateY(0) translateX(0) translateZ(0);
-        }
-
-        50% {
-            transform: translateY(30px) translateX(-30px) translateZ(0);
-        }
-
-        100% {
-            transform: translateY(0) translateX(0);
-        }
-    }
 }

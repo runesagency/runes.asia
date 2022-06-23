@@ -1,6 +1,6 @@
 {
-    "name": "wearerunes",
-    "version": "1.1.0",
+    "name": "@wearerunes/website",
+    "version": "2.0.0",
     "description": "Official Website of Runes",
     "main": "index.js",
     "repository": "https://github.com/wearerunes/wearerunes.git",
@@ -24,8 +24,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
-        "deploy": "git pull && pnpm install && next build && next start"
+        "lint": "next lint"
     },
     "dependencies": {
         "@prisma/client": "^3.10.0",
@@ -67,15 +66,6 @@
             "react/no-unescaped-entities": "off"
         },
         "globals": {
-            "React": true,
-            "google": true,
-            "mount": true,
-            "mountWithRouter": true,
-            "shallow": true,
-            "shallowWithRouter": true,
-            "context": true,
-            "expect": true,
-            "jsdom": true,
             "JSX": true
         }
     },

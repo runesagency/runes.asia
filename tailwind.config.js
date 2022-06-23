@@ -10,17 +10,19 @@ module.exports = {
             transparent: "transparent",
             current: "currentColor",
             white: "#FFFFFF",
-            gray: "#3E3E3E",
-            black: "#292525",
+            black: "#272727",
+            lime: "#D2D8B3",
+            navy: "#90A9B7",
+            pink: "#E5989B",
+            purple: "#B5838D",
             yellow: {
-                light: "#FFC977",
-                medium: "#C09645",
-                dark: "#695D45",
+                light: "#EFD09E",
+                dark: "#D4AA7D",
             },
         },
         fontFamily: {
-            "el-messiri": ["El Messiri", "sans-serif"],
-            lora: ["Lora", "serif"],
+            vidaloka: ["Vidaloka", "serif"],
+            poppins: ["Poppins", "sans-serif"],
         },
         extend: {
             screens: {
