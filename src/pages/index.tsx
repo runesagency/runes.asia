@@ -1,8 +1,8 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/Sections/Navigation";
+import Footer from "@/components/Sections/Footer";
 import ContactForm from "@/components/ContactForm";
 import Heading from "@/components/Heading";
-import Button from "@/components/Button";
+import Button from "@/components/Utils/Button";
 import Link from "next/link";
 
 import { theme } from "../../tailwind.config";
@@ -10,7 +10,7 @@ import { useLanguage, useTypewriter, useDragToScroll } from "@/lib/hooks";
 import { useEffect, useRef } from "react";
 import * as localization from "@/lib/localization/pages";
 
-const Portfolio = () => {
+const Showcases = () => {
     const elementRef = useRef<HTMLDivElement>(null);
 
     type Portofolio = {
@@ -188,51 +188,49 @@ const Portfolio = () => {
     return (
         <div ref={elementRef} className="max-w-full cursor-move overflow-x-auto no-scrollbar will-change-scroll">
             <section className="relative grid grid-cols-2 w-max gap-4 xl:gap-6">
-                {portfolios.map((row, index) => {
-                    return (
-                        <section key={index} className="relative grid grid-rows-2 grid-cols-8 gap-4 xl:gap-6 auto-cols-max auto-rows-max">
-                            {row.map((portfolio, index) => {
-                                const span = (span: number) => `span ${span} / span ${span}`;
+                {portfolios.map((row, index) => (
+                    <section key={index} className="relative grid grid-rows-2 grid-cols-8 gap-4 xl:gap-6 auto-cols-max auto-rows-max">
+                        {row.map((portfolio, index) => {
+                            const span = (span: number) => `span ${span} / span ${span}`;
 
-                                return (
-                                    <div
-                                        className="relative h-full flip-card overflow-hidden group"
-                                        key={index}
+                            return (
+                                <div
+                                    className="relative h-full flip-card overflow-hidden group"
+                                    key={index}
+                                    style={{
+                                        gridColumn: span(portfolio.columnSpan),
+                                        gridRow: span(portfolio.rowSpan),
+                                    }}
+                                >
+                                    <img
+                                        className="h-44 w-44 lg:h-64 lg:w-64 min-h-full min-w-full object-cover transform group-hover:scale-110 duration-200"
+                                        src={`/images/portfolio/${portfolio.imageId}.png`}
+                                        alt={portfolio.name}
                                         style={{
-                                            gridColumn: span(portfolio.columnSpan),
-                                            gridRow: span(portfolio.rowSpan),
+                                            objectPosition: portfolio.imagePlacement || "center",
                                         }}
-                                    >
-                                        <img
-                                            className="h-44 w-44 lg:h-64 lg:w-64 min-h-full min-w-full object-cover transform group-hover:scale-110 duration-200"
-                                            src={`/images/portfolio/${portfolio.imageId}.png`}
-                                            alt={portfolio.name}
-                                            style={{
-                                                objectPosition: portfolio.imagePlacement || "center",
-                                            }}
-                                        />
+                                    />
 
-                                        <div
-                                            className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-black bg-opacity-75 duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center"
-                                            title={portfolio.name}
+                                    <div
+                                        className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-black bg-opacity-75 duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center"
+                                        title={portfolio.name}
+                                    >
+                                        <a
+                                            className="font-lora text-base underline text-yellow-light font-bold tracking-wide hover:opacity-75 duration-200"
+                                            href={portfolio.link}
+                                            target="_blank"
+                                            rel="noreferrer"
                                         >
-                                            <a
-                                                className="font-lora text-base underline text-yellow-light font-bold tracking-wide hover:opacity-75 duration-200"
-                                                href={portfolio.link}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                <svg className="w-20 fill-yellow-light" viewBox="0 0 86 86">
-                                                    <path d="M0 0V27.1579H9.05263V15.4347L23.0389 29.4211L29.4211 23.0389L15.4347 9.05263H27.1579V0H0ZM58.8421 0V9.05263H70.5653L56.5789 23.0389L62.9611 29.4211L76.9474 15.4347V27.1579H86V0H58.8421ZM27.1579 86V76.9474H15.4347L29.4211 62.9611L23.0389 56.5789L9.05263 70.5653V58.8421H0V86H27.1579ZM86 86V58.8421H76.9474V70.5653L62.9611 56.5789L56.5789 62.9611L70.5653 76.9474H58.8421V86H86Z" />
-                                                </svg>
-                                            </a>
-                                        </div>
+                                            <svg className="w-20 fill-yellow-light" viewBox="0 0 86 86">
+                                                <path d="M0 0V27.1579H9.05263V15.4347L23.0389 29.4211L29.4211 23.0389L15.4347 9.05263H27.1579V0H0ZM58.8421 0V9.05263H70.5653L56.5789 23.0389L62.9611 29.4211L76.9474 15.4347V27.1579H86V0H58.8421ZM27.1579 86V76.9474H15.4347L29.4211 62.9611L23.0389 56.5789L9.05263 70.5653V58.8421H0V86H27.1579ZM86 86V58.8421H76.9474V70.5653L62.9611 56.5789L56.5789 62.9611L70.5653 76.9474H58.8421V86H86Z" />
+                                            </svg>
+                                        </a>
                                     </div>
-                                );
-                            })}
-                        </section>
-                    );
-                })}
+                                </div>
+                            );
+                        })}
+                    </section>
+                ))}
             </section>
         </div>
     );
@@ -244,24 +242,14 @@ export default function HomePage() {
 
     const clients = [
         {
-            name: "Araloka Studios",
-            logoId: "araloka",
-            href: "https://aralokastudios.com/",
+            name: "Tune Discord Bot",
+            logoId: "tune",
+            href: "https://tunebot.org",
         },
         {
-            name: "Feby Putri",
-            logoId: "febyputri",
-            href: "https://byncrecords.com/",
-        },
-        {
-            name: "Briton English Education",
-            logoId: "briton",
-            href: "https://britonenglish.co.id/",
-        },
-        {
-            name: "Madaya Group",
-            logoId: "madaya",
-            href: "https://madayagroup.com/",
+            name: "Green Discord Bot",
+            logoId: "green-bot",
+            href: "https://green-bot.app/",
         },
         {
             name: "Duta Bahasa Inggris By Briton",
@@ -269,9 +257,14 @@ export default function HomePage() {
             href: "https://dbi.britonenglish.co.id/",
         },
         {
-            name: "Tune Discord Bot",
-            logoId: "tune",
-            href: "https://tunebot.org",
+            name: "Briton English Education",
+            logoId: "briton",
+            href: "https://britonenglish.co.id/",
+        },
+        {
+            name: "Indiespices",
+            logoId: "indiespices",
+            href: "https://indiespices.com/",
         },
         {
             name: "Harvport",
@@ -279,285 +272,215 @@ export default function HomePage() {
             href: "https://harvport.com/",
         },
         {
-            name: "Indiespices",
-            logoId: "indiespices",
-            href: "https://indiespices.com/",
+            name: "Feby Putri",
+            logoId: "febyputri",
+            href: "https://byncrecords.com/",
+        },
+        {
+            name: "Araloka Studios",
+            logoId: "araloka",
+            href: "https://aralokastudios.com/",
+        },
+        {
+            name: "Madaya Group",
+            logoId: "madaya",
+            href: "https://madayagroup.com/",
+        },
+    ];
+
+    const statistics = [
+        {
+            label: "Projects",
+            value: "20+",
+        },
+        {
+            label: "Clients",
+            value: "9+",
+        },
+        {
+            label: "Type of\nServices",
+            value: "10+",
+        },
+    ];
+
+    const characters = [
+        "Sultan", //
+        "Rafly",
+        "Dayven",
+        "Yoga",
+    ];
+
+    const services = [
+        {
+            name: "Design",
+            description: "Spice up your brand designs with some colourful illustrations and sketches.",
+            services: ["Graphics", "Illustrations", "UI/UX", "3D Art"],
+        },
+        {
+            name: "Development",
+            description: "Make your brand more recognized throughout the digital world and more.",
+            services: ["Website Development", "Multi Purpose Bot", "API", "AR/VR"],
+        },
+        {
+            name: "Marketing",
+            description: "Get your brand noticed and heard by the people you want to reach.",
+            services: ["Search Engine Optimization (SEO)", "Social Media Advertising", "Advertising"],
+        },
+        {
+            name: "Management",
+            description: "Let us handle your production things to help you do your jobs easier.",
+            services: ["Social Media Management", "Website Maintenance", "Business Development, Planning & Consulting"],
         },
     ];
 
     return (
-        <main className="relative bg-black">
+        <main className="relative bg-white">
             {/* Header */}
-            <header className="container">
-                <Navigation />
-            </header>
+            <section className="relative py-20 bg-contain bg-no-repeat bg-right-bottom bg-yellow-light" style={{ backgroundImage: "url(/images/illustrations/hand-rising.png)" }}>
+                <div className="container grid gap-28">
+                    <Navigation />
 
-            {/* Intro */}
-            <section id="intro" className="relative">
-                {/* Rectangle */}
-                <svg className="absolute top-0 -left-10 lg:left-0 h-full fill-transparent from-yellow-light to-yellow-medium bg-gradient-to-b" width="76" height="422" viewBox="0 0 76 422">
-                    <rect width="76" height="422" />
-                </svg>
+                    <div className="grid gap-8 text-black">
+                        <h1 className="jumbo-title">
+                            Level Up Your
+                            <br />
+                            Brand, Together.
+                        </h1>
 
-                {/* Content */}
-                <div className="container pl-8 md:pl-24 flex w-full justify-between items-start mt-16 mb-8">
-                    {/* Title */}
-                    <h1 className="text-5xl md:text-6xl lg:text-8xl xl:text-9xl font-el-messiri max-w-xl xl:max-w-3xl text-linear-yellow bg-gradient-to-b" data-typewriter>
-                        {locale.intro.title}
-                    </h1>
+                        <h4 className="subtitle text-justify max-w-lg">We help grow, elevating your brand from other competitors. We make solutions so that you don’t have to work it yourself.</h4>
 
-                    {/* Icons */}
-                    <div className="hidden md:flex justify-evenly items-center h-44 lg:h-72 xl:h-[400px] -space-x-[50%]">
-                        <img src="/images/logo-mark.svg" alt="logo" className="h-full" />
-                        <img src="/images/logo-mark.svg" alt="logo2" className="h-full opacity-50" />
-                        <img src="/images/logo-mark.svg" alt="logo3" className="h-full opacity-10" />
+                        <Button>Let's Start A Project</Button>
+                    </div>
+
+                    <div className="flex gap-14 font-poppins text-black">
+                        {statistics.map(({ label, value }, index) => (
+                            <div key={index} className="flex flex-col items-center gap-4">
+                                <h3 className="font-bold text-5xl">{value}</h3>
+                                <p className="text-2xl whitespace-pre-line text-center">{label}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* About */}
-            <section id="about" className="relative z-10">
-                {/* Map */}
-                <picture>
-                    <source media="(min-width: 1280px)" srcSet="/images/others/map-default.svg" />
-                    <img src="/images/others/map-no-marker.svg" alt="map" className="absolute top-0 left-0 transform -translate-x-1/3 z-0" />
-                </picture>
+            <section className="pt-36 relative">
+                <div className="container grid gap-12 text-center z-10">
+                    <h1 className="title">Who Are We?</h1>
 
-                {/* Content */}
-                <div className="relative container pl-8 md:pl-24 pt-20 z-10 grid gap-24">
-                    {/* Icons */}
-                    <div className="flex justify-between items-center w-full max-w-xl lg:max-w-full ml-auto text-yellow-light fill-current">
-                        {locale.services.lists.map((service, index) => (
-                            <service.icon key={index} className="w-6 md:w-10" />
-                        ))}
-                    </div>
+                    <p className="text-2xl font-poppins max-w-4xl mx-auto leading-normal">
+                        <b>We are creative people</b>, in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.
+                    </p>
 
-                    {/* About */}
-                    <div className="grid gap-5 lg:ml-auto max-w-xl pb-24 font-lora text-xl md:text-2xl leading-normal">
-                        {/* Text 1 */}
-                        <p className="text-yellow-light">
-                            <b>{locale.about.text_1.intro}</b>
-                            {locale.about.text_1.text}
-                        </p>
-
-                        {/* Text 2 */}
-                        <p className="text-white">{locale.about.text_2}</p>
-
-                        {/* Button */}
-                        <Link href={`/about`} passHref>
-                            <Button>{locale.about.button}</Button>
-                        </Link>
-                    </div>
+                    <Button className="mx-auto">Seems Cool, Tell Me More</Button>
                 </div>
 
-                {/* Peoples */}
-                <div className="container flex flex-col items-stretch">
-                    {/* Persons */}
-                    <picture>
-                        <source media="(min-width:768px)" srcSet="/images/characters/stacked-horizontal.png" />
-                        <img src="/images/characters/stacked-vertical.png" alt="people" className="w-full" />
-                    </picture>
-
-                    {/* Bottom Line */}
-                    <div className="from-yellow-medium via-yellow-light to-yellow-medium bg-gradient-to-b h-1 w-full" />
-                </div>
-            </section>
-
-            {/* Services */}
-            <section id="services" className="relative py-32">
-                {/* Content */}
-                <div className="relative container grid gap-24 z-10">
-                    <Heading //
-                        title={locale.services.title}
-                        description={locale.services.description}
-                    />
-
-                    {/* Services */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-20">
-                        {locale.services.lists.map((service, index) => (
-                            <article key={index} className="grid gap-5 w-72 text-center mx-auto">
-                                <service.icon className="w-8 mx-auto fill-yellow-light" />
-                                <h3 className="text-yellow-light text-4xl font-lora font-bold mx-auto leading-tight">{service.title}</h3>
-                                <p className="paragraph text-white mx-auto">{service.description}</p>
-                            </article>
-                        ))}
-                    </div>
-
-                    {/* Button */}
-                    <Link href={`/services`} passHref>
-                        <Button className="mx-auto">{locale.services.button}</Button>
-                    </Link>
+                <div className="relative flex justify-center -space-x-10 mx-auto w-full z-10 pt-12">
+                    {characters.map((character, index) => (
+                        <img key={index} src={`/images/characters/${character}.png`} className="max-h-44 md:max-h-72 h-auto" alt={character} />
+                    ))}
                 </div>
 
-                {/* Spotlight 1 */}
-                <svg className="spotlight left-0 origin-bottom-left" style={{ animationDirection: "alternate" }} viewBox="0 0 2139 1203">
-                    <path opacity="0.3" d="M0.5 979.5V1080V1203L2139 0H1918.5H385L0.5 979.5Z" fill="url(#spotlight1)" />
-
-                    <defs>
-                        <linearGradient id="spotlight1" x1="548" y1="1080" x2="548" y2="-0.00013015" gradientUnits="userSpaceOnUse">
-                            <stop stopColor={theme.colors.yellow.light} />
-                            <stop offset="1" stopColor={theme.colors.black} />
-                        </linearGradient>
-                    </defs>
-                </svg>
-
-                {/* Spotlight 2 */}
-                <svg className="spotlight right-0 origin-bottom-right" style={{ animationDirection: "alternate-reverse" }} viewBox="0 0 2139 1203">
-                    <path opacity="0.3" d="M2139 979.5V1080V1203L0.5 0H221H1754.5L2139 979.5Z" fill="url(#spotlight2)" />
-
-                    <defs>
-                        <linearGradient id="spotlight2" x1="1370.5" y1="1080" x2="1370.5" y2="-0.00013015" gradientUnits="userSpaceOnUse">
-                            <stop stopColor={theme.colors.yellow.light} />
-                            <stop offset="1" stopColor={theme.colors.black} />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </section>
-
-            {/* Portfolio */}
-            <section id="portfolio" className="relative grid gap-16 pb-32">
-                <Portfolio />
-
-                {/* More Button */}
-                <div className="flex flex-col md:flex-row justify-center items-center mx-auto space-y-5 md:space-y-0 md:space-x-5">
-                    <p className="paragraph text-white">{locale.portfolio.button}</p>
-                    <Button href="https://behance.net/wearerunes" target={"_blank"} rel="noreferrer">
-                        behance.net/wearerunes
-                    </Button>
-                </div>
-            </section>
-
-            {/* Values */}
-            <section id="values" className="relative pb-48">
-                {/* Content */}
-                <div className="relative container grid gap-20 z-10">
-                    {/* Icons */}
-                    <div className="flex justify-between items-center max-w-xl w-full mx-auto fill-yellow-light stroke-yellow-light">
-                        {locale.values.lists.map((value, index) => (
-                            <value.icon key={index} className="h-8 md:h-11" />
-                        ))}
-                    </div>
-
-                    <Heading //
-                        title={locale.values.title}
-                        description={locale.values.description}
-                    />
-
-                    {/* List */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 w-full">
-                        {locale.values.lists.map((value, index) => (
-                            <article key={index} className="flex flex-col-reverse lg:flex-col justify-end lg:justify-between items-start">
-                                {/* Description */}
-                                <div className="grid gap-4">
-                                    <h2 className="font-el-messiri text-4xl font-bold text-yellow-light">{value.title}</h2>
-                                    <p className="paragraph text-white">{value.description}</p>
-                                </div>
-
-                                {/* Icon */}
-                                <value.icon className="h-12 fill-yellow-light mb-10 lg:mb-0 lg:mt-14" />
-                            </article>
-                        ))}
-                    </div>
-
-                    {/* Preview */}
-                    <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8 bg-gray py-7 px-8 md:px-12 lg:w-max mx-auto">
-                        {/* Info */}
-                        <div className="grid gap-2 max-w-md text-center md:text-left">
-                            <p className="paragraph text-white font-bold tracking-wide">{locale.values.preview.text_small}</p>
-                            <h4 className="text-xl lg:text-2xl font-lora text-yellow-light">{locale.values.preview.text_large}</h4>
-                        </div>
-
-                        {/* Button */}
-                        <Button href="/compare-this-site" target={"_blank"} rel="noreferrer" className="mx-auto text-center">
-                            {locale.values.preview.button}
-                        </Button>
-                    </div>
-                </div>
-
-                {/* Pattern 1 */}
-                <img src="/images/others/dots-horizontal.svg" alt="" className="dots-pattern top-0 left-0" />
-
-                {/* Pattern 2 */}
-                <img src="/images/others/dots-vertical.svg" alt="" className="dots-pattern bottom-0 right-0" />
-            </section>
-
-            {/* Clients */}
-            <section id="clients" className="relative overflow-hidden">
-                {/* Content */}
-                <div className="relative container grid gap-20 z-30 pb-12">
-                    <Heading //
-                        title={locale.clients.title}
-                        description={locale.clients.description}
-                    />
-
-                    {/* List */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 w-full group max-w-5xl mx-auto">
-                        {clients.map((client, index) => (
-                            <a
-                                href={client.href}
-                                title={client.name}
-                                target="_blank"
-                                rel="noreferrer"
-                                key={index}
-                                className="relative m-auto group-hover:opacity-50 hover:!opacity-100 duration-200 bg-opacity-75"
-                            >
-                                <img src={`/images/clients/${client.logoId}.png`} alt={client.name} className="w-64 lg:w-auto" />
-                            </a>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Logomark 1 */}
-                <div className="hidden xl:block absolute w-24 bottom-0 left-0 z-20 transform translate-x-20 xl:translate-x-10 2xl:translate-x-24 3xl:translate-x-60 -translate-y-32">
-                    <img src="/images/logo-mark.svg" alt="logo-mark" className="will-change-transform animate-[floating_5s_infinite_2s]" />
-                </div>
-
-                {/* Logomark 2 */}
-                <div className="hidden lg:block absolute w-56 bottom-0 left-0 z-0 transform -translate-x-20 3xl:translate-x-10 -translate-y-96">
-                    <img src="/images/logo-mark.svg" alt="logo-mark" className="will-change-transform animate-[floating_8s_infinite]" />
-                </div>
-
-                {/* Logomark 3 */}
-                <img src="/images/logo-mark.svg" alt="logo-mark" className="hidden lg:block absolute max-w-xl w-full bottom-0 right-0 transform translate-x-48 translate-y-1/3 z-0" />
-
-                {/* Divider */}
-                <svg className="relative w-full object-cover fill-yellow-light z-10 -mb-1" viewBox="0 0 1920 265">
+                <svg className="absolute bottom-0 left-0 fill-lime opacity-40" viewBox="0 0 1920 266">
                     <path d="M0 0V130V265.5H1920V130V45.8333C1170.27 94.1662 749.881 86.466 0 0Z" />
                 </svg>
             </section>
 
-            {/* Contact */}
-            <section id="contact" className="relative overflow-hidden from-yellow-light to-yellow-medium bg-gradient-to-b pb-24">
-                {/* Content */}
-                <div className="relative container z-20">
-                    <div className="max-w-2xl ml-auto grid gap-12">
-                        <Heading //
-                            title={locale.contact.title}
-                            description={locale.contact.description}
-                            className={{
-                                container: "!text-left !place-items-start !mx-0",
-                                title: "!text-black",
-                                description: "!text-black",
-                            }}
-                        />
+            {/* Clients */}
+            <section className="py-20 bg-lime">
+                <div className="container grid gap-12 text-center z-10">
+                    <p className="subtitle">And these were the brands who put their trust in us to grow their brand to the top.</p>
 
-                        <ContactForm />
+                    <div className="max-w-6xl grid grid-cols-2 md:grid-cols-3 xl:flex flex-wrap gap-8 md:gap-10 justify-between mx-auto">
+                        {clients.map(({ name, logoId, href }) => (
+                            <a key={name} href={href} className="flex justify-center items-center flex-shrink-0">
+                                <img src={`/images/clients/${logoId}.png`} className="max-h-14" alt={name} />
+                            </a>
+                        ))}
                     </div>
                 </div>
+            </section>
 
-                <div className="hidden lg:block absolute h-full top-0 left-0 transform -translate-x-96 3xl:-translate-x-1/4 z-0">
-                    <div className="h-full w-full z-10 absolute top-0 left-0" />
-                    <picture>
-                        <source srcSet="/images/others/rocket-skew.svg" media="(min-width: 1280px)" />
-                        <img src="/images/others/rocket-horizontal.svg" alt="" className="will-change-transform animate-[floating_8s_infinite] xl:animate-[floating-45_8s_infinite]" />
-                    </picture>
+            {/* Services - Intro */}
+            <section className="bg-pink">
+                <div className="container flex flex-col-reverse lg:flex-row gap-10 justify-between items-center text-center pb-20 lg:py-0">
+                    <div className="grid gap-11 max-w-lg xl:max-w-md 3xl:max-w-xl">
+                        <img src="/images/others/tagline.svg" alt="tagline" className="w-full" />
+                        <p className="subtitle text-justify">From A to Z, we provide various things from Design to AR and VR Experiences to fulfill the solutions to any problems.</p>
+                        <Button>See What We Do</Button>
+                    </div>
+
+                    <img src="/images/illustrations/falling.png" alt="falling" className="flex-shrink-0 lg:w-2/3 max-w-lg xl:max-w-xl" />
                 </div>
             </section>
 
-            {/* Footer */}
-            <section className="relative py-24 container">
-                <Footer />
+            {/* Services - List */}
+            <section className="pt-36 pb-20 relative">
+                <div className="container grid gap-12 z-10">
+                    <div className="grid gap-5 text-center">
+                        <h1 className="title">Choose What You Need</h1>
+                        <h4 className="subtitle">We have a wide range of services to fit your needs.</h4>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 xl:grid-cols-4">
+                        {services.map(({ name, description, services }) => (
+                            <div key={name} className="grid gap-5 px-9 py-20 border-black border border-opacity-20 text-black font-poppins">
+                                <img src={`/images/illustrations/services/${name}.png`} alt={name} className="w-full" />
+                                <h3 className="text-3xl font-vidaloka">{name}</h3>
+                                <p className="text-justify">{description}</p>
+
+                                <div className="grid gap-3">
+                                    {services.map((service, index) => (
+                                        <article key={index} className="flex gap-2">
+                                            <svg className="fill-lime flex-shrink-0 w-4" viewBox="0 0 18 18">
+                                                <path d="M15.8994 1.32533C13.5265 3.37901 11.5189 5.33398 9.68095 7.88464C8.87038 9.00964 7.96898 10.3338 7.37976 11.5839C7.04338 12.2468 6.43701 13.2827 6.23029 14.2786C5.09966 13.2267 3.88523 12.0328 2.64266 11.0976C1.75701 10.4314 -0.79393 11.7898 0.244445 12.5711C2.10548 13.9709 3.6532 15.7144 5.46332 17.1766C6.22045 17.7875 7.89838 16.4608 8.2927 15.9042C9.58701 14.0705 9.76391 11.8289 10.7072 9.82864C12.1475 6.76948 14.7018 4.25651 17.2238 2.07429C18.8947 0.515888 17.1689 0.228451 15.9019 1.32533" />
+                                            </svg>
+
+                                            <p>{service}</p>
+                                        </article>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
+
+            {/* Showcases */}
+            <section className="py-20 relative grid gap-12">
+                <div className="container grid gap-5 text-center">
+                    <h1 className="title">Showcases</h1>
+                    <h4 className="subtitle">From the various projects we have worked on.</h4>
+                </div>
+
+                <Showcases />
+
+                <Button className="mx-auto">That's Cool, You Got More?</Button>
+            </section>
+
+            {/* Contact */}
+            <section className="py-20 relative bg-yellow-light">
+                <div className="container grid gap-10 text-center">
+                    <div className="container grid gap-5 text-center">
+                        <h1 className="jumbo-title">
+                            Every Great Thing Is
+                            <br />
+                            Always Made Together
+                        </h1>
+
+                        <p className="subtitle">Make your ideas come to reality easily with us.</p>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 mx-auto">
+                        <Button>Explore Our Pricing</Button>
+                        <Button light className="bg-transparent">
+                            Have Any Questions?
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            <Footer />
         </main>
     );
 }

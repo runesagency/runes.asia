@@ -33,12 +33,5 @@ module.exports = {
     variants: {
         extend: {},
     },
-    plugins: [
-        ({ addComponents }) => {
-            addComponents({
-                ".container": {},
-                ".paragraph": {},
-            });
-        },
-    ],
+    plugins: [],
 };

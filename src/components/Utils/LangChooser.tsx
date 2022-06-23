@@ -2,15 +2,13 @@ import * as localization from "@/lib/localization/components/langChooser";
 import { HTMLAttributes, useState } from "react";
 import { useLanguage } from "@/lib/hooks";
 
-const LangChooser = ({
-    className,
-    tooltipAlign,
-    hideNameOnMobile,
-    ...props
-}: HTMLAttributes<HTMLDivElement> & {
+type LangChooserProps = {
     tooltipAlign?: "right" | "left";
     hideNameOnMobile?: boolean;
-}) => {
+    dark?: boolean;
+};
+
+const LangChooser = ({ className, tooltipAlign, hideNameOnMobile, dark, ...props }: HTMLAttributes<HTMLDivElement> & LangChooserProps) => {
     const [open, setOpen] = useState(false);
     const { lang, setLang, locale } = useLanguage("lang", localization);
 
@@ -22,8 +20,8 @@ const LangChooser = ({
     };
 
     return (
-        <div className={`relative h-full ${className}`} {...props}>
-            <button className="flex justify-center items-center space-x-4 mx-auto" onClick={() => setOpen(!open)}>
+        <div className={`relative h-full font-poppins ${className}`} {...props}>
+            <button className="flex justify-center items-center gap-4 mx-auto" onClick={() => setOpen(!open)}>
                 <FlagIcon className="flex-shrink-0 h-5" />
 
                 <p className={`paragraph text-left ${hideNameOnMobile && "hidden md:block"}`}>{locale[lang].name}</p>
@@ -36,14 +34,15 @@ const LangChooser = ({
             {open && (
                 <div
                     className={
-                        `grid gap-2 absolute -bottom-2 transform translate-y-full w-max bg-yellow-light shadow-sm text-black p-4 rounded-sm ` +
-                        (tooltipAlign ? (tooltipAlign === "right" ? "right-0" : "left-0") : "right-0")
+                        `grid gap-2 absolute -bottom-2 transform translate-y-full w-max shadow-sm p-4 rounded-sm` +
+                        (tooltipAlign ? (tooltipAlign === "right" ? " right-0" : " left-0") : " right-0") +
+                        (dark ? " bg-black text-yellow" : " bg-yellow-light text-black")
                     }
                 >
                     {Object.entries(locale).map(([code, language], index) => (
                         <button
                             key={index}
-                            className={`flex justify-start items-center space-x-4 w-full p-2 rounded-sm duration-200 ${
+                            className={`flex justify-start items-center gap-4 w-full p-2 rounded-sm duration-200 ${
                                 lang === code ? "bg-black text-yellow-light" : "hover:bg-black hover:bg-opacity-70 hover:text-yellow-light"
                             }`}
                             onClick={() => changeLang(code)}

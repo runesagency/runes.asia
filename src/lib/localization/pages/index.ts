@@ -1,4 +1,4 @@
-import * as Icon from "@/components/Icons";
+import * as Icon from "@/components/Images/Icons";
 
 export const en = {
     intro: {
