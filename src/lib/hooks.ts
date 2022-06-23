@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 import { useEffect, useState, useRef } from "react";
 
@@ -174,9 +174,9 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
     };
 };
 
-export const useDragToScroll = (elementId: string) => {
+export const useDragToScroll = (element: MutableRefObject<HTMLDivElement>) => {
     useEffect(() => {
-        const slider = document.getElementById(elementId);
+        const slider = element.current;
         let isDown = false;
         let startX: number;
         let scrollLeft: number;
@@ -203,7 +203,7 @@ export const useDragToScroll = (elementId: string) => {
             e.preventDefault();
 
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 1; //scroll-fast
+            const walk = (x - startX) * 1.2; //scroll-fast
             const prevScrollLeft = slider.scrollLeft;
 
             slider.scrollLeft = scrollLeft - walk;
@@ -230,11 +230,19 @@ export const useDragToScroll = (elementId: string) => {
 
         const momentumLoop = () => {
             slider.scrollLeft += velX;
-            velX *= 0.95;
+            velX *= 0.98;
 
             if (Math.abs(velX) > 0.5) {
                 momentumID = requestAnimationFrame(momentumLoop);
             }
         };
-    }, [elementId]);
+
+        return () => {
+            slider.removeEventListener("mousedown", () => {});
+            slider.removeEventListener("mouseleave", () => {});
+            slider.removeEventListener("mouseup", () => {});
+            slider.removeEventListener("mousemove", () => {});
+            slider.removeEventListener("wheel", () => {});
+        };
+    }, [element]);
 };

@@ -7,11 +7,11 @@ import Link from "next/link";
 
 import { theme } from "../../tailwind.config";
 import { useLanguage, useTypewriter, useDragToScroll } from "@/lib/hooks";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import * as localization from "@/lib/localization/pages";
 
 const Portfolio = () => {
-    const elementId = "portfolio-container";
+    const elementRef = useRef<HTMLDivElement>(null);
 
     type Portofolio = {
         name: string;
@@ -141,18 +141,18 @@ const Portfolio = () => {
         ],
     ];
 
-    useDragToScroll(elementId);
+    useDragToScroll(elementRef);
 
     useEffect(() => {
-        const portfolio: HTMLElement = document.getElementById(elementId);
+        const element: HTMLElement = elementRef.current;
         let isScrolling = true;
         let scrollDirection = "right";
 
-        portfolio.onmouseover = () => {
+        element.onmouseover = () => {
             isScrolling = false;
         };
 
-        portfolio.onmouseleave = () => {
+        element.onmouseleave = () => {
             isScrolling = true;
         };
 
@@ -161,27 +161,32 @@ const Portfolio = () => {
 
             switch (scrollDirection) {
                 case "right":
-                    portfolio.scrollBy(1, 0);
+                    element.scrollBy(1, 0);
 
-                    if (portfolio.scrollLeft >= portfolio.scrollWidth - portfolio.clientWidth - 5) {
+                    if (element.scrollLeft >= element.scrollWidth - element.clientWidth - 5) {
                         scrollDirection = "left";
                     }
                     break;
 
                 case "left":
-                    portfolio.scrollBy(-1, 0);
+                    element.scrollBy(-1, 0);
 
-                    if (portfolio.scrollLeft <= 0) {
+                    if (element.scrollLeft <= 0) {
                         scrollDirection = "right";
                     }
             }
         };
 
         setInterval(autoScroll, 30);
+
+        return () => {
+            element.onmouseover = null;
+            element.onmouseleave = null;
+        };
     }, []);
 
     return (
-        <div id={elementId} className="max-w-full cursor-move overflow-x-auto no-scrollbar will-change-scroll">
+        <div ref={elementRef} className="max-w-full cursor-move overflow-x-auto no-scrollbar will-change-scroll">
             <section className="relative grid grid-cols-2 w-max gap-4 xl:gap-6">
                 {portfolios.map((row, index) => {
                     return (
