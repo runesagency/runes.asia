@@ -3,7 +3,7 @@ import * as Branding from "@/components/Images/Branding";
 
 import Link from "next/link";
 
-import * as localization from "@/lib/localization/components/footer";
+import * as localization from "@/lib/localization/components/sections/footer";
 import { useLanguage } from "@/lib/hooks";
 import LangChooser from "@/components/Utils/LangChooser";
 

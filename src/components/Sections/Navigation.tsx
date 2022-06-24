@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { useState } from "react";
 import { useLanguage } from "@/lib/hooks";
-import * as localization from "@/lib/localization/components/navigation";
+import * as localization from "@/lib/localization/components/sections/navigation";
 
 type NavigationProps = {
     light?: boolean;
