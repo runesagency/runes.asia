@@ -1,177 +1,151 @@
-import * as Icon from "@/components/Images/Icons";
-
 export const en = {
-    intro: {
-        title: "Empowering Brands To The Fullest.",
+    header: {
+        content: {
+            title: "Level Up Your\nBrand, Together.",
+            description: "We help grow, elevating your brand from other competitors. We make solutions so that you don’t have to work it yourself.",
+            button: "Let's Start A Project",
+        },
+        statistics: [
+            {
+                label: "Projects",
+                value: "20+",
+            },
+            {
+                label: "Happy\nClients",
+                value: "9+",
+            },
+            {
+                label: "Type of\nServices",
+                value: "10+",
+            },
+        ],
     },
     about: {
-        text_1: {
-            intro: "We are creative people",
-            text: ", in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.",
-        },
-        text_2: "We are established and growing in Tangerang City, Banten, Indonesia since 2022, and we will continue to strive to provide the best quality and maximum level of satisfaction.",
-        button: "Learn More About Us",
-    },
-    services: {
-        title: "What We Do",
-        description: "We provide various things from Design to AR/VR Experiences to fulfill the solutions to any problems.",
-        lists: [
-            {
-                title: "Design",
-                description: "Graphic, Illustration, UI/UX, 3D Art",
-                icon: Icon.Design,
-            },
-            {
-                title: "Development",
-                description: "Application, Website, API, Chatbot, AR/VR",
-                icon: Icon.Development,
-            },
-            {
-                title: "Marketing",
-                description: "SEO, Media Advertisements",
-                icon: Icon.Marketing,
-            },
-            {
-                title: "Social Media Management",
-                description: "WhatsApp, Instagram",
-                icon: Icon.SMM,
-            },
-            {
-                title: "Branding",
-                description: "Design, Marketing, Development, Management",
-                icon: Icon.Branding,
-            },
+        title: "Who Are We?",
+        description: [
+            "We are creative people", //
+            ", in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.",
         ],
-        button: "Learn More About Our Services",
-    },
-    portfolio: {
-        button: "See More of Our Portfolio At:",
-    },
-    values: {
-        title: "We Deliver The Project At Its Finest",
-        description: "We always apply 4 main points in the quality of our workmanship, to ensure that our work meets our best standards.",
-        lists: [
-            {
-                title: "Quality",
-                description: "We always provide the highest quality service and even strive to exceed the expectations of our clients.",
-                icon: Icon.Quality,
-            },
-            {
-                title: "Excellence",
-                description: "We always use the latest technology and the best way to produce high enough quality.",
-                icon: Icon.Excellence,
-            },
-            {
-                title: "Creativity",
-                description: "We will give you a unique idea, which will make your product or service stand out from the competition.",
-                icon: Icon.Creativity,
-            },
-            {
-                title: "Collaborative",
-                description: "We open a discussion room with our clients & partners as the work progresses, so that the results can meet the expectations of both parties.",
-                icon: Icon.Collaborative,
-            },
-        ],
-        preview: {
-            text_small: "Want to see an example of our work?",
-            text_large: "Compare this website's implementation with its original UI/UX Design on Figma.",
-            button: "See on Figma",
-        },
+        button: "Seems Cool, Tell Me More",
     },
     clients: {
-        title: "Those Who Works With Us",
-        description: "Those who put their trust in us to grow their brand to the top.",
+        subtitle: "And these were the brands who put their trust in us to grow their brand to the top.",
+    },
+    intro: {
+        text: "From A to Z, we provide various things from Design to AR and VR Experiences to fulfill the solutions to any problems.",
+        button: "See What We Do",
+    },
+    services: {
+        title: "Choose What You Need",
+        subtitle: "We have a wide range of services to fit your needs.",
+        list: [
+            {
+                name: "Design",
+                description: "Spice up your brand designs with some colourful illustrations and sketches.",
+                services: ["Graphics", "Illustrations", "UI/UX", "3D Art"],
+            },
+            {
+                name: "Development",
+                description: "Make your brand more recognized throughout the digital world and more.",
+                services: ["Website Development", "Multi Purpose Bot", "API", "AR/VR"],
+            },
+            {
+                name: "Marketing",
+                description: "Get your brand noticed and heard by the people you want to reach.",
+                services: ["Search Engine Optimization (SEO)", "Social Media Advertising", "Advertising"],
+            },
+            {
+                name: "Management",
+                description: "Let us handle your production things to help you do your jobs easier.",
+                services: ["Social Media Management", "Website Maintenance", "Business Development, Planning & Consulting"],
+            },
+        ],
+    },
+    showcases: {
+        title: "Showcases",
+        subtitle: "From the various projects we have worked on.",
+        button: "That's Cool, You Got More?",
     },
     contact: {
-        title: "Nothing Great Is Made Alone",
-        description: "Something great are always made together, so why don’t we do it together?",
+        title: "Every Great Thing Is\nAlways Made Together",
+        subtitle: "Make your ideas come to reality easily with us.",
+        button_1: "Explore Our Pricing",
+        button_2: "Have Any Questions?",
     },
 };
 
-export const id = {
-    intro: {
-        title: "Menuju Tak Terbatas Dan Melampaui.",
+export const id: typeof en = {
+    header: {
+        content: {
+            title: "Tingkatkan Brand\nMilikmu, Bersama.",
+            description: "Kami membantu tumbuh, mengangkat merek Anda dari pesaing lain. Kami membuat solusi sehingga Anda tidak harus mengerjakannya sendiri.",
+            button: "Mari Kita Mulai",
+        },
+        statistics: [
+            {
+                label: "Proyek",
+                value: "20+",
+            },
+            {
+                label: "Klien\nSenang",
+                value: "9+",
+            },
+            {
+                label: "Jenis\nLayanan",
+                value: "10+",
+            },
+        ],
     },
     about: {
-        text_1: {
-            intro: "Kami adalah orang-orang kreatif",
-            text: ", di ruang kreatif bernama Creative Studio, didedikasikan untuk membantu merek, produk, dan layanan menjadi yang terbaik di kelasnya masing-masing.",
-        },
-        text_2: "Kami berdiri dan berkembang di Kota Tangerang, Banten, Indonesia sejak tahun 2022, dan kami akan terus berusaha untuk memberikan kualitas terbaik dan tingkat kepuasan yang maksimal.",
-        button: "Pelajari Lebih Lanjut",
-    },
-    services: {
-        title: "Yang Kami Lakukan",
-        description: "Kami menyediakan berbagai hal dari desain ke pengalaman AR/VR untuk memenuhi solusi untuk masalah apa pun.",
-        lists: [
-            {
-                title: "Desain",
-                description: "Grafis, Ilustrasi, UI/UX, Karya 3D",
-                icon: Icon.Design,
-            },
-            {
-                title: "Pengembangan",
-                description: "Aplikasi, Website, API, Bot Pesan, AR/VR",
-                icon: Icon.Development,
-            },
-            {
-                title: "Pemasaran",
-                description: "SEO, Iklan Media",
-                icon: Icon.Marketing,
-            },
-            {
-                title: "Manajemen Media Sosial",
-                description: "WhatsApp, Instagram",
-                icon: Icon.SMM,
-            },
-            {
-                title: "Branding",
-                description: "Desain, Pemasaran, Pengembangan, Manajemen",
-                icon: Icon.Branding,
-            },
+        title: "Siapa Kami?",
+        description: [
+            "Kami adalah orang-orang kreatif",
+            ", dalam ruang kreatif yang disebut Creative Studio, yang didedikasikan untuk membantu merek, produk, dan layanan menjadi yang terbaik di kelas masing-masing.",
         ],
-        button: "Pelajari Lebih Lanjut",
-    },
-    portfolio: {
-        button: "Lihat Lebih Banyak Di:",
-    },
-    values: {
-        title: "Kami Selalu Menyediakan Yang Terbaik",
-        description: "Kami selalu menerapkan 4 poin utama dalam kualitas pengerjaan kami, untuk memastikan bahwa pekerjaan kami memenuhi standar terbaik kami.",
-        lists: [
-            {
-                title: "Kualitas",
-                description: "Kami selalu memberikan layanan berkualitas tinggi dan bahkan berusaha melampaui harapan klien kami.",
-                icon: Icon.Quality,
-            },
-            {
-                title: "Keunggulan",
-                description: "Kami selalu menggunakan teknologi terbaru dan cara terbaik untuk menghasilkan kualitas yang cukup tinggi.",
-                icon: Icon.Excellence,
-            },
-            {
-                title: "Kreatifitas",
-                description: "Kami akan memberi Anda ide unik, yang akan membuat produk atau layanan Anda menonjol daripada kompetitor anda.",
-                icon: Icon.Creativity,
-            },
-            {
-                title: "Kolaboratif",
-                description: "Kami membuka ruang diskusi dengan klien & mitra kami karena pekerjaan berlangsung, sehingga hasilnya dapat memenuhi harapan kedua belah pihak.",
-                icon: Icon.Collaborative,
-            },
-        ],
-        preview: {
-            text_small: "Ingin melihat contoh pekerjaan kami?",
-            text_large: "Bandingkan implementasi situs web ini dengan desain UI/UX aslinya pada Figma.",
-            button: "Lihat di Figma",
-        },
+        button: "Lihat Lebih Lanjut",
     },
     clients: {
-        title: "Mereka Yang Bekerja Dengan Kami",
-        description: "Mereka yang menaruh kepercayaan pada kita untuk menumbuhkan merek mereka ke atas.",
+        subtitle: "Dan ini adalah merek yang menaruh kepercayaan pada kita untuk menumbuhkan merek mereka ke atas.",
+    },
+    intro: {
+        text: "Dari A ke Z, kami menyediakan berbagai hal mulai dari desain hingga pengalaman AR dan VR untuk memenuhi solusi untuk masalah apa pun.",
+        button: "Lihat Layanan Kami",
+    },
+    services: {
+        title: "Pilih Apa Yang Anda Butuhkan",
+        subtitle: "Kami memiliki berbagai layanan yang sesuai dengan kebutuhan Anda.",
+        list: [
+            {
+                name: "Design",
+                description: "Bumbui desain merek Anda dengan beberapa ilustrasi dan sketsa berwarna-warni.",
+                services: ["Graphics", "Illustrations", "UI/UX", "3D Art"],
+            },
+            {
+                name: "Development",
+                description: "Buatlah merek Anda lebih dikenal di seluruh dunia digital dan banyak lagi.",
+                services: ["Website Development", "Multi Purpose Bot", "API", "AR/VR"],
+            },
+            {
+                name: "Marketing",
+                description: "Dapatkan merek Anda diperhatikan dan didengar oleh orang yang ingin Anda jangkau.",
+                services: ["Search Engine Optimization (SEO)", "Social Media Advertising", "Advertising"],
+            },
+            {
+                name: "Management",
+                description: "Biarkan kami menangani hal-hal produksi Anda untuk membantu Anda melakukan pekerjaan dengan lebih mudah.",
+                services: ["Social Media Management", "Website Maintenance", "Business Development, Planning & Consulting"],
+            },
+        ],
+    },
+    showcases: {
+        title: "Showcases",
+        subtitle: "Dari berbagai proyek yang telah kami kerjakan.",
+        button: "Itu Keren, Ada Lagi?",
     },
     contact: {
-        title: "Mari Kita Berkarya Bersama",
-        description: "Sesuatu yang hebat selalu dibuat bersama, jadi mengapa kita tidak melakukannya bersama?",
+        title: "Setiap Hal Hebat\nSelalu Dibuat Bersama",
+        subtitle: "Buat ide-ide Anda menjadi kenyataan dengan mudah bersama kami.",
+        button_1: "Lihat Harga Kami",
+        button_2: "Punya Pertanyaan?",
     },
 };

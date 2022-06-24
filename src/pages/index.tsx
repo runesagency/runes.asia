@@ -1,14 +1,11 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
-import ContactForm from "@/components/ContactForm";
-import Heading from "@/components/Heading";
 import Button from "@/components/Utils/Button";
 import Link from "next/link";
 
-import { theme } from "../../tailwind.config";
 import { useLanguage, useTypewriter, useDragToScroll } from "@/lib/hooks";
 import { useEffect, useRef } from "react";
-import * as localization from "@/lib/localization/pages";
+import * as localization from "@/lib/localization/pages/index";
 
 const Showcases = () => {
     const elementRef = useRef<HTMLDivElement>(null);
@@ -288,49 +285,11 @@ export default function HomePage() {
         },
     ];
 
-    const statistics = [
-        {
-            label: "Projects",
-            value: "20+",
-        },
-        {
-            label: "Clients",
-            value: "9+",
-        },
-        {
-            label: "Type of\nServices",
-            value: "10+",
-        },
-    ];
-
     const characters = [
         "Sultan", //
         "Rafly",
         "Dayven",
         "Yoga",
-    ];
-
-    const services = [
-        {
-            name: "Design",
-            description: "Spice up your brand designs with some colourful illustrations and sketches.",
-            services: ["Graphics", "Illustrations", "UI/UX", "3D Art"],
-        },
-        {
-            name: "Development",
-            description: "Make your brand more recognized throughout the digital world and more.",
-            services: ["Website Development", "Multi Purpose Bot", "API", "AR/VR"],
-        },
-        {
-            name: "Marketing",
-            description: "Get your brand noticed and heard by the people you want to reach.",
-            services: ["Search Engine Optimization (SEO)", "Social Media Advertising", "Advertising"],
-        },
-        {
-            name: "Management",
-            description: "Let us handle your production things to help you do your jobs easier.",
-            services: ["Social Media Management", "Website Maintenance", "Business Development, Planning & Consulting"],
-        },
     ];
 
     return (
@@ -341,19 +300,14 @@ export default function HomePage() {
                     <Navigation />
 
                     <div className="grid gap-8 text-black">
-                        <h1 className="jumbo-title">
-                            Level Up Your
-                            <br />
-                            Brand, Together.
-                        </h1>
+                        <h1 className="jumbo-title whitespace-pre-line">{locale.header.content.title}</h1>
+                        <h4 className="subtitle text-justify max-w-lg">{locale.header.content.description}</h4>
 
-                        <h4 className="subtitle text-justify max-w-lg">We help grow, elevating your brand from other competitors. We make solutions so that you don’t have to work it yourself.</h4>
-
-                        <Button>Let's Start A Project</Button>
+                        <Button>{locale.header.content.button}</Button>
                     </div>
 
                     <div className="flex gap-14 font-poppins text-black">
-                        {statistics.map(({ label, value }, index) => (
+                        {locale.header.statistics.map(({ label, value }, index) => (
                             <div key={index} className="flex flex-col items-center gap-4">
                                 <h3 className="font-bold text-5xl">{value}</h3>
                                 <p className="text-2xl whitespace-pre-line text-center">{label}</p>
@@ -366,13 +320,14 @@ export default function HomePage() {
             {/* About */}
             <section className="pt-36 relative">
                 <div className="container grid gap-12 text-center z-10">
-                    <h1 className="title">Who Are We?</h1>
+                    <h1 className="title">{locale.about.title}</h1>
 
                     <p className="text-2xl font-poppins max-w-4xl mx-auto leading-normal">
-                        <b>We are creative people</b>, in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.
+                        <b>{locale.about.description[0]}</b>
+                        {locale.about.description[1]}
                     </p>
 
-                    <Button className="mx-auto">Seems Cool, Tell Me More</Button>
+                    <Button className="mx-auto">{locale.about.button}</Button>
                 </div>
 
                 <div className="relative flex justify-center -space-x-10 mx-auto w-full z-10 pt-12">
@@ -389,7 +344,7 @@ export default function HomePage() {
             {/* Clients */}
             <section className="py-20 bg-lime">
                 <div className="container grid gap-12 text-center z-10">
-                    <p className="subtitle">And these were the brands who put their trust in us to grow their brand to the top.</p>
+                    <p className="subtitle">{locale.clients.subtitle}</p>
 
                     <div className="max-w-6xl grid grid-cols-2 md:grid-cols-3 xl:flex flex-wrap gap-8 md:gap-10 justify-between mx-auto">
                         {clients.map(({ name, logoId, href }) => (
@@ -401,29 +356,29 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Services - Intro */}
+            {/* Intro */}
             <section className="bg-pink">
                 <div className="container flex flex-col-reverse lg:flex-row gap-10 justify-between items-center text-center pb-20 lg:py-0">
                     <div className="grid gap-11 max-w-lg xl:max-w-md 3xl:max-w-xl">
                         <img src="/images/others/tagline.svg" alt="tagline" className="w-full" />
-                        <p className="subtitle text-justify">From A to Z, we provide various things from Design to AR and VR Experiences to fulfill the solutions to any problems.</p>
-                        <Button>See What We Do</Button>
+                        <p className="subtitle text-justify">{locale.intro.text}</p>
+                        <Button>{locale.intro.button}</Button>
                     </div>
 
                     <img src="/images/illustrations/falling.png" alt="falling" className="flex-shrink-0 lg:w-2/3 max-w-lg xl:max-w-xl" />
                 </div>
             </section>
 
-            {/* Services - List */}
+            {/* Services */}
             <section className="pt-36 pb-20 relative">
                 <div className="container grid gap-12 z-10">
                     <div className="grid gap-5 text-center">
-                        <h1 className="title">Choose What You Need</h1>
-                        <h4 className="subtitle">We have a wide range of services to fit your needs.</h4>
+                        <h1 className="title">{locale.services.title}</h1>
+                        <h4 className="subtitle">{locale.services.subtitle}</h4>
                     </div>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4">
-                        {services.map(({ name, description, services }) => (
+                        {locale.services.list.map(({ name, description, services }) => (
                             <div key={name} className="grid gap-5 px-9 py-20 border-black border border-opacity-20 text-black font-poppins">
                                 <img src={`/images/illustrations/services/${name}.png`} alt={name} className="w-full" />
                                 <h3 className="text-3xl font-vidaloka">{name}</h3>
@@ -449,32 +404,28 @@ export default function HomePage() {
             {/* Showcases */}
             <section className="py-20 relative grid gap-12">
                 <div className="container grid gap-5 text-center">
-                    <h1 className="title">Showcases</h1>
-                    <h4 className="subtitle">From the various projects we have worked on.</h4>
+                    <h1 className="title">{locale.showcases.title}</h1>
+                    <h4 className="subtitle">{locale.showcases.subtitle}</h4>
                 </div>
 
                 <Showcases />
 
-                <Button className="mx-auto">That's Cool, You Got More?</Button>
+                <Button className="mx-auto">{locale.showcases.button}</Button>
             </section>
 
             {/* Contact */}
             <section className="py-20 relative bg-yellow-light">
                 <div className="container grid gap-10 text-center">
                     <div className="container grid gap-5 text-center">
-                        <h1 className="jumbo-title">
-                            Every Great Thing Is
-                            <br />
-                            Always Made Together
-                        </h1>
+                        <h1 className="jumbo-title whitespace-pre-line">{locale.contact.title}</h1>
 
-                        <p className="subtitle">Make your ideas come to reality easily with us.</p>
+                        <p className="subtitle">{locale.contact.subtitle}</p>
                     </div>
 
                     <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 mx-auto">
-                        <Button>Explore Our Pricing</Button>
+                        <Button>{locale.contact.button_1}</Button>
                         <Button light className="bg-transparent">
-                            Have Any Questions?
+                            {locale.contact.button_2}
                         </Button>
                     </div>
                 </div>
