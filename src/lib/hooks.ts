@@ -127,8 +127,14 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
     useEffect(() => {
         let savedLang = localStorage.getItem(keyName);
 
-        if (!savedLang || (savedLang && !localization[savedLang])) {
-            savedLang = defaultKey as string;
+        if (!savedLang || !localization[savedLang]) {
+            let browserLang = navigator?.language?.split("-")[0] || null;
+
+            if (browserLang && localization[browserLang]) {
+                savedLang = browserLang;
+            } else {
+                savedLang = defaultKey as string;
+            }
         }
 
         setLang(savedLang);
