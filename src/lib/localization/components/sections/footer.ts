@@ -1,53 +1,73 @@
 export const en = {
-    links: [
-        {
-            name: "Home",
-            href: "/",
-        },
-        {
-            name: "About Us",
-            href: "/about",
-        },
-        {
-            name: "Services",
-            href: "/services",
-        },
-        {
-            name: "Projects",
-            href: "/projects",
-        },
-        {
-            name: "Contact",
-            href: "/contact",
-        },
-    ],
-    scrollToTopButton: "Scroll To Top",
-    copyright: "Copyright © 2022 Runes. All Rights Reserved.",
+    contact: {
+        title: "Get In Touch",
+    },
+    links: {
+        title: "Company",
+        list: [
+            {
+                name: "About Us",
+                href: "/about",
+            },
+            {
+                name: "Showcases",
+                href: "/showcases",
+            },
+            {
+                name: "Pricing",
+                href: "/pricing",
+            },
+            {
+                name: "FAQ",
+                href: "/faq",
+            },
+            {
+                name: "Contact Us",
+                href: "/contact",
+            },
+            {
+                name: "Blog",
+                href: "/blog",
+            },
+        ],
+    },
+    copyright: "© 2022 Runes. All Rights Reserved.",
+    attribution: "Made With 💖 in Indonesia.",
 };
 
-export const id = {
-    links: [
-        {
-            name: "Beranda",
-            href: "/",
-        },
-        {
-            name: "Tentang Kami",
-            href: "/about",
-        },
-        {
-            name: "Layanan",
-            href: "/services",
-        },
-        {
-            name: "Portofolio",
-            href: "/projects",
-        },
-        {
-            name: "Kontak",
-            href: "/contact",
-        },
-    ],
-    scrollToTopButton: "Kembali Ke Atas",
-    copyright: "Copyright © 2022 Runes. Hak Cipta Dilindungi.",
+export const id: typeof en = {
+    contact: {
+        title: "Hubungi Kami",
+    },
+    links: {
+        title: "Perusahaan",
+        list: [
+            {
+                name: "Tentang Kami",
+                href: "/about",
+            },
+            {
+                name: "Showcases",
+                href: "/showcases",
+            },
+            {
+                name: "Harga",
+                href: "/pricing",
+            },
+            {
+                name: "FAQ",
+                href: "/faq",
+            },
+            {
+                name: "Kontak Kami",
+                href: "/contact",
+            },
+            {
+                name: "Blog",
+                href: "/blog",
+            },
+        ],
+    },
+    copyright: "© 2022 Runes. Hak Cipta Dilindungi.",
+    attribution: "Dibuat Dengan 💖 di Indonesia.",
 };

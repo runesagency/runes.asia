@@ -98,15 +98,15 @@ export default function Footer() {
                     </div>
 
                     <div className="max-w-xs grid gap-8">
-                        <h1 className="text-4xl font-vidaloka text-yellow-light">Get In Touch</h1>
+                        <h1 className="text-4xl font-vidaloka text-yellow-light">{locale.contact.title}</h1>
                         <Contacts />
                     </div>
 
                     <div className="max-w-xs grid gap-8">
-                        <h1 className="text-4xl font-vidaloka text-yellow-light">Company</h1>
+                        <h1 className="text-4xl font-vidaloka text-yellow-light">{locale.links.title}</h1>
 
                         <div className="grid gap-3 text-xl group font-poppins">
-                            {locale.links.map((link, index) => (
+                            {locale.links.list.map((link, index) => (
                                 <Link key={index} href={link.href}>
                                     <a className="group-hover:opacity-50 hover:!opacity-100 duration-200">{link.name}</a>
                                 </Link>
@@ -117,7 +117,7 @@ export default function Footer() {
 
                 <div className="flex flex-col gap-10 md:flex-row justify-between md:items-center font-poppins">
                     <p>{locale.copyright}</p>
-                    <p>Made With 💖 in Indonesia.</p>
+                    <p>{locale.attribution}</p>
                 </div>
             </section>
         </footer>
