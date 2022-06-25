@@ -1,4 +1,5 @@
 export const en = {
+    closeButton: "Close",
     links: [
         {
             name: "About",
@@ -24,6 +25,7 @@ export const en = {
 };
 
 export const id: typeof en = {
+    closeButton: "Tutup",
     links: [
         {
             name: "Tentang Kami",
