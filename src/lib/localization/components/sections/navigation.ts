@@ -5,37 +5,45 @@ export const en = {
             href: "/about",
         },
         {
-            name: "Services",
-            href: "/services",
+            name: "Showcases",
+            href: "/showcases",
         },
         {
-            name: "Projects",
-            href: "/projects",
+            name: "Pricing",
+            href: "/pricing",
         },
         {
-            name: "Contact",
-            href: "/contact",
+            name: "FAQ",
+            href: "/faq",
+        },
+        {
+            name: "Blog",
+            href: "/blog",
         },
     ],
 };
 
-export const id = {
+export const id: typeof en = {
     links: [
         {
             name: "Tentang Kami",
             href: "/about",
         },
         {
-            name: "Layanan",
-            href: "/services",
+            name: "Showcases",
+            href: "/showcases",
         },
         {
-            name: "Portofolio",
-            href: "/projects",
+            name: "Harga",
+            href: "/pricing",
         },
         {
-            name: "Kontak",
-            href: "/contact",
+            name: "FAQ",
+            href: "/faq",
+        },
+        {
+            name: "Blog",
+            href: "/blog",
         },
     ],
 };
