@@ -111,16 +111,16 @@ type useLanguageReturns<T> = {
     setLang: Dispatch<SetStateAction<string>>;
 };
 
-export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: keyof T): useLanguageReturns<T> => {
+export const useLanguage = <T>(keyName: string, localization: T, defaultLang?: keyof T): useLanguageReturns<T> => {
     const componentName = getComponentName();
 
-    if (!defaultKey) {
-        defaultKey = Object.keys(localization)[0] as any;
+    if (!defaultLang) {
+        defaultLang = Object.keys(localization)[0] as any;
     }
 
     const uniqueId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     const firstEventFired = useRef(false);
-    const [lang, setLang] = useState<string>(defaultKey as string);
+    const [lang, setLang] = useState<string>(defaultLang as string);
     const [locale, setLocale] = useState<T[keyof T]>(localization[Object.keys(localization)[0]]);
 
     // Handle on first render
@@ -133,7 +133,7 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
             if (browserLang && localization[browserLang]) {
                 savedLang = browserLang;
             } else {
-                savedLang = defaultKey as string;
+                savedLang = defaultLang as string;
             }
         }
 
@@ -147,12 +147,12 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultKey?: ke
                 setLang(e.detail.lang);
             }
         });
-    }, [defaultKey, keyName]);
+    }, [defaultLang, keyName]);
 
     // Handle on language change
     useEffect(() => {
         // Do not fired "default language" event on first render
-        if (!firstEventFired.current && lang === defaultKey) return;
+        if (!firstEventFired.current && lang === defaultLang) return;
         firstEventFired.current = true;
 
         if (lang && localization[lang]) {
