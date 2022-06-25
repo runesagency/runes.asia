@@ -1,9 +1,8 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
-import Button from "@/components/Utils/Button";
-import Link from "next/link";
+import * as Button from "@/components/Utils/Buttons";
 
-import { useLanguage, useTypewriter, useDragToScroll } from "@/lib/hooks";
+import { useLanguage, useDragToScroll } from "@/lib/hooks";
 import { useEffect, useRef } from "react";
 import * as localization from "@/lib/localization/pages/index";
 
@@ -234,7 +233,6 @@ const Showcases = () => {
 };
 
 export default function HomePage() {
-    useTypewriter();
     const { locale } = useLanguage("lang", localization);
 
     const clients = [
@@ -303,10 +301,10 @@ export default function HomePage() {
                         <h1 className="jumbo-title whitespace-pre-line">{locale.header.content.title}</h1>
                         <h4 className="subtitle text-justify max-w-lg">{locale.header.content.description}</h4>
 
-                        <Button>{locale.header.content.button}</Button>
+                        <Button.Primary>{locale.header.content.button}</Button.Primary>
                     </div>
 
-                    <div className="flex gap-14 font-poppins text-black">
+                    <div className="flex gap-14 font-poppins text-black flex-wrap">
                         {locale.header.statistics.map(({ label, value }, index) => (
                             <div key={index} className="flex flex-col items-center gap-4">
                                 <h3 className="font-bold text-5xl">{value}</h3>
@@ -327,7 +325,7 @@ export default function HomePage() {
                         {locale.about.description[1]}
                     </p>
 
-                    <Button className="mx-auto">{locale.about.button}</Button>
+                    <Button.Primary className="mx-auto">{locale.about.button}</Button.Primary>
                 </div>
 
                 <div className="relative flex justify-center -space-x-10 mx-auto w-full z-10 pt-12">
@@ -362,7 +360,7 @@ export default function HomePage() {
                     <div className="grid gap-11 max-w-lg xl:max-w-md 3xl:max-w-xl">
                         <img src="/images/others/tagline.svg" alt="tagline" className="w-full" />
                         <p className="subtitle text-justify">{locale.intro.text}</p>
-                        <Button>{locale.intro.button}</Button>
+                        <Button.Primary>{locale.intro.button}</Button.Primary>
                     </div>
 
                     <img src="/images/illustrations/falling.png" alt="falling" className="flex-shrink-0 lg:w-2/3 max-w-lg xl:max-w-xl" />
@@ -410,23 +408,22 @@ export default function HomePage() {
 
                 <Showcases />
 
-                <Button className="mx-auto">{locale.showcases.button}</Button>
+                <Button.Primary className="mx-auto">{locale.showcases.button}</Button.Primary>
             </section>
 
             {/* Contact */}
             <section className="py-20 relative bg-yellow-light">
-                <div className="container grid gap-10 text-center">
-                    <div className="container grid gap-5 text-center">
+                <div className="container grid gap-10">
+                    <div className="grid gap-5 text-center">
                         <h1 className="jumbo-title whitespace-pre-line">{locale.contact.title}</h1>
-
                         <p className="subtitle">{locale.contact.subtitle}</p>
                     </div>
 
                     <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 mx-auto">
-                        <Button>{locale.contact.button_1}</Button>
-                        <Button light className="bg-transparent">
+                        <Button.Primary>{locale.contact.button_1}</Button.Primary>
+                        <Button.Primary light className="bg-transparent">
                             {locale.contact.button_2}
-                        </Button>
+                        </Button.Primary>
                     </div>
                 </div>
             </section>
