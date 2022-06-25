@@ -48,7 +48,7 @@ export default function Navigation({ className }: NavigationProps) {
             {/* Mobile Absolute Menu */}
             <section
                 className={
-                    `fixed py-20 translate-y-0 h-screen transform bottom-0 right-0 z-10 bg-black text-yellow-light flex flex-col justify-end items-end duration-700 overflow-clip` + //
+                    `fixed py-20 translate-y-0 h-screen transform bottom-0 right-0 z-10 bg-black text-yellow-light flex flex-col justify-end items-end duration-700 delay-300 overflow-clip` + //
                     (open ? " w-screen px-10" : " w-0")
                 }
             >
