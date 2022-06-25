@@ -41,14 +41,14 @@ export default function ShowcasesPage() {
 
             {/* Contact */}
             <section className="py-20 relative bg-lime">
-                <div className="container flex items-center">
+                <div className="container flex flex-col-reverse lg:flex-row gap-10 lg:gap-0 items-center">
                     <div className="grid gap-10">
-                        <div className="container grid gap-5">
+                        <div className="container grid gap-5 text-center lg:text-left">
                             <h1 className="jumbo-title whitespace-pre-line">{locale.contact.title}</h1>
                             <p className="subtitle">{locale.contact.subtitle}</p>
                         </div>
 
-                        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10">
+                        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 mx-auto lg:mx-0">
                             <Button.Primary>{locale.contact.button_1}</Button.Primary>
                             <Button.Primary light className="bg-transparent">
                                 {locale.contact.button_2}
@@ -56,7 +56,7 @@ export default function ShowcasesPage() {
                         </div>
                     </div>
 
-                    <img src="/images/illustrations/treasure.png" alt="treasure" className="max-w-md ml-auto flex-shrink" />
+                    <img src="/images/illustrations/treasure.png" alt="treasure" className="w-full max-w-md mx-auto lg:ml-auto flex-shrink" />
                 </div>
             </section>
 
