@@ -6,7 +6,6 @@ import { useLanguage } from "@/lib/hooks";
 type LangChooserProps = {
     tooltipAlign?: "right" | "left";
     hideNameOnMobile?: boolean;
-    dark?: boolean;
 };
 
 const languages = {
@@ -20,7 +19,7 @@ const languages = {
     },
 };
 
-const LangChooser = ({ className, tooltipAlign, hideNameOnMobile, dark, ...props }: HTMLAttributes<HTMLDivElement> & LangChooserProps) => {
+const LangChooser = ({ className, tooltipAlign, hideNameOnMobile, ...props }: HTMLAttributes<HTMLDivElement> & LangChooserProps) => {
     const [open, setOpen] = useState(false);
     const { lang, setLang } = useLanguage(
         "lang",
@@ -46,28 +45,26 @@ const LangChooser = ({ className, tooltipAlign, hideNameOnMobile, dark, ...props
                 </svg>
             </button>
 
-            {open && (
-                <div
-                    className={
-                        `grid gap-2 absolute -bottom-2 transform translate-y-full w-max shadow-sm p-4 rounded-sm` +
-                        (tooltipAlign ? (tooltipAlign === "right" ? " right-0" : " left-0") : " right-0") +
-                        (dark ? " bg-black text-yellow" : " bg-yellow-light text-black")
-                    }
-                >
-                    {Object.entries(languages).map(([code, language], index) => (
-                        <button
-                            key={index}
-                            className={`flex justify-start items-center gap-4 w-full p-2 rounded-sm duration-200 ${
-                                lang === code ? "bg-black text-yellow-light" : "hover:bg-black hover:bg-opacity-70 hover:text-yellow-light"
-                            }`}
-                            onClick={() => changeLang(code)}
-                        >
-                            <language.flag className="flex-shrink-0 h-5" />
-                            <p className="paragraph text-left">{language.name}</p>
-                        </button>
-                    ))}
-                </div>
-            )}
+            <div
+                className={
+                    `grid gap-2 absolute -bottom-2 transform translate-y-full w-max shadow-sm rounded-sm overflow-clip duration-700 px-4 bg-yellow-light text-black` +
+                    (tooltipAlign ? (tooltipAlign === "right" ? " right-0" : " left-0") : " right-0") +
+                    (open ? " h-auto py-4" : " h-0")
+                }
+            >
+                {Object.entries(languages).map(([code, language], index) => (
+                    <button
+                        key={index}
+                        className={`flex justify-start items-center gap-4 w-full p-2 rounded-sm duration-200 ${
+                            lang === code ? "bg-black text-yellow-light" : "hover:bg-black hover:bg-opacity-70 hover:text-yellow-light"
+                        }`}
+                        onClick={() => changeLang(code)}
+                    >
+                        <language.flag className="flex-shrink-0 h-5" />
+                        <p className="paragraph text-left">{language.name}</p>
+                    </button>
+                ))}
+            </div>
         </div>
     );
 };
