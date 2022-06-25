@@ -54,8 +54,8 @@ export const Tiktok = (props: SVGAttributes<SVGElement>) => (
 );
 
 // Utility Icons
-export const Menu = (props: SVGAttributes<SVGElement> & { active?: boolean; onClick: () => void }) => (
-    <svg className="fill-current group cursor-pointer" width="39" height={props.active ? "25" : "15"} viewBox={`0 0 39 ${props.active ? "25" : "15"}`} onClick={props.onClick}>
+export const Menu = (props: SVGAttributes<SVGElement> & { active?: boolean }) => (
+    <svg width="39" height={props.active ? "25" : "15"} viewBox={`0 0 39 ${props.active ? "25" : "15"}`} {...props}>
         <rect
             x={props.active ? "8.00006" : "1"}
             y={props.active ? "22" : "0.5"}
