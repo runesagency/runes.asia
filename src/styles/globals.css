@@ -19,14 +19,14 @@
 
 @layer utilities {
     .jumbo-title {
-        @apply font-vidaloka text-7xl leading-tight;
+        @apply font-vidaloka text-6xl md:text-7xl leading-tight;
     }
 
     .title {
-        @apply text-6xl font-vidaloka text-black;
+        @apply text-5xl md:text-6xl font-vidaloka text-black leading-snug;
     }
 
     .subtitle {
-        @apply text-xl font-poppins text-black;
+        @apply text-xl font-poppins text-black leading-normal;
     }
 }
