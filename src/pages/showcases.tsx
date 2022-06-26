@@ -56,7 +56,7 @@ export default function ShowcasesPage() {
                         </div>
                     </div>
 
-                    <img src="/images/illustrations/treasure.png" alt="treasure" className="w-full max-w-md mx-auto lg:ml-auto flex-shrink" />
+                    <img src="/images/illustrations/treasure.png" alt="treasure" className="w-full max-w-md mx-auto lg:mx-0 lg:ml-auto flex-shrink" />
                 </div>
             </section>
 
