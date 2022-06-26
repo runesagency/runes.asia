@@ -22,12 +22,12 @@ type TimelineData = {
 
 const Timeline = ({ data }: { data: TimelineData }) => {
     const Yearly = ({ year, bgColor, children }: { year: string; bgColor: string; children: ReactNode }) => (
-        <article className="flex items-stretch gap-16">
-            <section className="text-black w-24 text-center subtitle p-6 font-semibold flex-shrink-0" style={{ backgroundColor: bgColor }}>
+        <article className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-16">
+            <section className="text-black lg:w-24 text-center subtitle p-6 font-semibold flex-shrink-0" style={{ backgroundColor: bgColor }}>
                 {year}
             </section>
 
-            <div className="grid gap-3 py-10">{children}</div>
+            <div className="grid gap-3 pb-10 lg:py-10">{children}</div>
         </article>
     );
 
@@ -55,7 +55,7 @@ const Timeline = ({ data }: { data: TimelineData }) => {
     return (
         <div className="grid max-w-6xl mx-auto">
             {Object.entries(data).map(([year, timeline], index) => {
-                const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
+                const colors = [theme.colors.lime, theme.colors.white, theme.colors.yellow.light];
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
                 return (
@@ -118,13 +118,13 @@ export default function AboutPage() {
                     <div className="grid gap-11 text-black max-w-2xl">
                         <h1 className="jumbo-title whitespace-pre-line">{locale.header.title}</h1>
 
-                        <div className="grid grid-cols-2 subtitle text-justify gap-10">
+                        <div className="grid md:grid-cols-2 subtitle text-justify gap-10">
                             {locale.header.descriptions.map((text, index) => (
                                 <p key={index}>{text}</p>
                             ))}
                         </div>
 
-                        <div className="flex gap-16 pt-10 subtitle underline">
+                        <div className="flex flex-col md:flex-row gap-4 md:gap-16 pt-10 subtitle underline">
                             <a href="#about" className="hover:opacity-70 duration-300">
                                 {locale.header.links[0]}
                             </a>
@@ -138,13 +138,13 @@ export default function AboutPage() {
 
             {/* About */}
             <section id="about" className="py-20">
-                <div className="container flex gap-56 items-center justify-center">
-                    <div className="grid gap-11 max-w-lg text-black">
+                <div className="container flex flex-col-reverse lg:flex-row items-center lg:items-stretch gap-16 xl:gap-44 justify-center">
+                    <div className="grid gap-11 max-w-lg text-black auto-rows-max">
                         <h2 className="title">{locale.about.title}</h2>
                         <p className="font-poppins text-justify whitespace-pre-line">{locale.about.description}</p>
                     </div>
 
-                    <img src="/images/others/store.png" alt="store" className="w-1/3" />
+                    <img src="/images/others/store.png" alt="" className="h-96 lg:h-auto w-full lg:w-1/3 object-cover bg-bottom" />
                 </div>
             </section>
 
@@ -153,11 +153,11 @@ export default function AboutPage() {
                 <div className="container grid gap-16 text-black">
                     <h2 className="title text-center">{locale.teams.title}</h2>
 
-                    <div className="grid grid-cols-4 gap-11 w-full">
+                    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-11 w-full">
                         {teams.map((person, index) => (
                             <article key={index} className="grid gap-7 w-full h-max">
-                                <div className="aspect-square w-full pt-10" style={{ backgroundColor: person.backgroundColor }}>
-                                    <img src={person.image} alt="" className="h-80 mx-auto object-contain" />
+                                <div className="aspect-square w-full pt-10 flex justify-center items-end px-4" style={{ backgroundColor: person.backgroundColor }}>
+                                    <img src={person.image} alt="" className="h-80 mx-auto object-contain object-bottom" />
                                 </div>
 
                                 <div className="grid gap-4 font-poppins h-max">
