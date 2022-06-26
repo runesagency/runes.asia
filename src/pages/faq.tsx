@@ -55,14 +55,10 @@ const QnA = ({ data }: { data: QnAData }) => {
 
                         if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
                             if (category) category.style.backgroundColor = color;
-
                             qnaBox.style.backgroundColor = color;
-                            qnaBox.style.opacity = "1";
                         } else {
                             if (category) category.style.backgroundColor = "transparent";
-
                             qnaBox.style.backgroundColor = "transparent";
-                            qnaBox.style.opacity = ".7";
                         }
                     }
                 }
@@ -99,7 +95,7 @@ const QnA = ({ data }: { data: QnAData }) => {
                             <div key={index} id={boxCategoryId(index)} className="grid gap-5" data-backgroundcolor={randomColor}>
                                 <h4 className="subtitle uppercase">{item.title}</h4>
 
-                                <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300 opacity-70">
+                                <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
                                     {item.list.map((item, index) => (
                                         <div key={index} className="grid gap-4">
                                             <h6 className="subtitle font-bold">{item.question}</h6>
