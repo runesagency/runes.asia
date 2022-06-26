@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import * as Button from "@/components/Utils/Buttons";
@@ -301,7 +302,9 @@ export default function HomePage() {
                         <h1 className="jumbo-title whitespace-pre-line">{locale.header.content.title}</h1>
                         <h4 className="subtitle text-justify max-w-lg">{locale.header.content.description}</h4>
 
-                        <Button.Primary>{locale.header.content.button}</Button.Primary>
+                        <Link href={"/pricing"} passHref>
+                            <Button.Primary>{locale.header.content.button}</Button.Primary>
+                        </Link>
                     </div>
 
                     <div className="flex gap-14 font-poppins text-black flex-wrap">
@@ -325,7 +328,9 @@ export default function HomePage() {
                         {locale.about.description[1]}
                     </p>
 
-                    <Button.Primary className="mx-auto">{locale.about.button}</Button.Primary>
+                    <Link href={"/about"} passHref>
+                        <Button.Primary className="mx-auto">{locale.about.button}</Button.Primary>
+                    </Link>
                 </div>
 
                 <div className="relative flex justify-center -space-x-10 mx-auto w-full z-10 pt-12">
@@ -344,10 +349,10 @@ export default function HomePage() {
                 <div className="container grid gap-12 text-center z-10">
                     <p className="subtitle">{locale.clients.subtitle}</p>
 
-                    <div className="max-w-6xl grid grid-cols-2 md:grid-cols-3 xl:flex flex-wrap gap-8 md:gap-10 justify-between mx-auto">
+                    <div className="group max-w-6xl grid grid-cols-2 md:grid-cols-3 xl:flex flex-wrap gap-8 md:gap-10 justify-between mx-auto">
                         {clients.map(({ name, logoId, href }) => (
-                            <a key={name} href={href} className="flex justify-center items-center flex-shrink-0">
-                                <img src={`/images/clients/${logoId}.png`} className="max-h-14" alt={name} />
+                            <a key={name} href={href} target="_blank" rel="noreferrer" className="flex justify-center items-center flex-shrink-0">
+                                <img src={`/images/clients/${logoId}.png`} className="max-h-14 group-hover:opacity-50 hover:!opacity-100 duration-200" alt={name} />
                             </a>
                         ))}
                     </div>
@@ -360,7 +365,10 @@ export default function HomePage() {
                     <div className="grid gap-11 max-w-lg xl:max-w-md 3xl:max-w-xl">
                         <img src="/images/others/tagline.svg" alt="tagline" className="w-full" />
                         <p className="subtitle text-justify">{locale.intro.text}</p>
-                        <Button.Primary>{locale.intro.button}</Button.Primary>
+
+                        <Link href="/pricing" passHref>
+                            <Button.Primary>{locale.intro.button}</Button.Primary>
+                        </Link>
                     </div>
 
                     <img src="/images/illustrations/falling.png" alt="falling" className="flex-shrink-0 lg:w-2/3 max-w-lg xl:max-w-xl" />
@@ -408,7 +416,9 @@ export default function HomePage() {
 
                 <Showcases />
 
-                <Button.Primary className="mx-auto">{locale.showcases.button}</Button.Primary>
+                <Link href={"/showcases"} replace passHref>
+                    <Button.Primary className="mx-auto">{locale.showcases.button}</Button.Primary>
+                </Link>
             </section>
 
             {/* Contact */}
@@ -420,10 +430,15 @@ export default function HomePage() {
                     </div>
 
                     <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 mx-auto">
-                        <Button.Primary>{locale.contact.button_1}</Button.Primary>
-                        <Button.Primary light className="bg-transparent">
-                            {locale.contact.button_2}
-                        </Button.Primary>
+                        <Link href={"/pricing"} passHref>
+                            <Button.Primary>{locale.contact.button_1}</Button.Primary>
+                        </Link>
+
+                        <Link href={"/faq"} passHref>
+                            <Button.Primary light className="bg-transparent">
+                                {locale.contact.button_2}
+                            </Button.Primary>
+                        </Link>
                     </div>
                 </div>
             </section>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import * as Button from "@/components/Utils/Buttons";
@@ -49,10 +50,15 @@ export default function ShowcasesPage() {
                         </div>
 
                         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 mx-auto lg:mx-0">
-                            <Button.Primary>{locale.contact.button_1}</Button.Primary>
-                            <Button.Primary light className="bg-transparent">
-                                {locale.contact.button_2}
-                            </Button.Primary>
+                            <Link href={"/pricing"} passHref>
+                                <Button.Primary>{locale.contact.button_1}</Button.Primary>
+                            </Link>
+
+                            <Link href={"/faq"} passHref>
+                                <Button.Primary light className="bg-transparent">
+                                    {locale.contact.button_2}
+                                </Button.Primary>
+                            </Link>
                         </div>
                     </div>
 
