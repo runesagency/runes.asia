@@ -21,7 +21,7 @@ export const en = {
             2021: {
                 November: [
                     {
-                        date: "01",
+                        date: "30",
                         title: "The Concept Started",
                         description: "Runes was first initiated by our Founder, Rafly and his friends, Abror and Danung, the idea came in mind after he was working in another creative agency.",
                     },
@@ -93,7 +93,7 @@ export const id: typeof en = {
             2021: {
                 November: [
                     {
-                        date: "01",
+                        date: "30",
                         title: "Konsep Dimulai",
                         description: "Runes pertama kali diinisiasi oleh pendiri kami, Rafly dan teman -temannya, Abror dan Danung, ide itu muncul setelah dia bekerja di agensi kreatif lain.",
                     },
