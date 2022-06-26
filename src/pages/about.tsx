@@ -2,10 +2,12 @@ import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
 import { useLanguage } from "@/lib/hooks";
-import * as localization from "@/lib/localization/pages/index";
+import * as localization from "@/lib/localization/pages/about";
 import { theme } from "tailwind.config";
 
 export default function AboutPage() {
+    const { locale } = useLanguage("lang", localization);
+
     const teams = [
         {
             image: "/images/characters/Rafly.png",
@@ -45,19 +47,20 @@ export default function AboutPage() {
                     <Navigation />
 
                     <div className="grid gap-11 text-black max-w-2xl">
-                        <h1 className="jumbo-title whitespace-pre-line">Redefining Brand New Experiences For Brands & Users.</h1>
+                        <h1 className="jumbo-title whitespace-pre-line">{locale.header.title}</h1>
 
                         <div className="grid grid-cols-2 subtitle text-justify gap-10">
-                            <p>We believe that every process should be simple and easy for everyone to understand.</p>
-                            <p>And we also believe that great products should be delivered to everyone regardless of market level or anything.</p>
+                            {locale.header.descriptions.map((text, index) => (
+                                <p key={index}>{text}</p>
+                            ))}
                         </div>
 
                         <div className="flex gap-16 pt-10 subtitle underline">
-                            <a href="#0" className="hover:opacity-70 duration-300">
-                                Behind The Runes
+                            <a href="#about" className="hover:opacity-70 duration-300">
+                                {locale.header.links[0]}
                             </a>
-                            <a href="#0" className="hover:opacity-70 duration-300">
-                                The Great Journey
+                            <a href="#journey" className="hover:opacity-70 duration-300">
+                                {locale.header.links[1]}
                             </a>
                         </div>
                     </div>
@@ -65,17 +68,11 @@ export default function AboutPage() {
             </section>
 
             {/* About */}
-            <section className="py-20">
+            <section id="about" className="py-20">
                 <div className="container flex gap-56 items-center justify-center">
                     <div className="grid gap-11 max-w-lg text-black">
-                        <h2 className="title">Small Team With High Values</h2>
-                        <p className="font-poppins text-justify">
-                            Founded in the early of 2022, we found that so many brands or products are doing the same things as other businesses. As a result, these brands almost got no exclusivity at
-                            all.
-                            <br />
-                            <br />
-                            Knowing that, we, at Runes, dedicating ourselves to helping brands & users creating a better identity for their business, products, or services.
-                        </p>
+                        <h2 className="title">{locale.about.title}</h2>
+                        <p className="font-poppins text-justify whitespace-pre-line">{locale.about.description}</p>
                     </div>
 
                     <img src="/images/others/store.png" alt="store" className="w-1/3" />
@@ -85,7 +82,7 @@ export default function AboutPage() {
             {/* Teams */}
             <section className="py-20">
                 <div className="container grid gap-16 text-black">
-                    <h2 className="title text-center">Meet The Masterminds</h2>
+                    <h2 className="title text-center">{locale.teams.title}</h2>
 
                     <div className="grid grid-cols-4 gap-11 w-full">
                         {teams.map((person, index) => (
