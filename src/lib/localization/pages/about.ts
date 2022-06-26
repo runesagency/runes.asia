@@ -15,6 +15,59 @@ export const en = {
     teams: {
         title: "Meet The Masterminds",
     },
+    journey: {
+        title: "The Great Journey",
+        timelines: {
+            2021: {
+                November: [
+                    {
+                        date: "01",
+                        title: "The Concept Started",
+                        description: "Runes was first initiated by our Founder, Rafly and his friends, Abror and Danung, the idea came in mind after he was working in another creative agency.",
+                    },
+                ],
+                December: [
+                    {
+                        date: "11",
+                        title: "Quarter Way Ready",
+                        description: "After deciding the base concept, Rafly soon was made the initial sketch of the company concept, such as logo, design guidelines, etc.",
+                    },
+                    {
+                        date: "31",
+                        title: "Final Concept Ready",
+                        description: "By the end of 2021, the whole company concept is finished, and by that, Rafly ending the 2021 with new journey ahead.",
+                    },
+                ],
+            },
+            2022: {
+                January: [
+                    {
+                        date: "26",
+                        title: "The Team Gathered Together",
+                        description: "We came together in a Rafly house to meet for the first time, deciding how the company gonna goes in the future.",
+                    },
+                    {
+                        date: "28",
+                        title: "The Website Launched.",
+                        description: "After some UI/UX design for our first website, we finally launched the site after coded it with React (NextJS Framework).",
+                    },
+                    {
+                        date: "29",
+                        title: "Our First Client!",
+                        description: "Our friend from SubversionRP (GTA V Roleplay Server) contacted us to help the development of their server.",
+                    },
+                ],
+                June: [
+                    {
+                        date: "06",
+                        title: "The Client Trusted Us",
+                        description:
+                            "After happy with the first work we done, our friends from Tune Discord Music Bot Team, contacted us again to do some work for their website. It was some music dashboard this time.",
+                    },
+                ],
+            },
+        },
+    },
 };
 
 export const id: typeof en = {
@@ -33,5 +86,58 @@ export const id: typeof en = {
     },
     teams: {
         title: "Mereka Yang Di Balik Layar",
+    },
+    journey: {
+        title: "Perjalanan Kami",
+        timelines: {
+            2021: {
+                November: [
+                    {
+                        date: "01",
+                        title: "Konsep Dimulai",
+                        description: "Runes pertama kali diinisiasi oleh pendiri kami, Rafly dan teman -temannya, Abror dan Danung, ide itu muncul setelah dia bekerja di agensi kreatif lain.",
+                    },
+                ],
+                December: [
+                    {
+                        date: "11",
+                        title: "Seperempat Jadi",
+                        description: "Setelah memutuskan konsep dasar, Rafly segera dijadikan sketsa awal konsep perusahaan, seperti logo, pedoman desain, dll.",
+                    },
+                    {
+                        date: "31",
+                        title: "Konsep Selesai",
+                        description: "Pada akhir 2021, seluruh konsep perusahaan selesai, dan dengan itu, Rafly mengakhiri 2021 dengan perjalanan baru di depan.",
+                    },
+                ],
+            },
+            2022: {
+                January: [
+                    {
+                        date: "26",
+                        title: "Tim Berkumpul Untuk Pertama Kali",
+                        description: "Kami datang bersama di rumah Rafly untuk bertemu untuk pertama kalinya, memutuskan bagaimana perusahaan akan pergi di masa depan.",
+                    },
+                    {
+                        date: "28",
+                        title: "Website Diluncurkan.",
+                        description: "Setelah beberapa desain UI/UX untuk situs web pertama kami, kami akhirnya meluncurkan situs setelah mengkodekannya dengan React (NextJS Framework).",
+                    },
+                    {
+                        date: "29",
+                        title: "Klien Pertama Kami!",
+                        description: "Teman kami dari SubversionRP (Server Roleplay GTA V) menghubungi kami untuk membantu pengembangan server mereka.",
+                    },
+                ],
+                June: [
+                    {
+                        date: "06",
+                        title: "Klien Mempercayakan Kami",
+                        description:
+                            "Setelah senang dengan pekerjaan pertama yang kami lakukan, teman-teman kami dari Tune Discord Music Bot Team, menghubungi kami lagi untuk melakukan beberapa pekerjaan untuk situs web mereka. Itu adalah dasbor musik kali ini.",
+                    },
+                ],
+            },
+        },
     },
 };
