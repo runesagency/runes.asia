@@ -1,11 +1,122 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/faq";
-import { useEffect } from "react";
 
-export default function ShowcasesPage() {
+import { theme } from "tailwind.config";
+
+type QnAData = {
+    title: string;
+    list: {
+        question: string;
+        answer: string;
+    }[];
+}[];
+
+const QnA = ({ data }: { data: QnAData }) => {
+    const categoriesSection = useRef<HTMLDivElement>(null);
+    const faqsSection = useRef<HTMLDivElement>(null);
+
+    const categoryId = (id: number) => `nav-category-${id}`;
+    const boxCategoryId = (id: number) => `category-${id}`;
+    const qnaBoxId = (id: number) => `box-category-${id}`;
+
+    useEffect(() => {
+        document.addEventListener("scroll", () => {
+            // Side Menu Sticky Effect When Scrolling
+            (() => {
+                const categories = categoriesSection.current;
+                const faqs = faqsSection.current;
+
+                if (categories) {
+                    const scrollTop = categories.getBoundingClientRect().top * -1;
+
+                    if (scrollTop >= 0) {
+                        if (scrollTop >= faqs.clientHeight - 100) return;
+                        categories.style.paddingTop = scrollTop + 20 + "px";
+                    } else {
+                        categories.style.paddingTop = "0px";
+                    }
+                }
+            })();
+
+            // Active Category Effect When Scrolling
+            (() => {
+                for (let i = 0; i <= data.length - 1; i++) {
+                    const category = document.getElementById(categoryId(i));
+                    const boxCategory = document.getElementById(boxCategoryId(i));
+                    const qnaBox = document.getElementById(qnaBoxId(i));
+
+                    if (category && boxCategory && qnaBox) {
+                        const scrollTop = boxCategory.getBoundingClientRect().top * -1 + 200;
+                        const color = boxCategory.dataset.backgroundcolor;
+
+                        if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
+                            if (category) category.style.backgroundColor = color;
+
+                            qnaBox.style.backgroundColor = color;
+                            qnaBox.style.opacity = "1";
+                        } else {
+                            if (category) category.style.backgroundColor = "transparent";
+
+                            qnaBox.style.backgroundColor = "transparent";
+                            qnaBox.style.opacity = ".7";
+                        }
+                    }
+                }
+            })();
+        });
+
+        return () => {
+            document.removeEventListener("scroll", () => {});
+        };
+    }, [data]);
+
+    return (
+        <section className="sticky py-20 overflow-auto">
+            <div className="container flex gap-20 overflow-auto">
+                <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
+                    {data.map((item, index) => (
+                        <a
+                            key={index}
+                            id={categoryId(index)}
+                            href={`#${boxCategoryId(index)}`}
+                            className="px-5 py-3 border-b border-black border-opacity-30 transition-all duration-300 hover:opacity-70"
+                        >
+                            {item.title}
+                        </a>
+                    ))}
+                </div>
+
+                <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins">
+                    {data.map((item, index) => {
+                        const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
+                        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+                        return (
+                            <div key={index} id={boxCategoryId(index)} className="grid gap-5" data-backgroundcolor={randomColor}>
+                                <h4 className="subtitle uppercase">{item.title}</h4>
+
+                                <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300 opacity-70">
+                                    {item.list.map((item, index) => (
+                                        <div key={index} className="grid gap-4">
+                                            <h6 className="subtitle font-bold">{item.question}</h6>
+                                            <p>{item.answer}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default function FAQPage() {
     const { locale } = useLanguage("lang", localization);
 
     const dummy = [
@@ -45,41 +156,6 @@ export default function ShowcasesPage() {
         },
     ];
 
-    useEffect(() => {
-        document.addEventListener("scroll", () => {
-            (() => {
-                for (let i = 0; i <= dummy.length - 1; i++) {
-                    const title = document.getElementById("title-" + i);
-                    const box = document.getElementById("box-" + i);
-                    const ans = document.getElementById("ans-" + i);
-                    const scrollTop = box.getBoundingClientRect().top * -1 + 200;
-
-                    if (scrollTop >= 0 && scrollTop <= box.clientHeight) {
-                        title.classList.add("bg-pink");
-                        ans.classList.add("bg-pink");
-                    } else {
-                        title.classList.remove("bg-pink");
-                        ans.classList.remove("bg-pink");
-                    }
-                }
-            })();
-
-            (() => {
-                const categories = document.getElementById("categories");
-                const faqs = document.getElementById("faqs");
-                // Count how much pixel the user has scrolled after the scroll reach the top of categories element
-                const scrollTop = categories.getBoundingClientRect().top * -1;
-
-                if (scrollTop >= 0) {
-                    if (scrollTop >= faqs.clientHeight - 100) return;
-                    categories.style.paddingTop = scrollTop + 20 + "px";
-                } else {
-                    categories.style.paddingTop = "0px";
-                }
-            })();
-        });
-    });
-
     return (
         <main className="relative bg-white overflow-auto">
             {/* Header */}
@@ -94,35 +170,7 @@ export default function ShowcasesPage() {
                 </div>
             </section>
 
-            {/* Content */}
-            <section className="sticky py-20 overflow-auto">
-                <div className="container flex gap-20 overflow-auto">
-                    <div id="categories" className="grid gap-2 subtitle font-medium h-max self-start sticky top-0">
-                        {dummy.map((item, index) => (
-                            <h3 key={index} id={"title-" + index} className="px-5 py-3 border-b border-black border-opacity-30">
-                                {item.title}
-                            </h3>
-                        ))}
-                    </div>
-
-                    <div id="faqs" className="grid gap-14 flex-1 font-poppins">
-                        {dummy.map((item, index) => (
-                            <div key={index} id={"box-" + index} className="grid gap-5">
-                                <h4 className="subtitle uppercase">{item.title}</h4>
-
-                                <div id={"ans-" + index} className="grid gap-4 p-6">
-                                    {item.list.map((item, index) => (
-                                        <div key={index} className="grid gap-4">
-                                            <h6 className="subtitle font-bold">{item.question}</h6>
-                                            <p>{item.answer}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            <QnA data={dummy} />
 
             <Footer />
         </main>
