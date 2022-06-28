@@ -56,11 +56,21 @@ const QnA = ({ data }: { data: QnAData }) => {
                         const id = boxCategory.dataset.categoryid;
 
                         if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
-                            if (category) category.style.backgroundColor = color;
+                            if (category) {
+                                category.style.backgroundColor = color;
+                            }
+
                             qnaBox.style.backgroundColor = color;
-                            nowCategoryId.current = Number(id);
+
+                            if (nowCategoryId.current !== Number(id)) {
+                                nowCategoryId.current = Number(id);
+                                console.log(nowCategoryId.current);
+                            }
                         } else {
-                            if (category) category.style.backgroundColor = "transparent";
+                            if (category) {
+                                category.style.backgroundColor = "transparent";
+                            }
+
                             qnaBox.style.backgroundColor = "transparent";
                         }
                     }
@@ -69,26 +79,30 @@ const QnA = ({ data }: { data: QnAData }) => {
         });
 
         document.addEventListener("keyup", (e) => {
-            if (e.key === "ArrowUp") {
-                nowCategoryId.current -= 1;
+            let id = nowCategoryId.current;
 
-                if (nowCategoryId.current < 0) {
-                    nowCategoryId.current = 0;
+            if (e.key === "ArrowUp") {
+                id -= 1;
+
+                if (id < 0) {
+                    id = 0;
                 }
             } else if (e.key === "ArrowDown") {
-                nowCategoryId.current += 1;
+                id += 1;
 
-                if (nowCategoryId.current > data.length - 1) {
-                    nowCategoryId.current = data.length - 1;
+                if (id > data.length - 1) {
+                    id = data.length - 1;
                 }
             }
 
-            const parent = faqsSection.current;
-            const element = document.getElementById(boxCategoryId(nowCategoryId.current));
+            const element = document.getElementById(boxCategoryId(id));
 
-            console.log(parent.scrollTop, element.offsetTop);
+            const countOffsetTop = (elem) => {
+                // recursive until no parent found
+                return elem.offsetParent && elem.offsetTop + countOffsetTop(elem.offsetParent) - 10;
+            };
 
-            // window.scrollTo(0, element.offsetTop + parent.scrollTop);
+            window.scroll(0, countOffsetTop(element));
         });
 
         return () => {
