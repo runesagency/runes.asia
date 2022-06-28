@@ -1,7 +1,7 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
-import { useEffect, useRef } from "react";
+import { ElementType, useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/faq";
 
@@ -97,9 +97,9 @@ const QnA = ({ data }: { data: QnAData }) => {
 
             const element = document.getElementById(boxCategoryId(id));
 
-            const countOffsetTop = (elem) => {
+            const countOffsetTop = (element: any) => {
                 // recursive until no parent found
-                return elem.offsetParent && elem.offsetTop + countOffsetTop(elem.offsetParent) - 10;
+                return element?.offsetParent && element.offsetTop + countOffsetTop(element.offsetParent) - 10;
             };
 
             window.scroll(0, countOffsetTop(element));
