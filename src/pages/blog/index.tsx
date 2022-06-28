@@ -68,7 +68,7 @@ export default function BlogPage() {
                 <div className="container grid gap-14">
                     <Navigation light={true} />
 
-                    <div className="grid grid-cols-2 gap-12 max-h-[660px] group">
+                    <div className="grid xl:grid-cols-2 gap-12 xl:max-h-[660px] group">
                         <a href={`/blog/${articles[0].id}`} className="grid place-content-start gap-7 group-hovered">
                             <img src={articles[0].image} alt={articles[0].title} className="flex-shrink" />
 
@@ -79,12 +79,14 @@ export default function BlogPage() {
                                     {articles[0].category} / {articles[0].date}
                                 </span>
                             </div>
+
+                            <hr className="border-white opacity-30 xl:hidden" />
                         </a>
 
-                        <div className="grid gap-6 max-h-full">
+                        <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 max-h-full">
                             {articles.slice(1, 4).map((article, index) => (
-                                <a key={index} href={`/blog/${article.id}`} className="flex flex-shrink gap-6 group-hovered">
-                                    <img src={article.image} alt={article.title} className="w-60 object-cover" />
+                                <a key={index} href={`/blog/${article.id}`} className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered">
+                                    <img src={article.image} alt={article.title} className="xl:w-60 object-cover" />
 
                                     <div className="grid gap-4 text-white">
                                         <h1 className="text-3xl font-vidaloka leading-snug">{article.title}</h1>
@@ -140,7 +142,7 @@ export default function BlogPage() {
                         ))}
                     </div>
 
-                    <div className="grid gap-11 grid-cols-3 group">
+                    <div className="grid gap-6 xl:gap-11 md:grid-cols-3 group">
                         {articles
                             .slice(4)
                             .filter(articleFilter)
