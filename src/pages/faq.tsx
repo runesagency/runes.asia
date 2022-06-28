@@ -103,6 +103,7 @@ const QnA = ({ data }: { data: QnAData }) => {
             };
 
             window.scroll(0, countOffsetTop(element));
+            location.hash = boxCategoryId(id);
         });
 
         return () => {
