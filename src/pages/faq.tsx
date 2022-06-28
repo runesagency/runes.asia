@@ -64,7 +64,7 @@ const QnA = ({ data }: { data: QnAData }) => {
 
                             if (nowCategoryId.current !== Number(id)) {
                                 nowCategoryId.current = Number(id);
-                                console.log(nowCategoryId.current);
+                                location.hash = boxCategoryId(Number(id));
                             }
                         } else {
                             if (category) {
