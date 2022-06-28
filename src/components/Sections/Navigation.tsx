@@ -15,13 +15,13 @@ type NavigationProps = {
     className?: string;
 };
 
-export default function Navigation({ className }: NavigationProps) {
+export default function Navigation({ className, light }: NavigationProps) {
     const [open, setOpen] = useState(false);
     const { locale } = useLanguage("lang", localization);
     const router = useRouter();
 
     return (
-        <nav className={`relative z-50 font-poppins text-black ${className}`}>
+        <nav className={`relative z-50 font-poppins ${className}` + (light ? " text-yellow-light" : " text-black")}>
             {/* Desktop Relative Menu */}
             <section className="relative w-full flex justify-between items-center">
                 <Link href="/">
@@ -34,14 +34,21 @@ export default function Navigation({ className }: NavigationProps) {
                     <div className="hidden lg:flex gap-8">
                         {locale.links.map((link, index) => (
                             <Link href={link.href} key={index}>
-                                <a className={`hover:opacity-70 duration-200 cursor-pointer` + (router.pathname === link.href ? " border-b border-current" : "")}>{link.name}</a>
+                                <a
+                                    className={
+                                        `text-current hover:opacity-70 duration-200 cursor-pointer` + //
+                                        (router.pathname === link.href ? " border-b border-current" : "")
+                                    }
+                                >
+                                    {link.name}
+                                </a>
                             </Link>
                         ))}
                     </div>
 
                     <LangChooser hideNameOnMobile />
                     <Icon.Menu className="fill-current group cursor-pointer lg:hidden" active={open} onClick={() => setOpen(true)} />
-                    <Button.Primary className="hidden xl:block">Let's Get Started</Button.Primary>
+                    <Button.Primary className={`hidden xl:block ${light && "bg-yellow-light !text-black"}`}>Let's Get Started</Button.Primary>
                 </div>
             </section>
 
