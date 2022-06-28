@@ -42,7 +42,7 @@ export default function BlogPage() {
         return acc;
     }, []);
 
-    const articleFilter = (article) => {
+    const articleFilter = (article: typeof articles[0]) => {
         if (categoryFilters.length > 0) {
             if (categoryFilters.includes(article.category)) {
                 return true;
@@ -156,6 +156,30 @@ export default function BlogPage() {
                                     </div>
                                 </a>
                             ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="bg-pink">
+                <div className="container grid grid-cols-2 gap-10 justify-between items-center pb-20 lg:py-0">
+                    <div className="grid gap-10 max-w-lg py-20">
+                        <div className="grid gap-5 max-w-lg">
+                            <h1 className="jumbo-title whitespace-pre-line">Get The Latest Articles Every Week From Us.</h1>
+                            <p className="subtitle text-justify">Enhance your knowledge and explore the world through our writings.</p>
+                        </div>
+
+                        <form className="grid font-poppins">
+                            <div className="w-full flex gap-6 items-center text-black border border-black border-opacity-20 pl-5 bg-white">
+                                <Icon.Mail className="fill-current h-5" />
+                                <input type={"email"} placeholder="Your Email Account" className="py-4 w-full outline-none font-poppins" />
+                            </div>
+                            <Button.Primary className="!w-full rounded-none">Join Mailing List</Button.Primary>
+                        </form>
+
+                        <p className="font-poppins text-black">*Don’t worry, we won’t sent you any spam :)</p>
+                    </div>
+                    <div className="relative w-max h-full overflow-x-visible overflow-y-hidden max-h-screen">
+                        <img src="/images/illustrations/fireplace.png" alt="" className="top-0 left-0 w-full h-full object-cover overflow-x-visible" />
                     </div>
                 </div>
             </section>
