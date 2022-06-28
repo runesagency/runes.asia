@@ -352,7 +352,7 @@ export default function HomePage() {
                     <div className="group max-w-6xl grid grid-cols-2 md:grid-cols-3 xl:flex flex-wrap gap-8 md:gap-10 justify-between mx-auto">
                         {clients.map(({ name, logoId, href }) => (
                             <a key={name} href={href} target="_blank" rel="noreferrer" className="flex justify-center items-center flex-shrink-0">
-                                <img src={`/images/clients/${logoId}.png`} className="max-h-14 group-hover:opacity-50 hover:!opacity-100 duration-200" alt={name} />
+                                <img src={`/images/clients/${logoId}.png`} className="max-h-14 group-hovered" alt={name} />
                             </a>
                         ))}
                     </div>

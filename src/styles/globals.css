@@ -29,4 +29,8 @@
     .subtitle {
         @apply text-xl font-poppins leading-normal;
     }
+
+    .group-hovered {
+        @apply hover:!opacity-100 group-hover:opacity-70 duration-300;
+    }
 }
