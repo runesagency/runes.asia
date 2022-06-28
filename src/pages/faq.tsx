@@ -1,7 +1,7 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
-import { ElementType, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/faq";
 
