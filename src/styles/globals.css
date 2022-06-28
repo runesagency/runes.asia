@@ -9,6 +9,10 @@
     body {
         @apply scroll-smooth overflow-x-hidden scroll-pt-12;
     }
+
+    * {
+        @apply !box-border;
+    }
 }
 
 @layer components {
