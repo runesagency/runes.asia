@@ -28,10 +28,16 @@ module.exports = {
             screens: {
                 "3xl": "1920px",
             },
+            fontSize: {
+                "4.5xl": "2.5rem",
+            },
         },
     },
     variants: {
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        //
+        require("@tailwindcss/line-clamp"),
+    ],
 };
