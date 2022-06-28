@@ -16,12 +16,13 @@ type QnAData = {
 }[];
 
 const QnA = ({ data }: { data: QnAData }) => {
+    const nowCategoryId = useRef(0);
     const categoriesSection = useRef<HTMLDivElement>(null);
     const faqsSection = useRef<HTMLDivElement>(null);
 
     const categoryId = (id: number) => `nav-category-${id}`;
     const boxCategoryId = (id: number) => `category-${id}`;
-    const qnaBoxId = (id: number) => `box-category-${id}`;
+    const qnaBoxId = (id: number) => `qna-box-${id}`;
 
     useEffect(() => {
         document.addEventListener("scroll", () => {
@@ -52,10 +53,12 @@ const QnA = ({ data }: { data: QnAData }) => {
                     if (category && boxCategory && qnaBox) {
                         const scrollTop = boxCategory.getBoundingClientRect().top * -1 + 200;
                         const color = boxCategory.dataset.backgroundcolor;
+                        const id = boxCategory.dataset.categoryid;
 
                         if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
                             if (category) category.style.backgroundColor = color;
                             qnaBox.style.backgroundColor = color;
+                            nowCategoryId.current = Number(id);
                         } else {
                             if (category) category.style.backgroundColor = "transparent";
                             qnaBox.style.backgroundColor = "transparent";
@@ -65,8 +68,32 @@ const QnA = ({ data }: { data: QnAData }) => {
             })();
         });
 
+        document.addEventListener("keyup", (e) => {
+            if (e.key === "ArrowUp") {
+                nowCategoryId.current -= 1;
+
+                if (nowCategoryId.current < 0) {
+                    nowCategoryId.current = 0;
+                }
+            } else if (e.key === "ArrowDown") {
+                nowCategoryId.current += 1;
+
+                if (nowCategoryId.current > data.length - 1) {
+                    nowCategoryId.current = data.length - 1;
+                }
+            }
+
+            const parent = faqsSection.current;
+            const element = document.getElementById(boxCategoryId(nowCategoryId.current));
+
+            console.log(parent.scrollTop, element.offsetTop);
+
+            // window.scrollTo(0, element.offsetTop + parent.scrollTop);
+        });
+
         return () => {
             document.removeEventListener("scroll", () => {});
+            document.removeEventListener("keyup", () => {});
         };
     }, [data]);
 
@@ -92,7 +119,7 @@ const QnA = ({ data }: { data: QnAData }) => {
                         const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
                         return (
-                            <div key={index} id={boxCategoryId(index)} className="grid gap-5" data-backgroundcolor={randomColor}>
+                            <div key={index} id={boxCategoryId(index)} className="grid gap-5" data-backgroundcolor={randomColor} data-categoryid={index}>
                                 <h4 className="subtitle uppercase">{item.title}</h4>
 
                                 <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
