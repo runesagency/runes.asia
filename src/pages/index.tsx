@@ -6,6 +6,7 @@ import * as Button from "@/components/Utils/Buttons";
 import { useLanguage, useDragToScroll } from "@/lib/hooks";
 import { useEffect, useRef } from "react";
 import * as localization from "@/lib/localization/pages/index";
+import CTA from "@/components/Sections/CTA";
 
 const Showcases = () => {
     const elementRef = useRef<HTMLDivElement>(null);
@@ -359,21 +360,15 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Intro */}
-            <section className="bg-pink">
-                <div className="container flex flex-col-reverse lg:flex-row gap-10 justify-between items-center text-center pb-20 lg:py-0">
-                    <div className="grid gap-11 max-w-lg xl:max-w-md 3xl:max-w-xl">
-                        <img src="/images/others/tagline.svg" alt="tagline" className="w-full" />
-                        <p className="subtitle text-justify">{locale.intro.text}</p>
+            {/* Intro - CTA */}
+            <CTA imageLink="/images/illustrations/falling.png" className={{ wrapper: "bg-pink" }}>
+                <img src="/images/others/tagline.svg" alt="tagline" className="w-full" />
+                <p className="subtitle text-justify">{locale.intro.text}</p>
 
-                        <Link href="/pricing" passHref>
-                            <Button.Primary>{locale.intro.button}</Button.Primary>
-                        </Link>
-                    </div>
-
-                    <img src="/images/illustrations/falling.png" alt="falling" className="flex-shrink-0 lg:w-2/3 max-w-lg xl:max-w-xl" />
-                </div>
-            </section>
+                <Link href="/pricing" passHref>
+                    <Button.Primary>{locale.intro.button}</Button.Primary>
+                </Link>
+            </CTA>
 
             {/* Services */}
             <section className="pt-36 pb-20 relative">

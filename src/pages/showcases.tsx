@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
+import CTA from "@/components/Sections/CTA";
 import * as Button from "@/components/Utils/Buttons";
 
 import { useLanguage } from "@/lib/hooks";
@@ -40,31 +41,33 @@ export default function ShowcasesPage() {
                 </div>
             </section>
 
-            {/* Contact */}
-            <section className="py-20 relative bg-lime">
-                <div className="container flex flex-col-reverse lg:flex-row gap-10 lg:gap-0 items-center">
-                    <div className="grid gap-10">
-                        <div className="container grid gap-5 text-center lg:text-left">
-                            <h1 className="jumbo-title whitespace-pre-line">{locale.contact.title}</h1>
-                            <p className="subtitle">{locale.contact.subtitle}</p>
-                        </div>
-
-                        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 mx-auto lg:mx-0">
-                            <Link href={"/pricing"} passHref>
-                                <Button.Primary>{locale.contact.button_1}</Button.Primary>
-                            </Link>
-
-                            <Link href={"/faq"} passHref>
-                                <Button.Primary light className="bg-transparent">
-                                    {locale.contact.button_2}
-                                </Button.Primary>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <img src="/images/illustrations/treasure.png" alt="treasure" className="w-full max-w-md mx-auto lg:mx-0 lg:ml-auto flex-shrink" />
+            {/* Contact - CTA */}
+            <CTA
+                imageLink="/images/illustrations/treasure.png"
+                className={{
+                    wrapper: "bg-lime",
+                    container: "items-center",
+                    leftContainer: "xl:max-w-3xl",
+                    image: "p-10",
+                }}
+            >
+                <div className="container grid gap-5 text-center lg:text-left">
+                    <h1 className="jumbo-title whitespace-pre-line">{locale.contact.title}</h1>
+                    <p className="subtitle">{locale.contact.subtitle}</p>
                 </div>
-            </section>
+
+                <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 mx-auto lg:mx-0">
+                    <Link href={"/pricing"} passHref>
+                        <Button.Primary>{locale.contact.button_1}</Button.Primary>
+                    </Link>
+
+                    <Link href={"/faq"} passHref>
+                        <Button.Primary light className="bg-transparent">
+                            {locale.contact.button_2}
+                        </Button.Primary>
+                    </Link>
+                </div>
+            </CTA>
 
             <Footer />
         </main>
