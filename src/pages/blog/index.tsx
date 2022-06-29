@@ -68,8 +68,8 @@ export default function BlogPage() {
                 <div className="container grid gap-14">
                     <Navigation light={true} />
 
-                    <div className="grid xl:grid-cols-2 gap-12 xl:max-h-[660px] group">
-                        <a href={`/blog/${articles[0].id}`} className="grid place-content-start gap-7 group-hovered">
+                    <div className="flex flex-col xl:flex-row items-stretch gap-12 group">
+                        <a href={`/blog/${articles[0].id}`} className="grid place-content-start gap-7 group-hovered flex-grow">
                             <img src={articles[0].image} alt={articles[0].title} className="flex-shrink" />
 
                             <div className="grid gap-4 text-white">
@@ -83,14 +83,14 @@ export default function BlogPage() {
                             <hr className="border-white opacity-30 xl:hidden" />
                         </a>
 
-                        <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 max-h-full">
+                        <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 flex-grow-0 flex-shrink">
                             {articles.slice(1, 4).map((article, index) => (
                                 <a key={index} href={`/blog/${article.id}`} className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered">
                                     <img src={article.image} alt={article.title} className="xl:w-60 object-cover" />
 
                                     <div className="grid gap-4 text-white">
                                         <h1 className="text-3xl font-vidaloka leading-snug">{article.title}</h1>
-                                        <p className="font-poppins max-h-20 line-clamp-2">{article.shortDescription}</p>
+                                        <p className="font-poppins max-h-20 line-clamp-3">{article.shortDescription}</p>
                                         <span className="opacity-60 text-sm font-poppins">
                                             {article.category} / {article.date}
                                         </span>
