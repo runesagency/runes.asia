@@ -150,6 +150,7 @@ export default function AboutPage() {
                                 ...data,
                                 ...data.translations.filter((translation: Record<string, any>) => translation.languages_code === lang)[0],
                                 image_id: data.image.id,
+                                id: data.id, // it was overlapped by the translation id before
                             };
 
                             return (
