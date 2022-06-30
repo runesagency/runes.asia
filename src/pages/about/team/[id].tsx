@@ -73,7 +73,7 @@ export default function TeamMemberPage() {
                             <h4 className="subtitle opacity-60">{person.job_title?.join(", ")}</h4>
                         </section>
 
-                        <p className="font-poppins whitespace-pre-line">{person.long_description}</p>
+                        <p className="font-poppins whitespace-pre-line text-justify">{person.long_description}</p>
                     </div>
 
                     <div className="xl:aspect-square w-full pt-10 flex justify-center items-end px-4" style={{ backgroundColor: person.theme_color }}>
