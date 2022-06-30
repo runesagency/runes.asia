@@ -16,7 +16,7 @@ type QnAData = {
 }[];
 
 const QnA = ({ data }: { data: QnAData }) => {
-    const nowCategoryId = useRef(0);
+    const nowCategoryId = useRef(-1);
     const categoriesSection = useRef<HTMLDivElement>(null);
     const faqsSection = useRef<HTMLDivElement>(null);
 
