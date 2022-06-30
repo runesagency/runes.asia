@@ -51,15 +51,15 @@ export default function TeamMemberPage() {
     return (
         <main className="relative bg-white">
             {/* Header */}
-            <section id="header" className="relative py-20">
+            <section className="relative py-20">
                 <div className="container grid gap-28">
                     <Navigation />
                 </div>
             </section>
 
             {/* Content */}
-            <section id="header" className="relative py-20">
-                <div className="container lg:max-w-screen-md xl:max-w-screen-lg grid gap-16 lg:grid-cols-2">
+            <section className="relative pt-20 pb-40">
+                <div className="container lg:max-w-screen-md xl:max-w-screen-lg grid gap-16 lg:grid-cols-2 z-10">
                     <div className="grid gap-8 text-black order-last lg:order-first auto-rows-max">
                         <Link href={`/about`}>
                             <a className="flex items-center gap-4 hover:underline hover:opacity-70">
@@ -80,6 +80,9 @@ export default function TeamMemberPage() {
                         <img src={`${process.env.NEXT_PUBLIC_CMS_URL}/assets/${person.image_id}`} alt="" className="w-full md:max-w-xs lg:h-96 mx-auto object-contain object-bottom" />
                     </div>
                 </div>
+
+                <img src="/images/others/pattern-bottom-left.png" alt="" className="hidden md:block absolute bottom-0 left-0 h-64" />
+                <img src="/images/others/pattern-bottom-right.png" alt="" className="absolute bottom-0 right-0 h-64" />
             </section>
 
             <Footer />
