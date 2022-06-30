@@ -14,6 +14,7 @@ export const en = {
     },
     teams: {
         title: "Meet The Masterminds",
+        moreButton: "More About ",
     },
     journey: {
         title: "The Great Journey",
@@ -86,6 +87,7 @@ export const id: typeof en = {
     },
     teams: {
         title: "Mereka Yang Di Balik Layar",
+        moreButton: "Selanjutnya Tentang ",
     },
     journey: {
         title: "Perjalanan Kami",
