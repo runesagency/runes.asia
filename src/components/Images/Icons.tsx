@@ -85,6 +85,12 @@ export const Magnifier = (props: SVGAttributes<SVGElement>) => (
     </svg>
 );
 
+export const ChevronLeft = (props: SVGAttributes<SVGElement>) => (
+    <svg viewBox="0 0 7 14" {...props}>
+        <path d="M6 13L1 7L6 0.999999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+);
+
 // Flag Icons
 export const FlagEN = (props: SVGAttributes<SVGElement>) => (
     <svg viewBox="0 0 36 26" xmlns="http://www.w3.org/2000/svg" {...props}>
