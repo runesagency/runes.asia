@@ -189,6 +189,7 @@ type useAPIOptions = {
     headers?: [string, string][] | { [key: string]: string };
     search?: string;
     sort?: string[];
+    deps?: any[];
 } & (
     | {
           limit: number;
@@ -211,29 +212,31 @@ export const useAPI = <T>(method: "GET" | "POST", path: `/${string}`, options: u
         headers["Content-Type"] = "application/json";
     }
 
-    const parsedUrl = new URL(`${process.env.NEXT_PUBLIC_CMS_URL}${path}`);
-
-    if (options.fields) {
-        let fields = getNestedKeyRecursively(options.fields).join(",");
-        parsedUrl.searchParams.set("fields", fields);
-    }
-
-    if (options.filter) {
-        parsedUrl.searchParams.set("filter", JSON.stringify(options.filter));
-    }
-
-    if (options.sort) {
-        parsedUrl.searchParams.set("sort", options.sort.join(","));
-    }
-
-    (options as any).offset = (options as any).skip;
-    for (let key of ["search", "offset", "page", "limit"]) {
-        if (options[key]) {
-            parsedUrl.searchParams.set(key, String(options[key]));
-        }
-    }
-
     useEffect(() => {
+        if (options.deps && options.deps.every((dep) => !dep)) return;
+
+        const parsedUrl = new URL(`${process.env.NEXT_PUBLIC_CMS_URL}${path}`);
+
+        if (options.fields) {
+            let fields = getNestedKeyRecursively(options.fields).join(",");
+            parsedUrl.searchParams.set("fields", fields);
+        }
+
+        if (options.filter) {
+            parsedUrl.searchParams.set("filter", JSON.stringify(options.filter));
+        }
+
+        if (options.sort) {
+            parsedUrl.searchParams.set("sort", options.sort.join(","));
+        }
+
+        (options as any).offset = (options as any).skip;
+        for (let key of ["search", "offset", "page", "limit"]) {
+            if (options[key]) {
+                parsedUrl.searchParams.set(key, String(options[key]));
+            }
+        }
+
         fetch(parsedUrl.href, {
             method,
             headers,
@@ -262,12 +265,10 @@ export const useAPI = <T>(method: "GET" | "POST", path: `/${string}`, options: u
             setLoading(true);
             setData(options?.defaultValue || null);
         };
-    }, []);
+    }, options.deps || []);
 
     return {
         data,
         loading,
-        parsedUrl: parsedUrl.href,
-        queryString: parsedUrl.search,
     };
 };
