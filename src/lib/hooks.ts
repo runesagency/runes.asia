@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useRouter } from "next/router";
 import type { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 import { useEffect, useState, useRef } from "react";
+
+type RecursiveObject<T> = {
+    [key: string]: T | RecursiveObject<T>;
+};
 
 const getComponentName = () => {
     const stack = new Error().stack;
@@ -12,97 +17,19 @@ const getComponentName = () => {
     return name;
 };
 
-export const useTypewriter = (selector = "data-typewriter") => {
-    useEffect(() => {
-        type Bound = {
-            id: number;
-            element: Element;
-            text: string;
-            isActive: boolean;
-            finished: boolean;
-            height: number;
-        };
+const getNestedKeyRecursively = (object: RecursiveObject<any>, lastKey = []) => {
+    let result = [];
 
-        let bounds: Bound[] = [];
-        let lastScrollEventTime = Date.now();
-        const foundElements = document.querySelectorAll(`[${selector}]`);
+    for (const key of Object.keys(object)) {
+        if (typeof object[key] !== "object") {
+            result.push([...lastKey, key].join("."));
+        }
 
-        const performTypewrite = async (id: number) => {
-            let bound = bounds[id];
-            if (bound.isActive) return;
+        const nested = getNestedKeyRecursively(object[key], [...lastKey, key]);
+        result = result.concat(nested);
+    }
 
-            bound.finished = false;
-            bound.isActive = true;
-            bound.element.textContent = "";
-
-            for (const text of bound.text) {
-                bound = bounds[id];
-                if (!bound?.isActive) return;
-
-                bound.element.textContent += text;
-                await new Promise((resolve) => setTimeout(resolve, 100));
-            }
-
-            bound.finished = true;
-        };
-
-        const initTypewrite = () => {
-            for (const element of foundElements) {
-                if (element.getAttribute(selector) === "true") {
-                    const id = bounds.push({
-                        id: bounds.length,
-                        element,
-                        text: element.textContent,
-                        isActive: false,
-                        finished: false,
-                        height: element.clientHeight,
-                    });
-
-                    performTypewrite(id - 1);
-                }
-            }
-        };
-
-        document.addEventListener("scroll", async () => {
-            if (Date.now() - lastScrollEventTime < 500) return;
-            lastScrollEventTime = Date.now();
-
-            for (const { element, id, finished } of bounds) {
-                const distanceFromTop = window.scrollY + element.getBoundingClientRect().top + window.innerHeight / 6;
-                const rawPercentScrolled = (window.scrollY - distanceFromTop) / (element.scrollHeight - window.innerHeight);
-                const percentScrolled = 1 - Math.min(Math.max(rawPercentScrolled, 0), 1);
-
-                if (percentScrolled > 0) {
-                    await performTypewrite(id);
-                } else if (finished) {
-                    element.textContent = "|";
-                    bounds[id].isActive = false;
-                }
-            }
-        });
-
-        let changesTimeout: any = 0;
-
-        document.addEventListener(
-            "languageChanged",
-            () => {
-                bounds = [];
-
-                if (changesTimeout) {
-                    clearTimeout(changesTimeout);
-                }
-
-                changesTimeout = setTimeout(initTypewrite, 1000);
-            },
-            false
-        );
-
-        setTimeout(() => {
-            if (!changesTimeout) {
-                changesTimeout = setTimeout(initTypewrite, 1000);
-            }
-        });
-    }, [selector]);
+    return result;
 };
 
 type useLanguageReturns<T> = {
@@ -251,4 +178,96 @@ export const useDragToScroll = (element: MutableRefObject<HTMLDivElement>) => {
             slider.removeEventListener("wheel", () => {});
         };
     }, [element]);
+};
+
+type useAPIOptions = {
+    // eslint-disable-next-line no-unused-vars
+    errorCallback?: (error: Error) => void;
+    defaultValue?: any;
+    fields?: RecursiveObject<true>;
+    filter?: RecursiveObject<any>;
+    headers?: [string, string][] | { [key: string]: string };
+    search?: string;
+    sort?: string[];
+} & (
+    | {
+          limit: number;
+          page: number;
+      }
+    | {
+          skip: number; // offset
+          limit?: number;
+      }
+);
+
+export const useAPI = <T>(method: "GET" | "POST", path: `/${string}`, options: useAPIOptions) => {
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState<T>(options?.defaultValue || null);
+    const router = useRouter();
+
+    const headers = options.headers || {};
+
+    if (method === "POST") {
+        headers["Content-Type"] = "application/json";
+    }
+
+    const parsedUrl = new URL(`${process.env.NEXT_PUBLIC_CMS_URL}${path}`);
+
+    if (options.fields) {
+        let fields = getNestedKeyRecursively(options.fields).join(",");
+        parsedUrl.searchParams.set("fields", fields);
+    }
+
+    if (options.filter) {
+        parsedUrl.searchParams.set("filter", JSON.stringify(options.filter));
+    }
+
+    if (options.sort) {
+        parsedUrl.searchParams.set("sort", options.sort.join(","));
+    }
+
+    (options as any).offset = (options as any).skip;
+    for (let key of ["search", "offset", "page", "limit"]) {
+        if (options[key]) {
+            parsedUrl.searchParams.set(key, String(options[key]));
+        }
+    }
+
+    useEffect(() => {
+        fetch(parsedUrl.href, {
+            method,
+            headers,
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                setLoading(false);
+                setData(response.data);
+            })
+            .catch((error) => {
+                if (process.env.NODE_ENV === "development") {
+                    console.error(error);
+                }
+
+                if (options.errorCallback) {
+                    options.errorCallback(error);
+                } else {
+                    alert("Something went wrong, please contact web admin and try again later.");
+                    router.push("/");
+                }
+
+                setLoading(false);
+            });
+
+        return () => {
+            setLoading(true);
+            setData(options?.defaultValue || null);
+        };
+    }, []);
+
+    return {
+        data,
+        loading,
+        parsedUrl: parsedUrl.href,
+        queryString: parsedUrl.search,
+    };
 };
