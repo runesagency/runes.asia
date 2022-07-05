@@ -6,7 +6,7 @@ import * as Icon from "@/components/Images/Icons";
 
 import moment from "moment";
 import { useState } from "react";
-import { useLanguage, useAPI } from "@/lib/hooks";
+import { useLanguage, useCMSAPI } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/blog";
 
 export type Article = {
@@ -91,7 +91,7 @@ export default function BlogPage() {
     const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
     const [searchText, setSearchText] = useState("");
 
-    const { data, loading } = useAPI<any[]>("GET", "/items/blogs", {
+    const { data, loading } = useCMSAPI<any[]>("/items/blogs", {
         skip: 0,
         defaultValue: [],
         sort: ["-date_created"],

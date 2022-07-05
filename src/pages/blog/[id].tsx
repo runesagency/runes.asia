@@ -7,7 +7,7 @@ import * as Button from "@/components/Utils/Buttons";
 
 import moment from "moment";
 import { useRouter } from "next/router";
-import { useAPI, useLanguage } from "@/lib/hooks";
+import { useCMSAPI, useLanguage } from "@/lib/hooks";
 
 export default function SingleBlogPage() {
     const { lang } = useLanguage("lang", {} as any);
@@ -15,7 +15,7 @@ export default function SingleBlogPage() {
     const router = useRouter();
     const { id } = router.query;
 
-    const { data, loading } = useAPI<any>("GET", `/items/blogs/${id}`, {
+    const { data, loading } = useCMSAPI<any>(`/items/blogs/${id}`, {
         skip: 0,
         defaultValue: {},
         deps: [router.isReady, id],

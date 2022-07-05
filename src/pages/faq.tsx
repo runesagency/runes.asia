@@ -2,7 +2,7 @@ import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
 import { useEffect, useRef } from "react";
-import { useAPI, useLanguage } from "@/lib/hooks";
+import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/faq";
 
 import { theme } from "tailwind.config";
@@ -157,7 +157,7 @@ const QnA = ({ data }: { data: QnAData }) => {
 export default function FAQPage() {
     const { locale, lang } = useLanguage("lang", localization);
 
-    const { data, loading } = useAPI<any>("GET", "/items/faqs", {
+    const { data, loading } = useCMSAPI<any>("/items/faqs", {
         defaultValue: [],
         skip: 0,
         fields: {

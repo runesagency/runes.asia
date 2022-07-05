@@ -201,16 +201,12 @@ type useAPIOptions = {
       }
 );
 
-export const useAPI = <T>(method: "GET" | "POST", path: `/${string}`, options: useAPIOptions) => {
+export const useCMSAPI = <T>(path: `/${string}`, options: useAPIOptions) => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<T>(options?.defaultValue || null);
     const router = useRouter();
 
     const headers = options.headers || {};
-
-    if (method === "POST") {
-        headers["Content-Type"] = "application/json";
-    }
 
     useEffect(() => {
         if (options.deps && options.deps.every((dep) => !dep)) return;
@@ -238,7 +234,7 @@ export const useAPI = <T>(method: "GET" | "POST", path: `/${string}`, options: u
         }
 
         fetch(parsedUrl.href, {
-            method,
+            method: "GET",
             headers,
         })
             .then((response) => response.json())

@@ -4,7 +4,7 @@ import Footer from "@/components/Sections/Footer";
 import * as Icon from "@/components/Images/Icons";
 
 import { useRouter } from "next/router";
-import { useAPI, useLanguage } from "@/lib/hooks";
+import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/about/member";
 
 export default function TeamMemberPage() {
@@ -12,7 +12,7 @@ export default function TeamMemberPage() {
     const router = useRouter();
     const { id } = router.query;
 
-    const { data, loading } = useAPI<any>("GET", `/items/teams/${id}`, {
+    const { data, loading } = useCMSAPI<any>(`/items/teams/${id}`, {
         skip: 0,
         defaultValue: {},
         deps: [router.isReady, id],

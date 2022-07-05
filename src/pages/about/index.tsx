@@ -4,7 +4,7 @@ import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
-import { useAPI, useLanguage } from "@/lib/hooks";
+import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/about";
 import { theme } from "tailwind.config";
 
@@ -78,7 +78,7 @@ const Timeline = ({ data }: { data: TimelineData }) => {
 export default function AboutPage() {
     const { locale, lang } = useLanguage("lang", localization);
 
-    const { data, loading } = useAPI<any>("GET", "/items/teams", {
+    const { data, loading } = useCMSAPI<any>("/items/teams", {
         skip: 0,
         defaultValue: [],
         fields: {
