@@ -169,7 +169,7 @@ export default function BlogPage() {
             {/* Header */}
             <section className="relative py-20 bg-black">
                 <div className="container grid gap-14">
-                    <Navigation light={true} />
+                    <Navigation light />
                     {!loading && <BlogHeading articles={articles} />}
                 </div>
             </section>
