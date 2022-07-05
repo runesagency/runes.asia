@@ -7,9 +7,10 @@ import * as Icon from "@/components/Images/Icons";
 import moment from "moment";
 import { useState } from "react";
 import { useLanguage, useAPI } from "@/lib/hooks";
+import * as localization from "@/lib/localization/pages/blog";
 
 export default function BlogPage() {
-    const { lang } = useLanguage("lang", {} as any, "en");
+    const { lang, locale } = useLanguage("lang", localization);
     const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
     const [searchText, setSearchText] = useState("");
 
@@ -159,7 +160,7 @@ export default function BlogPage() {
                         <Icon.Magnifier className="fill-current h-5" />
                         <input
                             type={"search"}
-                            placeholder="Search Article"
+                            placeholder={locale.searchPlaceholder}
                             className="py-4 w-full outline-none font-poppins"
                             onChange={(e) => {
                                 setSearchText(e.target.value);
@@ -222,8 +223,8 @@ export default function BlogPage() {
                 }}
             >
                 <div className="grid gap-5">
-                    <h1 className="jumbo-title whitespace-pre-line">Get The Latest Articles Every Week From Us.</h1>
-                    <p className="subtitle text-justify">Enhance your knowledge and explore the world through our writings.</p>
+                    <h1 className="jumbo-title whitespace-pre-line">{locale.newsletter.title}</h1>
+                    <p className="subtitle text-justify">{locale.newsletter.subtitle}</p>
                 </div>
 
                 <form className="grid font-poppins max-w-xl">
@@ -232,10 +233,10 @@ export default function BlogPage() {
                         <input type={"email"} placeholder="Your Email Account" className="py-4 w-full outline-none font-poppins" />
                     </div>
 
-                    <Button.Primary className="!w-full !rounded-none">Join Mailing List</Button.Primary>
+                    <Button.Primary className="!w-full !rounded-none">{locale.newsletter.button}</Button.Primary>
                 </form>
 
-                <p className="font-poppins">*Don’t worry, we won’t sent you any spam :)</p>
+                <p className="font-poppins">{locale.newsletter.notice}</p>
             </CTA>
 
             <Footer />
