@@ -2,7 +2,7 @@ import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
 import { useEffect, useRef } from "react";
-import { useLanguage } from "@/lib/hooks";
+import { useAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/faq";
 
 import { theme } from "tailwind.config";
@@ -155,44 +155,52 @@ const QnA = ({ data }: { data: QnAData }) => {
 };
 
 export default function FAQPage() {
-    const { locale } = useLanguage("lang", localization);
+    const { locale, lang } = useLanguage("lang", localization);
 
-    const dummy = [
-        {
-            title: "Common Questions",
+    const { data, loading } = useAPI<any>("GET", "/items/faqs", {
+        defaultValue: [],
+        skip: 0,
+        fields: {
+            faq_category_id: {
+                translations: {
+                    languages_code: true,
+                    name: true,
+                },
+            },
+            translations: {
+                languages_code: true,
+                question: true,
+                answer: true,
+            },
+        },
+    });
+
+    const parsedData = data.map((item) => {
+        const category = item.faq_category_id.translations.find((item) => item.languages_code === lang);
+        const question = item.translations.find((item) => item.languages_code === lang);
+
+        return {
+            title: category.name,
             list: [
                 {
-                    question: "Are there any hidden fees?",
-                    answer: "No, we don't charge any fees for using our services. We only charge for the services you use.",
-                },
-                {
-                    question: "Can I use your services for free?",
-                    answer: "Yes, you can use our services for free. However, we do charge for the services you use.",
-                },
-                {
-                    question: "Is there any design task that is not supported?",
-                    answer: "Yes, we do support all kinds of design tasks. However, we do not support any design task that is not supported.",
+                    question: question.question,
+                    answer: question.answer,
                 },
             ],
-        },
-        {
-            title: "How We Work",
-            list: [
-                {
-                    question: "How do you work?",
-                    answer: "We work with you to create a design that is unique and beautiful. We will work with you to create a design that is unique and beautiful.",
-                },
-                {
-                    question: "What does 1 Brand/Product mean?",
-                    answer: "1 Brand/Product means that you will be working with 1 brand/product. We will work with you to create a design that is unique and beautiful.",
-                },
-                {
-                    question: "What does 1 Design Task mean?",
-                    answer: "1 Design Task means that you will be working with 1 design task. We will work with you to create a design that is unique and beautiful.",
-                },
-            ],
-        },
-    ];
+        };
+    });
+
+    const mergedDataByCategories = parsedData.reduce((acc, item) => {
+        const category = acc.find((cat) => cat.title === item.title);
+
+        if (category) {
+            category.list = [...category.list, ...item.list];
+        } else {
+            acc.push(item);
+        }
+
+        return acc;
+    }, []);
 
     return (
         <main className="relative bg-white overflow-auto">
@@ -208,7 +216,7 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            <QnA data={dummy} />
+            {!loading && <QnA data={mergedDataByCategories} />}
 
             <Footer />
         </main>
