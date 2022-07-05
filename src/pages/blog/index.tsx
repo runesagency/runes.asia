@@ -30,7 +30,7 @@ type Article = {
     cover_image: string;
     title: string;
     tags: string[];
-    shortContent: string;
+    short_description: string;
     content: string;
 };
 
@@ -41,7 +41,7 @@ const BlogHeading = ({ articles }: { articles: Article[] }) => (
 
             <div className="grid gap-4 text-white">
                 <h1 className="text-4.5xl font-vidaloka leading-snug">{articles?.[0]?.title}</h1>
-                <p className="subtitle max-h-full line-clamp-3">{articles?.[0]?.shortContent}</p>
+                <p className="subtitle max-h-full line-clamp-3">{articles?.[0]?.short_description}</p>
                 <span className="opacity-60 font-poppins capitalize">
                     {articles?.[0]?.tags[0]} / {articles?.[0]?.date_created}
                 </span>
@@ -57,7 +57,7 @@ const BlogHeading = ({ articles }: { articles: Article[] }) => (
 
                     <div className="grid gap-4 text-white">
                         <h1 className="text-3xl font-vidaloka leading-snug line-clamp-2">{article.title}</h1>
-                        <p className="font-poppins max-h-20 line-clamp-3">{article.shortContent}</p>
+                        <p className="font-poppins max-h-20 line-clamp-3">{article.short_description}</p>
                         <span className="opacity-60 text-sm font-poppins capitalize">
                             {article.tags[0]} / {article.date_created}
                         </span>
@@ -76,7 +76,7 @@ const BlogBody = ({ articles }: { articles: Article[] }) => (
 
                 <div className="flex flex-col gap-4 text-black h-full">
                     <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>
-                    <p className="h-full line-clamp-3 font-poppins">{article.shortContent}</p>
+                    <p className="h-full line-clamp-3 font-poppins">{article.short_description}</p>
                     <span className="opacity-60 font-poppins flex-1 text-sm capitalize">
                         {article.tags[0]} / {article.date_created}
                     </span>
@@ -108,6 +108,7 @@ export default function BlogPage() {
                 tags: true,
                 content: true,
                 languages_code: true,
+                short_description: true,
             },
         },
     });
@@ -123,7 +124,6 @@ export default function BlogPage() {
 
         return {
             ...merged,
-            shortContent: new DOMParser().parseFromString(merged.content, "text/html").documentElement.textContent,
             cover_image: `${process.env.NEXT_PUBLIC_CMS_URL}/assets/${merged.cover_image}`,
             tags: merged.tags.map((t) => t.toLowerCase()),
             date_created: moment(merged.date_created).format("DD MMMM YYYY"),
