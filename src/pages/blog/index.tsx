@@ -9,37 +9,89 @@ import { useState } from "react";
 import { useLanguage, useAPI } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/blog";
 
+type Article = {
+    id: number;
+    date_created: string;
+    date_updated: string;
+    user_created: {
+        avatar: string;
+        description: string;
+        first_name: string;
+        last_name: string;
+        title: string;
+    };
+    user_updated: {
+        avatar: string;
+        description: string;
+        first_name: string;
+        last_name: string;
+        title: string;
+    };
+    cover_image: string;
+    title: string;
+    tags: string[];
+    shortContent: string;
+    content: string;
+};
+
+const BlogHeading = ({ articles }: { articles: Article[] }) => (
+    <div className="flex flex-col xl:flex-row items-stretch gap-12 group">
+        <a href={`/blog/${articles?.[0]?.id}`} className="grid place-content-start gap-7 group-hovered flex-1">
+            <img src={articles?.[0]?.cover_image} alt={articles?.[0]?.title} className="flex-shrink h-96 w-full object-cover" />
+
+            <div className="grid gap-4 text-white">
+                <h1 className="text-4.5xl font-vidaloka leading-snug">{articles?.[0]?.title}</h1>
+                <p className="subtitle max-h-full line-clamp-3">{articles?.[0]?.shortContent}</p>
+                <span className="opacity-60 font-poppins capitalize">
+                    {articles?.[0]?.tags[0]} / {articles?.[0]?.date_created}
+                </span>
+            </div>
+
+            <hr className="border-white opacity-30 xl:hidden" />
+        </a>
+
+        <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 flex-1">
+            {articles.slice(1, 4).map((article, index) => (
+                <a key={index} href={`/blog/${article.id}`} className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max">
+                    <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover flex-shrink-0" />
+
+                    <div className="grid gap-4 text-white">
+                        <h1 className="text-3xl font-vidaloka leading-snug line-clamp-2">{article.title}</h1>
+                        <p className="font-poppins max-h-20 line-clamp-3">{article.shortContent}</p>
+                        <span className="opacity-60 text-sm font-poppins capitalize">
+                            {article.tags[0]} / {article.date_created}
+                        </span>
+                    </div>
+                </a>
+            ))}
+        </div>
+    </div>
+);
+
+const BlogBody = ({ articles }: { articles: Article[] }) => (
+    <div className="grid gap-6 xl:gap-11 md:grid-cols-3 group">
+        {articles.map((article, index) => (
+            <a key={index} href={`/blog/${article.id}`} className="grid gap-7 h-full place-content-start group-hovered">
+                <img src={article.cover_image} alt={article.title} className="w-full h-64" />
+
+                <div className="flex flex-col gap-4 text-black h-full">
+                    <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>
+                    <p className="h-full line-clamp-3 font-poppins">{article.shortContent}</p>
+                    <span className="opacity-60 font-poppins flex-1 text-sm capitalize">
+                        {article.tags[0]} / {article.date_created}
+                    </span>
+                </div>
+            </a>
+        ))}
+    </div>
+);
+
 export default function BlogPage() {
     const { lang, locale } = useLanguage("lang", localization);
     const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
     const [searchText, setSearchText] = useState("");
 
-    type Article = {
-        id: number;
-        date_created: string;
-        date_updated: string;
-        user_created: {
-            avatar: string;
-            description: string;
-            first_name: string;
-            last_name: string;
-            title: string;
-        };
-        user_updated: {
-            avatar: string;
-            description: string;
-            first_name: string;
-            last_name: string;
-            title: string;
-        };
-        cover_image: string;
-        title: string;
-        tags: string[];
-        shortContent: string;
-        content: string;
-    };
-
-    const { data } = useAPI<any[]>("GET", "/items/blogs", {
+    const { data, loading } = useAPI<any[]>("GET", "/items/blogs", {
         skip: 0,
         defaultValue: [],
         sort: ["-date_created"],
@@ -118,38 +170,7 @@ export default function BlogPage() {
             <section className="relative py-20 bg-black">
                 <div className="container grid gap-14">
                     <Navigation light={true} />
-
-                    <div className="flex flex-col xl:flex-row items-stretch gap-12 group">
-                        <a href={`/blog/${articles?.[0]?.id}`} className="grid place-content-start gap-7 group-hovered flex-1">
-                            <img src={articles?.[0]?.cover_image} alt={articles?.[0]?.title} className="flex-shrink h-96 w-full object-cover" />
-
-                            <div className="grid gap-4 text-white">
-                                <h1 className="text-4.5xl font-vidaloka leading-snug">{articles?.[0]?.title}</h1>
-                                <p className="subtitle max-h-full line-clamp-3">{articles?.[0]?.shortContent}</p>
-                                <span className="opacity-60 font-poppins capitalize">
-                                    {articles?.[0]?.tags[0]} / {articles?.[0]?.date_created}
-                                </span>
-                            </div>
-
-                            <hr className="border-white opacity-30 xl:hidden" />
-                        </a>
-
-                        <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 flex-1">
-                            {articles.slice(1, 4).map((article, index) => (
-                                <a key={index} href={`/blog/${article.id}`} className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max">
-                                    <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover flex-shrink-0" />
-
-                                    <div className="grid gap-4 text-white">
-                                        <h1 className="text-3xl font-vidaloka leading-snug line-clamp-2">{article.title}</h1>
-                                        <p className="font-poppins max-h-20 line-clamp-3">{article.shortContent}</p>
-                                        <span className="opacity-60 text-sm font-poppins capitalize">
-                                            {article.tags[0]} / {article.date_created}
-                                        </span>
-                                    </div>
-                                </a>
-                            ))}
-                        </div>
-                    </div>
+                    {!loading && <BlogHeading articles={articles} />}
                 </div>
             </section>
 
@@ -194,21 +215,7 @@ export default function BlogPage() {
                         ))}
                     </div>
 
-                    <div className="grid gap-6 xl:gap-11 md:grid-cols-3 group">
-                        {articleMore.map((article, index) => (
-                            <a key={index} href={`/blog/${article.id}`} className="grid gap-7 h-full place-content-start group-hovered">
-                                <img src={article.cover_image} alt={article.title} className="w-full h-64" />
-
-                                <div className="flex flex-col gap-4 text-black h-full">
-                                    <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>
-                                    <p className="h-full line-clamp-3 font-poppins">{article.shortContent}</p>
-                                    <span className="opacity-60 font-poppins flex-1 text-sm capitalize">
-                                        {article.tags[0]} / {article.date_created}
-                                    </span>
-                                </div>
-                            </a>
-                        ))}
-                    </div>
+                    {!loading && <BlogBody articles={articleMore} />}
                 </div>
             </section>
 
