@@ -15,6 +15,7 @@ export default function TeamMemberPage() {
     const { data, loading } = useAPI<any>("GET", `/items/teams/${id}`, {
         skip: 0,
         defaultValue: {},
+        deps: [router.isReady, id],
         fields: {
             name: true,
             image: true,
