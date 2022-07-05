@@ -1,6 +1,6 @@
 import CTA from "@/components/Sections/CTA";
+import Input from "@/components/Utils/Input";
 import * as Button from "@/components/Utils/Buttons";
-import * as Icon from "@/components/Images/Icons";
 
 import { useLanguage } from "@/lib/hooks";
 import { useState } from "react";
@@ -60,17 +60,14 @@ export default function NewsletterCTA() {
             </div>
 
             <form className="grid font-poppins max-w-xl" onSubmit={handleSubmit}>
-                <div className="w-full flex gap-6 items-center border border-black border-opacity-20 pl-5 bg-white">
-                    <Icon.Mail className="fill-current h-5" />
-                    <input
-                        type={"email"} //
-                        placeholder={locale.placeholder}
-                        className="py-4 w-full outline-none font-poppins"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        required
-                    />
-                </div>
+                <Input
+                    icon="Mail"
+                    type={"email"} //
+                    placeholder={locale.placeholder}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    required
+                />
 
                 <Button.Primary as="button" className="!w-full !rounded-none" type="submit">
                     {locale.button}

@@ -2,12 +2,12 @@ import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import NewsletterCTA from "@/components/Sections/NewsletterCTA";
 import * as Button from "@/components/Utils/Buttons";
-import * as Icon from "@/components/Images/Icons";
 
 import moment from "moment";
 import { useState } from "react";
 import { useLanguage, useCMSAPI } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/blog";
+import Input from "@/components/Utils/Input";
 
 export type Article = {
     id: number;
@@ -176,17 +176,15 @@ export default function BlogPage() {
             {/* Content */}
             <section className="relative py-20">
                 <div className="container grid gap-6">
-                    <div className="max-w-md flex gap-6 items-center text-black border border-black border-opacity-20 pl-5">
-                        <Icon.Magnifier className="fill-current h-5" />
-                        <input
-                            type={"search"}
-                            placeholder={locale.searchPlaceholder}
-                            className="py-4 w-full outline-none font-poppins"
-                            onChange={(e) => {
-                                setSearchText(e.target.value);
-                            }}
-                        />
-                    </div>
+                    <Input
+                        icon="Magnifier"
+                        type={"search"}
+                        className="max-w-md"
+                        placeholder={locale.searchPlaceholder}
+                        onChange={(e) => {
+                            setSearchText(e.target.value);
+                        }}
+                    />
 
                     <div className="flex flex-wrap items-center gap-3">
                         <Button.Secondary //
