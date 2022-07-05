@@ -1,6 +1,6 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
-import CTA from "@/components/Sections/CTA";
+import NewsletterCTA from "@/components/Sections/NewsletterCTA";
 import * as Button from "@/components/Utils/Buttons";
 import * as Icon from "@/components/Images/Icons";
 
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useLanguage, useAPI } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/blog";
 
-type Article = {
+export type Article = {
     id: number;
     date_created: string;
     date_updated: string;
@@ -117,7 +117,6 @@ export default function BlogPage() {
         const translations = x.translations.filter((l) => l.languages_code === lang)[0] || x.translations[0];
 
         const merged = {
-            tags: [],
             ...translations,
             ...x,
         };
@@ -125,7 +124,7 @@ export default function BlogPage() {
         return {
             ...merged,
             cover_image: `${process.env.NEXT_PUBLIC_CMS_URL}/assets/${merged.cover_image}`,
-            tags: merged.tags.map((t) => t.toLowerCase()),
+            tags: merged.tags?.map((t) => t.toLowerCase()) || [],
             date_created: moment(merged.date_created).format("DD MMMM YYYY"),
         };
     });
@@ -219,32 +218,7 @@ export default function BlogPage() {
                 </div>
             </section>
 
-            {/* Join Newsletter */}
-            <CTA
-                imageLink="/images/illustrations/fireplace.png"
-                className={{
-                    wrapper: "bg-pink",
-                    rightContainer: "xl:flex-shrink-0",
-                    leftContainer: "text-black",
-                    image: "xl:object-left",
-                }}
-            >
-                <div className="grid gap-5">
-                    <h1 className="jumbo-title whitespace-pre-line">{locale.newsletter.title}</h1>
-                    <p className="subtitle text-justify">{locale.newsletter.subtitle}</p>
-                </div>
-
-                <form className="grid font-poppins max-w-xl">
-                    <div className="w-full flex gap-6 items-center border border-black border-opacity-20 pl-5 bg-white">
-                        <Icon.Mail className="fill-current h-5" />
-                        <input type={"email"} placeholder="Your Email Account" className="py-4 w-full outline-none font-poppins" />
-                    </div>
-
-                    <Button.Primary className="!w-full !rounded-none">{locale.newsletter.button}</Button.Primary>
-                </form>
-
-                <p className="font-poppins">{locale.newsletter.notice}</p>
-            </CTA>
+            <NewsletterCTA />
 
             <Footer />
         </main>
