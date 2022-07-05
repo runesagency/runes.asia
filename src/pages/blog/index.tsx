@@ -1,65 +1,115 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
+import CTA from "@/components/Sections/CTA";
 import * as Button from "@/components/Utils/Buttons";
 import * as Icon from "@/components/Images/Icons";
 
+import moment from "moment";
 import { useState } from "react";
-import CTA from "@/components/Sections/CTA";
-
-const articleTitles = [
-    "Dear UI Designer, yok bisa yok belajar bikin copy sendiri",
-    "Ketika kamu bingung mengisi konten pada eksplorasi design mu",
-    "Berlatih UX Writing dengan Prinsip Dasar Microcopy",
-    "Cara cepat belajar design landing page",
-    "Pertimbangkan branding sebelum menambahkan faktor delightful",
-    "Referensi Design 02: Halaman detail artikel pada blog",
-    "Cara memakai inspirasi dari referensi",
-];
+import { useLanguage, useAPI } from "@/lib/hooks";
 
 export default function BlogPage() {
-    const [articles] = useState(
-        Array.from({ length: 10 }).map((_, index) => ({
-            id: index,
-            title: articleTitles[Math.floor(Math.random() * articleTitles.length)],
-            image: `https://www.dwinawan.com/blog/thumb_article${index + 1}.jpg`,
-            // random date and month like "1 February 2022"
-            date: `${Math.floor(Math.random() * 31)} ${
-                ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][Math.floor(Math.random() * 12)]
-            } 2022`,
-            category: ["Illustrations", "Web Development", "Case Studies"][Math.floor(Math.random() * 3)],
-            shortDescription:
-                "Lupakan sejenak Lorem Ipsum saat mengisi teks pada design UI mu. Coba buat copy mu sendiri. Buat rekan kerja UX Writer lebih happy saat bekerja.Lupakan sejenak Lorem Ipsum saat mengisi teks pada design UI mu. Coba buat copy mu sendiri. Buat rekan kerja UX Writer lebih happy saat bekerja.Lupakan sejenak Lorem Ipsum saat mengisi teks pada design UI mu. Coba buat copy mu sendiri. Buat rekan kerja UX Writer lebih happy saat bekerja.",
-        }))
-    );
-
+    const { lang } = useLanguage("lang", {} as any, "en");
     const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
     const [searchText, setSearchText] = useState("");
 
-    const categories = articles.reduce((acc, article) => {
-        if (!acc.includes(article.category)) {
-            acc.push(article.category);
+    type Article = {
+        id: number;
+        date_created: string;
+        date_updated: string;
+        user_created: {
+            avatar: string;
+            description: string;
+            first_name: string;
+            last_name: string;
+            title: string;
+        };
+        user_updated: {
+            avatar: string;
+            description: string;
+            first_name: string;
+            last_name: string;
+            title: string;
+        };
+        cover_image: string;
+        title: string;
+        tags: string[];
+        shortContent: string;
+        content: string;
+    };
+
+    const { data } = useAPI<any[]>("GET", "/items/blogs", {
+        skip: 0,
+        defaultValue: [],
+        sort: ["-date_created"],
+        fields: {
+            "*": true,
+            user_created: {
+                "*": true,
+            },
+            user_updated: {
+                "*": true,
+            },
+            translations: {
+                title: true,
+                tags: true,
+                content: true,
+                languages_code: true,
+            },
+        },
+    });
+
+    const articles: Article[] = data.map((x) => {
+        const translations = x.translations.filter((l) => l.languages_code === lang)[0] || x.translations[0];
+
+        const merged = {
+            tags: [],
+            ...translations,
+            ...x,
+        };
+
+        return {
+            ...merged,
+            shortContent: new DOMParser().parseFromString(merged.content, "text/html").documentElement.textContent,
+            cover_image: `${process.env.NEXT_PUBLIC_CMS_URL}/assets/${merged.cover_image}`,
+            tags: merged.tags.map((t) => t.toLowerCase()),
+            date_created: moment(merged.date_created).format("DD MMMM YYYY"),
+        };
+    });
+
+    const articleCategories = articles.reduce((previous, article) => {
+        if (Array.isArray(article.tags)) {
+            article.tags.forEach((tag) => {
+                if (!previous.includes(tag)) {
+                    previous.push(tag);
+                }
+            });
         }
 
-        return acc;
+        return previous;
     }, []);
 
-    const articleFilter = (article: typeof articles[0]) => {
-        if (categoryFilters.length > 0) {
-            if (categoryFilters.includes(article.category)) {
-                return true;
+    const articleMore = articles //
+        .slice(4)
+        .filter((article: Article) => {
+            if (categoryFilters.length > 0) {
+                for (const tag of article.tags) {
+                    if (categoryFilters.includes(tag.toLowerCase())) {
+                        return true;
+                    }
+                }
+                return false;
             }
-            return false;
-        }
 
-        if (searchText.length > 0) {
-            if (article.title.toLowerCase().includes(searchText.toLowerCase())) {
-                return true;
+            if (searchText.length > 0) {
+                if (article.title.toLowerCase().includes(searchText.toLowerCase())) {
+                    return true;
+                }
+                return false;
             }
-            return false;
-        }
 
-        return true;
-    };
+            return true;
+        });
 
     return (
         <main className="relative bg-white">
@@ -69,30 +119,30 @@ export default function BlogPage() {
                     <Navigation light={true} />
 
                     <div className="flex flex-col xl:flex-row items-stretch gap-12 group">
-                        <a href={`/blog/${articles[0].id}`} className="grid place-content-start gap-7 group-hovered flex-grow">
-                            <img src={articles[0].image} alt={articles[0].title} className="flex-shrink" />
+                        <a href={`/blog/${articles?.[0]?.id}`} className="grid place-content-start gap-7 group-hovered flex-1">
+                            <img src={articles?.[0]?.cover_image} alt={articles?.[0]?.title} className="flex-shrink h-96 w-full object-cover" />
 
                             <div className="grid gap-4 text-white">
-                                <h1 className="text-4.5xl font-vidaloka leading-snug">{articles[0].title}</h1>
-                                <p className="subtitle max-h-full line-clamp-3">{articles[0].shortDescription}</p>
-                                <span className="opacity-60 font-poppins">
-                                    {articles[0].category} / {articles[0].date}
+                                <h1 className="text-4.5xl font-vidaloka leading-snug">{articles?.[0]?.title}</h1>
+                                <p className="subtitle max-h-full line-clamp-3">{articles?.[0]?.shortContent}</p>
+                                <span className="opacity-60 font-poppins capitalize">
+                                    {articles?.[0]?.tags[0]} / {articles?.[0]?.date_created}
                                 </span>
                             </div>
 
                             <hr className="border-white opacity-30 xl:hidden" />
                         </a>
 
-                        <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 flex-grow-0 flex-shrink">
+                        <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 flex-1">
                             {articles.slice(1, 4).map((article, index) => (
-                                <a key={index} href={`/blog/${article.id}`} className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered">
-                                    <img src={article.image} alt={article.title} className="xl:w-60 object-cover" />
+                                <a key={index} href={`/blog/${article.id}`} className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max">
+                                    <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover flex-shrink-0" />
 
                                     <div className="grid gap-4 text-white">
-                                        <h1 className="text-3xl font-vidaloka leading-snug">{article.title}</h1>
-                                        <p className="font-poppins max-h-20 line-clamp-3">{article.shortDescription}</p>
-                                        <span className="opacity-60 text-sm font-poppins">
-                                            {article.category} / {article.date}
+                                        <h1 className="text-3xl font-vidaloka leading-snug line-clamp-2">{article.title}</h1>
+                                        <p className="font-poppins max-h-20 line-clamp-3">{article.shortContent}</p>
+                                        <span className="opacity-60 text-sm font-poppins capitalize">
+                                            {article.tags[0]} / {article.date_created}
                                         </span>
                                     </div>
                                 </a>
@@ -125,7 +175,7 @@ export default function BlogPage() {
                             All
                         </Button.Secondary>
 
-                        {categories.map((category, index) => (
+                        {articleCategories.map((category, index) => (
                             <Button.Secondary
                                 key={index}
                                 onClick={() => {
@@ -135,6 +185,7 @@ export default function BlogPage() {
                                         setCategoryFilters(categoryFilters.filter((c) => c !== category));
                                     }
                                 }}
+                                className="capitalize"
                                 active={categoryFilters.includes(category)}
                             >
                                 {category}
@@ -143,22 +194,19 @@ export default function BlogPage() {
                     </div>
 
                     <div className="grid gap-6 xl:gap-11 md:grid-cols-3 group">
-                        {articles
-                            .slice(4)
-                            .filter(articleFilter)
-                            .map((article, index) => (
-                                <a key={index} href={`/blog/${article.id}`} className="grid gap-7 h-full place-content-start group-hovered">
-                                    <img src={article.image} alt={article.title} className="w-full h-max" />
+                        {articleMore.map((article, index) => (
+                            <a key={index} href={`/blog/${article.id}`} className="grid gap-7 h-full place-content-start group-hovered">
+                                <img src={article.cover_image} alt={article.title} className="w-full h-64" />
 
-                                    <div className="flex flex-col gap-4 text-black h-full">
-                                        <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>
-                                        <p className="h-full line-clamp-3 font-poppins">{article.shortDescription}</p>
-                                        <span className="opacity-60 font-poppins flex-1 text-sm">
-                                            {article.category} / {article.date}
-                                        </span>
-                                    </div>
-                                </a>
-                            ))}
+                                <div className="flex flex-col gap-4 text-black h-full">
+                                    <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>
+                                    <p className="h-full line-clamp-3 font-poppins">{article.shortContent}</p>
+                                    <span className="opacity-60 font-poppins flex-1 text-sm capitalize">
+                                        {article.tags[0]} / {article.date_created}
+                                    </span>
+                                </div>
+                            </a>
+                        ))}
                     </div>
                 </div>
             </section>
