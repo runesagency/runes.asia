@@ -16,6 +16,14 @@ const config = (phase) => {
         redirects: async () => {
             return [];
         },
+        rewrites: async () => {
+            return [
+                {
+                    source: "/api/cms/:path*",
+                    destination: "https://cms.runes.asia/:path*",
+                },
+            ];
+        },
     };
 
     if (phase !== PHASE_DEVELOPMENT_SERVER) {

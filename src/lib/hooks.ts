@@ -211,7 +211,11 @@ export const useCMSAPI = <T>(path: `/${string}`, options: useAPIOptions) => {
     useEffect(() => {
         if (options.deps && options.deps.every((dep) => !dep)) return;
 
-        const parsedUrl = new URL(`${process.env.NEXT_PUBLIC_CMS_URL}${path}`);
+        const protocol = window.location.protocol;
+        const domain = window.location.hostname;
+        const port = window.location.port;
+
+        const parsedUrl = new URL(`${protocol}//${domain}:${port ? port : ""}/api/cms${path}`);
 
         if (options.fields) {
             let fields = getNestedKeyRecursively(options.fields).join(",");

@@ -70,7 +70,7 @@ export default function SingleBlogPage() {
                                 </div>
                             </div>
 
-                            <img src={`${process.env.NEXT_PUBLIC_CMS_URL}/assets/${blog.cover_image}`} alt="" className="h-full w-full object-cover max-h-72 lg:max-h-full order-first lg:order-none" />
+                            <img src={`/api/cms/assets/${blog.cover_image}`} alt="" className="h-full w-full object-cover max-h-72 lg:max-h-full order-first lg:order-none" />
                         </div>
                     )}
                 </div>

@@ -151,7 +151,7 @@ export default function AboutPage() {
                                 return (
                                     <article key={index} className="grid gap-7 w-full h-max">
                                         <div className="aspect-square w-full pt-10 flex justify-center items-end px-4" style={{ backgroundColor: person.theme_color }}>
-                                            <img src={`${process.env.NEXT_PUBLIC_CMS_URL}/assets/${person.image}`} alt="" className="h-80 mx-auto object-contain object-bottom" />
+                                            <img src={`/api/cms/assets/${person.image}`} alt="" className="h-80 mx-auto object-contain object-bottom" />
                                         </div>
 
                                         <div className="grid gap-4 font-poppins h-max">

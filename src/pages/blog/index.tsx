@@ -123,7 +123,7 @@ export default function BlogPage() {
 
         return {
             ...merged,
-            cover_image: `${process.env.NEXT_PUBLIC_CMS_URL}/assets/${merged.cover_image}`,
+            cover_image: `/api/cms/assets/${merged.cover_image}`,
             tags: merged.tags?.map((t) => t.toLowerCase()) || [],
             date_created: moment(merged.date_created).format("DD MMMM YYYY"),
         };

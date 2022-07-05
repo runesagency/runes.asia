@@ -74,7 +74,7 @@ export default function TeamMemberPage() {
                         </div>
 
                         <div className="xl:aspect-square w-full pt-10 flex justify-center items-end px-4" style={{ backgroundColor: person.theme_color }}>
-                            <img src={`${process.env.NEXT_PUBLIC_CMS_URL}/assets/${person.image}`} alt="" className="w-full md:max-w-xs lg:h-96 mx-auto object-contain object-bottom" />
+                            <img src={`/api/cms/assets/${person.image}`} alt="" className="w-full md:max-w-xs lg:h-96 mx-auto object-contain object-bottom" />
                         </div>
                     </div>
 
