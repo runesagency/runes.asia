@@ -1,10 +1,10 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 
 import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
-import { useLanguage } from "@/lib/hooks";
+import { useAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/about";
 import { theme } from "tailwind.config";
 
@@ -77,17 +77,28 @@ const Timeline = ({ data }: { data: TimelineData }) => {
 
 export default function AboutPage() {
     const { locale, lang } = useLanguage("lang", localization);
-    const [teams, setTeams] = useState<any[]>([]);
 
-    useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/items/teams?fields=*.*`, {
-            method: "GET",
-        })
-            .then((response) => response.json())
-            .then((response) => {
-                setTeams(response.data);
-            });
-    }, []);
+    const { data, loading } = useAPI<any>("GET", "/items/teams", {
+        skip: 0,
+        defaultValue: [],
+        fields: {
+            id: true,
+            name: true,
+            image: true,
+            theme_color: true,
+            translations: {
+                languages_code: true,
+                job_title: true,
+                short_description: true,
+                long_description: true,
+            },
+        },
+    });
+
+    const teams = data.map((person) => ({
+        ...person,
+        ...person.translations.filter((translation) => translation.languages_code === lang)[0],
+    }));
 
     return (
         <main className="relative bg-white">
@@ -135,44 +146,28 @@ export default function AboutPage() {
                     <h2 className="title text-center">{locale.teams.title}</h2>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-11 w-full">
-                        {teams.map((data, index) => {
-                            type PersonData = {
-                                id: number;
-                                name: string;
-                                job_title: string[];
-                                short_description: string;
-                                long_description: string;
-                                theme_color: string;
-                                image_id: string;
-                            };
+                        {!loading &&
+                            teams.map((person, index) => {
+                                return (
+                                    <article key={index} className="grid gap-7 w-full h-max">
+                                        <div className="aspect-square w-full pt-10 flex justify-center items-end px-4" style={{ backgroundColor: person.theme_color }}>
+                                            <img src={`${process.env.NEXT_PUBLIC_CMS_URL}/assets/${person.image}`} alt="" className="h-80 mx-auto object-contain object-bottom" />
+                                        </div>
 
-                            const person: PersonData = {
-                                ...data,
-                                ...data.translations.filter((translation: Record<string, any>) => translation.languages_code === lang)[0],
-                                image_id: data.image.id,
-                                id: data.id, // it was overlapped by the translation id before
-                            };
+                                        <div className="grid gap-4 font-poppins h-max">
+                                            <h3 className="text-4xl font-bold">{person.name}</h3>
+                                            <span className="text-sm opacity-70">{person.job_title.join(", ")}</span>
+                                            <p>{person.short_description}</p>
+                                        </div>
 
-                            return (
-                                <article key={index} className="grid gap-7 w-full h-max">
-                                    <div className="aspect-square w-full pt-10 flex justify-center items-end px-4" style={{ backgroundColor: person.theme_color }}>
-                                        <img src={`${process.env.NEXT_PUBLIC_CMS_URL}/assets/${person.image_id}`} alt="" className="h-80 mx-auto object-contain object-bottom" />
-                                    </div>
-
-                                    <div className="grid gap-4 font-poppins h-max">
-                                        <h3 className="text-4xl font-bold">{person.name}</h3>
-                                        <span className="text-sm opacity-70">{person.job_title.join(", ")}</span>
-                                        <p className="text-justify">{person.short_description}</p>
-                                    </div>
-
-                                    <Link href={`/about/team/${person.id}`}>
-                                        <a className="font-poppins border-b border-current w-max hover:opacity-70 duration-200 cursor-pointer h-max">
-                                            {locale.teams.moreButton} {person.name.split(" ")[0]}
-                                        </a>
-                                    </Link>
-                                </article>
-                            );
-                        })}
+                                        <Link href={`/about/team/${person.id}`}>
+                                            <a className="font-poppins border-b border-current w-max hover:opacity-70 duration-200 cursor-pointer h-max">
+                                                {locale.teams.moreButton} {person.name.split(" ")[0]}
+                                            </a>
+                                        </Link>
+                                    </article>
+                                );
+                            })}
                     </div>
                 </div>
             </section>
