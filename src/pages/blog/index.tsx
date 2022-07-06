@@ -111,6 +111,9 @@ export default function BlogPage() {
                 short_description: true,
             },
         },
+        filter: {
+            status: "published",
+        },
     });
 
     const articles: Article[] = data.map((x) => {
