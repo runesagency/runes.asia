@@ -112,7 +112,7 @@ export default function ContactPage() {
                 <div className="container grid gap-28">
                     <Navigation />
 
-                    <div className="grid gap-8 text-black mx-auto text-center">
+                    <div className="grid gap-8 text-black mx-auto text-center max-w-2xl">
                         <h1 className="title">{locale.header.title}</h1>
                         <h4 className="subtitle">{locale.header.subtitle}</h4>
                     </div>
@@ -122,17 +122,17 @@ export default function ContactPage() {
             {/* Form */}
             <section className="py-20">
                 <form className="container grid gap-10 font-poppins text-black lg:max-w-4xl" onSubmit={formHandler.bind(this)}>
-                    <FormSection title="Hi Runes, I am:">
-                        <Input name="name" placeholder={locale.form.name} required />
+                    <FormSection title={locale.form.name.title}>
+                        <Input name="name" placeholder={locale.form.name.placeholder} required />
                     </FormSection>
 
-                    <FormSection title="And i from:">
-                        <Input name="company_name" placeholder={locale.form.companyName} />
+                    <FormSection title={locale.form.companyName.title}>
+                        <Input name="company_name" placeholder={locale.form.companyName.placeholder} />
                     </FormSection>
 
-                    <FormSection title="And i would like to talk about:">
+                    <FormSection title={locale.form.selections.title}>
                         <div className="flex flex-wrap items-center gap-3">
-                            {locale.form.selections.map((category, index) => (
+                            {locale.form.selections.data.map((category, index) => (
                                 <Button.Secondary
                                     key={index}
                                     onClick={() => {
@@ -150,13 +150,13 @@ export default function ContactPage() {
                         </div>
                     </FormSection>
 
-                    <FormSection title="My Email is:">
-                        <Input name="email" placeholder={locale.form.email} required />
+                    <FormSection title={locale.form.email.title}>
+                        <Input name="email" placeholder={locale.form.email.placeholder} required />
                     </FormSection>
 
-                    <FormSection title="Of course you can contact me through:">
+                    <FormSection title={locale.form.contact.title}>
                         <div className="flex flex-wrap items-center gap-3">
-                            {locale.form.contactPlatforms.map((socMed, index) => (
+                            {locale.form.contact.data.map((socMed, index) => (
                                 <Button.Secondary
                                     key={index} //
                                     onClick={() => setContactPlatform(socMed.value)}
@@ -167,22 +167,22 @@ export default function ContactPage() {
                             ))}
                         </div>
 
-                        <Input name="contact_info" placeholder={locale.form.contactInfo} required />
+                        <Input name="contact_info" placeholder={locale.form.contact.placeholder} required />
                     </FormSection>
 
-                    <FormSection title="More details about the project is:">
+                    <FormSection title={locale.form.details.title}>
                         <textarea
                             name="details"
                             rows={10}
                             className="p-5 w-full outline-none font-poppins text-black border border-black border-opacity-20"
-                            placeholder={locale.form.details}
+                            placeholder={locale.form.details.placeholder}
                             required
                         />
                     </FormSection>
 
-                    <FormSection title="My budget for the project is:">
+                    <FormSection title={locale.form.budgets.title}>
                         <div className="flex flex-wrap items-center gap-3">
-                            {locale.form.budgets.map((b, index) => (
+                            {locale.form.budgets.data.map((b, index) => (
                                 <Button.Secondary
                                     key={index} //
                                     onClick={() => setBudget(b.value)}
@@ -194,15 +194,15 @@ export default function ContactPage() {
                         </div>
                     </FormSection>
 
-                    <FormSection title="Captcha:">
+                    <FormSection title={locale.form.captcha.title}>
                         <canvas ref={captchaCanvas} height={70} width={300} />
                         <a
                             className="underline hover:opacity-70 cursor-pointer duration-200 w-max" //
                             onClick={() => setCaptchaRender((prev) => prev + 1)}
                         >
-                            Refresh Captcha
+                            {locale.form.captcha.refreshButton}
                         </a>
-                        <Input name="captcha" placeholder={locale.form.captcha} required />
+                        <Input name="captcha" placeholder={locale.form.captcha.placeholder} required />
                     </FormSection>
 
                     <Button.Primary as="button" className="w-full" type="submit">
