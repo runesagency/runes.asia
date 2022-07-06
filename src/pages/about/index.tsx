@@ -131,12 +131,12 @@ export default function AboutPage() {
             {/* About */}
             <section id="about" className="py-20">
                 <div className="container flex flex-col-reverse lg:flex-row items-center lg:items-stretch gap-16 xl:gap-44 justify-center">
-                    <div className="grid gap-11 max-w-lg text-black auto-rows-max">
+                    <div className="grid gap-11 max-w-lg text-black auto-rows-max py-10">
                         <h2 className="title">{locale.about.title}</h2>
                         <p className="font-poppins text-justify whitespace-pre-line">{locale.about.description}</p>
                     </div>
 
-                    <img src="/images/others/store.png" alt="" className="h-96 lg:h-auto w-full lg:w-1/3 object-cover bg-bottom" />
+                    <img src="/images/others/store.png" alt="" className="h-96 lg:h-auto w-full lg:w-1/3 object-cover object-center" />
                 </div>
             </section>
 

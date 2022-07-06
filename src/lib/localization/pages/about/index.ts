@@ -83,7 +83,7 @@ export const id: typeof en = {
     about: {
         title: "Tim Kecil Dengan Nilai Tinggi",
         description:
-            "Didirikan pada awal 2022, kami menemukan bahwa begitu banyak merek atau produk melakukan hal yang sama seperti bisnis lain. Akibatnya, merek -merek ini hampir tidak memiliki eksklusivitas sama sekali.\n\nMengetahui hal itu, kami, di rune, mendedikasikan diri kami untuk membantu merek & pengguna menciptakan identitas yang lebih baik untuk bisnis, produk, atau layanan mereka.",
+            "Didirikan pada awal 2022, kami menemukan bahwa begitu banyak merek atau produk melakukan hal yang sama seperti bisnis lain. Akibatnya, merek -merek ini hampir tidak memiliki eksklusivitas sama sekali.\n\nMengetahui hal itu, kami, di Runes, mendedikasikan diri kami untuk membantu merek & pengguna menciptakan identitas yang lebih baik untuk bisnis, produk, atau layanan mereka.",
     },
     teams: {
         title: "Mereka Yang Di Balik Layar",
