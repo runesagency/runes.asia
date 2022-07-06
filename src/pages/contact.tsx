@@ -197,7 +197,7 @@ export default function ContactPage() {
                     <FormSection title="Captcha:">
                         <canvas ref={captchaCanvas} height={70} width={300} />
                         <a
-                            className="underline hover:opacity-70 cursor-pointer duration-200" //
+                            className="underline hover:opacity-70 cursor-pointer duration-200 w-max" //
                             onClick={() => setCaptchaRender((prev) => prev + 1)}
                         >
                             Refresh Captcha
