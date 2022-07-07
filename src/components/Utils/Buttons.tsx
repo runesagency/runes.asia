@@ -18,7 +18,7 @@ export const Primary = forwardRef(({ className, light, ...props }: Button, ref: 
     return (
         <Component
             className={
-                `font-poppins font-semibold w-max px-8 py-5 cursor-pointer hover:opacity-75 duration-200 rounded-2xl text-center ${className} ` + //
+                `font-poppins font-semibold w-max px-8 py-5 cursor-pointer hover:opacity-75 duration-200 rounded-2xl text-center h-max ${className} ` + //
                 (light ? "bg-white text-black" : "bg-black text-white")
             }
             {...props}
