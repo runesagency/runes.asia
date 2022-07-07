@@ -78,7 +78,7 @@ export default function SingleBlogPage() {
             </section>
 
             {/* Content */}
-            <section className="relative py-10">
+            <section className="relative py-20">
                 <div className="container grid gap-6 prose lg:max-w-4xl font-poppins text-black">
                     <div dangerouslySetInnerHTML={{ __html: blog.content }} />
                     <Button.Back text="Back to Blog" href="/blog" className="mx-auto" />
