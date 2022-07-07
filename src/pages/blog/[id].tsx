@@ -51,6 +51,7 @@ export default function SingleBlogPage() {
                         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
                             <div className="flex flex-col justify-between gap-24">
                                 <div className="grid gap-7 text-white">
+                                    <Button.Back text="Back to Blog" href="/blog" light />
                                     <h1 className="title">{blog.title}</h1>
                                     <h3 className="subtitle">{blog.short_description}</h3>
                                 </div>
@@ -80,6 +81,7 @@ export default function SingleBlogPage() {
             <section className="relative py-10">
                 <div className="container grid gap-6 prose lg:max-w-4xl font-poppins text-black">
                     <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+                    <Button.Back text="Back to Blog" href="/blog" className="mx-auto" />
                 </div>
             </section>
 
