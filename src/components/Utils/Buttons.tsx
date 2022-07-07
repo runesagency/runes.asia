@@ -1,6 +1,11 @@
 /* eslint-disable react/display-name */
 /* eslint-disable no-unused-vars */
-import { ElementType, forwardRef } from "react";
+import type { ElementType } from "react";
+
+import Link from "next/link";
+import * as Icon from "@/components/Images/Icons";
+
+import { forwardRef } from "react";
 
 type Button = JSX.IntrinsicElements["a" | "button"] & {
     light?: boolean;
@@ -32,5 +37,21 @@ export const Secondary = forwardRef(({ className, light, active, ...props }: But
             }
             {...props}
         />
+    );
+});
+
+export const Back = forwardRef(({ className, light, text, href }: Button & { text: string; href: `/${string}` }, ref: any) => {
+    return (
+        <Link href={href}>
+            <a
+                className={
+                    `flex items-center gap-4 no-underline hover:underline hover:opacity-70 cursor-pointer w-max ${className}` + //
+                    (light ? " text-white" : " text-black")
+                }
+            >
+                <Icon.ChevronLeft className="stroke-current h-4 fill-transparent" />
+                <p className="font-poppins">{text}</p>
+            </a>
+        </Link>
     );
 });

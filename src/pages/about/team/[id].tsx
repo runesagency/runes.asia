@@ -1,7 +1,6 @@
-import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
-import * as Icon from "@/components/Images/Icons";
+import * as Button from "@/components/Utils/Buttons";
 
 import { useRouter } from "next/router";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
@@ -58,12 +57,7 @@ export default function TeamMemberPage() {
                 <section className="relative pt-20 pb-40">
                     <div className="container lg:max-w-screen-md xl:max-w-screen-lg grid gap-16 lg:grid-cols-2 z-10">
                         <div className="grid gap-8 text-black order-last lg:order-first auto-rows-max">
-                            <Link href={`/about`}>
-                                <a className="flex items-center gap-4 hover:underline hover:opacity-70">
-                                    <Icon.ChevronLeft className="stroke-current h-4 fill-transparent" />
-                                    <p className="font-poppins">{locale.backButton}</p>
-                                </a>
-                            </Link>
+                            <Button.Back text={locale.backButton} href="/about" />
 
                             <section className="grid gap-3">
                                 <h1 className="title">{person.name}</h1>
