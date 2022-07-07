@@ -10,11 +10,11 @@ type LangChooserProps = {
 
 const languages = {
     en: {
-        name: "English",
+        name: "English - USD",
         flag: Icon.FlagEN,
     },
     id: {
-        name: "Indonesia",
+        name: "Indonesia - IDR",
         flag: Icon.FlagID,
     },
 };
