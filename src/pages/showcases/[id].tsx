@@ -44,6 +44,8 @@ export default function SingleShowcasePage() {
 
                     <hr className="border-black border-opacity-30" />
 
+                    <Button.Back text="Back to Showcases" href="/showcases" />
+
                     {!loading && (
                         <>
                             <h1 className="title">{showcase.product_title}</h1>
@@ -102,7 +104,7 @@ export default function SingleShowcasePage() {
             )}
 
             {/* Content */}
-            <section className="relative py-10">
+            <section className="relative py-20">
                 <div className="container grid gap-6 font-poppins text-black">
                     {!loading && <div className="prose mx-auto lg:max-w-4xl" dangerouslySetInnerHTML={{ __html: showcase.content }} />}
                     <Button.Back text="Back to Showcases" href="/showcases" className="mx-auto" />
