@@ -6,6 +6,8 @@ import Head from "next/head";
 import MetaTags from "@/components/Utils/MetaTags";
 import Script from "next/script";
 
+import * as Button from "@/components/Utils/Buttons";
+
 const metaData = {
     title: "Runes | Creative Studio Based in Indonesia",
     description: "We are creative people, in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.",
@@ -48,7 +50,27 @@ const App = ({ Component, pageProps }: AppProps) => {
                 <MetaTags metaData={metaData} />
             </Head>
 
-            <Component {...pageProps} />
+            {process.env.NODE_ENV === "production" ? (
+                <div className="w-full h-full min-h-screen flex items-center flex-col gap-6 max-w-lg mx-auto text-center text-black py-20">
+                    <img src="/images/illustrations/hand-rising.png" alt="" className="max-w-sm" />
+
+                    <p className="font-poppins leading-relaxed text-sm">Hi There! Thanks for coming, but currently,</p>
+                    <h1 className="font-vidaloka text-5xl leading-snug">Website is Under Maintenance</h1>
+
+                    <p className="font-poppins leading-relaxed">Something great is coming next week! We'll be back with all the new stuff you can find. Curious? Just wait and see 😄.</p>
+                    <p className="font-poppins leading-relaxed font-bold">Meanwhile, if you have any inquiries, just let us know at:</p>
+
+                    <Button.Secondary as="a" href="https://instagram.com/runes.asia" target={"_blank"} rel="noreferrer">
+                        📷 Instagram
+                    </Button.Secondary>
+
+                    <Button.Secondary as="a" href="mailto:team@runes.asia" target={"_blank"} rel="noreferrer">
+                        📧 Email
+                    </Button.Secondary>
+                </div>
+            ) : (
+                <Component {...pageProps} />
+            )}
 
             {process.env.NODE_ENV === "production" && (
                 <>
