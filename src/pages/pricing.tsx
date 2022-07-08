@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import * as Button from "@/components/Utils/Buttons";
@@ -213,10 +212,10 @@ export default function PricingPage() {
 
                     <div className="grid gap-8 text-black mx-auto text-center max-w-2xl">
                         <h1 className="title">Plans And Pricing</h1>
-                        <h4 className="subtitle">Choose your desired plans</h4>
+                        <h4 className="subtitle">Choose your category and desired plans</h4>
                     </div>
 
-                    <div className="grid grid-cols-4 gap-12 font-poppins text-black font-semibold">
+                    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-12 font-poppins text-black font-semibold">
                         {categories.map((category, index) => (
                             <a key={index} className="flex items-center justify-center gap-4 px-10 py-3 border-black border-opacity-20 border-2">
                                 <img src={`/images/illustrations/services/${category.name}.png`} alt="" className="w-24" />
@@ -227,13 +226,28 @@ export default function PricingPage() {
                 </div>
             </section>
 
-            {/* Header */}
+            {/* Content */}
             <section className="relative py-20">
                 <div className="container grid gap-28">
-                    <div className="grid grid-cols-4 gap-4">
+                    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
                         {pricings.map((pricing, index) => (
                             <PricingBlock {...pricing} key={index} />
                         ))}
+                    </div>
+
+                    <div className="flex flex-col-reverse lg:flex-row justify-between items-center text-black bg-lime p-10 md:p-20 lg:py-0 gap-20">
+                        <div className="grid gap-10 flex-1 lg:py-20">
+                            <div className="grid gap-5 h-max">
+                                <h1 className="jumbo-title">Tired of Waiting?</h1>
+                                <p className="subtitle">Need your project to be completed faster? Prioritize your projects using priority tickets starting at Rp499K or 25% of your project costs.</p>
+                            </div>
+
+                            <Button.Primary className="!w-full">Buy Priority Tickets</Button.Primary>
+                        </div>
+
+                        <div className="flex-1 h-full overflow-visible">
+                            <img src="/images/illustrations/priority.png" alt="" className="object-contain object-bottom h-full origin-bottom transform lg:scale-150 xl:scale-100" />
+                        </div>
                     </div>
                 </div>
             </section>
