@@ -11,7 +11,7 @@ export default function TeamMemberPage() {
     const router = useRouter();
     const { id } = router.query;
 
-    const { data, loading } = useCMSAPI<any>(`/items/teams/${id}`, {
+    const { data, loading } = useCMSAPI(`/items/teams/${id}`, {
         skip: 0,
         defaultValue: {},
         deps: [router.isReady, id],
@@ -19,26 +19,18 @@ export default function TeamMemberPage() {
             name: true,
             image: true,
             theme_color: true,
-            translations: {
-                languages_code: true,
-                job_title: true,
-                short_description: true,
-                long_description: true,
-            },
+            translations: [
+                {
+                    languages_code: true,
+                    job_title: true,
+                    short_description: true,
+                    long_description: true,
+                },
+            ],
         },
     });
 
-    type PersonData = {
-        id: number;
-        name: string;
-        job_title: string[];
-        short_description: string;
-        long_description: string;
-        theme_color: string;
-        image: string;
-    };
-
-    const person: PersonData = {
+    const person = {
         ...data,
         ...data.translations?.filter((translation: Record<string, any>) => translation.languages_code === lang)[0],
     };

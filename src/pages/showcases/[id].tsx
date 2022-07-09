@@ -11,22 +11,30 @@ export default function SingleShowcasePage() {
     const router = useRouter();
     const { id } = router.query;
 
-    const { data, loading } = useCMSAPI<any>(`/items/showcases/${id}`, {
+    const { data, loading } = useCMSAPI(`/items/showcases/${id}`, {
         defaultValue: [],
         skip: 0,
         deps: [router.isReady, id],
         fields: {
-            "*": true,
-            translations: {
-                services: true,
-                languages_code: true,
-                content: true,
-                short_description: true,
-            },
-            links: {
-                title: true,
-                href: true,
-            },
+            product_title: true,
+            image_cover: true,
+            image_cover_placement_vertical: true,
+            image_cover_placement_horizontal: true,
+            client: true,
+            translations: [
+                {
+                    services: true,
+                    languages_code: true,
+                    content: true,
+                    short_description: true,
+                },
+            ],
+            links: [
+                {
+                    title: true,
+                    href: true,
+                },
+            ],
         },
     });
 
@@ -63,7 +71,7 @@ export default function SingleShowcasePage() {
                                         <h3 className="font-vidaloka text-2xl">Works</h3>
 
                                         <ul className="font-poppins list-disc">
-                                            {showcase.services?.map((service, index) => (
+                                            {showcase.services?.map((service: string, index: number) => (
                                                 <li key={index} className="ml-7">
                                                     {service}
                                                 </li>

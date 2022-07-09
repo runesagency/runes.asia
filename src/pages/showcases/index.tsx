@@ -12,16 +12,23 @@ export default function ShowcasesPage() {
     const { locale, lang } = useLanguage("lang", localization);
     const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
 
-    const { data, loading } = useCMSAPI<any>("/items/showcases", {
+    const { data, loading } = useCMSAPI("/items/showcases", {
         defaultValue: [],
         skip: 0,
-        fields: {
-            "*": true,
-            translations: {
-                services: true,
-                languages_code: true,
+        fields: [
+            {
+                id: true,
+                image_cover: true,
+                image_cover_placement_vertical: true,
+                image_cover_placement_horizontal: true,
+                translations: [
+                    {
+                        services: true,
+                        languages_code: true,
+                    },
+                ],
             },
-        },
+        ],
         filter: {
             status: "published",
         },

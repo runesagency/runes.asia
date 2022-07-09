@@ -1,178 +1,36 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
+import { theme } from "tailwind.config";
 import { useEffect, useRef } from "react";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/faq";
 
-import { theme } from "tailwind.config";
-
-type QnAData = {
-    title: string;
-    list: {
-        question: string;
-        answer: string;
-    }[];
-}[];
-
-const QnA = ({ data }: { data: QnAData }) => {
-    const nowCategoryId = useRef(-1);
-    const categoriesSection = useRef<HTMLDivElement>(null);
-    const faqsSection = useRef<HTMLDivElement>(null);
-
-    const categoryId = (id: number) => `nav-category-${id}`;
-    const boxCategoryId = (id: number) => `category-${id}`;
-    const qnaBoxId = (id: number) => `qna-box-${id}`;
-
-    useEffect(() => {
-        document.addEventListener("scroll", () => {
-            // Side Menu Sticky Effect When Scrolling
-            (() => {
-                const categories = categoriesSection.current;
-                const faqs = faqsSection.current;
-
-                if (categories) {
-                    const scrollTop = categories.getBoundingClientRect().top * -1;
-
-                    if (scrollTop >= 0) {
-                        if (scrollTop >= faqs.clientHeight - 100) return;
-                        categories.style.paddingTop = scrollTop + 20 + "px";
-                    } else {
-                        categories.style.paddingTop = "0px";
-                    }
-                }
-            })();
-
-            // Active Category Effect When Scrolling
-            (() => {
-                for (let i = 0; i <= data.length - 1; i++) {
-                    const category = document.getElementById(categoryId(i));
-                    const boxCategory = document.getElementById(boxCategoryId(i));
-                    const qnaBox = document.getElementById(qnaBoxId(i));
-
-                    if (category && boxCategory && qnaBox) {
-                        const scrollTop = boxCategory.getBoundingClientRect().top * -1 + 200;
-                        const color = boxCategory.dataset.backgroundcolor;
-                        const id = boxCategory.dataset.categoryid;
-
-                        if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
-                            if (category) {
-                                category.style.backgroundColor = color;
-                            }
-
-                            qnaBox.style.backgroundColor = color;
-
-                            if (nowCategoryId.current !== Number(id)) {
-                                nowCategoryId.current = Number(id);
-                                location.hash = boxCategoryId(Number(id));
-                            }
-                        } else {
-                            if (category) {
-                                category.style.backgroundColor = "transparent";
-                            }
-
-                            qnaBox.style.backgroundColor = "transparent";
-                        }
-                    }
-                }
-            })();
-        });
-
-        document.addEventListener("keyup", (e) => {
-            let id = nowCategoryId.current;
-
-            if (e.key === "ArrowUp") {
-                id -= 1;
-
-                if (id < 0) {
-                    id = 0;
-                }
-            } else if (e.key === "ArrowDown") {
-                id += 1;
-
-                if (id > data.length - 1) {
-                    id = data.length - 1;
-                }
-            }
-
-            const element = document.getElementById(boxCategoryId(id));
-
-            const countOffsetTop = (element: any) => {
-                // recursive until no parent found
-                return element?.offsetParent && element.offsetTop + countOffsetTop(element.offsetParent) - 10;
-            };
-
-            window.scroll(0, countOffsetTop(element));
-            location.hash = boxCategoryId(id);
-        });
-
-        return () => {
-            document.removeEventListener("scroll", () => {});
-            document.removeEventListener("keyup", () => {});
-        };
-    }, [data]);
-
-    return (
-        <section className="sticky py-20 overflow-auto">
-            <div className="container flex gap-20 overflow-auto">
-                <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
-                    {data.map((item, index) => (
-                        <a
-                            key={index}
-                            id={categoryId(index)}
-                            href={`#${boxCategoryId(index)}`}
-                            className="px-5 py-3 border-b border-black border-opacity-30 transition-all duration-300 hover:opacity-70"
-                        >
-                            {item.title}
-                        </a>
-                    ))}
-                </div>
-
-                <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins">
-                    {data.map((item, index) => {
-                        const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
-                        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-                        return (
-                            <div key={index} id={boxCategoryId(index)} className="grid gap-5" data-backgroundcolor={randomColor} data-categoryid={index}>
-                                <h4 className="subtitle uppercase">{item.title}</h4>
-
-                                <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
-                                    {item.list.map((item, index) => (
-                                        <div key={index} className="grid gap-4">
-                                            <h6 className="subtitle font-bold">{item.question}</h6>
-                                            <p>{item.answer}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-        </section>
-    );
-};
-
 export default function FAQPage() {
     const { locale, lang } = useLanguage("lang", localization);
 
-    const { data, loading } = useCMSAPI<any>("/items/faqs", {
+    const { data, loading } = useCMSAPI("/items/faqs", {
         defaultValue: [],
         skip: 0,
-        fields: {
-            faq_category_id: {
-                translations: {
-                    languages_code: true,
-                    name: true,
+        fields: [
+            {
+                faq_category_id: {
+                    translations: [
+                        {
+                            languages_code: true,
+                            name: true,
+                        },
+                    ],
                 },
+                translations: [
+                    {
+                        languages_code: true,
+                        question: true,
+                        answer: true,
+                    },
+                ],
             },
-            translations: {
-                languages_code: true,
-                question: true,
-                answer: true,
-            },
-        },
+        ],
     });
 
     const parsedData = data.map((item) => {
@@ -190,17 +48,156 @@ export default function FAQPage() {
         };
     });
 
-    const mergedDataByCategories = parsedData.reduce((acc, item) => {
-        const category = acc.find((cat) => cat.title === item.title);
+    const mergedDataByCategories = parsedData.reduce((previous: typeof parsedData, item) => {
+        const category = previous.find((listItem) => listItem.title === item.title);
 
         if (category) {
             category.list = [...category.list, ...item.list];
         } else {
-            acc.push(item);
+            previous.push(item);
         }
 
-        return acc;
+        return previous;
     }, []);
+
+    const QnA = ({ data }: { data: typeof mergedDataByCategories }) => {
+        const nowCategoryId = useRef(-1);
+        const categoriesSection = useRef<HTMLDivElement>(null);
+        const faqsSection = useRef<HTMLDivElement>(null);
+
+        const categoryId = (id: number) => `nav-category-${id}`;
+        const boxCategoryId = (id: number) => `category-${id}`;
+        const qnaBoxId = (id: number) => `qna-box-${id}`;
+
+        useEffect(() => {
+            document.addEventListener("scroll", () => {
+                // Side Menu Sticky Effect When Scrolling
+                (() => {
+                    const categories = categoriesSection.current;
+                    const faqs = faqsSection.current;
+
+                    if (categories) {
+                        const scrollTop = categories.getBoundingClientRect().top * -1;
+
+                        if (scrollTop >= 0) {
+                            if (scrollTop >= faqs.clientHeight - 100) return;
+                            categories.style.paddingTop = scrollTop + 20 + "px";
+                        } else {
+                            categories.style.paddingTop = "0px";
+                        }
+                    }
+                })();
+
+                // Active Category Effect When Scrolling
+                (() => {
+                    for (let i = 0; i <= data.length - 1; i++) {
+                        const category = document.getElementById(categoryId(i));
+                        const boxCategory = document.getElementById(boxCategoryId(i));
+                        const qnaBox = document.getElementById(qnaBoxId(i));
+
+                        if (category && boxCategory && qnaBox) {
+                            const scrollTop = boxCategory.getBoundingClientRect().top * -1 + 200;
+                            const color = boxCategory.dataset.backgroundcolor;
+                            const id = boxCategory.dataset.categoryid;
+
+                            if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
+                                if (category) {
+                                    category.style.backgroundColor = color;
+                                }
+
+                                qnaBox.style.backgroundColor = color;
+
+                                if (nowCategoryId.current !== Number(id)) {
+                                    nowCategoryId.current = Number(id);
+                                    location.hash = boxCategoryId(Number(id));
+                                }
+                            } else {
+                                if (category) {
+                                    category.style.backgroundColor = "transparent";
+                                }
+
+                                qnaBox.style.backgroundColor = "transparent";
+                            }
+                        }
+                    }
+                })();
+            });
+
+            document.addEventListener("keyup", (e) => {
+                let id = nowCategoryId.current;
+
+                if (e.key === "ArrowUp") {
+                    id -= 1;
+
+                    if (id < 0) {
+                        id = 0;
+                    }
+                } else if (e.key === "ArrowDown") {
+                    id += 1;
+
+                    if (id > data.length - 1) {
+                        id = data.length - 1;
+                    }
+                }
+
+                const element = document.getElementById(boxCategoryId(id));
+
+                const countOffsetTop = (element: any) => {
+                    // recursive until no parent found
+                    return element?.offsetParent && element.offsetTop + countOffsetTop(element.offsetParent) - 10;
+                };
+
+                window.scroll(0, countOffsetTop(element));
+                location.hash = boxCategoryId(id);
+            });
+
+            return () => {
+                document.removeEventListener("scroll", () => {});
+                document.removeEventListener("keyup", () => {});
+            };
+        }, [data]);
+
+        return (
+            <section className="sticky py-20 overflow-auto">
+                <div className="container flex gap-20 overflow-auto">
+                    <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
+                        {data.map((item, index) => (
+                            <a
+                                key={index}
+                                id={categoryId(index)}
+                                href={`#${boxCategoryId(index)}`}
+                                className="px-5 py-3 border-b border-black border-opacity-30 transition-all duration-300 hover:opacity-70"
+                            >
+                                {item.title}
+                            </a>
+                        ))}
+                    </div>
+
+                    <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins">
+                        {data.map((item, index) => {
+                            const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
+                            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+                            return (
+                                <div key={index} id={boxCategoryId(index)} className="grid gap-5" data-backgroundcolor={randomColor} data-categoryid={index}>
+                                    <h4 className="subtitle uppercase">{item.title}</h4>
+
+                                    <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
+                                        {item.list.map((item, index) => (
+                                            <div key={index} className="grid gap-4">
+                                                <h6 className="subtitle font-bold">{item.question}</h6>
+                                                <p>{item.answer}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+        );
+    };
 
     return (
         <main className="relative bg-white overflow-auto">

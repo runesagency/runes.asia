@@ -1,5 +1,3 @@
-import type { Article } from "@/pages/blog/index";
-
 import Footer from "@/components/Sections/Footer";
 import Navigation from "@/components/Sections/Navigation";
 import NewsletterCTA from "@/components/Sections/NewsletterCTA";
@@ -15,29 +13,29 @@ export default function SingleBlogPage() {
     const router = useRouter();
     const { id } = router.query;
 
-    const { data, loading } = useCMSAPI<any>(`/items/blogs/${id}`, {
+    const { data, loading } = useCMSAPI(`/items/blogs/${id}`, {
         skip: 0,
         defaultValue: {},
         deps: [router.isReady, id],
         fields: {
             cover_image: true,
-            user_created: {
-                "*": true,
-            },
+            user_created: "*",
             date_created: true,
-            translations: {
-                title: true,
-                tags: true,
-                content: true,
-                languages_code: true,
-                short_description: true,
-            },
+            translations: [
+                {
+                    title: true,
+                    tags: true,
+                    content: true,
+                    languages_code: true,
+                    short_description: true,
+                },
+            ],
         },
     });
 
-    const blog: Article = {
+    const blog = {
         ...data,
-        ...(data.translations?.find((translation: Record<string, any>) => translation.languages_code === lang) || data.translations?.[0]),
+        ...(data.translations?.find((translation) => translation.languages_code === lang) || data.translations?.[0]),
     };
 
     return (

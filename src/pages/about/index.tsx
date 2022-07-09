@@ -1,104 +1,95 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
+import { theme } from "tailwind.config";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/about";
-import { theme } from "tailwind.config";
-
-type DailyTimelineEvent = {
-    date: string;
-    title: string;
-    description: string;
-    dateBgColor?: string;
-};
-
-type TimelineData = {
-    [key: string]: {
-        [key: string]: DailyTimelineEvent[];
-    };
-};
-
-const Timeline = ({ data }: { data: TimelineData }) => {
-    const Yearly = ({ year, bgColor, children }: { year: string; bgColor: string; children: ReactNode }) => (
-        <article className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-16">
-            <section className="text-black lg:w-24 text-center subtitle p-6 font-semibold flex-shrink-0" style={{ backgroundColor: bgColor }}>
-                {year}
-            </section>
-
-            <div className="grid gap-3 pb-10 lg:py-10">{children}</div>
-        </article>
-    );
-
-    const Monthly = ({ month, children }: { month: string; children: ReactNode }) => (
-        <article className="grid gap-6">
-            <h4 className="subtitle !font-vidaloka text-black">{month}</h4>
-
-            <div className="grid gap-5">{children}</div>
-        </article>
-    );
-
-    const Daily = (event: DailyTimelineEvent) => (
-        <article className="flex gap-12">
-            <p className="w-12 h-12 flex justify-center items-center text-black subtitle flex-shrink-0" style={{ backgroundColor: event.dateBgColor }}>
-                {event.date}
-            </p>
-
-            <div className="grid gap-3 font-poppins">
-                <h6 className="text-2xl">{event.title}</h6>
-                <p>{event.description}</p>
-            </div>
-        </article>
-    );
-
-    return (
-        <div className="grid max-w-6xl mx-auto">
-            {Object.entries(data).map(([year, timeline], index) => {
-                const colors = [theme.colors.lime, theme.colors.white, theme.colors.yellow.light];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-                return (
-                    <Yearly key={index} year={year} bgColor={randomColor}>
-                        {Object.entries(timeline).map(([month, events], index) => (
-                            <Monthly key={index} month={month}>
-                                {events.map((event, index) => (
-                                    <Daily key={index} dateBgColor={randomColor} {...event} />
-                                ))}
-                            </Monthly>
-                        ))}
-                    </Yearly>
-                );
-            })}
-        </div>
-    );
-};
 
 export default function AboutPage() {
     const { locale, lang } = useLanguage("lang", localization);
 
-    const { data, loading } = useCMSAPI<any>("/items/teams", {
+    const { data, loading } = useCMSAPI("/items/teams", {
         skip: 0,
         defaultValue: [],
-        fields: {
-            id: true,
-            name: true,
-            image: true,
-            theme_color: true,
-            translations: {
-                languages_code: true,
-                job_title: true,
-                short_description: true,
-                long_description: true,
+        fields: [
+            {
+                id: true,
+                name: true,
+                image: true,
+                theme_color: true,
+                translations: [
+                    {
+                        languages_code: true,
+                        job_title: true,
+                        short_description: true,
+                        long_description: true,
+                    },
+                ],
             },
-        },
+        ],
     });
 
     const teams = data.map((person) => ({
         ...person,
         ...person.translations.filter((translation) => translation.languages_code === lang)[0],
     }));
+
+    const Timeline = ({ data }: { data: typeof locale.journey.timelines }) => {
+        const Yearly = ({ year, bgColor, children }: { year: string; bgColor: string; children: ReactNode }) => (
+            <article className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-16">
+                <section className="text-black lg:w-24 text-center subtitle p-6 font-semibold flex-shrink-0" style={{ backgroundColor: bgColor }}>
+                    {year}
+                </section>
+
+                <div className="grid gap-3 pb-10 lg:py-10">{children}</div>
+            </article>
+        );
+
+        const Monthly = ({ month, children }: { month: string; children: ReactNode }) => (
+            <article className="grid gap-6">
+                <h4 className="subtitle !font-vidaloka text-black">{month}</h4>
+
+                <div className="grid gap-5">{children}</div>
+            </article>
+        );
+
+        const Daily = (event: typeof data["2021"]["November"][0] & { dateBgColor: string }) => (
+            <article className="flex gap-12">
+                <p className="w-12 h-12 flex justify-center items-center text-black subtitle flex-shrink-0" style={{ backgroundColor: event.dateBgColor }}>
+                    {event.date}
+                </p>
+
+                <div className="grid gap-3 font-poppins">
+                    <h6 className="text-2xl">{event.title}</h6>
+                    <p>{event.description}</p>
+                </div>
+            </article>
+        );
+
+        return (
+            <div className="grid max-w-6xl mx-auto">
+                {Object.entries(data).map(([year, timeline], index) => {
+                    const colors = [theme.colors.lime, theme.colors.white, theme.colors.yellow.light];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+                    return (
+                        <Yearly key={index} year={year} bgColor={randomColor}>
+                            {Object.entries(timeline).map(([month, events], index) => (
+                                <Monthly key={index} month={month}>
+                                    {events.map((event, index) => (
+                                        <Daily key={index} dateBgColor={randomColor} {...event} />
+                                    ))}
+                                </Monthly>
+                            ))}
+                        </Yearly>
+                    );
+                })}
+            </div>
+        );
+    };
 
     return (
         <main className="relative bg-white">
