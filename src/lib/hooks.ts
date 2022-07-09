@@ -189,7 +189,7 @@ export const useDragToScroll = (element: MutableRefObject<HTMLDivElement>) => {
     }, [element]);
 };
 
-type useAPIOptions<T> = {
+type useCMSAPIOptions<T> = {
     // eslint-disable-next-line no-unused-vars
     errorCallback?: (error: Error) => void;
     defaultValue?: any;
@@ -210,8 +210,10 @@ type useAPIOptions<T> = {
       }
 );
 
-export const useCMSAPI = <T extends RecursiveObject<true | "*"> | [RecursiveObject<true | "*">]>(path: `/${string}`, options: useAPIOptions<T>) => {
-    type Fields = T extends [RecursiveObject<true | "*">] ? [Convert<any, T[0]>] : Convert<any, T>;
+type useCMSAPIFields = RecursiveObject<true | "*">;
+
+export const useCMSAPI = <T extends useCMSAPIFields | [useCMSAPIFields]>(path: `/${string}`, options: useCMSAPIOptions<T>) => {
+    type Fields = T extends [useCMSAPIFields] ? [Convert<any, T[0]>] : Convert<any, T>;
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<Fields>(options?.defaultValue || null);
