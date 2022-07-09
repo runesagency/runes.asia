@@ -63,6 +63,7 @@ export default function NewsletterCTA() {
                 <Input
                     icon="Mail"
                     type={"email"} //
+                    name={"email"}
                     placeholder={locale.placeholder}
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
