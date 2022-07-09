@@ -251,8 +251,6 @@ export const useCMSAPI = <T extends useCMSAPIFields | [useCMSAPIFields]>(path: `
             }
         }
 
-        console.log(parsedUrl.searchParams);
-
         fetch(parsedUrl.href, {
             method: "GET",
             headers,

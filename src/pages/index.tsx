@@ -154,7 +154,7 @@ const Showcases = () => {
             isScrolling = true;
         };
 
-        const autoScroll = () => {
+        const scroll = () => {
             if (!isScrolling) return;
 
             switch (scrollDirection) {
@@ -175,9 +175,10 @@ const Showcases = () => {
             }
         };
 
-        setInterval(autoScroll, 30);
+        const autoScroll = setInterval(scroll, 30);
 
         return () => {
+            clearInterval(autoScroll);
             element.onmouseover = null;
             element.onmouseleave = null;
         };
