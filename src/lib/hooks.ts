@@ -210,9 +210,11 @@ type useAPIOptions<T> = {
       }
 );
 
-export const useCMSAPI = <T extends RecursiveObject<true | "*">>(path: `/${string}`, options: useAPIOptions<T>) => {
+export const useCMSAPI = <T extends RecursiveObject<true | "*"> | [RecursiveObject<true | "*">]>(path: `/${string}`, options: useAPIOptions<T>) => {
+    type Fields = T extends [RecursiveObject<true | "*">] ? [Convert<any, T[0]>] : Convert<any, T>;
+
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState<Convert<any, T>>(options?.defaultValue || null);
+    const [data, setData] = useState<Fields>(options?.defaultValue || null);
     const router = useRouter();
 
     const headers = options.headers || {};
@@ -227,7 +229,8 @@ export const useCMSAPI = <T extends RecursiveObject<true | "*">>(path: `/${strin
         const parsedUrl = new URL(`${protocol}//${domain}:${port ? port : ""}/api/cms${path}`);
 
         if (options.fields) {
-            let fields = getNestedKeyRecursively(options.fields).join(",");
+            const rawFields = Array.isArray(options.fields) ? options.fields[0] : options.fields;
+            let fields = getNestedKeyRecursively(rawFields).join(",");
             parsedUrl.searchParams.set("fields", fields);
         }
 
