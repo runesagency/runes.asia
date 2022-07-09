@@ -5,8 +5,12 @@ import type { Dispatch, MutableRefObject, SetStateAction } from "react";
 import { useEffect, useState, useRef } from "react";
 
 type RecursiveObject<T> = {
-    [key: string]: T | RecursiveObject<T>;
+    [key: string]: T | RecursiveObject<T> | [RecursiveObject<T>];
 };
+
+type Convert<V, O extends object> = Partial<{
+    [K in keyof O]: O[K] extends object ? Convert<V, O[K]> : V;
+}>;
 
 const getComponentName = () => {
     const stack = new Error().stack;
@@ -17,16 +21,21 @@ const getComponentName = () => {
     return name;
 };
 
-const getNestedKeyRecursively = (object: RecursiveObject<any>, lastKey = []) => {
-    let result = [];
+const getNestedKeyRecursively = (object: RecursiveObject<any>, lastKey: string[] = []) => {
+    let result: string[] = [];
 
     for (const key of Object.keys(object)) {
         if (typeof object[key] !== "object") {
-            result.push([...lastKey, key].join("."));
+            if (typeof object[key] === "string") {
+                result.push([...lastKey, key, object[key]].join("."));
+            } else {
+                result.push([...lastKey, key].join("."));
+            }
+        } else {
+            let nestedObject = Array.isArray(object[key]) ? object[key][0] : object[key];
+            let nested: string[] = getNestedKeyRecursively(nestedObject, [...lastKey, key]);
+            result = result.concat(nested);
         }
-
-        const nested = getNestedKeyRecursively(object[key], [...lastKey, key]);
-        result = result.concat(nested);
     }
 
     return result;
@@ -180,11 +189,11 @@ export const useDragToScroll = (element: MutableRefObject<HTMLDivElement>) => {
     }, [element]);
 };
 
-type useAPIOptions = {
+type useAPIOptions<T> = {
     // eslint-disable-next-line no-unused-vars
     errorCallback?: (error: Error) => void;
     defaultValue?: any;
-    fields?: RecursiveObject<true>;
+    fields?: T;
     filter?: RecursiveObject<any>;
     headers?: [string, string][] | { [key: string]: string };
     search?: string;
@@ -201,9 +210,9 @@ type useAPIOptions = {
       }
 );
 
-export const useCMSAPI = <T>(path: `/${string}`, options: useAPIOptions) => {
+export const useCMSAPI = <T extends RecursiveObject<true | "*">>(path: `/${string}`, options: useAPIOptions<T>) => {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState<T>(options?.defaultValue || null);
+    const [data, setData] = useState<Convert<any, T>>(options?.defaultValue || null);
     const router = useRouter();
 
     const headers = options.headers || {};
@@ -236,6 +245,8 @@ export const useCMSAPI = <T>(path: `/${string}`, options: useAPIOptions) => {
                 parsedUrl.searchParams.set(key, String(options[key]));
             }
         }
+
+        console.log(parsedUrl.searchParams);
 
         fetch(parsedUrl.href, {
             method: "GET",
