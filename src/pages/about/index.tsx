@@ -8,9 +8,7 @@ import { theme } from "tailwind.config";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/about";
 
-export default function AboutPage() {
-    const { locale, lang } = useLanguage("lang", localization);
-
+export const useAboutAPI = (lang: string) => {
     const { data, loading } = useCMSAPI("/items/teams", {
         skip: 0,
         defaultValue: [],
@@ -36,6 +34,16 @@ export default function AboutPage() {
         ...person,
         ...person.translations.filter((translation) => translation.languages_code === lang)[0],
     }));
+
+    return {
+        loading,
+        teams,
+    };
+};
+
+export default function AboutPage() {
+    const { locale, lang } = useLanguage("lang", localization);
+    const { loading, teams } = useAboutAPI(lang);
 
     const Timeline = ({ data }: { data: typeof locale.journey.timelines }) => {
         const Yearly = ({ year, bgColor, children }: { year: string; bgColor: string; children: ReactNode }) => (

@@ -9,10 +9,9 @@ import { useState } from "react";
 import { useLanguage, useCMSAPI } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/blog";
 
-export default function BlogPage() {
-    const { lang, locale } = useLanguage("lang", localization);
+export const useBlogAPI = (lang: string) => {
     const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
-    const [searchText, setSearchText] = useState("");
+    const [search, setSearchText] = useState("");
 
     const { data, loading } = useCMSAPI("/items/blogs", {
         skip: 0,
@@ -83,8 +82,8 @@ export default function BlogPage() {
                 return false;
             }
 
-            if (searchText.length > 0) {
-                if (article.title.toLowerCase().includes(searchText.toLowerCase())) {
+            if (search.length > 0) {
+                if (article.title.toLowerCase().includes(search.toLowerCase())) {
                     return true;
                 }
                 return false;
@@ -92,6 +91,21 @@ export default function BlogPage() {
 
             return true;
         });
+
+    return {
+        articles,
+        categoryFilters,
+        setCategoryFilters,
+        articleCategories,
+        articleMore,
+        setSearchText,
+        loading,
+    };
+};
+
+export default function BlogPage() {
+    const { lang, locale } = useLanguage("lang", localization);
+    const { articles, setCategoryFilters, articleMore, loading, setSearchText, categoryFilters, articleCategories } = useBlogAPI(lang);
 
     const BlogHeading = ({ articleList }: { articleList: typeof articles }) => (
         <div className="flex flex-col xl:flex-row items-stretch gap-12 group">

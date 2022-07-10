@@ -6,15 +6,11 @@ import { useRouter } from "next/router";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/about/member";
 
-export default function TeamMemberPage() {
-    const { lang, locale } = useLanguage("lang", localization);
-    const router = useRouter();
-    const { id } = router.query;
-
+export const useSingleMemberAPI = (lang: string, id: number) => {
     const { data, loading } = useCMSAPI(`/items/teams/${id}`, {
         skip: 0,
         defaultValue: {},
-        deps: [router.isReady, id],
+        deps: [id],
         fields: {
             name: true,
             image: true,
@@ -32,8 +28,22 @@ export default function TeamMemberPage() {
 
     const person = {
         ...data,
-        ...data.translations?.filter((translation: Record<string, any>) => translation.languages_code === lang)[0],
+        ...data.translations?.filter((translation) => translation.languages_code === lang)[0],
     };
+
+    return {
+        loading,
+        person,
+    };
+};
+
+export default function TeamMemberPage() {
+    const router = useRouter();
+
+    const { lang, locale } = useLanguage("lang", localization);
+    const { id } = router.query;
+
+    const { loading, person } = useSingleMemberAPI(lang, Number(id));
 
     return (
         <main className="relative bg-white">

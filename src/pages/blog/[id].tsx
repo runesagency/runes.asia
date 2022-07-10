@@ -7,16 +7,11 @@ import moment from "moment";
 import { useRouter } from "next/router";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 
-export default function SingleBlogPage() {
-    const { lang } = useLanguage("lang", {} as any);
-
-    const router = useRouter();
-    const { id } = router.query;
-
+export const useSingleBlogAPI = (lang: string, id: number) => {
     const { data, loading } = useCMSAPI(`/items/blogs/${id}`, {
         skip: 0,
         defaultValue: {},
-        deps: [router.isReady, id],
+        deps: [id],
         fields: {
             cover_image: true,
             user_created: "*",
@@ -37,6 +32,20 @@ export default function SingleBlogPage() {
         ...data,
         ...(data.translations?.find((translation) => translation.languages_code === lang) || data.translations?.[0]),
     };
+
+    return {
+        loading,
+        blog,
+    };
+};
+
+export default function SingleBlogPage() {
+    const router = useRouter();
+
+    const { lang } = useLanguage("lang", {} as any);
+    const { id } = router.query;
+
+    const { loading, blog } = useSingleBlogAPI(lang, Number(id));
 
     return (
         <main className="relative bg-white">

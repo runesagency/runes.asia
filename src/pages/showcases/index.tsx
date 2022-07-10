@@ -8,10 +8,7 @@ import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import { useState } from "react";
 import * as localization from "@/lib/localization/pages/showcases";
 
-export default function ShowcasesPage() {
-    const { locale, lang } = useLanguage("lang", localization);
-    const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
-
+export const useShowcasesAPI = (lang: string) => {
     const { data, loading } = useCMSAPI("/items/showcases", {
         defaultValue: [],
         skip: 0,
@@ -54,6 +51,18 @@ export default function ShowcasesPage() {
 
         return acc;
     }, []);
+
+    return {
+        loading,
+        showcases,
+        categories,
+    };
+};
+
+export default function ShowcasesPage() {
+    const { locale, lang } = useLanguage("lang", localization);
+    const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
+    const { loading, showcases, categories } = useShowcasesAPI(lang);
 
     return (
         <main className="relative bg-white">

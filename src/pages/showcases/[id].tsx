@@ -5,16 +5,11 @@ import * as Button from "@/components/Utils/Buttons";
 import { useRouter } from "next/router";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 
-export default function SingleShowcasePage() {
-    const { lang } = useLanguage("lang", {} as any);
-
-    const router = useRouter();
-    const { id } = router.query;
-
+export const useSingleShowcaseAPI = (lang: string, id: number) => {
     const { data, loading } = useCMSAPI(`/items/showcases/${id}`, {
         defaultValue: [],
         skip: 0,
-        deps: [router.isReady, id],
+        deps: [id],
         fields: {
             product_title: true,
             image_cover: true,
@@ -42,6 +37,20 @@ export default function SingleShowcasePage() {
         ...data,
         ...(data.translations?.find((t) => t.languages_code === lang) || data.translations?.[0]),
     };
+
+    return {
+        loading,
+        showcase,
+    };
+};
+
+export default function SingleShowcasePage() {
+    const router = useRouter();
+
+    const { lang } = useLanguage("lang", {} as any);
+    const { id } = router.query;
+
+    const { loading, showcase } = useSingleShowcaseAPI(lang, Number(id));
 
     return (
         <main className="relative bg-white">
