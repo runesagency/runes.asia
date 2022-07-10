@@ -2,7 +2,7 @@ import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import CTA from "@/components/Sections/CTA";
-import * as Button from "@/components/Utils/Buttons";
+import * as Button from "@/components/Forms/Buttons";
 
 import { useLanguage, useDragToScroll } from "@/lib/hooks";
 import { useEffect, useRef } from "react";

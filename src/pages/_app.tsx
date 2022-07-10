@@ -6,7 +6,7 @@ import Head from "next/head";
 import MetaTags from "@/components/Utils/MetaTags";
 import Script from "next/script";
 
-import * as Button from "@/components/Utils/Buttons";
+import * as Button from "@/components/Forms/Buttons";
 
 const metaData = {
     title: "Runes | Creative Studio Based in Indonesia",

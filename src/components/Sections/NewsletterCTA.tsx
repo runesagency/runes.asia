@@ -1,6 +1,6 @@
 import CTA from "@/components/Sections/CTA";
-import Input from "@/components/Utils/Input";
-import * as Button from "@/components/Utils/Buttons";
+import Input from "@/components/Forms/Input";
+import * as Button from "@/components/Forms/Buttons";
 
 import { useLanguage } from "@/lib/hooks";
 import { useState } from "react";

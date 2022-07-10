@@ -2,8 +2,8 @@ import type { FormEvent, ReactNode } from "react";
 
 import Footer from "@/components/Sections/Footer";
 import Navigation from "@/components/Sections/Navigation";
-import Input from "@/components/Utils/Input";
-import * as Button from "@/components/Utils/Buttons";
+import Input from "@/components/Forms/Input";
+import * as Button from "@/components/Forms/Buttons";
 
 import { useState, useRef } from "react";
 import { useCaptcha, useLanguage } from "@/lib/hooks";

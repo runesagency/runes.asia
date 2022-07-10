@@ -1,7 +1,7 @@
 import Footer from "@/components/Sections/Footer";
 import Navigation from "@/components/Sections/Navigation";
 import NewsletterCTA from "@/components/Sections/NewsletterCTA";
-import * as Button from "@/components/Utils/Buttons";
+import * as Button from "@/components/Forms/Buttons";
 
 import moment from "moment";
 import { useRouter } from "next/router";

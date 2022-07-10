@@ -1,6 +1,6 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
-import * as Button from "@/components/Utils/Buttons";
+import * as Button from "@/components/Forms/Buttons";
 import * as Icon from "@/components/Utils/Icons";
 
 import { useState } from "react";

@@ -1,8 +1,8 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import NewsletterCTA from "@/components/Sections/NewsletterCTA";
-import Input from "@/components/Utils/Input";
-import * as Button from "@/components/Utils/Buttons";
+import Input from "@/components/Forms/Input";
+import * as Button from "@/components/Forms/Buttons";
 
 import moment from "moment";
 import { useState } from "react";
