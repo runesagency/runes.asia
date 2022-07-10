@@ -1,10 +1,9 @@
-import type { MutableRefObject } from "react";
-
 import { useEffect, useRef, useState } from "react";
 
-export const useCaptcha = (canvasRef: MutableRefObject<HTMLCanvasElement>) => {
-    const [render, setRender] = useState(1);
+export const useCaptcha = () => {
+    const elementRef = useRef<HTMLCanvasElement>(null);
     const value = useRef<string>(null);
+    const [render, setRender] = useState(1);
 
     useEffect(() => {
         const charsArray = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*";
@@ -21,7 +20,7 @@ export const useCaptcha = (canvasRef: MutableRefObject<HTMLCanvasElement>) => {
             }
         }
 
-        const canv = canvasRef.current;
+        const canv = elementRef.current;
         const ctx = canv.getContext("2d");
 
         ctx.font = "50px Poppins";
@@ -30,13 +29,13 @@ export const useCaptcha = (canvasRef: MutableRefObject<HTMLCanvasElement>) => {
         value.current = captcha.join("");
 
         return () => {
-            canvasRef.current = null;
             ctx.clearRect(0, 0, canv.width, canv.height);
         };
-    }, [canvasRef, render]);
+    });
 
     return {
         refresh: () => setRender(render + 1),
         value: value.current,
+        elementRef,
     };
 };

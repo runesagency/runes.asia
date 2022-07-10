@@ -5,12 +5,10 @@ import CTA from "@/components/Sections/CTA";
 import * as Button from "@/components/Forms/Buttons";
 
 import { useLanguage, useDragToScroll } from "@/lib/hooks";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import * as localization from "@/lib/localization/pages/index";
 
 const Showcases = () => {
-    const elementRef = useRef<HTMLDivElement>(null);
-
     type Portofolio = {
         name: string;
         imageId: string;
@@ -139,7 +137,7 @@ const Showcases = () => {
         ],
     ];
 
-    useDragToScroll(elementRef);
+    const { elementRef } = useDragToScroll();
 
     useEffect(() => {
         const element: HTMLElement = elementRef.current;
@@ -182,7 +180,7 @@ const Showcases = () => {
             element.onmouseover = null;
             element.onmouseleave = null;
         };
-    }, []);
+    }, [elementRef]);
 
     return (
         <div ref={elementRef} className="max-w-full cursor-move overflow-x-auto no-scrollbar will-change-scroll">

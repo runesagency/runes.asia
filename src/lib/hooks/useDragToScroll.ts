@@ -1,10 +1,10 @@
-import type { MutableRefObject } from "react";
+import { useEffect, useRef } from "react";
 
-import { useEffect } from "react";
+export const useDragToScroll = () => {
+    const elementRef = useRef<HTMLDivElement>(null);
 
-export const useDragToScroll = (element: MutableRefObject<HTMLDivElement>) => {
     useEffect(() => {
-        const slider = element.current;
+        const slider = elementRef.current;
         let isDown = false;
         let startX: number;
         let scrollLeft: number;
@@ -72,5 +72,9 @@ export const useDragToScroll = (element: MutableRefObject<HTMLDivElement>) => {
             slider.removeEventListener("mousemove", () => {});
             slider.removeEventListener("wheel", () => {});
         };
-    }, [element]);
+    }, [elementRef]);
+
+    return {
+        elementRef,
+    };
 };
