@@ -6,6 +6,7 @@ import * as Button from "@/components/Utils/Buttons";
 import moment from "moment";
 import { useRouter } from "next/router";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
+import * as localization from "@/lib/localization/pages/blog/single";
 
 export const useSingleBlogAPI = (lang: string, id: number) => {
     const { data, loading } = useCMSAPI(`/items/blogs/${id}`, {
@@ -42,7 +43,7 @@ export const useSingleBlogAPI = (lang: string, id: number) => {
 export default function SingleBlogPage() {
     const router = useRouter();
 
-    const { lang } = useLanguage("lang", {} as any);
+    const { lang, locale } = useLanguage("lang", localization);
     const { id } = router.query;
 
     const { loading, blog } = useSingleBlogAPI(lang, Number(id));
@@ -58,7 +59,7 @@ export default function SingleBlogPage() {
                         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
                             <div className="flex flex-col justify-between gap-24">
                                 <div className="grid gap-7 text-white">
-                                    <Button.Back text="Back to Blog" href="/blog" light />
+                                    <Button.Back text={locale.backButton} href="/blog" light />
                                     <h1 className="title">{blog.title}</h1>
                                     <h3 className="subtitle">{blog.short_description}</h3>
                                 </div>
@@ -70,7 +71,7 @@ export default function SingleBlogPage() {
 
                                     <Button.Secondary light>{moment(blog.date_created).format("MMMM DD, YYYY")}</Button.Secondary>
 
-                                    {blog.tags?.map((tag, index) => (
+                                    {blog.tags?.map((tag: string, index: number) => (
                                         <Button.Secondary key={index} light className="capitalize">
                                             {tag.toLowerCase()}
                                         </Button.Secondary>
@@ -88,7 +89,7 @@ export default function SingleBlogPage() {
             <section className="relative py-20">
                 <div className="container grid gap-6 prose lg:max-w-4xl font-poppins text-black">
                     <div dangerouslySetInnerHTML={{ __html: blog.content }} />
-                    <Button.Back text="Back to Blog" href="/blog" className="mx-auto" />
+                    <Button.Back text={locale.backButton} href="/blog" className="mx-auto" />
                 </div>
             </section>
 
