@@ -91,6 +91,12 @@ export const ChevronLeft = (props: SVGAttributes<SVGElement>) => (
     </svg>
 );
 
+export const ChevronBottom = (props: SVGAttributes<SVGElement>) => (
+    <svg viewBox="0 0 20 12" {...props}>
+        <path d="M19 1.02002L10 10.02L1 1.02002" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+);
+
 // Flag Icons
 export const FlagEN = (props: SVGAttributes<SVGElement>) => (
     <svg viewBox="0 0 36 26" xmlns="http://www.w3.org/2000/svg" {...props}>
