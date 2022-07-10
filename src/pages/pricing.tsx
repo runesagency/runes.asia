@@ -134,7 +134,7 @@ export default function PricingPage() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3 text-sm">
-                        {props.key_features.map((feature, index) => (
+                        {(props.key_features as string[])?.map((feature, index) => (
                             <Button.Secondary active key={index} className="border-none">
                                 {feature}
                             </Button.Secondary>
@@ -147,20 +147,24 @@ export default function PricingPage() {
                         <h3 className="font-vidaloka text-xl">{locale.pricing.includedFeatures}</h3>
 
                         <div className="grid gap-2 fill-navy">
-                            {props.features_included.map((feature, index) => (
+                            {(props.features_included as string[])?.map((feature, index) => (
                                 <Feature text={feature} key={index} check />
                             ))}
                         </div>
 
-                        <h3 className="font-vidaloka text-xl">
-                            {locale.pricing.notIncludedFeatures[0]} <u>{locale.pricing.notIncludedFeatures[1]}</u> {locale.pricing.notIncludedFeatures[2]}
-                        </h3>
+                        {props.features_not_included && (
+                            <>
+                                <h3 className="font-vidaloka text-xl">
+                                    {locale.pricing.notIncludedFeatures[0]} <u>{locale.pricing.notIncludedFeatures[1]}</u> {locale.pricing.notIncludedFeatures[2]}
+                                </h3>
 
-                        <div className="grid gap-2">
-                            {props.features_not_included.map((feature, index) => (
-                                <Feature text={feature} key={index} />
-                            ))}
-                        </div>
+                                <div className="grid gap-2">
+                                    {(props.features_not_included as string[])?.map((feature, index) => (
+                                        <Feature text={feature} key={index} />
+                                    ))}
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     <Link href={`/contact?category=${pricingsData[currentCategory].name}&package=${props.title}`} passHref>
