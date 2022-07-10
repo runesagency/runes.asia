@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
+import CTA from "@/components/Sections/CTA";
 import * as Button from "@/components/Utils/Buttons";
 
 import { useLanguage, useDragToScroll } from "@/lib/hooks";
 import { useEffect, useRef } from "react";
 import * as localization from "@/lib/localization/pages/index";
-import CTA from "@/components/Sections/CTA";
 
 const Showcases = () => {
     const elementRef = useRef<HTMLDivElement>(null);
