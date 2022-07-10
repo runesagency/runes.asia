@@ -5,26 +5,19 @@ import Navigation from "@/components/Sections/Navigation";
 import Input from "@/components/Utils/Input";
 import * as Button from "@/components/Utils/Buttons";
 
-import { useState, useEffect, useRef } from "react";
-import { useLanguage } from "@/lib/hooks";
+import { useState, useRef } from "react";
+import { useCaptcha, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/contact";
-
-const FormSection = ({ title, children }: { title: string; children: ReactNode }) => (
-    <div className="grid gap-7 w-full">
-        <h3 className="text-3xl">{title}</h3>
-        {children}
-    </div>
-);
 
 export default function ContactPage() {
     const { locale } = useLanguage("lang", localization);
     const captchaCanvas = useRef<HTMLCanvasElement>(null);
-    const captchaValue = useRef<string>(null);
-    const [captchaRender, setCaptchaRender] = useState<number>(1);
 
     const [selections, setSelections] = useState<string[]>([]);
     const [contactPlatform, setContactPlatform] = useState<string>("");
     const [budget, setBudget] = useState<string>("");
+
+    const { refresh: refreshCaptcha, value: captchaValue } = useCaptcha(captchaCanvas);
 
     const formHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -53,7 +46,7 @@ export default function ContactPage() {
             formDataJson[key] = value;
         }
 
-        if (formDataJson.captcha !== captchaValue.current) {
+        if (formDataJson.captcha !== captchaValue) {
             return alert(locale.form.handlers.captchaError);
         }
 
@@ -64,7 +57,7 @@ export default function ContactPage() {
             },
             body: JSON.stringify(formDataJson),
         }).then(async (res) => {
-            setCaptchaRender((prev) => prev + 1);
+            refreshCaptcha();
 
             if (res.status === 200) {
                 (e.target as any).reset();
@@ -76,34 +69,12 @@ export default function ContactPage() {
         });
     };
 
-    useEffect(() => {
-        const charsArray = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*";
-        const lengthOtp = 6;
-        const captcha = [];
-
-        for (let i = 0; i < lengthOtp; i++) {
-            let index = Math.floor(Math.random() * charsArray.length + 1);
-
-            if (captcha.indexOf(charsArray[index]) == -1) {
-                captcha.push(charsArray[index]);
-            } else {
-                i--;
-            }
-        }
-
-        const canv = captchaCanvas.current;
-        const ctx = canv.getContext("2d");
-
-        ctx.font = "50px Poppins";
-        ctx.strokeText(captcha.join(""), 0, 50);
-
-        captchaValue.current = captcha.join("");
-
-        return () => {
-            captchaValue.current = null;
-            ctx.clearRect(0, 0, canv.width, canv.height);
-        };
-    }, [captchaRender]);
+    const FormSection = ({ title, children }: { title: string; children: ReactNode }) => (
+        <div className="grid gap-7 w-full">
+            <h3 className="text-3xl">{title}</h3>
+            {children}
+        </div>
+    );
 
     return (
         <main className="relative bg-white overflow-auto">
@@ -198,7 +169,7 @@ export default function ContactPage() {
                         <canvas ref={captchaCanvas} height={70} width={300} />
                         <a
                             className="underline hover:opacity-70 cursor-pointer duration-200 w-max" //
-                            onClick={() => setCaptchaRender((prev) => prev + 1)}
+                            onClick={refreshCaptcha}
                         >
                             {locale.form.captcha.refreshButton}
                         </a>
