@@ -4,6 +4,7 @@ import * as Button from "@/components/Utils/Buttons";
 
 import { useRouter } from "next/router";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
+import * as localization from "@/lib/localization/pages/showcases/single";
 
 export const useSingleShowcaseAPI = (lang: string, id: number) => {
     const { data, loading } = useCMSAPI(`/items/showcases/${id}`, {
@@ -47,7 +48,7 @@ export const useSingleShowcaseAPI = (lang: string, id: number) => {
 export default function SingleShowcasePage() {
     const router = useRouter();
 
-    const { lang } = useLanguage("lang", {} as any);
+    const { lang, locale } = useLanguage("lang", localization);
     const { id } = router.query;
 
     const { loading, showcase } = useSingleShowcaseAPI(lang, Number(id));
@@ -61,7 +62,7 @@ export default function SingleShowcasePage() {
 
                     <hr className="border-black border-opacity-30" />
 
-                    <Button.Back text="Back to Showcases" href="/showcases" />
+                    <Button.Back text={locale.backButton} href="/showcases" />
 
                     {!loading && (
                         <>
@@ -72,12 +73,12 @@ export default function SingleShowcasePage() {
 
                                 <div className="flex flex-col md:flex-row gap-8 xl:gap-14 xl:justify-end items-start flex-wrap">
                                     <div className="grid gap-2 h-max max-w-[5rem]">
-                                        <h3 className="font-vidaloka text-2xl">Client</h3>
+                                        <h3 className="font-vidaloka text-2xl">{locale.projectInfo.client}</h3>
                                         <p className="font-poppins">{showcase.client}</p>
                                     </div>
 
                                     <div className="grid gap-2 h-max max-w-[10rem]">
-                                        <h3 className="font-vidaloka text-2xl">Works</h3>
+                                        <h3 className="font-vidaloka text-2xl">{locale.projectInfo.works}</h3>
 
                                         <ul className="font-poppins list-disc">
                                             {showcase.services?.map((service: string, index: number) => (
@@ -89,7 +90,7 @@ export default function SingleShowcasePage() {
                                     </div>
 
                                     <div className="grid gap-2 h-max max-w-[10rem]">
-                                        <h3 className="font-vidaloka text-2xl">Links</h3>
+                                        <h3 className="font-vidaloka text-2xl">{locale.projectInfo.links}</h3>
 
                                         <ul className="font-poppins list-disc">
                                             {showcase.links?.map((link, index) => (
@@ -124,7 +125,7 @@ export default function SingleShowcasePage() {
             <section className="relative py-20">
                 <div className="container grid gap-6 font-poppins text-black">
                     {!loading && <div className="prose mx-auto lg:max-w-4xl" dangerouslySetInnerHTML={{ __html: showcase.content }} />}
-                    <Button.Back text="Back to Showcases" href="/showcases" className="mx-auto" />
+                    <Button.Back text={locale.backButton} href="/showcases" className="mx-auto" />
                 </div>
             </section>
 
