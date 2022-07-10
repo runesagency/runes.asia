@@ -65,147 +65,104 @@ export const useFAQsAPI = (lang: string) => {
 };
 
 export default function FAQPage() {
+    const nowCategoryId = useRef(-1);
+    const categoriesSection = useRef<HTMLDivElement>(null);
+    const faqsSection = useRef<HTMLDivElement>(null);
+
     const { locale, lang } = useLanguage("lang", localization);
-    const { loading, data: faqData } = useFAQsAPI(lang);
+    const { loading, data } = useFAQsAPI(lang);
 
-    const QnA = ({ data }: { data: typeof faqData }) => {
-        const nowCategoryId = useRef(-1);
-        const categoriesSection = useRef<HTMLDivElement>(null);
-        const faqsSection = useRef<HTMLDivElement>(null);
+    const categoryId = (id: number) => `nav-category-${id}`;
+    const boxCategoryId = (id: number) => `category-${id}`;
+    const qnaBoxId = (id: number) => `qna-box-${id}`;
 
-        const categoryId = (id: number) => `nav-category-${id}`;
-        const boxCategoryId = (id: number) => `category-${id}`;
-        const qnaBoxId = (id: number) => `qna-box-${id}`;
+    useEffect(() => {
+        document.addEventListener("scroll", () => {
+            // Side Menu Sticky Effect When Scrolling
+            (() => {
+                const categories = categoriesSection.current;
+                const faqs = faqsSection.current;
 
-        useEffect(() => {
-            document.addEventListener("scroll", () => {
-                // Side Menu Sticky Effect When Scrolling
-                (() => {
-                    const categories = categoriesSection.current;
-                    const faqs = faqsSection.current;
+                if (categories) {
+                    const scrollTop = categories.getBoundingClientRect().top * -1;
 
-                    if (categories) {
-                        const scrollTop = categories.getBoundingClientRect().top * -1;
-
-                        if (scrollTop >= 0) {
-                            if (scrollTop >= faqs.clientHeight - 100) return;
-                            categories.style.paddingTop = scrollTop + 20 + "px";
-                        } else {
-                            categories.style.paddingTop = "0px";
-                        }
-                    }
-                })();
-
-                // Active Category Effect When Scrolling
-                (() => {
-                    for (let i = 0; i <= data.length - 1; i++) {
-                        const category = document.getElementById(categoryId(i));
-                        const boxCategory = document.getElementById(boxCategoryId(i));
-                        const qnaBox = document.getElementById(qnaBoxId(i));
-
-                        if (category && boxCategory && qnaBox) {
-                            const scrollTop = boxCategory.getBoundingClientRect().top * -1 + 200;
-                            const color = boxCategory.dataset.backgroundcolor;
-                            const id = boxCategory.dataset.categoryid;
-
-                            if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
-                                if (category) {
-                                    category.style.backgroundColor = color;
-                                }
-
-                                qnaBox.style.backgroundColor = color;
-
-                                if (nowCategoryId.current !== Number(id)) {
-                                    nowCategoryId.current = Number(id);
-                                    location.hash = boxCategoryId(Number(id));
-                                }
-                            } else {
-                                if (category) {
-                                    category.style.backgroundColor = "transparent";
-                                }
-
-                                qnaBox.style.backgroundColor = "transparent";
-                            }
-                        }
-                    }
-                })();
-            });
-
-            document.addEventListener("keyup", (e) => {
-                let id = nowCategoryId.current;
-
-                if (e.key === "ArrowUp") {
-                    id -= 1;
-
-                    if (id < 0) {
-                        id = 0;
-                    }
-                } else if (e.key === "ArrowDown") {
-                    id += 1;
-
-                    if (id > data.length - 1) {
-                        id = data.length - 1;
+                    if (scrollTop >= 0) {
+                        if (scrollTop >= faqs.clientHeight - 100) return;
+                        categories.style.paddingTop = scrollTop + 20 + "px";
+                    } else {
+                        categories.style.paddingTop = "0px";
                     }
                 }
+            })();
 
-                const element = document.getElementById(boxCategoryId(id));
+            // Active Category Effect When Scrolling
+            (() => {
+                for (let i = 0; i <= data.length - 1; i++) {
+                    const category = document.getElementById(categoryId(i));
+                    const boxCategory = document.getElementById(boxCategoryId(i));
+                    const qnaBox = document.getElementById(qnaBoxId(i));
 
-                const countOffsetTop = (element: any) => {
-                    // recursive until no parent found
-                    return element?.offsetParent && element.offsetTop + countOffsetTop(element.offsetParent) - 10;
-                };
+                    if (category && boxCategory && qnaBox) {
+                        const scrollTop = boxCategory.getBoundingClientRect().top * -1 + 200;
+                        const color = boxCategory.dataset.backgroundcolor;
+                        const id = boxCategory.dataset.categoryid;
 
-                window.scroll(0, countOffsetTop(element));
-                location.hash = boxCategoryId(id);
-            });
+                        if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
+                            if (category) {
+                                category.style.backgroundColor = color;
+                            }
 
-            return () => {
-                document.removeEventListener("scroll", () => {});
-                document.removeEventListener("keyup", () => {});
+                            qnaBox.style.backgroundColor = color;
+
+                            if (nowCategoryId.current !== Number(id)) {
+                                nowCategoryId.current = Number(id);
+                                location.hash = boxCategoryId(Number(id));
+                            }
+                        } else {
+                            if (category) {
+                                category.style.backgroundColor = "transparent";
+                            }
+
+                            qnaBox.style.backgroundColor = "transparent";
+                        }
+                    }
+                }
+            })();
+        });
+
+        document.addEventListener("keyup", (e) => {
+            let id = nowCategoryId.current;
+
+            if (e.key === "ArrowUp") {
+                id -= 1;
+
+                if (id < 0) {
+                    id = 0;
+                }
+            } else if (e.key === "ArrowDown") {
+                id += 1;
+
+                if (id > data.length - 1) {
+                    id = data.length - 1;
+                }
+            }
+
+            const element = document.getElementById(boxCategoryId(id));
+
+            const countOffsetTop = (element: any) => {
+                // recursive until no parent found
+                return element?.offsetParent && element.offsetTop + countOffsetTop(element.offsetParent) - 10;
             };
-        }, [data]);
 
-        return (
-            <section className="sticky py-20 overflow-auto">
-                <div className="container flex gap-20 overflow-auto">
-                    <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
-                        {data.map((item, index) => (
-                            <a
-                                key={index}
-                                id={categoryId(index)}
-                                href={`#${boxCategoryId(index)}`}
-                                className="px-5 py-3 border-b border-black border-opacity-30 transition-all duration-300 hover:opacity-70"
-                            >
-                                {item.title}
-                            </a>
-                        ))}
-                    </div>
+            window.scroll(0, countOffsetTop(element));
+            location.hash = boxCategoryId(id);
+        });
 
-                    <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins">
-                        {data.map((item, index) => {
-                            const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
-                            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-                            return (
-                                <div key={index} id={boxCategoryId(index)} className="grid gap-5" data-backgroundcolor={randomColor} data-categoryid={index}>
-                                    <h4 className="subtitle uppercase">{item.title}</h4>
-
-                                    <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
-                                        {item.list.map((item, index) => (
-                                            <div key={index} className="grid gap-4">
-                                                <h6 className="subtitle font-bold">{item.question}</h6>
-                                                <p>{item.answer}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
-        );
-    };
+        return () => {
+            document.removeEventListener("scroll", () => {});
+            document.removeEventListener("keyup", () => {});
+        };
+    }, [data]);
 
     return (
         <main className="relative bg-white overflow-auto">
@@ -221,7 +178,46 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            {!loading && <QnA data={faqData} />}
+            {!loading && (
+                <section className="sticky py-20 overflow-auto">
+                    <div className="container flex gap-20 overflow-auto">
+                        <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
+                            {data.map((item, index) => (
+                                <a
+                                    key={index}
+                                    id={categoryId(index)}
+                                    href={`#${boxCategoryId(index)}`}
+                                    className="px-5 py-3 border-b border-black border-opacity-30 transition-all duration-300 hover:opacity-70"
+                                >
+                                    {item.title}
+                                </a>
+                            ))}
+                        </div>
+
+                        <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins">
+                            {data.map((item, index) => {
+                                const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
+                                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+                                return (
+                                    <div key={index} id={boxCategoryId(index)} className="grid gap-5" data-backgroundcolor={randomColor} data-categoryid={index}>
+                                        <h4 className="subtitle uppercase">{item.title}</h4>
+
+                                        <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
+                                            {item.list.map((item, index) => (
+                                                <div key={index} className="grid gap-4">
+                                                    <h6 className="subtitle font-bold">{item.question}</h6>
+                                                    <p>{item.answer}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </section>
+            )}
 
             <Footer />
         </main>
