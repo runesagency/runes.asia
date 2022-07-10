@@ -4,7 +4,7 @@ import * as Button from "@/components/Utils/Buttons";
 
 import { useLanguage } from "@/lib/hooks";
 import { useState } from "react";
-import * as localization from "@/lib/localization/components/sections/newsletterCta";
+import * as localization from "@/lib/localization/sections/newsletterCta";
 
 export default function NewsletterCTA() {
     const [email, setEmail] = useState("");
