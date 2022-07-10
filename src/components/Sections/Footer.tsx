@@ -1,5 +1,4 @@
-import * as Icon from "@/components/Images/Icons";
-import * as Branding from "@/components/Images/Branding";
+import * as Icon from "@/components/Utils/Icons";
 
 import Link from "next/link";
 
@@ -90,7 +89,7 @@ export default function Footer() {
                     <div className="grid gap-8 max-w-xs">
                         <Link href={"/"}>
                             <a>
-                                <Branding.LogoPrimary className="h-11 cursor-pointer fill-yellow-light" />
+                                <Icon.LogoPrimary className="h-11 cursor-pointer fill-yellow-light" />
                             </a>
                         </Link>
                         <LangChooser className="w-max" tooltipAlign="left" />

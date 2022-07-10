@@ -1,7 +1,6 @@
 import LangChooser from "@/components/Utils/LangChooser";
 import * as Button from "@/components/Utils/Buttons";
-import * as Branding from "@/components/Images/Branding";
-import * as Icon from "@/components/Images/Icons";
+import * as Icon from "@/components/Utils/Icons";
 
 import Link from "next/link";
 
@@ -26,7 +25,7 @@ export default function Navigation({ className, light }: NavigationProps) {
             <section className="relative w-full flex justify-between items-center">
                 <Link href="/">
                     <a>
-                        <Branding.LogoPrimary className={`h-8 md:h-10 cursor-pointer fill-current`} />
+                        <Icon.LogoPrimary className={`h-8 md:h-10 cursor-pointer fill-current`} />
                     </a>
                 </Link>
 
@@ -61,7 +60,7 @@ export default function Navigation({ className, light }: NavigationProps) {
             >
                 <Link href="/">
                     <a className="flex-shrink-0">
-                        <Branding.LogoPrimary className={`h-12 cursor-pointer fill-current -mr-2 mb-12`} />
+                        <Icon.LogoPrimary className={`h-12 cursor-pointer fill-current -mr-2 mb-12`} />
                     </a>
                 </Link>
 

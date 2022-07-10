@@ -3,7 +3,7 @@
 import type { ElementType } from "react";
 
 import Link from "next/link";
-import * as Icon from "@/components/Images/Icons";
+import * as Icon from "@/components/Utils/Icons";
 
 import { forwardRef } from "react";
 

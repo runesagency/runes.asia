@@ -1,4 +1,4 @@
-import * as Icon from "@/components/Images/Icons";
+import * as Icon from "@/components/Utils/Icons";
 
 import { HTMLAttributes, useState } from "react";
 import { useLanguage } from "@/lib/hooks";
