@@ -6,9 +6,7 @@ import { useEffect, useRef } from "react";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/faq";
 
-export default function FAQPage() {
-    const { locale, lang } = useLanguage("lang", localization);
-
+export const useFAQsAPI = (lang: string) => {
     const { data, loading } = useCMSAPI("/items/faqs", {
         defaultValue: [],
         skip: 0,
@@ -60,7 +58,17 @@ export default function FAQPage() {
         return previous;
     }, []);
 
-    const QnA = ({ data }: { data: typeof mergedDataByCategories }) => {
+    return {
+        loading,
+        data: mergedDataByCategories,
+    };
+};
+
+export default function FAQPage() {
+    const { locale, lang } = useLanguage("lang", localization);
+    const { loading, data: faqData } = useFAQsAPI(lang);
+
+    const QnA = ({ data }: { data: typeof faqData }) => {
         const nowCategoryId = useRef(-1);
         const categoriesSection = useRef<HTMLDivElement>(null);
         const faqsSection = useRef<HTMLDivElement>(null);
@@ -213,7 +221,7 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            {!loading && <QnA data={mergedDataByCategories} />}
+            {!loading && <QnA data={faqData} />}
 
             <Footer />
         </main>
