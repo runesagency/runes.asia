@@ -6,6 +6,7 @@ import * as Icon from "@/components/Utils/Icons";
 import { useState } from "react";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import { useFAQsAPI } from "@/pages/faq";
+import * as localization from "@/lib/localization/pages/pricing";
 
 export const usePricingsAPI = (lang: string) => {
     const { data, loading } = useCMSAPI("/items/pricings", {
@@ -77,7 +78,7 @@ export const usePricingsAPI = (lang: string) => {
 export default function PricingPage() {
     const [currentCategory, setCurrentCategory] = useState(0);
     const [currentFaq, setCurrentFaq] = useState(0);
-    const { lang } = useLanguage("lang", {} as any, "en");
+    const { lang, locale } = useLanguage("lang", localization);
 
     const { data: pricingsData, loading: pricingsLoading } = usePricingsAPI(lang);
     const { loading: faqsLoading, data: faqsData } = useFAQsAPI(lang);
@@ -173,8 +174,8 @@ export default function PricingPage() {
                     <Navigation />
 
                     <div className="grid gap-8 text-black mx-auto text-center max-w-2xl">
-                        <h1 className="title">Plans And Pricing</h1>
-                        <h4 className="subtitle">Choose your category and desired plans</h4>
+                        <h1 className="title">{locale.header.title}</h1>
+                        <h4 className="subtitle">{locale.header.subtitle}</h4>
                     </div>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-12 font-poppins font-semibold">
@@ -210,11 +211,11 @@ export default function PricingPage() {
                     <div className="flex flex-col-reverse lg:flex-row justify-between items-center text-black bg-lime p-10 md:p-20 lg:py-0 gap-20">
                         <div className="grid gap-10 flex-1 lg:py-20 max-w-xl">
                             <div className="grid gap-5 h-max">
-                                <h1 className="jumbo-title">Tired of Waiting?</h1>
-                                <p className="subtitle">Need your project to be completed faster? Prioritize your projects using priority tickets starting at Rp499K or 25% of your project costs.</p>
+                                <h1 className="jumbo-title">{locale.priorityCTA.title}</h1>
+                                <p className="subtitle">{locale.priorityCTA.subtitle}</p>
                             </div>
 
-                            <Button.Primary className="!w-full">Buy Priority Tickets</Button.Primary>
+                            <Button.Primary className="!w-full">{locale.priorityCTA.button}</Button.Primary>
                         </div>
 
                         <div className="flex-1 h-full overflow-visible">
@@ -227,7 +228,7 @@ export default function PricingPage() {
             {/* About */}
             <section className="py-20 relative">
                 <div className="container grid gap-16 text-black">
-                    <h1 className="title mx-auto">Frequently Asked Questions</h1>
+                    <h1 className="title mx-auto">{locale.faq.title}</h1>
 
                     <div className="grid gap-5 w-full font-poppins max-w-4xl mx-auto">
                         {!faqsLoading &&
