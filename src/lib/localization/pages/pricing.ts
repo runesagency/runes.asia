@@ -24,6 +24,6 @@ export const id: typeof en = {
         button: "Beli Tiket Prioritas",
     },
     faq: {
-        title: "Pertanyaan yang Sering Ditanyakan",
+        title: "Pertanyaan Umum",
     },
 };

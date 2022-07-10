@@ -218,7 +218,7 @@ export default function PricingPage() {
                             <Button.Primary className="!w-full">{locale.priorityCTA.button}</Button.Primary>
                         </div>
 
-                        <div className="flex-1 h-full overflow-visible">
+                        <div className="flex-1 h-full overflow-visible flex items-end">
                             <img src="/images/illustrations/priority.png" alt="" className="object-bottom max-h-full origin-bottom transform lg:scale-150 xl:scale-100" />
                         </div>
                     </div>
@@ -228,7 +228,7 @@ export default function PricingPage() {
             {/* About */}
             <section className="py-20 relative">
                 <div className="container grid gap-16 text-black">
-                    <h1 className="title mx-auto">{locale.faq.title}</h1>
+                    <h1 className="title text-center">{locale.faq.title}</h1>
 
                     <div className="grid gap-5 w-full font-poppins max-w-4xl mx-auto">
                         {!faqsLoading &&
