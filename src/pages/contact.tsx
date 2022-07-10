@@ -5,19 +5,33 @@ import Navigation from "@/components/Sections/Navigation";
 import Input from "@/components/Forms/Input";
 import * as Button from "@/components/Forms/Buttons";
 
-import { useState, useRef } from "react";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { useCaptcha, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/contact";
 
 export default function ContactPage() {
-    const { locale } = useLanguage("lang", localization);
-    const captchaCanvas = useRef<HTMLCanvasElement>(null);
+    const router = useRouter();
+    let initialData = {
+        selections: [],
+        details: "",
+    };
 
-    const [selections, setSelections] = useState<string[]>([]);
+    if (router.isReady && router.query.category && router.query.package) {
+        const category = router.query.category as string;
+        const packageName = router.query.package as string;
+
+        initialData.selections.push("pricing");
+        initialData.details = `Hi there, I'm interested in ${packageName} package under ${category} category.`;
+    }
+
+    const { locale } = useLanguage("lang", localization);
+
+    const [selections, setSelections] = useState<string[]>(initialData.selections);
     const [contactPlatform, setContactPlatform] = useState<string>("");
     const [budget, setBudget] = useState<string>("");
 
-    const { refresh: refreshCaptcha, value: captchaValue } = useCaptcha(captchaCanvas);
+    const { refresh: refreshCaptcha, value: captchaValue, elementRef: captchaRef } = useCaptcha();
 
     const formHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -147,6 +161,7 @@ export default function ContactPage() {
                             rows={10}
                             className="p-5 w-full outline-none font-poppins text-black border border-black border-opacity-20"
                             placeholder={locale.form.details.placeholder}
+                            defaultValue={initialData.details}
                             required
                         />
                     </FormSection>
@@ -166,7 +181,7 @@ export default function ContactPage() {
                     </FormSection>
 
                     <FormSection title={locale.form.captcha.title}>
-                        <canvas ref={captchaCanvas} height={70} width={300} />
+                        <canvas ref={captchaRef} height={70} width={300} />
                         <a
                             className="underline hover:opacity-70 cursor-pointer duration-200 w-max" //
                             onClick={refreshCaptcha}
