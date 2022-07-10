@@ -49,22 +49,22 @@ export const Socials = () => {
         {
             name: "Behance",
             icon: Icon.Behance,
-            href: "https://www.behance.net/wearerunes",
+            href: "https://www.behance.net/runesasia",
         },
         {
             name: "Github",
             icon: Icon.Github,
-            href: "https://github.com/wearerunes",
+            href: "https://github.com/runesasia",
         },
         {
             name: "Tiktok",
             icon: Icon.Tiktok,
-            href: "https://tiktok.com/@wearerunes",
+            href: "https://tiktok.com/@runes.asia",
         },
         {
             name: "Instagram",
             icon: Icon.Instagram,
-            href: "https://instagram.com/wearerunes",
+            href: "https://instagram.com/runes.asia",
         },
     ];
 

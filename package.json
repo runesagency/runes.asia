@@ -1,10 +1,10 @@
 {
-    "name": "@wearerunes/website",
+    "name": "@runesasia/website",
     "version": "2.0.0",
     "description": "Official Website of Runes",
     "main": "index.js",
-    "repository": "https://github.com/wearerunes/wearerunes.git",
-    "bugs": "https://github.com/wearerunes/wearerunes",
+    "repository": "https://github.com/runesasia/runes.asia.git",
+    "bugs": "https://github.com/runesasia/runes.asia",
     "author": {
         "name": "Team Runes",
         "email": "team@runes.asia",
