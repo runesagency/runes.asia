@@ -40,15 +40,17 @@ export const usePricingsAPI = (lang: string) => {
         ],
     });
 
-    const parsedData = data?.map((item) => {
+    const parsedData = data?.map((item, index) => {
         const category = item.category.translations.find((item) => item.languages_code === lang);
         const translation = item.translations.find((item) => item.languages_code === lang);
 
         return {
+            index,
             name: category.name,
             image: item.category.category_image,
             list: [
                 {
+                    index,
                     ...translation,
                     themeColor: item.theme_color,
                     billingPeriod: item.billing_period,
@@ -120,7 +122,7 @@ export default function PricingPage() {
                     </svg>
 
                     <div className="grid gap-2">
-                        <h6 className="text-sm">Level {10}</h6>
+                        <h6 className="text-sm">Level {(props.index + 1) * 10}</h6>
                         <h3 className="font-vidaloka text-4xl">{props.title}</h3>
                         <p>{props.short_description}</p>
                     </div>
@@ -141,7 +143,7 @@ export default function PricingPage() {
 
                 <div className="flex flex-col justify-between gap-10 p-10 h-full">
                     <div className="grid gap-5">
-                        <h3 className="font-vidaloka text-xl">What You Get</h3>
+                        <h3 className="font-vidaloka text-xl">{locale.pricing.includedFeatures}</h3>
 
                         <div className="grid gap-2 fill-navy">
                             {props.features_included.map((feature, index) => (
@@ -150,7 +152,7 @@ export default function PricingPage() {
                         </div>
 
                         <h3 className="font-vidaloka text-xl">
-                            What You <u>Don't</u> Get
+                            {locale.pricing.notIncludedFeatures[0]} <u>{locale.pricing.notIncludedFeatures[1]}</u> {locale.pricing.notIncludedFeatures[2]}
                         </h3>
 
                         <div className="grid gap-2">
@@ -160,7 +162,7 @@ export default function PricingPage() {
                         </div>
                     </div>
 
-                    <Button.Primary className="!w-full">Let's Get Started</Button.Primary>
+                    <Button.Primary className="!w-full">{locale.pricing.button}</Button.Primary>
                 </div>
             </article>
         );

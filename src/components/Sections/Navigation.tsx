@@ -47,14 +47,14 @@ export default function Navigation({ className, light }: NavigationProps) {
 
                     <LangChooser hideNameOnMobile />
                     <Icon.Menu className="fill-current group cursor-pointer lg:hidden" active={open} onClick={() => setOpen(true)} />
-                    <Button.Primary className={`hidden xl:block ${light && "bg-yellow-light !text-black"}`}>Let's Get Started</Button.Primary>
+                    <Button.Primary className={`hidden xl:block ${light && "bg-yellow-light !text-black"}`}>{locale.button}</Button.Primary>
                 </div>
             </section>
 
             {/* Mobile Absolute Menu */}
             <section
                 className={
-                    `fixed lg:hidden py-20 translate-y-0 h-screen transform bottom-0 right-0 z-10 bg-black text-yellow-light flex flex-col justify-end items-end duration-700 delay-300 overflow-clip` + //
+                    `fixed lg:hidden py-40 translate-y-0 h-screen transform bottom-0 right-0 z-10 bg-black text-yellow-light flex flex-col justify-end items-end duration-700 delay-300 overflow-clip` + //
                     (open ? " w-screen px-10" : " w-0")
                 }
             >

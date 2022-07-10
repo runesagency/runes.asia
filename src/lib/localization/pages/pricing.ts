@@ -3,6 +3,11 @@ export const en = {
         title: "Plans And Pricing",
         subtitle: "Choose your category and desired plans",
     },
+    pricing: {
+        includedFeatures: "What You Get",
+        notIncludedFeatures: ["What You", "Don't", "Get"],
+        button: "Let's Get Started",
+    },
     priorityCTA: {
         title: "Tired of Waiting?",
         subtitle: "Need your project to be completed faster? Prioritize your projects using priority tickets starting at $49.99 or 25% of your project costs.",
@@ -17,6 +22,11 @@ export const id: typeof en = {
     header: {
         title: "Paket & Harga",
         subtitle: "Pilih kategori dan pilih paket yang Anda inginkan",
+    },
+    pricing: {
+        includedFeatures: "Yang Anda Dapatkan",
+        notIncludedFeatures: ["Yang Anda", "Tidak", "Dapatkan"],
+        button: "Mulai Sekarang",
     },
     priorityCTA: {
         title: "Butuh Cepat Selesai?",
