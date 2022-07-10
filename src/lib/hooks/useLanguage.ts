@@ -2,6 +2,7 @@
 import type { Dispatch, SetStateAction } from "react";
 
 import { useEffect, useState, useRef } from "react";
+import { getTopComponentName } from "@/lib/functions";
 
 type useLanguageReturns<T> = {
     lang: string;
@@ -9,17 +10,8 @@ type useLanguageReturns<T> = {
     setLang: Dispatch<SetStateAction<string>>;
 };
 
-const getComponentName = () => {
-    const stack = new Error().stack;
-    const lines = stack.split("\n");
-    const line = lines[3];
-    const match = line.match(/at (.*) \(/);
-    const name = match[1];
-    return name;
-};
-
 export const useLanguage = <T>(keyName: string, localization: T, defaultLang?: keyof T): useLanguageReturns<T> => {
-    const componentName = getComponentName();
+    const componentName = getTopComponentName();
 
     if (!defaultLang) {
         defaultLang = Object.keys(localization)[0] as any;
