@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import * as Button from "@/components/Forms/Buttons";
@@ -162,7 +163,9 @@ export default function PricingPage() {
                         </div>
                     </div>
 
-                    <Button.Primary className="!w-full">{locale.pricing.button}</Button.Primary>
+                    <Link href={`/contact?category=${pricingsData[currentCategory].name}&package=${props.title}`} passHref>
+                        <Button.Primary className="!w-full">{locale.pricing.button}</Button.Primary>
+                    </Link>
                 </div>
             </article>
         );
