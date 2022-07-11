@@ -47,7 +47,9 @@ export default function Navigation({ className, light }: NavigationProps) {
 
                     <LangChooser hideNameOnMobile />
                     <Icon.Menu className="fill-current group cursor-pointer lg:hidden" active={open} onClick={() => setOpen(true)} />
-                    <Button.Primary className={`hidden xl:block ${light && "bg-yellow-light !text-black"}`}>{locale.button}</Button.Primary>
+                    <Link href="/pricing" passHref>
+                        <Button.Primary className={`hidden xl:block ${light && "bg-yellow-light !text-black"}`}>{locale.button}</Button.Primary>
+                    </Link>
                 </div>
             </section>
 
