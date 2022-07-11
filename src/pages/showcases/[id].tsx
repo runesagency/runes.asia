@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Footer from "@/components/Sections/Footer";
 import Navigation from "@/components/Sections/Navigation";
 import * as Button from "@/components/Forms/Buttons";
@@ -55,6 +56,10 @@ export default function SingleShowcasePage() {
 
     return (
         <main className="relative bg-white">
+            <Head>
+                <title>{showcase.product_title} | Runes - Showcases</title>
+            </Head>
+
             {/* Header */}
             <section className="relative py-20">
                 <div className="container grid gap-14 text-black">

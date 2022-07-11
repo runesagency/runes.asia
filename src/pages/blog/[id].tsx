@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Footer from "@/components/Sections/Footer";
 import Navigation from "@/components/Sections/Navigation";
 import NewsletterCTA from "@/components/Sections/NewsletterCTA";
@@ -50,6 +51,10 @@ export default function SingleBlogPage() {
 
     return (
         <main className="relative bg-white">
+            <Head>
+                <title>{blog.title} | Runes - Blog</title>
+            </Head>
+
             {/* Header */}
             <section className="relative py-20 bg-black">
                 <div className="container grid gap-14">
