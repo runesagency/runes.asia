@@ -1,10 +1,9 @@
+import Link from "next/link";
+import LangChooser from "@/components/Utils/LangChooser";
 import * as Icon from "@/components/Utils/Icons";
 
-import Link from "next/link";
-
-import * as localization from "@/lib/localization/sections/footer";
 import { useLanguage } from "@/lib/hooks";
-import LangChooser from "@/components/Utils/LangChooser";
+import * as localization from "@/lib/localization/sections/footer";
 
 export const Contacts = () => {
     const contacts = [
@@ -15,8 +14,8 @@ export const Contacts = () => {
         },
         {
             icon: Icon.Phone,
-            text: "+62 851 5658 2791 (WhatsApp Only)",
-            href: "tel:+6285156582791",
+            text: "+62 851 5658 2791 (WhatsApp)",
+            href: "http://wa.me/6285156582791",
         },
         {
             icon: Icon.Location,
