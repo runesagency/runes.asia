@@ -100,7 +100,7 @@ export const id: typeof en = {
         title: "Siapa Kami?",
         description: [
             "Kami adalah orang-orang kreatif",
-            ", dalam ruang kreatif yang disebut Creative Studio, yang didedikasikan untuk membantu merek, produk, dan layanan menjadi yang terbaik di kelas masing-masing.",
+            ", dalam ruang kreatif yang dikenal sebagai Studio Kreatif, yang didedikasikan untuk membantu merek, produk, dan layanan menjadi yang terbaik di kelas masing-masing.",
         ],
         button: "Lihat Lebih Lanjut",
     },
