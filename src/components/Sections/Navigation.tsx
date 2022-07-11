@@ -1,8 +1,7 @@
+import Link from "next/link";
 import LangChooser from "@/components/Utils/LangChooser";
 import * as Button from "@/components/Forms/Buttons";
 import * as Icon from "@/components/Utils/Icons";
-
-import Link from "next/link";
 
 import { useState } from "react";
 import { useRouter } from "next/router";

@@ -1,6 +1,8 @@
+import type { HTMLAttributes } from "react";
+
 import * as Icon from "@/components/Utils/Icons";
 
-import { HTMLAttributes, useState } from "react";
+import { useState } from "react";
 import { useLanguage } from "@/lib/hooks";
 
 type LangChooserProps = {
