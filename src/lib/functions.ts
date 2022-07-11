@@ -28,3 +28,7 @@ export const getTopComponentName = () => {
     const name = match[1];
     return name;
 };
+
+export const ucWords = (str: string) => {
+    return str.toLowerCase().replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
+};
