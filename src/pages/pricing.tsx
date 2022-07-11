@@ -16,6 +16,7 @@ export const usePricingsAPI = (lang: string) => {
         skip: 0,
         fields: [
             {
+                image: true,
                 billing_period: true,
                 category: {
                     category_image: true,
@@ -51,6 +52,7 @@ export const usePricingsAPI = (lang: string) => {
             list: [
                 {
                     ...translation,
+                    image: item.image,
                     billingPeriod: item.billing_period,
                 },
             ],
@@ -117,7 +119,7 @@ export default function PricingPage() {
         return (
             <article className="w-full border-8 flex flex-col text-black font-poppins overflow-hidden" style={{ borderColor: color }}>
                 <div className="grid gap-8 bg-opacity-20 p-10 h-max" style={{ backgroundColor: color }}>
-                    <img src={`/images/illustrations/packages/${props.title}.png`} alt="" className="h-14" />
+                    <img src={`/api/cms/assets/${props.image}`} alt="" className="h-14" />
 
                     <div className="grid gap-2">
                         <h6 className="text-sm">Level {(props.index + 1) * 10}</h6>
@@ -185,21 +187,22 @@ export default function PricingPage() {
                     </div>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-12 font-poppins font-semibold">
-                        {pricingsData.map((category, index) => (
-                            <a
-                                key={index}
-                                onClick={() => setCurrentCategory(index)}
-                                className={
-                                    `flex items-center justify-center gap-4 px-10 py-3 cursor-pointer hover:opacity-70 duration-200  ` + //
-                                    (index === currentCategory //
-                                        ? "bg-black text-white"
-                                        : "border-black border-opacity-20 border-2 text-black")
-                                }
-                            >
-                                <img src={`/api/cms/assets/${category.image}`} alt="" className="h-16" />
-                                <p>{category.name}</p>
-                            </a>
-                        ))}
+                        {!pricingsLoading &&
+                            pricingsData.map((category, index) => (
+                                <a
+                                    key={index}
+                                    onClick={() => setCurrentCategory(index)}
+                                    className={
+                                        `flex items-center justify-center gap-4 px-10 py-3 cursor-pointer hover:opacity-70 duration-200  ` + //
+                                        (index === currentCategory //
+                                            ? "bg-black text-white"
+                                            : "border-black border-opacity-20 border-2 text-black")
+                                    }
+                                >
+                                    <img src={`/api/cms/assets/${category.image}`} alt="" className="h-16" />
+                                    <p>{category.name}</p>
+                                </a>
+                            ))}
                     </div>
                 </div>
             </section>
