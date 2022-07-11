@@ -4,6 +4,7 @@ import Footer from "@/components/Sections/Footer";
 import * as Button from "@/components/Forms/Buttons";
 import * as Icon from "@/components/Utils/Icons";
 
+import { theme } from "tailwind.config";
 import { useState } from "react";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import { useFAQsAPI } from "@/pages/faq";
@@ -16,7 +17,6 @@ export const usePricingsAPI = (lang: string) => {
         fields: [
             {
                 billing_period: true,
-                theme_color: true,
                 category: {
                     category_image: true,
                     translations: [
@@ -41,19 +41,16 @@ export const usePricingsAPI = (lang: string) => {
         ],
     });
 
-    const parsedData = data?.map((item, index) => {
+    const parsedData = data?.map((item) => {
         const category = item.category.translations.find((item) => item.languages_code === lang);
         const translation = item.translations.find((item) => item.languages_code === lang);
 
         return {
-            index,
             name: category.name,
             image: item.category.category_image,
             list: [
                 {
-                    index,
                     ...translation,
-                    themeColor: item.theme_color,
                     billingPeriod: item.billing_period,
                 },
             ],
@@ -86,13 +83,20 @@ export default function PricingPage() {
     const { data: pricingsData, loading: pricingsLoading } = usePricingsAPI(lang);
     const { loading: faqsLoading, data: faqsData } = useFAQsAPI(lang);
 
-    const PricingBlock = (props: typeof pricingsData[0]["list"][0]) => {
+    const PricingBlock = (props: typeof pricingsData[0]["list"][0] & { index: number }) => {
+        const color = [
+            "rgba(39, 39, 39, 0.2)", //
+            theme.colors.lime,
+            theme.colors.yellow.light,
+            theme.colors.pink,
+        ][props.index];
+
         const Feature = ({ text, check }: { text: string; check?: boolean }) => (
             <a className="flex items-start gap-3">
                 {check ? (
                     <svg className="w-6 h-6 flex-shrink-0" viewBox="0 0 22 23">
                         <path
-                            style={{ fill: props.themeColor }}
+                            style={{ fill: color }}
                             d="M11 21.5195C16.5228 21.5195 21 17.0424 21 11.5195C21 5.99668 16.5228 1.51953 11 1.51953C5.47715 1.51953 1 5.99668 1 11.5195C1 17.0424 5.47715 21.5195 11 21.5195Z"
                         />
                         <path
@@ -111,16 +115,9 @@ export default function PricingPage() {
         );
 
         return (
-            <article className="w-full border-8 flex flex-col text-black font-poppins overflow-hidden" style={{ borderColor: props.themeColor }}>
-                <div className="grid gap-8 bg-opacity-20 p-10 h-max" style={{ backgroundColor: props.themeColor }}>
-                    <svg width="50" height="56" viewBox="0 0 50 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M15.204 2.127C12.841 3.297 9.803 5.701 8.454 7.471C7.104 9.24 6 11.429 6 12.336C6 13.242 4.65 15.186 3 16.657C1.35 18.127 0 19.94 0 20.686C0 21.432 1.116 22.551 2.481 23.172C4.286 23.995 4.83 24.874 4.479 26.401C4.213 27.555 3.102 34.092 2.01 40.928C0.918 47.763 0.208 53.541 0.433 53.766C0.659 53.991 3.762 51.938 7.33 49.203C10.898 46.468 16.274 43.068 19.277 41.648C22.28 40.227 26.529 38.778 28.719 38.428L32.7 37.791L33.346 43.289C33.702 46.313 33.724 50.13 33.396 51.771C33.039 53.552 33.26 55.042 33.942 55.463C34.591 55.864 37.499 54.107 40.671 51.397C43.743 48.772 47.097 45.247 48.125 43.562C49.152 41.877 49.994 39.451 49.996 38.17C49.998 36.888 48.825 32.903 47.388 29.312C45.081 23.546 44.933 22.493 46.115 20.284C47.308 18.055 47.23 17.604 45.391 16.114C44.257 15.196 43.03 13.254 42.665 11.799C42.299 10.344 40.784 7.707 39.297 5.94C37.81 4.173 35.124 2.113 33.329 1.363C31.533 0.613001 27.687 -0.00099878 24.782 1.21977e-06C21.41 1.21977e-06 17.946 0.770001 15.204 2.127ZM31.186 3.034C33.213 3.597 36.025 5.429 37.436 7.105C38.846 8.781 40 11.266 40 12.627C40 14.539 39.152 15.456 36.268 16.661C34.215 17.518 29.152 18.421 25.018 18.666C20.488 18.935 15.513 18.584 12.5 17.783C8.234 16.649 7.536 16.123 7.742 14.203C7.876 12.965 8.757 10.773 9.701 9.333C10.645 7.892 13.686 5.657 16.458 4.366C19.231 3.075 22.85 2.017 24.5 2.014C26.15 2.012 29.159 2.471 31.186 3.034ZM45 18.585C45 18.869 43.434 19.756 41.519 20.556C39.604 21.355 33.788 22.451 28.593 22.989C22.409 23.631 16.464 23.628 11.373 22.983C7.097 22.441 3.126 21.517 2.549 20.931C1.814 20.184 2.034 19.47 3.283 18.547C4.783 17.44 6.058 17.544 11.283 19.204C16.051 20.718 19.271 21.065 25.096 20.694C29.494 20.413 34.545 19.383 37.096 18.247C40.087 16.915 42.062 16.572 43.25 17.177C44.212 17.668 45 18.301 45 18.585ZM45.003 28.227C46.239 31.102 47.478 35.141 47.754 37.204C48.227 40.727 47.86 41.361 41.658 47.726L35.059 54.499L35.628 49.499C35.941 46.749 35.707 41.124 35.108 36.999C34.509 32.874 33.743 28.511 33.407 27.304C32.894 25.464 33.337 24.953 36.148 24.144C37.991 23.614 40.232 23.139 41.127 23.089C42.173 23.031 43.556 24.864 45.003 28.227ZM8.597 32.999C7.539 37.23 7.197 37.807 7.116 35.499C7.058 33.849 7.538 30.699 8.183 28.499C8.827 26.299 9.494 25.174 9.664 25.999C9.834 26.824 9.354 29.974 8.597 32.999ZM14.154 30.074C13.942 33.255 13.137 35.202 11.292 36.999C9.653 38.596 8.927 38.913 9.282 37.877C9.589 36.985 10.158 34.06 10.547 31.377C10.936 28.694 11.464 26.138 11.719 25.696C11.974 25.255 12.693 25.063 13.317 25.271C13.996 25.498 14.332 27.42 14.154 30.074Z"
-                            fill="#272727"
-                        />
-                    </svg>
+            <article className="w-full border-8 flex flex-col text-black font-poppins overflow-hidden" style={{ borderColor: color }}>
+                <div className="grid gap-8 bg-opacity-20 p-10 h-max" style={{ backgroundColor: color }}>
+                    <img src={`/images/illustrations/packages/${props.title}.png`} alt="" className="h-14" />
 
                     <div className="grid gap-2">
                         <h6 className="text-sm">Level {(props.index + 1) * 10}</h6>
@@ -213,7 +210,7 @@ export default function PricingPage() {
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
                         {!pricingsLoading &&
                             pricingsData?.[currentCategory]?.list.map((plan, index) => (
-                                <PricingBlock {...plan} key={index} /> //
+                                <PricingBlock {...plan} key={index} index={index} /> //
                             ))}
                     </div>
 
@@ -224,7 +221,9 @@ export default function PricingPage() {
                                 <p className="subtitle">{locale.priorityCTA.subtitle}</p>
                             </div>
 
-                            <Button.Primary className="!w-full">{locale.priorityCTA.button}</Button.Primary>
+                            <Button.Primary className="!w-full" onClick={() => alert(locale.priorityCTA.alert)}>
+                                {locale.priorityCTA.button}
+                            </Button.Primary>
                         </div>
 
                         <div className="flex-1 h-full overflow-visible flex items-end">
