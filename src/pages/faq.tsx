@@ -87,7 +87,7 @@ export default function FAQPage() {
                     const scrollTop = categories.getBoundingClientRect().top * -1;
 
                     if (scrollTop >= 0) {
-                        if (scrollTop >= faqs.clientHeight - 100) return;
+                        if (scrollTop >= faqs.clientHeight - 200) return;
                         categories.style.paddingTop = scrollTop + 20 + "px";
                     } else {
                         categories.style.paddingTop = "0px";
@@ -200,12 +200,12 @@ export default function FAQPage() {
                                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
                                 return (
-                                    <div key={index} id={boxCategoryId(index)} className="grid gap-5" data-backgroundcolor={randomColor} data-categoryid={index}>
+                                    <div key={index} id={boxCategoryId(index)} className="grid gap-5 h-max" data-backgroundcolor={randomColor} data-categoryid={index}>
                                         <h4 className="subtitle uppercase">{item.title}</h4>
 
                                         <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
                                             {item.list.map((item, index) => (
-                                                <div key={index} className="grid gap-4">
+                                                <div key={index} className="grid gap-4 h-max">
                                                     <h6 className="subtitle font-bold">{item.question}</h6>
                                                     <p>{item.answer}</p>
                                                 </div>
