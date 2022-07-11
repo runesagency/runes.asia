@@ -77,7 +77,7 @@ export default function FAQPage() {
     const qnaBoxId = (id: number) => `qna-box-${id}`;
 
     useEffect(() => {
-        document.addEventListener("scroll", () => {
+        const scrollHandler = () => {
             // Side Menu Sticky Effect When Scrolling
             (() => {
                 const categories = categoriesSection.current;
@@ -128,9 +128,9 @@ export default function FAQPage() {
                     }
                 }
             })();
-        });
+        };
 
-        document.addEventListener("keyup", (e) => {
+        const keyUpHandler = (e: KeyboardEvent) => {
             let id = nowCategoryId.current;
 
             if (e.key === "ArrowUp") {
@@ -156,11 +156,14 @@ export default function FAQPage() {
 
             window.scroll(0, countOffsetTop(element));
             location.hash = boxCategoryId(id);
-        });
+        };
+
+        document.addEventListener("scroll", scrollHandler);
+        document.addEventListener("keyup", keyUpHandler);
 
         return () => {
-            document.removeEventListener("scroll", () => {});
-            document.removeEventListener("keyup", () => {});
+            document.removeEventListener("scroll", scrollHandler);
+            document.removeEventListener("keyup", keyUpHandler);
         };
     }, [data]);
 

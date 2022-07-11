@@ -9,23 +9,23 @@ export const useDragToScroll = () => {
         let startX: number;
         let scrollLeft: number;
 
-        slider.addEventListener("mousedown", (e) => {
+        const handleMouseDown = (e: MouseEvent) => {
             isDown = true;
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
             cancelMomentumTracking();
-        });
+        };
 
-        slider.addEventListener("mouseleave", () => {
+        const handleMouseLeave = () => {
             isDown = false;
-        });
+        };
 
-        slider.addEventListener("mouseup", () => {
+        const handleMouseUp = () => {
             isDown = false;
             beginMomentumTracking();
-        });
+        };
 
-        slider.addEventListener("mousemove", (e) => {
+        const handleMouseMove = (e: MouseEvent) => {
             if (!isDown) return;
 
             e.preventDefault();
@@ -36,16 +36,23 @@ export const useDragToScroll = () => {
 
             slider.scrollLeft = scrollLeft - walk;
             velX = slider.scrollLeft - prevScrollLeft;
-        });
+        };
+
+        slider.addEventListener("mousedown", handleMouseDown);
+        slider.addEventListener("mouseleave", handleMouseLeave);
+        slider.addEventListener("mouseup", handleMouseUp);
+        slider.addEventListener("mousemove", handleMouseMove);
 
         // Momentum
 
         let velX = 0;
         let momentumID: number;
 
-        slider.addEventListener("wheel", () => {
+        const handleWheel = () => {
             cancelMomentumTracking();
-        });
+        };
+
+        slider.addEventListener("wheel", handleWheel);
 
         const beginMomentumTracking = () => {
             cancelMomentumTracking();
@@ -66,11 +73,11 @@ export const useDragToScroll = () => {
         };
 
         return () => {
-            slider.removeEventListener("mousedown", () => {});
-            slider.removeEventListener("mouseleave", () => {});
-            slider.removeEventListener("mouseup", () => {});
-            slider.removeEventListener("mousemove", () => {});
-            slider.removeEventListener("wheel", () => {});
+            slider.removeEventListener("mousedown", handleMouseDown);
+            slider.removeEventListener("mouseleave", handleMouseLeave);
+            slider.removeEventListener("mouseup", handleMouseUp);
+            slider.removeEventListener("mousemove", handleMouseMove);
+            slider.removeEventListener("wheel", handleWheel);
         };
     }, [elementRef]);
 
