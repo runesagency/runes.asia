@@ -44,7 +44,7 @@ export const Contacts = () => {
     );
 };
 
-export const Socials = () => {
+export const Socials = ({ className }: { className?: string }) => {
     const socials = [
         {
             name: "Behance",
@@ -69,10 +69,10 @@ export const Socials = () => {
     ];
 
     return (
-        <div className="grid gap-7 grid-cols-5 group">
+        <div className={`grid gap-7 grid-cols-5 group ${className}`}>
             {socials.map((social, index) => (
                 <a key={index} title={social.name} href={social.href} target="_blank" rel="noreferrer">
-                    <social.icon className="h-8 fill-yellow-light group-hover:opacity-50 hover:!opacity-100 duration-200" />
+                    <social.icon className="h-8 fill-current group-hover:opacity-50 hover:!opacity-100 duration-200" />
                 </a>
             ))}
         </div>
@@ -86,13 +86,15 @@ export default function Footer() {
         <footer className="bg-black text-white py-20">
             <section className="container grid gap-32">
                 <div className="flex flex-col gap-20 lg:flex-row justify-between items-start">
-                    <div className="grid gap-8 max-w-xs">
+                    <div className="grid gap-8 max-w-xs text-yellow-light">
                         <Link href={"/"}>
                             <a>
-                                <Icon.LogoPrimary className="h-11 cursor-pointer fill-yellow-light" />
+                                <Icon.LogoPrimary className="h-11 cursor-pointer fill-current" />
                             </a>
                         </Link>
-                        <LangChooser className="w-max" tooltipAlign="left" />
+
+                        <LangChooser className="w-max text-white" tooltipAlign="left" />
+
                         <Socials />
                     </div>
 
