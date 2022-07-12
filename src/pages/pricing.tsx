@@ -40,6 +40,9 @@ export const usePricingsAPI = (lang: string) => {
                 ],
             },
         ],
+        filter: {
+            status: "published",
+        },
     });
 
     const parsedData = data?.map((item) => {
