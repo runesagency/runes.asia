@@ -49,7 +49,7 @@ const LangChooser = ({ className, tooltipAlign, hideNameOnMobile, ...props }: HT
 
             <div
                 className={
-                    `grid gap-2 absolute -bottom-2 transform translate-y-full w-max shadow-sm rounded-sm overflow-clip duration-700 px-4 bg-yellow-light text-black` +
+                    `grid gap-2 absolute -bottom-2 transform translate-y-full w-max shadow-sm rounded-sm overflow-hidden duration-700 px-4 bg-yellow-light text-black` +
                     (tooltipAlign ? (tooltipAlign === "right" ? " right-0" : " left-0") : " right-0") +
                     (open ? " h-auto py-4" : " h-0")
                 }

@@ -22,11 +22,11 @@ export const getNestedKeyRecursively = (object: RecursiveObject<any>, lastKey: s
 
 export const getTopComponentName = () => {
     const stack = new Error().stack;
-    const lines = stack.split("\n");
-    const line = lines[3];
-    const match = line.match(/at (.*) \(/);
-    const name = match[1];
-    return name;
+    const lines = stack?.split("\n");
+    const line = lines?.[3];
+    const match = line?.match(/at (.*) \(/);
+    const name = match?.[1];
+    return name || "";
 };
 
 export const ucWords = (str: string) => {
