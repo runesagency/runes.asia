@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const useCaptcha = () => {
     const elementRef = useRef<HTMLCanvasElement>(null);
-    const value = useRef<string>(null);
+    const [value, setValue] = useState<string>(null);
     const [render, setRender] = useState(1);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export const useCaptcha = () => {
         ctx.font = "50px Poppins";
         ctx.strokeText(captcha.join(""), 0, 50);
 
-        value.current = captcha.join("");
+        setValue(captcha.join(""));
 
         return () => {
             ctx.clearRect(0, 0, canv.width, canv.height);
@@ -35,7 +35,7 @@ export const useCaptcha = () => {
 
     return {
         refresh: () => setRender(render + 1),
-        value: value.current,
+        value,
         elementRef,
     };
 };
