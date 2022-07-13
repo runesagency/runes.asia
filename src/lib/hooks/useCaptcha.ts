@@ -31,7 +31,7 @@ export const useCaptcha = () => {
         return () => {
             ctx.clearRect(0, 0, canv.width, canv.height);
         };
-    });
+    }, [render, elementRef]);
 
     return {
         refresh: () => setRender(render + 1),
