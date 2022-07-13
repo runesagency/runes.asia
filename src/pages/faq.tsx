@@ -118,7 +118,7 @@ export default function FAQPage() {
                             if (nowCategoryId.current !== Number(id)) {
                                 nowCategoryId.current = Number(id);
 
-                                if (!isScrolling) {
+                                if (isScrolling === false) {
                                     location.hash = boxCategoryId(Number(id));
                                 } else if (isScrolling === Number(id)) {
                                     setScrolling(false);
