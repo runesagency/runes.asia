@@ -10,6 +10,13 @@ import { useState } from "react";
 import { useCaptcha, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/contact";
 
+const FormSection = ({ title, children }: { title: string; children: ReactNode }) => (
+    <div className="grid gap-7 w-full">
+        <h3 className="text-3xl">{title}</h3>
+        {children}
+    </div>
+);
+
 export default function ContactPage() {
     const router = useRouter();
     let initialData = {
@@ -82,13 +89,6 @@ export default function ContactPage() {
             return alert(locale.form.handlers.error);
         });
     };
-
-    const FormSection = ({ title, children }: { title: string; children: ReactNode }) => (
-        <div className="grid gap-7 w-full">
-            <h3 className="text-3xl">{title}</h3>
-            {children}
-        </div>
-    );
 
     return (
         <main className="relative bg-white overflow-auto">
