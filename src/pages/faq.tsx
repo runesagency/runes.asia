@@ -171,7 +171,7 @@ export default function FAQPage() {
             document.removeEventListener("scroll", scrollHandler);
             document.removeEventListener("keyup", keyUpHandler);
         };
-    }, [data]);
+    }, [data, isScrolling]);
 
     return (
         <main className="relative bg-white overflow-auto">
