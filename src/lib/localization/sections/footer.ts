@@ -31,8 +31,12 @@ export const en = {
             },
         ],
     },
-    copyright: "© 2022 Runes. All Rights Reserved.",
+    copyright: "© 2022 Rumah Kreasi Bersama Inc. All Rights Reserved.",
     attribution: "Made With 💖 in Indonesia.",
+    legal: {
+        privacyPolicy: "Privacy Policy",
+        termsOfService: "Terms of Service",
+    },
 };
 
 export const id: typeof en = {
@@ -68,6 +72,10 @@ export const id: typeof en = {
             },
         ],
     },
-    copyright: "© 2022 Runes. Hak Cipta Dilindungi.",
+    copyright: "© 2022 PT Rumah Kreasi Bersama. Hak Cipta Dilindungi.",
     attribution: "Dibuat Dengan 💖 di Indonesia.",
+    legal: {
+        privacyPolicy: "Kebijakan Privasi",
+        termsOfService: "Ketentuan Layanan",
+    },
 };

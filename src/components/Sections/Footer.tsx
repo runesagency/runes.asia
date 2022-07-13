@@ -115,9 +115,21 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-10 md:flex-row justify-between md:items-center font-poppins">
-                    <p>{locale.copyright}</p>
-                    <p>{locale.attribution}</p>
+                <div className="flex flex-col-reverse gap-10 lg:flex-row justify-between lg:items-start font-poppins">
+                    <div className="grid gap-4">
+                        <p>{locale.copyright}</p>
+                        <p>{locale.attribution}</p>
+                    </div>
+
+                    <div className="flex gap-4">
+                        <Link href="/terms-of-service">
+                            <a className="hover:opacity-70 duration-200 border-b border-white">{locale.legal.termsOfService}</a>
+                        </Link>
+
+                        <Link href="/privacy-policy">
+                            <a className="hover:opacity-70 duration-200 border-b border-white">{locale.legal.privacyPolicy}</a>
+                        </Link>
+                    </div>
                 </div>
             </section>
         </footer>
