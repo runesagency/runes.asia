@@ -1,6 +1,6 @@
 {
-    "name": "@runesasia/website",
-    "version": "2.0.0",
+    "name": "@runesasia/runes.asia",
+    "version": "2.1.0",
     "description": "Official Website of Runes",
     "main": "index.js",
     "repository": "https://github.com/runesasia/runes.asia.git",
