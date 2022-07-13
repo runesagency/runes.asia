@@ -9,6 +9,8 @@ import { useState } from "react";
 import * as localization from "@/lib/localization/pages/showcases";
 
 export const useShowcasesAPI = (lang: string) => {
+    const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
+
     const { data, loading } = useCMSAPI("/items/showcases", {
         defaultValue: [],
         skip: 0,
@@ -52,17 +54,32 @@ export const useShowcasesAPI = (lang: string) => {
         return acc;
     }, []);
 
+    const showcasesList = showcases.filter((item) => {
+        if (categoryFilters.length > 0) {
+            for (const tag of item.services) {
+                if (categoryFilters.includes(tag)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        return true;
+    });
+
     return {
         loading,
-        showcases,
+        showcasesList,
         categories,
+        setCategoryFilters,
+        categoryFilters,
     };
 };
 
 export default function ShowcasesPage() {
     const { locale, lang } = useLanguage("lang", localization);
-    const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
-    const { loading, showcases, categories } = useShowcasesAPI(lang);
+    const { loading, categories, categoryFilters, setCategoryFilters, showcasesList } = useShowcasesAPI(lang);
 
     return (
         <main className="relative bg-white">
@@ -112,7 +129,7 @@ export default function ShowcasesPage() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {!loading &&
-                            showcases.map((item) => (
+                            showcasesList.map((item) => (
                                 <div className="relative h-full flip-card overflow-hidden group aspect-square" key={item.id}>
                                     <img
                                         className="min-h-full min-w-full object-cover transform group-hover:scale-110 duration-200"
