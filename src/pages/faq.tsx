@@ -2,7 +2,7 @@ import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 
 import { theme } from "tailwind.config";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/faq";
 
@@ -68,6 +68,7 @@ export default function FAQPage() {
     const nowCategoryId = useRef(-1);
     const categoriesSection = useRef<HTMLDivElement>(null);
     const faqsSection = useRef<HTMLDivElement>(null);
+    const [isScrolling, setScrolling] = useState<number | false>(false);
 
     const { locale, lang } = useLanguage("lang", localization);
     const { loading, data } = useFAQsAPI(lang);
@@ -116,7 +117,12 @@ export default function FAQPage() {
 
                             if (nowCategoryId.current !== Number(id)) {
                                 nowCategoryId.current = Number(id);
-                                location.hash = boxCategoryId(Number(id));
+
+                                if (!isScrolling) {
+                                    location.hash = boxCategoryId(Number(id));
+                                } else if (isScrolling === Number(id)) {
+                                    setScrolling(false);
+                                }
                             }
                         } else {
                             if (category) {
@@ -190,6 +196,7 @@ export default function FAQPage() {
                                     key={index}
                                     id={categoryId(index)}
                                     href={`#${boxCategoryId(index)}`}
+                                    onClick={() => setScrolling(index)}
                                     className="px-5 py-3 border-b border-black border-opacity-30 transition-all duration-300 hover:opacity-70"
                                 >
                                     {item.title}
