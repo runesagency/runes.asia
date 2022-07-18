@@ -82,7 +82,6 @@ export const usePricingsAPI = (lang: string) => {
 
 export default function PricingPage() {
     const [currentCategory, setCurrentCategory] = useState(0);
-    const [currentFaq, setCurrentFaq] = useState(0);
     const { lang, locale } = useLanguage("lang", localization);
 
     const { data: pricingsData, loading: pricingsLoading } = usePricingsAPI(lang);
@@ -177,6 +176,21 @@ export default function PricingPage() {
         );
     };
 
+    const FAQBlock = ({ question, answer }: { question: string; answer: string }) => {
+        const [open, setOpen] = useState(false);
+
+        return (
+            <article className={`grid py-5 border-b border-black border-opacity-20 duration-200 transition-all ${open ? "gap-5" : "gap-0"}`}>
+                <div className="flex justify-between items-center w-full hover:opacity-70 duration-200 cursor-pointer gap-6" onClick={() => setOpen(!open)}>
+                    <h3 className="subtitle">{question}</h3>
+                    <Icon.ChevronBottom className={`h-2 stroke-current fill-transparent transform origin-center duration-500 ${open && "rotate-180"}`} />
+                </div>
+
+                <p className={`font-poppins duration-200 transition-opacity ${!open && "h-0 opacity-0"}`}>{answer}</p>
+            </article>
+        );
+    };
+
     return (
         <main className="relative bg-white">
             {/* Header */}
@@ -245,17 +259,8 @@ export default function PricingPage() {
                     <h1 className="title text-center">{locale.faq.title}</h1>
 
                     <div className="grid gap-5 w-full font-poppins max-w-4xl mx-auto">
-                        {!faqsLoading &&
-                            faqsData?.[0]?.list.map((faq, index) => (
-                                <article key={index} className="grid gap-5 py-5 border-b border-black border-opacity-20 duration-200">
-                                    <div className="flex justify-between items-center w-full hover:opacity-70 duration-200 cursor-pointer gap-6" onClick={() => setCurrentFaq(index)}>
-                                        <h3 className="subtitle">{faq.question}</h3>
-                                        <Icon.ChevronBottom className={`h-2 stroke-current fill-transparent transform origin-center duration-500 ${currentFaq === index && "rotate-180"}`} />
-                                    </div>
-
-                                    <p className={`font-poppins ${currentFaq !== index && "hidden"}`}>{faq.answer}</p>
-                                </article>
-                            ))}
+                        {!faqsLoading && faqsData?.[0]?.list.map((faq, index) => <FAQBlock key={index} {...faq} />)}
+                        {/*  */}
                     </div>
                 </div>
             </section>
