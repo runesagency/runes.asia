@@ -35,8 +35,7 @@ export const fetchCMSAPI = async <T extends fetchCMSAPIFields | [fetchCMSAPIFiel
     if (typeof window !== "undefined") {
         url = `${window.location.protocol}//${window.location.host}`;
     } else {
-        url = `http://0.0.0.0:${process.env.PORT}`;
-        console.log(url);
+        url = `http://${process.env.HOST}:${process.env.PORT}`;
     }
 
     const parsedUrl = new URL(`${url}/api/cms${path}`);
