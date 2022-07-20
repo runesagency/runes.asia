@@ -44,6 +44,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
             seo: {
                 subtitle: data.product_title,
                 description: data.translations[0].short_description,
+                image: `https://runes.asia/api/cms/assets/${data.image_cover}`,
             },
         },
     };
