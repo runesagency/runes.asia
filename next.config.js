@@ -22,6 +22,18 @@ const config = (phase) => {
                     source: "/api/cms/:path*",
                     destination: "https://cms.runes.asia/:path*",
                 },
+                {
+                    source: "/showcases/:id/:path*",
+                    destination: "/showcases/:id",
+                },
+                {
+                    source: "/blog/:id/:path*",
+                    destination: "/blog/:id",
+                },
+                {
+                    source: "/about/team/:id/:path*",
+                    destination: "/about/team/:id",
+                },
             ];
         },
     };

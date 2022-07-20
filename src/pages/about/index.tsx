@@ -6,6 +6,7 @@ import Footer from "@/components/Sections/Footer";
 
 import { theme } from "tailwind.config";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
+import { encodeToURL } from "@/lib/functions";
 import * as localization from "@/lib/localization/pages/about";
 
 export const useAboutAPI = (lang: string) => {
@@ -159,7 +160,7 @@ export default function AboutPage() {
                                             <p>{person.short_description}</p>
                                         </div>
 
-                                        <Link href={`/about/team/${person.id}`}>
+                                        <Link href={`/about/team/${person.id}/${encodeToURL(person.name)}`}>
                                             <a className="font-poppins border-b border-current w-max hover:opacity-70 duration-200 cursor-pointer h-max">
                                                 {locale.teams.moreButton} {person.name.split(" ")[0]}
                                             </a>
