@@ -18,6 +18,7 @@ export const useShowcasesAPI = (lang: string) => {
         fields: [
             {
                 id: true,
+                image_preview: true,
                 image_cover: true,
                 image_cover_placement_vertical: true,
                 image_cover_placement_horizontal: true,
@@ -33,6 +34,7 @@ export const useShowcasesAPI = (lang: string) => {
         filter: {
             status: "published",
         },
+        sort: ["order"],
     });
 
     const showcases = data.map((item) => {
@@ -135,10 +137,10 @@ export default function ShowcasesPage() {
                                 <div className="relative h-full flip-card overflow-hidden group aspect-square" key={item.id}>
                                     <img
                                         className="min-h-full min-w-full object-cover transform group-hover:scale-110 duration-200"
-                                        src={`/api/cms/assets/${item.image_cover}.png`}
+                                        src={`/api/cms/assets/${item.image_preview || item.image_cover}.png`}
                                         alt=""
                                         style={{
-                                            objectPosition: `${item.image_cover_placement_horizontal} ${item.image_cover_placement_vertical}` || "center",
+                                            objectPosition: item.image_preview ? "center" : `${item.image_cover_placement_horizontal} ${item.image_cover_placement_vertical}`,
                                         }}
                                     />
 
