@@ -12,10 +12,24 @@ import { ucWords } from "@/lib/functions";
 const App = ({ Component, pageProps }: AppProps) => {
     const router = useRouter();
 
+    let title = "";
+
+    if (router.pathname === "/") {
+        title = "Runes - Indonesian Based Creative Studio";
+    } else {
+        const pageName = ucWords(router.pathname.split("/")[1].replace("/", ""));
+
+        if (pageProps.seo?.subtitle) {
+            title = `${pageProps.seo.subtitle} | ${pageName} - Runes`;
+        } else {
+            title = `${pageName} - Runes`;
+        }
+    }
+
     const metaData = {
-        title: router.pathname === "/" ? "Runes - Indonesian Based Creative Studio" : `Runes - ${ucWords(router.pathname.replace("/", ""))}`,
+        title,
         description: "We are creative people, in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.",
-        url: "https://runes.asia",
+        url: `https://runes.asia${router.asPath}`,
         image: "https://runes.asia/banner.png",
         themeColor: "#EFD09E",
         keywords: "runes, creative, agency, studio, production, house, indonesia, tangerang, jakarta",
@@ -44,6 +58,7 @@ const App = ({ Component, pageProps }: AppProps) => {
                 type: "image/png",
             },
         ],
+        ...(pageProps.seo || {}),
     };
 
     return (
