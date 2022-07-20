@@ -28,9 +28,13 @@ const App = ({ Component, pageProps }: AppProps) => {
 
     const metaData = {
         title,
-        description: "We are creative people, in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.",
         url: `https://runes.asia${router.asPath}`,
-        image: "https://runes.asia/banner.png",
+        description:
+            pageProps.seo?.description ||
+            "We are creative people, in a creative space called Creative Studio, dedicated to helping brands, products and services become the best in their respective classes.",
+        image:
+            pageProps.seo?.image || //
+            "https://runes.asia/banner.png",
         themeColor: "#EFD09E",
         keywords: "runes, creative, agency, studio, production, house, indonesia, tangerang, jakarta",
         author: "Runes, Rafly Maulana",
@@ -58,7 +62,6 @@ const App = ({ Component, pageProps }: AppProps) => {
                 type: "image/png",
             },
         ],
-        ...(pageProps.seo || {}),
     };
 
     return (

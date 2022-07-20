@@ -1,6 +1,5 @@
 import type { GetServerSidePropsContext } from "next";
 
-import Head from "next/head";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import * as Button from "@/components/Forms/Buttons";
@@ -53,10 +52,6 @@ export default function TeamMemberPage({ data }: { data: Awaited<ReturnType<type
 
     return (
         <main className="relative bg-white">
-            <Head>
-                <title>{person.name} | Teams | Runes - About</title>
-            </Head>
-
             {/* Header */}
             <section className="relative py-20">
                 <div className="container grid gap-28">
