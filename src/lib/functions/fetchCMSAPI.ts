@@ -28,7 +28,18 @@ export const fetchCMSAPI = async <T extends fetchCMSAPIFields | [fetchCMSAPIFiel
     type Fields = T extends [fetchCMSAPIFields] ? [Convert<any, T[0]>] : Convert<any, T>;
     let data: Fields = options.defaultValue || null;
 
-    const parsedUrl = new URL(`${process.env.NEXT_PUBLIC_HOST}/api/cms${path}`);
+    // Use absolute real url (example: https://runes.asia) in browser mode
+    // Use localhost url (example: http://localhost:3000) in node mode
+    let url = "";
+
+    if (typeof window !== "undefined") {
+        url = `${window.location.protocol}//${window.location.host}`;
+    } else {
+        url = `http://0.0.0.0:${process.env.PORT}`;
+        console.log(url);
+    }
+
+    const parsedUrl = new URL(`${url}/api/cms${path}`);
 
     if (options.fields) {
         const rawFields = Array.isArray(options.fields) ? options.fields[0] : options.fields;

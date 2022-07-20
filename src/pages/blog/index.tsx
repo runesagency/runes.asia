@@ -131,7 +131,7 @@ export default function BlogPage() {
 
             <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 flex-1">
                 {articleList.slice(1, 4).map((article, index) => (
-                    <Link key={index} href={blogURL(article)} passHref locale={"en"}>
+                    <Link key={index} href={blogURL(article)} passHref>
                         <a className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max">
                             <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover flex-shrink-0" />
 
