@@ -28,11 +28,7 @@ export const fetchCMSAPI = async <T extends fetchCMSAPIFields | [fetchCMSAPIFiel
     type Fields = T extends [fetchCMSAPIFields] ? [Convert<any, T[0]>] : Convert<any, T>;
     let data: Fields = options.defaultValue || null;
 
-    const protocol = window.location.protocol;
-    const domain = window.location.hostname;
-    const port = window.location.port;
-
-    const parsedUrl = new URL(`${protocol}//${domain}:${port ? port : ""}/api/cms${path}`);
+    const parsedUrl = new URL(`${process.env.NEXT_PUBLIC_HOST}/api/cms${path}`);
 
     if (options.fields) {
         const rawFields = Array.isArray(options.fields) ? options.fields[0] : options.fields;
@@ -49,31 +45,33 @@ export const fetchCMSAPI = async <T extends fetchCMSAPIFields | [fetchCMSAPIFiel
     }
 
     (options as any).offset = (options as any).skip;
+
     for (let key of ["search", "offset", "page", "limit"]) {
         if (options[key]) {
             parsedUrl.searchParams.set(key, String(options[key]));
         }
     }
 
-    fetch(parsedUrl.href, {
-        method: "GET",
-        headers: options.headers || {},
-    })
-        .then((response) => response.json())
-        .then((response) => {
-            data = response.data;
-        })
-        .catch((error) => {
-            if (process.env.NODE_ENV === "development") {
-                console.error(error);
-            }
-
-            if (options.errorCallback) {
-                options.errorCallback(error);
-            } else {
-                throw new Error("Something went wrong, please contact web admin and try again later.");
-            }
+    try {
+        const rawResponse = await fetch(parsedUrl.href, {
+            method: "GET",
+            headers: options.headers || {},
         });
+
+        const response = await rawResponse.json();
+
+        data = response.data;
+    } catch (error) {
+        if (process.env.NODE_ENV === "development") {
+            console.error(error);
+        }
+
+        if (options.errorCallback) {
+            options.errorCallback(error);
+        } else {
+            throw new Error("Something went wrong, please contact web admin and try again later.");
+        }
+    }
 
     return data;
 };
