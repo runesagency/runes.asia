@@ -11,8 +11,9 @@ import { useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/blog/single";
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-    const id = context.params.id as string;
-    const slug = context.req.url.split("/")[3];
+    const slugs = context.query.slug;
+    const id = slugs[0];
+    const slug = slugs[1];
 
     const data = await fetchCMSAPI(`/items/blogs/${id}`, {
         skip: 0,
@@ -34,18 +35,14 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         },
     });
 
-    const translation = data.translations.find(
-        (
-            translation //
-        ) => encodeToURL(translation.title) === slug
-    );
+    const translation = data.translations.find((translation) => encodeToURL(translation.title) === slug) || {};
 
     return {
         props: {
             data,
             seo: {
-                subtitle: translation.title,
-                description: translation.short_description,
+                subtitle: translation?.title,
+                description: translation?.short_description,
             },
         },
     };

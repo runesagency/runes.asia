@@ -27,10 +27,6 @@ const config = (phase) => {
                     destination: "/showcases/:id",
                 },
                 {
-                    source: "/blog/:id/:path*",
-                    destination: "/blog/:id",
-                },
-                {
                     source: "/about/team/:id/:path*",
                     destination: "/about/team/:id",
                 },
