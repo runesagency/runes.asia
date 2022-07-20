@@ -31,7 +31,7 @@ export const en = {
             },
         ],
     },
-    copyright: "© 2022 Rumah Kreasi Bersama Inc. All Rights Reserved.",
+    copyright: "© 2022 PT Rumah Kreasi Bersama (Inc). All Rights Reserved.",
     attribution: "Made With 💖 in Indonesia.",
     legal: {
         privacyPolicy: "Privacy Policy",

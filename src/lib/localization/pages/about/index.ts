@@ -65,6 +65,11 @@ export const en = {
                         description:
                             "After happy with the first work we done, our friends from Tune Discord Music Bot Team, contacted us again to do some work for their website. It was some music dashboard this time.",
                     },
+                    {
+                        date: "12",
+                        title: "We are Officially Established as a Registered Company in Indonesia!",
+                        description: "After 5 months of working non-stop, we finally registering our company as a legal Indonesian corporation registered as PT Rumah Kreasi Bersama.",
+                    },
                 ],
             },
         },
@@ -137,6 +142,11 @@ export const id: typeof en = {
                         title: "Klien Mempercayakan Kami",
                         description:
                             "Setelah senang dengan pekerjaan pertama yang kami lakukan, teman-teman kami dari Tune Discord Music Bot Team, menghubungi kami lagi untuk melakukan beberapa pekerjaan untuk situs web mereka. Itu adalah dasbor musik kali ini.",
+                    },
+                    {
+                        date: "12",
+                        title: "Kami Resmi Berdiri sebagai Perusahaan Terdaftar di Indonesia!",
+                        description: "Setelah 5 bulan bekerja tanpa henti, akhirnya kami mendaftarkan perusahaan kami sebagai badan hukum Indonesia yang terdaftar sebagai PT Rumah Kreasi Bersama.",
                     },
                 ],
             },
