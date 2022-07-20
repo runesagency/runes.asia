@@ -6,12 +6,13 @@ import NewsletterCTA from "@/components/Sections/NewsletterCTA";
 import * as Button from "@/components/Forms/Buttons";
 
 import moment from "moment";
-import { fetchCMSAPI } from "@/lib/functions";
+import { encodeToURL, fetchCMSAPI } from "@/lib/functions";
 import { useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/blog/single";
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
     const id = context.params.id as string;
+    const slug = context.req.url.split("/")[3];
 
     const data = await fetchCMSAPI(`/items/blogs/${id}`, {
         skip: 0,
@@ -33,12 +34,18 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         },
     });
 
+    const translation = data.translations.find(
+        (
+            translation //
+        ) => encodeToURL(translation.title) === slug
+    );
+
     return {
         props: {
             data,
             seo: {
-                subtitle: data.translations[0].title,
-                description: data.translations[0].short_description,
+                subtitle: translation.title,
+                description: translation.short_description,
             },
         },
     };

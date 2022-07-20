@@ -109,9 +109,11 @@ export default function BlogPage() {
     const { lang, locale } = useLanguage("lang", localization);
     const { articles, setCategoryFilters, articleMore, loading, setSearchText, categoryFilters, articleCategories } = useBlogAPI(lang);
 
+    const blogURL = (article: typeof articles[0]) => `/blog/${article.id}/${encodeToURL(article.title)}`;
+
     const BlogHeading = ({ articleList }: { articleList: typeof articles }) => (
         <div className="flex flex-col xl:flex-row items-stretch gap-12 group">
-            <Link href={`/blog/${articleList?.[0]?.id}/${encodeToURL(articleList?.[0]?.title)}`} passHref>
+            <Link href={blogURL(articleList?.[0])} passHref>
                 <a className="grid place-content-start gap-7 group-hovered flex-1">
                     <img src={articleList?.[0]?.cover_image} alt={articleList?.[0]?.title} className="flex-shrink h-96 w-full object-cover" />
 
@@ -129,7 +131,7 @@ export default function BlogPage() {
 
             <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 flex-1">
                 {articleList.slice(1, 4).map((article, index) => (
-                    <Link key={index} href={`/blog/${article.id}/${encodeToURL(article.title)}`} passHref>
+                    <Link key={index} href={blogURL(article)} passHref locale={"en"}>
                         <a className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max">
                             <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover flex-shrink-0" />
 
@@ -150,7 +152,7 @@ export default function BlogPage() {
     const BlogBody = ({ articleList: articleList }: { articleList: typeof articles }) => (
         <div className="grid gap-6 xl:gap-11 md:grid-cols-3 group">
             {articleList.map((article, index) => (
-                <Link passHref key={index} href={`/blog/${article.id}/${encodeToURL(article.title)}`}>
+                <Link passHref key={index} href={blogURL(article)}>
                     <a className="grid gap-7 h-full place-content-start group-hovered">
                         <img src={article.cover_image} alt={article.title} className="w-full h-64" />
 
