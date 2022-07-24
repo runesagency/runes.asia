@@ -1,8 +1,7 @@
 import type { GetServerSidePropsContext } from "next";
 
-import fs from "fs";
-import { fetchCMSAPI } from "@/lib/functions";
-import { encodeToURL } from "@/lib/functions";
+import filesystem from "fs";
+import { fetchCMSAPI, encodeToURL } from "@/lib/functions";
 
 type Page = {
     name: string;
@@ -12,6 +11,55 @@ type Page = {
 };
 
 const baseUrl = process.env.URL;
+
+const getStaticPages = (fs: typeof filesystem, path: string, subDir?: string) => {
+    let pageList: Page[] = [];
+    const pages = fs.readdirSync(path);
+
+    pages
+        .filter((page) => {
+            if (page.startsWith("_")) {
+                return false;
+            }
+
+            if (page.match(/\[.*\]/g)) {
+                return false;
+            }
+
+            return true;
+        })
+        .map((page) => {
+            const pagePath = `${path}/${page}`;
+            const pageStat = fs.statSync(pagePath);
+
+            if (pageStat.isDirectory()) {
+                const getSubPages = getStaticPages(fs, pagePath, page);
+                pageList = pageList.concat(getSubPages);
+            } else {
+                let pageUrl = "";
+                let pageName = page.replace(/\.(t|j)sx?$/g, "");
+
+                const isIndex = pageName === "index";
+                const subPath = subDir ? `/${subDir}` : "";
+
+                if (isIndex) {
+                    pageName = "";
+                    pageUrl = `${baseUrl}${subPath}`;
+                } else {
+                    pageUrl = `${baseUrl}${subPath}/${pageName}`;
+                }
+
+                pageList.push({
+                    name: isIndex ? "index" : pageName,
+                    url: pageUrl,
+                    path: pagePath,
+                    lastModified: pageStat.mtime.toISOString(),
+                });
+            }
+        });
+
+    return pageList;
+};
 
 const getTeamPages = async (): Promise<Page[]> => {
     const data = await fetchCMSAPI("/items/teams", {
@@ -100,56 +148,7 @@ const getBlogPages = async (): Promise<Page[]> => {
 };
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-    const getStaticPages = (path: string, subDir?: string) => {
-        let pageList: Page[] = [];
-        const pages = fs.readdirSync(path);
-
-        pages
-            .filter((page) => {
-                if (page.startsWith("_")) {
-                    return false;
-                }
-
-                if (page.match(/\[.*\]/g)) {
-                    return false;
-                }
-
-                return true;
-            })
-            .map((page) => {
-                const pagePath = `${path}/${page}`;
-                const pageStat = fs.statSync(pagePath);
-
-                if (pageStat.isDirectory()) {
-                    const getSubPages = getStaticPages(pagePath, page);
-                    pageList = pageList.concat(getSubPages);
-                } else {
-                    let pageUrl = "";
-                    let pageName = page.replace(/\.(t|j)sx?$/g, "");
-
-                    const isIndex = pageName === "index";
-                    const subPath = subDir ? `/${subDir}` : "";
-
-                    if (isIndex) {
-                        pageName = "";
-                        pageUrl = `${baseUrl}${subPath}`;
-                    } else {
-                        pageUrl = `${baseUrl}${subPath}/${pageName}`;
-                    }
-
-                    pageList.push({
-                        name: isIndex ? "index" : pageName,
-                        url: pageUrl,
-                        path: pagePath,
-                        lastModified: pageStat.mtime.toISOString(),
-                    });
-                }
-            });
-
-        return pageList;
-    };
-
-    const staticPages = getStaticPages("./src/pages");
+    const staticPages = getStaticPages(filesystem, "./src/pages");
     const teamPages = await getTeamPages();
     const showcasesPages = await getShowcasesPages();
     const blogPages = await getBlogPages();
