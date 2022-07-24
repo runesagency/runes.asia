@@ -15,7 +15,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     let title = "";
 
     if (router.pathname === "/") {
-        title = "Runes - Indonesian Based Creative Studio";
+        title = "Runes - Indonesian Based Creative Studio & Agency";
     } else {
         const pageName = ucWords(router.pathname.split("/")[1].replace("/", ""));
 
