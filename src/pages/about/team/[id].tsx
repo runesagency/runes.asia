@@ -67,7 +67,7 @@ export default function TeamMemberPage({ data }: { data: Awaited<ReturnType<type
 
                         <section className="grid gap-3">
                             <h1 className="title">{person.name}</h1>
-                            <h4 className="subtitle opacity-60">{person.job_title?.join(", ")}</h4>
+                            <h2 className="subtitle opacity-75">{person.job_title?.join(", ")}</h2>
                         </section>
 
                         <p className="font-poppins whitespace-pre-line text-justify">{person.long_description}</p>
