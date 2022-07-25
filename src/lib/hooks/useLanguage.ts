@@ -68,7 +68,7 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultLang?: k
 
             document.dispatchEvent(updateEvent);
         } else {
-            console.error(`Language "${lang}" is not supported, found on "${componentName}" component.`);
+            console.warn(`Language "${lang}" is not supported, found on "${componentName}" component.`);
         }
     }, [keyName, lang]);
 
