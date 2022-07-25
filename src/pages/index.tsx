@@ -201,8 +201,9 @@ const Showcases = () => {
                                 >
                                     <img
                                         className="h-44 w-44 lg:h-64 lg:w-64 min-h-full min-w-full object-cover transform group-hover:scale-110 duration-200"
-                                        src={`/images/portfolio/${portfolio.imageId}.png`}
+                                        src={`/images/portfolio/${portfolio.imageId}.webp`}
                                         alt={portfolio.name}
+                                        loading="lazy"
                                         style={{
                                             objectPosition: portfolio.imagePlacement || "center",
                                         }}
@@ -212,7 +213,7 @@ const Showcases = () => {
                                         className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-black bg-opacity-75 duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center"
                                         title={portfolio.name}
                                     >
-                                        <a className="text-yellow-light hover:opacity-75 duration-200" href={portfolio.link} target="_blank" rel="noreferrer">
+                                        <a className="text-yellow-light hover:opacity-75 duration-200" href={portfolio.link} target="_blank" rel="noreferrer" aria-label={portfolio.name}>
                                             <svg className="w-20 fill-yellow-light" viewBox="0 0 80 80">
                                                 <path d="M68 60H65.68L62.44 56.76C66.0347 51.91 67.983 46.0369 68 40C68 24.52 55.48 12 40 12C34 12 28 14 23.16 17.6C10.8 26.88 8.28 44.44 17.56 56.8C26.84 69.16 44.4 71.68 56.76 62.4L60 65.64V68L72 80H80V72L68 60ZM40 60C28.96 60 20 51.04 20 40C20 28.96 28.96 20 40 20C51.04 20 60 28.96 60 40C60 51.04 51.04 60 40 60ZM8 20L0 28V0H28L20 8H8V20ZM80 0V28L72 20V8H60L52 0H80ZM20 72L28 80H0V52L8 60V72H20Z" />
                                             </svg>
@@ -295,7 +296,7 @@ export default function HomePage() {
 
                     <div className="grid gap-8 text-black">
                         <h1 className="jumbo-title whitespace-pre-line">{locale.header.content.title}</h1>
-                        <h4 className="subtitle text-justify max-w-lg">{locale.header.content.description}</h4>
+                        <h2 className="subtitle text-justify max-w-lg">{locale.header.content.description}</h2>
 
                         <Link href={"/pricing"} passHref>
                             <Button.Primary>{locale.header.content.button}</Button.Primary>
@@ -330,7 +331,7 @@ export default function HomePage() {
 
                 <div className="relative flex justify-center -space-x-10 mx-auto w-full z-10 pt-12">
                     {characters.map((character, index) => (
-                        <img key={index} src={`/images/characters/${character}.png`} className="max-h-44 md:max-h-72 h-auto" alt={character} />
+                        <img key={index} src={`/images/characters/${character}.png`} className="max-h-44 md:max-h-72 h-auto" alt={character} loading="lazy" />
                     ))}
                 </div>
 
@@ -346,8 +347,8 @@ export default function HomePage() {
 
                     <div className="group max-w-6xl grid grid-cols-2 md:grid-cols-3 xl:flex flex-wrap gap-8 md:gap-10 justify-between mx-auto">
                         {clients.map(({ name, logoId, href }) => (
-                            <a key={name} href={href} target="_blank" rel="noreferrer" className="flex justify-center items-center flex-shrink-0">
-                                <img src={`/images/clients/${logoId}.png`} className="max-h-14 group-hovered" alt={name} />
+                            <a key={name} href={href} target="_blank" rel="noreferrer" className="flex justify-center items-center flex-shrink-0" aria-label={name}>
+                                <img src={`/images/clients/${logoId}.png`} className="max-h-14 group-hovered" alt={name} loading="lazy" />
                             </a>
                         ))}
                     </div>
@@ -369,7 +370,7 @@ export default function HomePage() {
                 <div className="container grid gap-12 z-10">
                     <div className="grid gap-5 text-center">
                         <h1 className="title">{locale.services.title}</h1>
-                        <h4 className="subtitle">{locale.services.subtitle}</h4>
+                        <h2 className="subtitle">{locale.services.subtitle}</h2>
                     </div>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4">
@@ -400,7 +401,7 @@ export default function HomePage() {
             <section className="py-20 relative grid gap-12">
                 <div className="container grid gap-5 text-center">
                     <h1 className="title">{locale.showcases.title}</h1>
-                    <h4 className="subtitle">{locale.showcases.subtitle}</h4>
+                    <h2 className="subtitle">{locale.showcases.subtitle}</h2>
                 </div>
 
                 <Showcases />
