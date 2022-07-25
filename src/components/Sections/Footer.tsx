@@ -70,7 +70,7 @@ export const Socials = ({ className }: { className?: string }) => {
     return (
         <div className={`grid gap-7 grid-cols-5 group ${className}`}>
             {socials.map((social, index) => (
-                <a key={index} title={social.name} href={social.href} target="_blank" rel="noreferrer">
+                <a key={index} title={social.name} href={social.href} target="_blank" rel="noreferrer" aria-label={social.name}>
                     <social.icon className="h-8 fill-current group-hover:opacity-50 hover:!opacity-100 duration-200" />
                 </a>
             ))}
@@ -87,7 +87,7 @@ export default function Footer() {
                 <div className="flex flex-col gap-20 lg:flex-row justify-between items-start">
                     <div className="grid gap-8 max-w-xs text-yellow-light">
                         <Link href={"/"}>
-                            <a>
+                            <a aria-label="Logo">
                                 <Icon.LogoPrimary className="h-11 cursor-pointer fill-current" />
                             </a>
                         </Link>

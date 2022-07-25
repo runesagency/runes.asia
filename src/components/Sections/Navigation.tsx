@@ -23,7 +23,7 @@ export default function Navigation({ className, light }: NavigationProps) {
             {/* Desktop Relative Menu */}
             <section className="relative w-full flex justify-between items-center">
                 <Link href="/">
-                    <a>
+                    <a aria-label="Logo">
                         <Icon.LogoPrimary className={`h-8 md:h-10 cursor-pointer fill-current`} />
                     </a>
                 </Link>
