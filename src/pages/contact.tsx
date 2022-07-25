@@ -101,7 +101,7 @@ export default function ContactPage() {
                     <div className="grid gap-8 text-black mx-auto text-center max-w-2xl">
                         <LangChooser />
                         <h1 className="title">{locale.header.title}</h1>
-                        <h4 className="subtitle">{locale.header.subtitle}</h4>
+                        <h2 className="subtitle">{locale.header.subtitle}</h2>
                     </div>
                 </div>
             </section>
@@ -121,6 +121,7 @@ export default function ContactPage() {
                         <div className="flex flex-wrap items-center gap-3">
                             {locale.form.selections.data.map((category, index) => (
                                 <Button.Secondary
+                                    as="button"
                                     key={index}
                                     onClick={() => {
                                         if (!selections.includes(category.value)) {
@@ -145,6 +146,7 @@ export default function ContactPage() {
                         <div className="flex flex-wrap items-center gap-3">
                             {locale.form.contact.data.map((socMed, index) => (
                                 <Button.Secondary
+                                    as="button"
                                     key={index} //
                                     onClick={() => setContactPlatform(socMed.value)}
                                     active={contactPlatform.includes(socMed.value)}
@@ -172,6 +174,7 @@ export default function ContactPage() {
                         <div className="flex flex-wrap items-center gap-3">
                             {locale.form.budgets.data.map((b, index) => (
                                 <Button.Secondary
+                                    as="button"
                                     key={index} //
                                     onClick={() => setBudget(b.value)}
                                     active={budget.includes(b.value)}
@@ -184,12 +187,12 @@ export default function ContactPage() {
 
                     <FormSection title={locale.form.captcha.title}>
                         <canvas ref={captchaRef} height={70} width={300} />
-                        <a
+                        <span
                             className="underline hover:opacity-70 cursor-pointer duration-200 w-max" //
                             onClick={refreshCaptcha}
                         >
                             {locale.form.captcha.refreshButton}
-                        </a>
+                        </span>
                         <Input name="captcha" placeholder={locale.form.captcha.placeholder} required />
                     </FormSection>
 
