@@ -10,7 +10,7 @@ type LangChooserProps = {
     hideNameOnMobile?: boolean;
 };
 
-const languages = {
+export const languages = {
     en: {
         name: "English - USD",
         flag: Icon.FlagEN,
@@ -21,12 +21,9 @@ const languages = {
     },
 };
 
-const LangChooser = ({ className, tooltipAlign, hideNameOnMobile, ...props }: HTMLAttributes<HTMLDivElement> & LangChooserProps) => {
+export default function LangChooser({ className, tooltipAlign, hideNameOnMobile, ...props }: HTMLAttributes<HTMLDivElement> & LangChooserProps) {
     const [open, setOpen] = useState(false);
-    const { lang, setLang } = useLanguage(
-        "lang",
-        Object.keys(languages).reduce((prev, curr) => ({ ...prev, [curr]: true }), {})
-    );
+    const { lang, setLang } = useLanguage("lang", languages);
 
     const FlagIcon = languages[lang].flag || null;
 
@@ -69,6 +66,4 @@ const LangChooser = ({ className, tooltipAlign, hideNameOnMobile, ...props }: HT
             </div>
         </div>
     );
-};
-
-export default LangChooser;
+}
