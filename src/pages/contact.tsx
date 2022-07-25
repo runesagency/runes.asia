@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useCaptcha, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/contact";
+import LangChooser from "@/components/Utils/LangChooser";
 
 const FormSection = ({ title, children }: { title: string; children: ReactNode }) => (
     <div className="grid gap-7 w-full">
@@ -98,6 +99,7 @@ export default function ContactPage() {
                     <Navigation />
 
                     <div className="grid gap-8 text-black mx-auto text-center max-w-2xl">
+                        <LangChooser />
                         <h1 className="title">{locale.header.title}</h1>
                         <h4 className="subtitle">{locale.header.subtitle}</h4>
                     </div>

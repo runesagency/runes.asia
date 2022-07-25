@@ -115,7 +115,7 @@ export default function BlogPage() {
         <div className="flex flex-col xl:flex-row items-stretch gap-12 group">
             <Link href={blogURL(articleList?.[0])} passHref>
                 <a className="grid place-content-start gap-7 group-hovered flex-1">
-                    <img src={articleList?.[0]?.cover_image} alt={articleList?.[0]?.title} className="flex-shrink h-96 w-full object-cover" />
+                    <img src={articleList?.[0]?.cover_image} alt={articleList?.[0]?.title} className="flex-shrink h-96 w-full object-cover object-center" />
 
                     <div className="grid gap-4 text-white">
                         <h1 className="text-4.5xl font-vidaloka leading-snug">{articleList?.[0]?.title}</h1>
@@ -133,7 +133,7 @@ export default function BlogPage() {
                 {articleList.slice(1, 4).map((article, index) => (
                     <Link key={index} href={blogURL(article)} passHref>
                         <a className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max">
-                            <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover flex-shrink-0" />
+                            <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover object-center flex-shrink-0" />
 
                             <div className="grid gap-4 text-white">
                                 <h1 className="text-3xl font-vidaloka leading-snug line-clamp-2">{article.title}</h1>
@@ -154,7 +154,7 @@ export default function BlogPage() {
             {articleList.map((article, index) => (
                 <Link passHref key={index} href={blogURL(article)}>
                     <a className="grid gap-7 h-full place-content-start group-hovered">
-                        <img src={article.cover_image} alt={article.title} className="w-full h-64" />
+                        <img src={article.cover_image} alt={article.title} className="w-full h-64 object-cover object-center" />
 
                         <div className="flex flex-col gap-4 text-black h-full">
                             <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>

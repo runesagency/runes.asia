@@ -1,5 +1,6 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
+import LangChooser from "@/components/Utils/LangChooser";
 
 import moment from "moment";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
@@ -32,6 +33,7 @@ export default function TermsOfServicePage() {
                     <Navigation />
 
                     <div className="grid gap-8 text-black mx-auto text-center">
+                        <LangChooser />
                         <h1 className="title">{locale.title}</h1>
                         <h4 className="subtitle">
                             {locale.date} <b>{!loading && moment(terms?.date_updated).format("MMMM DD, YYYY, HH:MM:SS")}</b>

@@ -217,7 +217,7 @@ export default function FAQPage() {
                                             {item.list.map((item, index) => (
                                                 <div key={index} className="grid gap-4 h-max">
                                                     <h6 className="subtitle font-bold">{item.question}</h6>
-                                                    <p>{item.answer}</p>
+                                                    <p className="leading-relaxed">{item.answer}</p>
                                                 </div>
                                             ))}
                                         </div>
