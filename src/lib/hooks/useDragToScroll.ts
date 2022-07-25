@@ -52,7 +52,7 @@ export const useDragToScroll = () => {
             cancelMomentumTracking();
         };
 
-        slider.addEventListener("wheel", handleWheel);
+        slider.addEventListener("wheel", handleWheel, { passive: true });
 
         const beginMomentumTracking = () => {
             cancelMomentumTracking();
