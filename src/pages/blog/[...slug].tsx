@@ -69,25 +69,27 @@ export default function SingleBlogPage({ data }: { data: Awaited<ReturnType<type
                             <div className="grid gap-7 text-white">
                                 <Button.Back text={locale.backButton} href="/blog" light />
                                 <h1 className="title">{blog.title}</h1>
-                                <h3 className="subtitle">{blog.short_description}</h3>
+                                <h2 className="subtitle">{blog.short_description}</h2>
                             </div>
 
                             <div className="flex flex-wrap items-center gap-3">
-                                <Button.Secondary active light className="bg-yellow-light">
+                                <Button.Secondary as="button" active light className="bg-yellow-light">
                                     {blog.user_created?.first_name} {blog.user_created?.last_name}
                                 </Button.Secondary>
 
-                                <Button.Secondary light>{moment(blog.date_created).format("MMMM DD, YYYY")}</Button.Secondary>
+                                <Button.Secondary as="button" light>
+                                    {moment(blog.date_created).format("MMMM DD, YYYY")}
+                                </Button.Secondary>
 
                                 {blog.tags?.map((tag: string, index: number) => (
-                                    <Button.Secondary key={index} light className="capitalize">
+                                    <Button.Secondary as="button" key={index} light className="capitalize">
                                         {tag.toLowerCase()}
                                     </Button.Secondary>
                                 ))}
                             </div>
                         </div>
 
-                        <img src={`/api/cms/assets/${blog.cover_image}`} alt="" className="h-full w-full object-cover max-h-72 lg:max-h-full order-first lg:order-none" />
+                        <img src={`/api/cms/assets/${blog.cover_image}`} alt="" className="h-full w-full object-cover max-h-72 lg:max-h-full order-first lg:order-none" loading="lazy" />
                     </div>
                 </div>
             </section>
