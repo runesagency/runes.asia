@@ -201,7 +201,7 @@ const Showcases = () => {
                                 >
                                     <img
                                         className="h-44 w-44 lg:h-64 lg:w-64 min-h-full min-w-full object-cover transform group-hover:scale-110 duration-200"
-                                        src={`/images/portfolio/${portfolio.imageId}.webp`}
+                                        src={`/images/portfolio/${portfolio.imageId}.png`}
                                         alt={portfolio.name}
                                         loading="lazy"
                                         style={{
