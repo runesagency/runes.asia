@@ -75,13 +75,13 @@ export default function SingleShowcasePage({ data }: { data: Awaited<ReturnType<
                         <p className="font-poppins text-justify max-w-lg xl:max-w-none">{showcase.short_description}</p>
 
                         <div className="flex flex-col md:flex-row gap-8 xl:gap-14 xl:justify-end items-start flex-wrap">
-                            <div className="grid gap-2 h-max max-w-[5rem]">
-                                <h3 className="font-vidaloka text-2xl">{locale.projectInfo.client}</h3>
+                            <div className="grid gap-2 h-max max-w-[10rem]">
+                                <h2 className="font-vidaloka text-2xl">{locale.projectInfo.client}</h2>
                                 <p className="font-poppins">{showcase.client}</p>
                             </div>
 
                             <div className="grid gap-2 h-max max-w-[10rem]">
-                                <h3 className="font-vidaloka text-2xl">{locale.projectInfo.works}</h3>
+                                <h2 className="font-vidaloka text-2xl">{locale.projectInfo.works}</h2>
 
                                 <ul className="font-poppins list-disc">
                                     {showcase.services?.map((service: string, index: number) => (
@@ -93,7 +93,7 @@ export default function SingleShowcasePage({ data }: { data: Awaited<ReturnType<
                             </div>
 
                             <div className="grid gap-2 h-max max-w-[10rem]">
-                                <h3 className="font-vidaloka text-2xl">{locale.projectInfo.links}</h3>
+                                <h2 className="font-vidaloka text-2xl">{locale.projectInfo.links}</h2>
 
                                 <ul className="font-poppins list-disc">
                                     {showcase.links?.map((link, index) => (
