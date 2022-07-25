@@ -182,7 +182,7 @@ export default function FAQPage() {
 
                     <div className="grid gap-8 text-black mx-auto text-center">
                         <h1 className="title">{locale.header.title}</h1>
-                        <h4 className="subtitle">{locale.header.subtitle}</h4>
+                        <h2 className="subtitle">{locale.header.subtitle}</h2>
                     </div>
                 </div>
             </section>
@@ -211,12 +211,12 @@ export default function FAQPage() {
 
                                 return (
                                     <div key={index} id={boxCategoryId(index)} className="grid gap-5 h-max" data-backgroundcolor={randomColor} data-categoryid={index}>
-                                        <h4 className="subtitle uppercase">{item.title}</h4>
+                                        <h2 className="subtitle uppercase">{item.title}</h2>
 
                                         <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
                                             {item.list.map((item, index) => (
                                                 <div key={index} className="grid gap-4 h-max">
-                                                    <h6 className="subtitle font-bold">{item.question}</h6>
+                                                    <h3 className="subtitle font-bold">{item.question}</h3>
                                                     <p className="leading-relaxed">{item.answer}</p>
                                                 </div>
                                             ))}
