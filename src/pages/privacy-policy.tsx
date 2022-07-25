@@ -35,9 +35,9 @@ export default function TermsOfServicePage() {
                     <div className="grid gap-8 text-black mx-auto text-center">
                         <LangChooser />
                         <h1 className="title">{locale.title}</h1>
-                        <h4 className="subtitle">
+                        <h2 className="subtitle">
                             {locale.date} <b>{!loading && moment(policy?.date_updated).format("MMMM DD, YYYY, HH:MM:SS")}</b>
-                        </h4>
+                        </h2>
                     </div>
                 </div>
             </section>
