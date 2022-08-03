@@ -283,7 +283,6 @@ export default function HomePage() {
     const characters = [
         "Sultan", //
         "Rafly",
-        "Dayven",
         "Yoga",
     ];
 
