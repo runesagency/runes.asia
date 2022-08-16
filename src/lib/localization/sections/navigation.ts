@@ -22,7 +22,7 @@ export const en = {
             href: "/blog",
         },
     ],
-    button: "Let's Get Started",
+    button: "💌 Contact Us",
 };
 
 export const id: typeof en = {
@@ -49,5 +49,5 @@ export const id: typeof en = {
             href: "/blog",
         },
     ],
-    button: "Mulai Sekarang",
+    button: "💌 Hubungi Kami",
 };
