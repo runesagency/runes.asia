@@ -253,7 +253,7 @@ export default function PricingPage() {
                             ))}
                     </div>
 
-                    <div className="flex flex-col-reverse lg:flex-row justify-between items-center text-black bg-lime p-10 md:p-20 lg:py-0 gap-20">
+                    {/* <div className="flex flex-col-reverse lg:flex-row justify-between items-center text-black bg-lime p-10 md:p-20 lg:py-0 gap-20">
                         <div className="grid gap-10 flex-1 lg:py-20 max-w-xl">
                             <div className="grid gap-5 h-max">
                                 <h1 className="jumbo-title">{locale.priorityCTA.title}</h1>
@@ -267,6 +267,23 @@ export default function PricingPage() {
 
                         <div className="flex-1 h-full overflow-visible flex items-end">
                             <img src="/images/illustrations/priority.png" alt="" className="object-bottom max-h-full origin-bottom transform lg:scale-150 xl:scale-100" />
+                        </div>
+                    </div> */}
+
+                    <div className="flex flex-col-reverse lg:flex-row justify-between items-center text-black bg-pink p-10 md:p-20 lg:py-0 gap-20">
+                        <div className="grid gap-10 flex-1 lg:py-20 max-w-xl">
+                            <div className="grid gap-5 h-max">
+                                <h1 className="jumbo-title">{locale.pricingDeckCTA.title}</h1>
+                                <p className="subtitle">{locale.pricingDeckCTA.subtitle}</p>
+                            </div>
+
+                            <Button.Primary as="a" className="!w-full" href="/pricing-deck.pdf">
+                                {locale.pricingDeckCTA.button}
+                            </Button.Primary>
+                        </div>
+
+                        <div className="flex-1 h-full overflow-visible flex items-end">
+                            <img src="/images/illustrations/boss.png" alt="" className="object-bottom max-h-full origin-bottom transform lg:scale-150 xl:scale-100" />
                         </div>
                     </div>
                 </div>
