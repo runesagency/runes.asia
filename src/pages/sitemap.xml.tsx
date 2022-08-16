@@ -153,7 +153,18 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     const showcasesPages = await getShowcasesPages();
     const blogPages = await getBlogPages();
 
-    const pageList = [...staticPages, ...teamPages, ...showcasesPages, ...blogPages];
+    const pageList = [
+        ...staticPages,
+        ...teamPages,
+        ...showcasesPages,
+        ...blogPages,
+        {
+            name: "pricing-deck",
+            url: `${baseUrl}/pricing-deck.pdf`,
+            path: `./src/pages/pricing-deck.pdf`,
+            lastModified: new Date().toISOString(),
+        },
+    ];
 
     const sitemap = `
     <?xml version="1.0" encoding="UTF-8"?>
