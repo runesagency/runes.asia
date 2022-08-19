@@ -49,9 +49,17 @@ export const usePricingsAPI = (lang: string) => {
         const category = item.category.translations.find((item) => item.languages_code === lang);
         const translation = item.translations.find((item) => item.languages_code === lang);
 
+        const colors = [
+            "rgba(39, 39, 39, 0.2)", //
+            theme.colors.lime,
+            theme.colors.yellow.light,
+            theme.colors.pink,
+        ].sort(() => 0.5 - Math.random());
+
         return {
             name: category.name,
             image: item.category.category_image,
+            colors,
             list: [
                 {
                     ...translation,
@@ -83,23 +91,17 @@ export const usePricingsAPI = (lang: string) => {
 type PricingBlockProps = ReturnType<typeof usePricingsAPI>["data"][0]["list"][0] & {
     index: number;
     categoryName: string;
+    color: string;
     locale: typeof localization["en"];
 };
 
 const PricingBlock = ({ locale, ...props }: PricingBlockProps) => {
-    const color = [
-        "rgba(39, 39, 39, 0.2)", //
-        theme.colors.lime,
-        theme.colors.yellow.light,
-        theme.colors.pink,
-    ][props.index];
-
     const Feature = ({ text, check }: { text: string; check?: boolean }) => (
         <div className="flex items-start gap-3">
             {check ? (
                 <svg className="w-6 h-6 flex-shrink-0" viewBox="0 0 22 23">
                     <path
-                        style={{ fill: color }}
+                        style={{ fill: props.color }}
                         d="M11 21.5195C16.5228 21.5195 21 17.0424 21 11.5195C21 5.99668 16.5228 1.51953 11 1.51953C5.47715 1.51953 1 5.99668 1 11.5195C1 17.0424 5.47715 21.5195 11 21.5195Z"
                     />
                     <path
@@ -118,8 +120,8 @@ const PricingBlock = ({ locale, ...props }: PricingBlockProps) => {
     );
 
     return (
-        <article className="w-full border-8 flex flex-col text-black font-poppins overflow-hidden" style={{ borderColor: color }}>
-            <div className="grid gap-8 bg-opacity-20 p-10 h-max" style={{ backgroundColor: color }}>
+        <article className="w-full border-8 flex flex-col text-black font-poppins overflow-hidden" style={{ borderColor: props.color }}>
+            <div className="grid gap-8 bg-opacity-20 p-10 h-max" style={{ backgroundColor: props.color }}>
                 <img src={`/api/cms/assets/${props.image}`} alt="" className="h-14" />
 
                 <div className="grid gap-2">
@@ -245,6 +247,7 @@ export default function PricingPage() {
                             pricingsData?.[currentCategory]?.list.map((plan, index) => (
                                 <PricingBlock
                                     {...plan} //
+                                    color={pricingsData[currentCategory].colors[index]}
                                     categoryName={pricingsData[currentCategory].name}
                                     locale={locale}
                                     key={index}
