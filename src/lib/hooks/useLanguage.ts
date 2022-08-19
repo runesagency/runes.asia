@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 import { useEffect, useState, useRef } from "react";
 import { getTopComponentName } from "@/lib/functions";
@@ -8,6 +8,9 @@ type useLanguageReturns<T> = {
     lang: string;
     locale: T[keyof T];
     setLang: Dispatch<SetStateAction<string>>;
+    defaultLang: keyof T;
+    // eslint-disable-next-line no-unused-vars
+    onLanguageChange: MutableRefObject<(newLang: string) => void>;
 };
 
 export const useLanguage = <T>(keyName: string, localization: T, defaultLang?: keyof T): useLanguageReturns<T> => {
@@ -19,6 +22,9 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultLang?: k
 
     const uniqueId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     const firstEventFired = useRef(false);
+    // eslint-disable-next-line no-unused-vars
+    const onLanguageChange = useRef((newLang: string) => {});
+
     const [lang, setLang] = useState<string>(defaultLang as string);
     const [locale, setLocale] = useState<T[keyof T]>(localization[Object.keys(localization)[0]]);
 
@@ -38,15 +44,22 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultLang?: k
 
         setLang(savedLang);
 
-        document.addEventListener("languageChanged", (e: CustomEvent) => {
+        const languageChangedHandler = (e: CustomEvent) => {
             if (
                 e.detail.keyName === keyName && // Prevent execution for another key name
                 e.detail.uniqueId !== uniqueId // Prevent loop
             ) {
                 setLang(e.detail.lang);
+                onLanguageChange.current(e.detail.lang);
             }
-        });
-    }, [defaultLang, keyName]);
+        };
+
+        document.addEventListener("languageChanged", languageChangedHandler);
+
+        return () => {
+            document.removeEventListener("languageChanged", languageChangedHandler);
+        };
+    }, []);
 
     // Handle on language change
     useEffect(() => {
@@ -76,5 +89,7 @@ export const useLanguage = <T>(keyName: string, localization: T, defaultLang?: k
         lang,
         setLang,
         locale,
+        defaultLang,
+        onLanguageChange,
     };
 };
