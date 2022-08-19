@@ -22,7 +22,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     if (router.pathname === "/") {
         title = "Runes - Creative Studio & Agency From Indonesia";
     } else {
-        const pageName = ucWords(router.pathname.split("/")[1].replace("/", ""));
+        const pageName = ucWords(router.pathname.split("/")[1].replace("/", "").replace(/-/g, " "));
 
         if (pageProps.seo?.subtitle) {
             title = `${pageProps.seo.subtitle} - Runes ${pageName}`;
