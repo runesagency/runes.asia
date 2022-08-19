@@ -66,7 +66,6 @@ export const useFAQsAPI = (lang: string) => {
 };
 
 export default function FAQPage() {
-    const nowCategoryId = useRef(-1);
     const categoriesSection = useRef<HTMLDivElement>(null);
     const faqsSection = useRef<HTMLDivElement>(null);
     const [isScrolling, setScrolling] = useState<number | false>(false);
@@ -79,6 +78,10 @@ export default function FAQPage() {
     const qnaBoxId = (id: number) => `qna-box-${id}`;
 
     useEffect(() => {
+        let maxCategoryScrollHeight = 0;
+        let nowCategoryId = -1;
+        let resizeObserver: ResizeObserver | null = null;
+
         const scrollHandler = () => {
             // Side Menu Sticky Effect When Scrolling
             (() => {
@@ -87,6 +90,7 @@ export default function FAQPage() {
 
                 if (categories) {
                     const scrollTop = categories.getBoundingClientRect().top * -1;
+                    if (scrollTop >= maxCategoryScrollHeight) return;
 
                     if (scrollTop >= 0) {
                         if (scrollTop >= faqs.clientHeight - 200) return;
@@ -116,8 +120,8 @@ export default function FAQPage() {
 
                             qnaBox.style.backgroundColor = color;
 
-                            if (nowCategoryId.current !== Number(id)) {
-                                nowCategoryId.current = Number(id);
+                            if (nowCategoryId !== Number(id)) {
+                                nowCategoryId = Number(id);
 
                                 if (isScrolling === false) {
                                     location.hash = boxCategoryId(Number(id));
@@ -138,7 +142,7 @@ export default function FAQPage() {
         };
 
         const keyUpHandler = (e: KeyboardEvent) => {
-            let id = nowCategoryId.current;
+            let id = nowCategoryId;
 
             if (e.key === "ArrowUp") {
                 id -= 1;
@@ -168,9 +172,26 @@ export default function FAQPage() {
         document.addEventListener("scroll", scrollHandler);
         document.addEventListener("keyup", keyUpHandler);
 
+        if (faqsSection.current) {
+            resizeObserver = new ResizeObserver((entries) => {
+                const currentHeight = entries[0].target.clientHeight - 100;
+
+                if (
+                    !maxCategoryScrollHeight || //
+                    currentHeight - maxCategoryScrollHeight >= 500 ||
+                    maxCategoryScrollHeight - currentHeight >= 350
+                ) {
+                    maxCategoryScrollHeight = currentHeight;
+                }
+            });
+
+            resizeObserver.observe(faqsSection.current);
+        }
+
         return () => {
             document.removeEventListener("scroll", scrollHandler);
             document.removeEventListener("keyup", keyUpHandler);
+            resizeObserver?.disconnect();
         };
     }, [data, isScrolling]);
 
@@ -189,7 +210,7 @@ export default function FAQPage() {
             </section>
 
             {!loading ? (
-                <section className="sticky py-20 overflow-auto">
+                <section className="py-20 overflow-auto">
                     <div className="container flex gap-20 overflow-auto">
                         <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
                             {data.map((item, index) => (
@@ -205,7 +226,7 @@ export default function FAQPage() {
                             ))}
                         </div>
 
-                        <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins">
+                        <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins overflow-hidden">
                             {data.map((item, index) => {
                                 const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
                                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
