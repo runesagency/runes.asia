@@ -20,14 +20,14 @@ const App = ({ Component, pageProps }: AppProps) => {
     let title = "";
 
     if (router.pathname === "/") {
-        title = "Runes - Indonesian Based Creative Studio & Agency";
+        title = "Runes - Creative Studio & Agency From Indonesia";
     } else {
         const pageName = ucWords(router.pathname.split("/")[1].replace("/", ""));
 
         if (pageProps.seo?.subtitle) {
-            title = `${pageProps.seo.subtitle} | ${pageName} - Runes`;
+            title = `${pageProps.seo.subtitle} - Runes ${pageName}`;
         } else {
-            title = `${pageName} - Runes`;
+            title = `Runes ${pageName}`;
         }
     }
 
