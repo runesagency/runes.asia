@@ -219,7 +219,7 @@ export default function PricingPage() {
                     </div>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-12 font-poppins font-semibold">
-                        {!pricingsLoading &&
+                        {!pricingsLoading ? (
                             pricingsData.map((category, index) => (
                                 <button
                                     key={index}
@@ -234,7 +234,10 @@ export default function PricingPage() {
                                     <img src={`/api/cms/assets/${category.image}`} alt="" className="h-16" />
                                     <p>{category.name}</p>
                                 </button>
-                            ))}
+                            ))
+                        ) : (
+                            <Icon.Loader className="h-24 mx-auto fill-black col-span-full" />
+                        )}
                     </div>
                 </div>
             </section>
@@ -243,7 +246,7 @@ export default function PricingPage() {
             <section className="relative py-20">
                 <div className="container grid gap-28">
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-                        {!pricingsLoading &&
+                        {!pricingsLoading ? (
                             pricingsData?.[currentCategory]?.list.map((plan, index) => (
                                 <PricingBlock
                                     {...plan} //
@@ -253,7 +256,10 @@ export default function PricingPage() {
                                     key={index}
                                     index={index}
                                 />
-                            ))}
+                            ))
+                        ) : (
+                            <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
+                        )}
                     </div>
 
                     {/* <div className="flex flex-col-reverse lg:flex-row justify-between items-center text-black bg-lime p-10 md:p-20 lg:py-0 gap-20">
@@ -298,8 +304,11 @@ export default function PricingPage() {
                     <h1 className="title text-center">{locale.faq.title}</h1>
 
                     <div className="grid gap-5 w-full font-poppins max-w-4xl mx-auto">
-                        {!faqsLoading && faqsData?.[0]?.list.map((faq, index) => <FAQBlock key={index} {...faq} />)}
-                        {/*  */}
+                        {!faqsLoading ? ( //
+                            faqsData?.[0]?.list.map((faq, index) => <FAQBlock key={index} {...faq} />)
+                        ) : (
+                            <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
+                        )}
                     </div>
                 </div>
             </section>

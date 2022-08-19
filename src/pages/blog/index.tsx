@@ -4,6 +4,7 @@ import Footer from "@/components/Sections/Footer";
 import NewsletterCTA from "@/components/Sections/NewsletterCTA";
 import Input from "@/components/Forms/Input";
 import * as Button from "@/components/Forms/Buttons";
+import * as Icon from "@/components/Utils/Icons";
 
 import moment from "moment";
 import { useState } from "react";
@@ -177,7 +178,11 @@ export default function BlogPage() {
             <section className="relative py-20 bg-black">
                 <div className="container grid gap-14">
                     <Navigation light />
-                    {!loading && <BlogHeading articleList={articles} />}
+                    {!loading ? ( //
+                        <BlogHeading articleList={articles} />
+                    ) : (
+                        <Icon.Loader className="h-32 mx-auto fill-white col-span-full" />
+                    )}
                 </div>
             </section>
 
@@ -222,7 +227,11 @@ export default function BlogPage() {
                         ))}
                     </div>
 
-                    {!loading && <BlogBody articleList={articleMore} />}
+                    {!loading ? ( //
+                        <BlogBody articleList={articleMore} />
+                    ) : (
+                        <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
+                    )}
                 </div>
             </section>
 

@@ -3,6 +3,7 @@ import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import CTA from "@/components/Sections/CTA";
 import * as Button from "@/components/Forms/Buttons";
+import * as Icon from "@/components/Utils/Icons";
 
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import { useState } from "react";
@@ -111,7 +112,7 @@ export default function ShowcasesPage() {
                             All
                         </Button.Secondary>
 
-                        {!loading &&
+                        {!loading ? (
                             categories.map((category, index) => (
                                 <Button.Secondary
                                     as="button"
@@ -128,13 +129,16 @@ export default function ShowcasesPage() {
                                 >
                                     {category}
                                 </Button.Secondary>
-                            ))}
+                            ))
+                        ) : (
+                            <Icon.Loader className="h-20 mx-auto fill-black col-span-full" />
+                        )}
                     </div>
 
                     <hr className="border-black border-opacity-30" />
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                        {!loading &&
+                        {!loading ? (
                             showcasesFiltered.map((item) => (
                                 <div className="relative h-full flip-card overflow-hidden group aspect-square" key={item.id}>
                                     <img
@@ -157,7 +161,10 @@ export default function ShowcasesPage() {
                                         </Link>
                                     </div>
                                 </div>
-                            ))}
+                            ))
+                        ) : (
+                            <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
+                        )}
                     </div>
                 </div>
             </section>

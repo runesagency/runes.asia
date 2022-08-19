@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
+import * as Icon from "@/components/Utils/Icons";
 
 import { theme } from "tailwind.config";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
@@ -146,7 +147,7 @@ export default function AboutPage() {
                     <h2 className="title text-center">{locale.teams.title}</h2>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-11 w-full">
-                        {!loading &&
+                        {!loading ? (
                             teams.map((person, index) => {
                                 return (
                                     <article key={index} className="grid gap-7 w-full h-max">
@@ -167,7 +168,10 @@ export default function AboutPage() {
                                         </Link>
                                     </article>
                                 );
-                            })}
+                            })
+                        ) : (
+                            <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
+                        )}
                     </div>
                 </div>
             </section>

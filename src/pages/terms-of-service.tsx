@@ -1,6 +1,7 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
 import LangChooser from "@/components/Utils/LangChooser";
+import * as Icon from "@/components/Utils/Icons";
 
 import moment from "moment";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
@@ -45,8 +46,11 @@ export default function TermsOfServicePage() {
             {/* Content */}
             <section id="content" className="relative pb-20">
                 <div className="container grid gap-28 font-poppins">
-                    {!loading && <article className="prose mx-auto lg:max-w-3xl" dangerouslySetInnerHTML={{ __html: terms?.content }} />}
-                    {/*  */}
+                    {!loading ? ( //
+                        <article className="prose mx-auto lg:max-w-3xl" dangerouslySetInnerHTML={{ __html: terms?.content }} />
+                    ) : (
+                        <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
+                    )}
                 </div>
             </section>
 

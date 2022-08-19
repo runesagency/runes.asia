@@ -1,5 +1,6 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
+import * as Icon from "@/components/Utils/Icons";
 
 import { theme } from "tailwind.config";
 import { useEffect, useRef, useState } from "react";
@@ -187,7 +188,7 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            {!loading && (
+            {!loading ? (
                 <section className="sticky py-20 overflow-auto">
                     <div className="container flex gap-20 overflow-auto">
                         <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
@@ -227,6 +228,8 @@ export default function FAQPage() {
                         </div>
                     </div>
                 </section>
+            ) : (
+                <Icon.Loader className="h-32 mx-auto fill-black col-span-full my-20" />
             )}
 
             <Footer />
