@@ -11,13 +11,14 @@ import * as localization from "@/lib/localization/pages/about/member";
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
     const id = context.params.id as string;
 
-    const data = await fetchCMSAPI(`/items/teams/${id}`, {
+    const data = await fetchCMSAPI(`/users/${id}`, {
         skip: 0,
         defaultValue: {},
         deps: [id],
         fields: {
-            name: true,
-            image: true,
+            first_name: true,
+            last_name: true,
+            avatar: true,
             theme_color: true,
             translations: [
                 {
@@ -30,11 +31,16 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         },
     });
 
+    const name = data.first_name + " " + data.last_name;
+
     return {
         props: {
-            data,
+            data: {
+                ...data,
+                name,
+            },
             seo: {
-                subtitle: data.name,
+                subtitle: name,
                 description: data.translations[0].short_description,
                 image: `https://runes.asia/assets/${data.avatar}`,
             },

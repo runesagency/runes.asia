@@ -11,14 +11,15 @@ import { encodeToURL } from "@/lib/functions";
 import * as localization from "@/lib/localization/pages/about";
 
 export const useAboutAPI = (lang: string) => {
-    const { data, loading } = useCMSAPI("/items/teams", {
+    const { data, loading } = useCMSAPI("/users", {
         skip: 0,
         defaultValue: [],
         fields: [
             {
                 id: true,
-                name: true,
-                image: true,
+                first_name: true,
+                last_name: true,
+                avatar: true,
                 theme_color: true,
                 translations: [
                     {
@@ -30,9 +31,13 @@ export const useAboutAPI = (lang: string) => {
                 ],
             },
         ],
+        filter: {
+            status: "active",
+        },
     });
 
     const teams = data.map((person) => ({
+        name: person.first_name + " " + person.last_name,
         ...person,
         ...person.translations.filter((translation) => translation.languages_code === lang)[0],
     }));
