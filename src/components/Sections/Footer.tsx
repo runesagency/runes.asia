@@ -26,16 +26,9 @@ export const Contacts = () => {
 
     return (
         <div className="grid gap-6 group">
-            {contacts.map((contact, index) => (
-                <a
-                    key={index}
-                    href={contact.href}
-                    title={contact.text}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex justify-start items-center gap-7 group-hover:opacity-50 hover:!opacity-100 duration-200"
-                >
-                    <contact.icon className="w-7 flex-shrink-0 fill-yellow-light" />
+            {contacts.map(({ icon: Icon, ...contact }, index) => (
+                <a key={index} href={contact.href} title={contact.text} target="_blank" rel="noreferrer" className="flex justify-start items-center gap-7 group-hovered">
+                    <Icon className="w-7 flex-shrink-0 fill-yellow-light" />
                     <p className="font-poppins">{contact.text}</p>
                 </a>
             ))}
@@ -69,9 +62,9 @@ export const Socials = ({ className }: { className?: string }) => {
 
     return (
         <div className={`grid gap-7 grid-cols-5 group ${className}`}>
-            {socials.map((social, index) => (
+            {socials.map(({ icon: Icon, ...social }, index) => (
                 <a key={index} title={social.name} href={social.href} target="_blank" rel="noreferrer" aria-label={social.name}>
-                    <social.icon className="h-8 fill-current group-hover:opacity-50 hover:!opacity-100 duration-200" />
+                    <Icon className="h-8 fill-current group-hovered" />
                 </a>
             ))}
         </div>
@@ -108,7 +101,7 @@ export default function Footer() {
                         <div className="grid gap-3 text-xl group font-poppins">
                             {locale.links.list.map((link, index) => (
                                 <Link key={index} href={link.href}>
-                                    <a className="group-hover:opacity-50 hover:!opacity-100 duration-200">{link.name}</a>
+                                    <a className="group-hovered">{link.name}</a>
                                 </Link>
                             ))}
                         </div>
