@@ -144,7 +144,7 @@ const BlogHeading = ({ articleList, loading }: { articleList: Articles; loading:
                           href={blogURL(article)}
                           passHref
                           className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max animate-open"
-                          style={{ animationDelay: `${index * 0.1}s` }}
+                          style={{ animationDelay: `${(index + 1) * 0.1}s` }}
                       >
                           <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover object-center flex-shrink-0" loading="lazy" />
                           <div className="grid gap-4 text-white">

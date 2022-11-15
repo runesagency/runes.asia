@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import type { ReactNode } from "react";
 
 import "../styles/globals.css";
 
@@ -6,7 +7,7 @@ import Script from "next/script";
 import ProgressBar from "nextjs-progressbar";
 import MetaTags from "@/components/Utils/MetaTags";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { ucWords } from "@/lib/functions";
 import { useLanguage } from "@/lib/hooks";
@@ -16,9 +17,6 @@ import { motion, AnimatePresence, useReducedMotion, Variants } from "framer-moti
 const variants: Variants = {
     in: {
         height: 0,
-        style: {
-            overflowY: "hidden",
-        },
     },
     center: {
         height: "auto",
@@ -28,9 +26,6 @@ const variants: Variants = {
             },
             delay: 0.3,
         },
-        style: {
-            overflowY: "hidden",
-        },
     },
     out: {
         height: 0,
@@ -39,9 +34,6 @@ const variants: Variants = {
                 duration: 1.5,
             },
         },
-        style: {
-            overflowY: "hidden",
-        },
     },
 };
 
@@ -49,14 +41,38 @@ const variants: Variants = {
  * Read the blog post here:
  * https://letsbuildui.dev/articles/animated-page-transitions-in-nextjs
  */
-const TransitionEffect1 = ({ children }) => {
+const TransitionEffect = ({ children }: { children: ReactNode }) => {
     const { asPath } = useRouter();
     const shouldReduceMotion = useReducedMotion();
+    const ref = useRef<HTMLDivElement>(null);
+
+    const onStart = () => {
+        if (ref.current) {
+            ref.current.style.overflowY = "hidden";
+        }
+    };
+
+    const onFinished = () => {
+        if (ref.current) {
+            setTimeout(() => {
+                ref.current.style.overflowY = "auto";
+            }, 1000);
+        }
+    };
 
     return (
         <div className="effect-1">
             <AnimatePresence initial={true} exitBeforeEnter>
-                <motion.div key={asPath} variants={!shouldReduceMotion ? variants : null} initial="in" animate={"center"} exit={"out"}>
+                <motion.div
+                    ref={ref} //
+                    key={asPath}
+                    variants={!shouldReduceMotion ? variants : null}
+                    initial="in"
+                    animate={"center"}
+                    exit={"out"}
+                    onAnimationStart={onStart}
+                    onAnimationEnd={onFinished}
+                >
                     {children}
                 </motion.div>
             </AnimatePresence>
@@ -134,9 +150,9 @@ const App = ({ Component, pageProps }: AppProps) => {
 
             <ProgressBar color={pageProps.themeColor} />
 
-            <TransitionEffect1>
+            <TransitionEffect>
                 <Component {...pageProps} />
-            </TransitionEffect1>
+            </TransitionEffect>
 
             {process.env.NODE_ENV === "production" && (
                 <>
