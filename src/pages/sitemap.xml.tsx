@@ -10,9 +10,7 @@ type Page = {
     lastModified: string;
 };
 
-const baseUrl = process.env.URL;
-
-const getStaticPages = (fs: typeof filesystem, path: string, subDir?: string) => {
+const getStaticPages = (baseUrl: string, fs: typeof filesystem, path: string, subDir?: string) => {
     let pageList: Page[] = [];
     const pages = fs.readdirSync(path);
 
@@ -33,7 +31,7 @@ const getStaticPages = (fs: typeof filesystem, path: string, subDir?: string) =>
             const pageStat = fs.statSync(pagePath);
 
             if (pageStat.isDirectory()) {
-                const getSubPages = getStaticPages(fs, pagePath, page);
+                const getSubPages = getStaticPages(baseUrl, fs, pagePath, page);
                 pageList = pageList.concat(getSubPages);
             } else {
                 let pageUrl = "";
@@ -61,7 +59,7 @@ const getStaticPages = (fs: typeof filesystem, path: string, subDir?: string) =>
     return pageList;
 };
 
-const getTeamPages = async (): Promise<Page[]> => {
+const getTeamPages = async (baseUrl: string): Promise<Page[]> => {
     const data = await fetchCMSAPI("/items/teams", {
         skip: 0,
         defaultValue: [],
@@ -82,7 +80,7 @@ const getTeamPages = async (): Promise<Page[]> => {
     }));
 };
 
-const getShowcasesPages = async (): Promise<Page[]> => {
+const getShowcasesPages = async (baseUrl: string): Promise<Page[]> => {
     const data = await fetchCMSAPI("/items/showcases", {
         defaultValue: [],
         skip: 0,
@@ -107,7 +105,7 @@ const getShowcasesPages = async (): Promise<Page[]> => {
     }));
 };
 
-const getBlogPages = async (): Promise<Page[]> => {
+const getBlogPages = async (baseUrl: string): Promise<Page[]> => {
     const data = await fetchCMSAPI("/items/blogs", {
         skip: 0,
         defaultValue: [],
@@ -148,10 +146,13 @@ const getBlogPages = async (): Promise<Page[]> => {
 };
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-    const staticPages = getStaticPages(filesystem, "./src/pages");
-    const teamPages = await getTeamPages();
-    const showcasesPages = await getShowcasesPages();
-    const blogPages = await getBlogPages();
+    const protocol = context.req.headers["x-forwarded-proto"] || "http";
+    const baseUrl = `${protocol}://${context.req.headers.host}`;
+
+    const staticPages = getStaticPages(baseUrl, filesystem, "./src/pages");
+    const teamPages = await getTeamPages(baseUrl);
+    const showcasesPages = await getShowcasesPages(baseUrl);
+    const blogPages = await getBlogPages(baseUrl);
 
     const pageList = [
         ...staticPages,
