@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@formkit/auto-animate': 1.0.0-beta.3
   '@tailwindcss/line-clamp': ^0.4.2
   '@tailwindcss/typography': ^0.5.8
   '@types/node': ^16.18.3
@@ -22,7 +21,6 @@ specifiers:
   typescript: ^4.8.4
 
 dependencies:
-  '@formkit/auto-animate': 1.0.0-beta.3
   '@tailwindcss/typography': 0.5.8_tailwindcss@3.2.4
   moment: 2.29.4
   next: 13.0.3_biqbaboplfbrettd7655fr4n2y
@@ -77,10 +75,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /@formkit/auto-animate/1.0.0-beta.3:
-    resolution: {integrity: sha512-glsi+ytwQpxT/Ctr9GtcIfVr4dO6mJ04mQbNU8MFSdCdqMopHtyfU5Fib0+9lNFIeR0luY4/0NW95/2R5pKsag==}
-    dev: false
 
   /@humanwhocodes/config-array/0.11.7:
     resolution: {integrity: sha512-kBbPWzN8oVMLb0hOUYXhmxggL/1cJE6ydvjDIGi9EnAGUyA7cLVKQg+d/Dsm+KZwx2czGHrCmMVLiyg8s5JPKw==}
