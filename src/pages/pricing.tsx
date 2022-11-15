@@ -175,7 +175,7 @@ const PricingBlock = ({ locale, ...props }: PricingBlockProps) => {
                     )}
                 </div>
 
-                <Link href={`/contact?category=${props.categoryName}&package=${props.title}`} passHref>
+                <Link href={`/contact?category=${props.categoryName}&package=${props.title}`} passHref legacyBehavior>
                     <Button.Primary as="button" className="!w-full">
                         {locale.pricing.button}
                     </Button.Primary>

@@ -79,10 +79,8 @@ export default function Footer() {
             <section className="container grid gap-32">
                 <div className="flex flex-col gap-20 lg:flex-row justify-between items-start">
                     <div className="grid gap-8 max-w-xs text-yellow-light">
-                        <Link href={"/"}>
-                            <a aria-label="Logo">
-                                <Icon.LogoPrimary className="h-11 cursor-pointer fill-current" />
-                            </a>
+                        <Link href={"/"} aria-label="Logo">
+                            <Icon.LogoPrimary className="h-11 cursor-pointer fill-current" />
                         </Link>
 
                         <LangChooser className="w-max text-white" tooltipAlign="left" />
@@ -100,8 +98,8 @@ export default function Footer() {
 
                         <div className="grid gap-3 text-xl group font-poppins">
                             {locale.links.list.map((link, index) => (
-                                <Link key={index} href={link.href}>
-                                    <a className="group-hovered">{link.name}</a>
+                                <Link key={index} href={link.href} className="group-hovered">
+                                    {link.name}
                                 </Link>
                             ))}
                         </div>
@@ -115,12 +113,12 @@ export default function Footer() {
                     </div>
 
                     <div className="flex gap-4">
-                        <Link href="/terms-of-service">
-                            <a className="hover:opacity-70 duration-200 border-b border-white">{locale.legal.termsOfService}</a>
+                        <Link href="/terms-of-service" className="hover:opacity-70 duration-200 border-b border-white">
+                            {locale.legal.termsOfService}
                         </Link>
 
-                        <Link href="/privacy-policy">
-                            <a className="hover:opacity-70 duration-200 border-b border-white">{locale.legal.privacyPolicy}</a>
+                        <Link href="/privacy-policy" className="hover:opacity-70 duration-200 border-b border-white">
+                            {locale.legal.privacyPolicy}
                         </Link>
                     </div>
                 </div>

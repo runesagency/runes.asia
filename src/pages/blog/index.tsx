@@ -112,20 +112,16 @@ const blogURL = (article: Articles[0]) => `/blog/${article.id}/${encodeToURL(art
 const BlogHeading = ({ articleList, loading }: { articleList: Articles; loading: boolean }) => (
     <div className="flex flex-col xl:flex-row items-stretch gap-12 group">
         {!loading ? (
-            <Link href={blogURL(articleList?.[0])} passHref>
-                <a className="grid place-content-start gap-7 group-hovered flex-1 animate-open">
-                    <img src={articleList?.[0]?.cover_image} alt={articleList?.[0]?.title} className="flex-shrink h-96 w-full object-cover object-center" loading="lazy" />
-
-                    <div className="grid gap-4 text-white">
-                        <h1 className="text-4.5xl font-vidaloka leading-snug">{articleList?.[0]?.title}</h1>
-                        <p className="subtitle max-h-full line-clamp-3">{articleList?.[0]?.short_description}</p>
-                        <span className="opacity-75 font-poppins capitalize">
-                            {articleList?.[0]?.tags[0]} / {articleList?.[0]?.date_created}
-                        </span>
-                    </div>
-
-                    <hr className="border-white opacity-30 xl:hidden" />
-                </a>
+            <Link href={blogURL(articleList?.[0])} passHref className="grid place-content-start gap-7 group-hovered flex-1 animate-open">
+                <img src={articleList?.[0]?.cover_image} alt={articleList?.[0]?.title} className="flex-shrink h-96 w-full object-cover object-center" loading="lazy" />
+                <div className="grid gap-4 text-white">
+                    <h1 className="text-4.5xl font-vidaloka leading-snug">{articleList?.[0]?.title}</h1>
+                    <p className="subtitle max-h-full line-clamp-3">{articleList?.[0]?.short_description}</p>
+                    <span className="opacity-75 font-poppins capitalize">
+                        {articleList?.[0]?.tags[0]} / {articleList?.[0]?.date_created}
+                    </span>
+                </div>
+                <hr className="border-white opacity-30 xl:hidden" />
             </Link>
         ) : (
             <div className="flex-1 h-full w-full bg-white bg-opacity-20 animate-pulse" />
@@ -134,18 +130,21 @@ const BlogHeading = ({ articleList, loading }: { articleList: Articles; loading:
         <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 flex-1">
             {!loading
                 ? articleList.slice(1, 4).map((article, index) => (
-                      <Link key={index} href={blogURL(article)} passHref>
-                          <a className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max animate-open" style={{ animationDelay: `${index * 0.1}s` }}>
-                              <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover object-center flex-shrink-0" loading="lazy" />
-
-                              <div className="grid gap-4 text-white">
-                                  <h1 className="text-3xl font-vidaloka leading-snug line-clamp-2">{article.title}</h1>
-                                  <p className="font-poppins max-h-20 line-clamp-3">{article.short_description}</p>
-                                  <span className="opacity-75 text-sm font-poppins capitalize">
-                                      {article.tags[0]} / {article.date_created}
-                                  </span>
-                              </div>
-                          </a>
+                      <Link
+                          key={index}
+                          href={blogURL(article)}
+                          passHref
+                          className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max animate-open"
+                          style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                          <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover object-center flex-shrink-0" loading="lazy" />
+                          <div className="grid gap-4 text-white">
+                              <h1 className="text-3xl font-vidaloka leading-snug line-clamp-2">{article.title}</h1>
+                              <p className="font-poppins max-h-20 line-clamp-3">{article.short_description}</p>
+                              <span className="opacity-75 text-sm font-poppins capitalize">
+                                  {article.tags[0]} / {article.date_created}
+                              </span>
+                          </div>
                       </Link>
                   ))
                 : Array(3)
@@ -156,18 +155,15 @@ const BlogHeading = ({ articleList, loading }: { articleList: Articles; loading:
 );
 
 const Blog = ({ article, index }: { article: Articles[0]; index: number }) => (
-    <Link passHref href={blogURL(article)}>
-        <a className="grid gap-7 h-full place-content-start group-hovered animate-open" style={{ animationDelay: `${index * 0.1}s` }}>
-            <img src={article.cover_image} alt={article.title} className="w-full h-64 object-cover object-center" loading="lazy" />
-
-            <div className="flex flex-col gap-4 text-black h-full">
-                <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>
-                <p className="h-full line-clamp-3 font-poppins">{article.short_description}</p>
-                <span className="opacity-75 font-poppins flex-1 text-sm capitalize">
-                    {article.tags[0]} / {article.date_created}
-                </span>
-            </div>
-        </a>
+    <Link passHref href={blogURL(article)} className="grid gap-7 h-full place-content-start group-hovered animate-open" style={{ animationDelay: `${index * 0.1}s` }}>
+        <img src={article.cover_image} alt={article.title} className="w-full h-64 object-cover object-center" loading="lazy" />
+        <div className="flex flex-col gap-4 text-black h-full">
+            <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>
+            <p className="h-full line-clamp-3 font-poppins">{article.short_description}</p>
+            <span className="opacity-75 font-poppins flex-1 text-sm capitalize">
+                {article.tags[0]} / {article.date_created}
+            </span>
+        </div>
     </Link>
 );
 

@@ -23,7 +23,7 @@ export default function LinksPage() {
                     <div className="flex justify-between items-center">
                         <Icon.LogoPrimary className="h-16 fill-current" />
 
-                        <Link href="/" passHref>
+                        <Link href="/" passHref legacyBehavior>
                             <Button.Primary className="hidden md:block">{locale.header.button}</Button.Primary>
                         </Link>
                     </div>

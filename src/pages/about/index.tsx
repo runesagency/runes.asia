@@ -165,10 +165,11 @@ export default function AboutPage() {
                                               <p>{person.short_description}</p>
                                           </div>
 
-                                          <Link href={`/about/team/${person.id}/${encodeToURL(person.name)}`}>
-                                              <a className="font-poppins border-b border-current w-max hover:opacity-70 duration-200 cursor-pointer h-max">
-                                                  {locale.teams.moreButton} {person.name.split(" ")[0]}
-                                              </a>
+                                          <Link
+                                              href={`/about/team/${person.id}/${encodeToURL(person.name)}`}
+                                              className="font-poppins border-b border-current w-max hover:opacity-70 duration-200 cursor-pointer h-max"
+                                          >
+                                              {locale.teams.moreButton} {person.name.split(" ")[0]}
                                           </Link>
                                       </article>
                                   );

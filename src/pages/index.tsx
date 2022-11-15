@@ -325,7 +325,7 @@ export default function HomePage() {
                         <h1 className="jumbo-title whitespace-pre-line">{locale.header.content.title}</h1>
                         <h2 className="subtitle text-justify max-w-lg">{locale.header.content.description}</h2>
 
-                        <Link href={"/pricing"} passHref>
+                        <Link href={"/pricing"} passHref legacyBehavior>
                             <Button.Primary>{locale.header.content.button}</Button.Primary>
                         </Link>
                     </div>
@@ -351,7 +351,7 @@ export default function HomePage() {
                         {locale.about.description[1]}
                     </p>
 
-                    <Link href={"/about"} passHref>
+                    <Link href={"/about"} passHref legacyBehavior>
                         <Button.Primary className="mx-auto">{locale.about.button}</Button.Primary>
                     </Link>
                 </div>
@@ -383,7 +383,7 @@ export default function HomePage() {
                 <img src="/images/others/tagline.svg" alt="tagline" className="w-full" />
                 <p className="subtitle text-justify">{locale.intro.text}</p>
 
-                <Link href="/pricing" passHref>
+                <Link href="/pricing" passHref legacyBehavior>
                     <Button.Primary>{locale.intro.button}</Button.Primary>
                 </Link>
             </CTA>
@@ -429,7 +429,7 @@ export default function HomePage() {
 
                 <Showcases />
 
-                <Link href={"/showcases"} replace passHref>
+                <Link href={"/showcases"} replace passHref legacyBehavior>
                     <Button.Primary className="mx-auto">{locale.showcases.button}</Button.Primary>
                 </Link>
             </section>
@@ -443,11 +443,11 @@ export default function HomePage() {
                     </div>
 
                     <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 mx-auto">
-                        <Link href={"/pricing"} passHref>
+                        <Link href={"/pricing"} passHref legacyBehavior>
                             <Button.Primary>{locale.contact.button_1}</Button.Primary>
                         </Link>
 
-                        <Link href={"/faq"} passHref>
+                        <Link href={"/faq"} passHref legacyBehavior>
                             <Button.Primary light className="bg-transparent">
                                 {locale.contact.button_2}
                             </Button.Primary>

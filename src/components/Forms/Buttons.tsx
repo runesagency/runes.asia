@@ -42,16 +42,15 @@ export const Secondary = forwardRef(({ className, light, active, ...props }: But
 
 export const Back = forwardRef(({ className, light, text, href }: Button & { text: string; href: `/${string}` }, ref: any) => {
     return (
-        <Link href={href}>
-            <a
-                className={
-                    `flex items-center gap-4 no-underline hover:underline hover:opacity-70 cursor-pointer w-max ${className}` + //
-                    (light ? " text-white" : " text-black")
-                }
-            >
-                <Icon.ChevronLeft className="stroke-current h-4 fill-transparent" />
-                <p className="font-poppins">{text}</p>
-            </a>
+        <Link
+            href={href}
+            className={
+                `flex items-center gap-4 no-underline hover:underline hover:opacity-70 cursor-pointer w-max ${className}` + //
+                (light ? " text-white" : " text-black")
+            }
+        >
+            <Icon.ChevronLeft className="stroke-current h-4 fill-transparent" />
+            <p className="font-poppins">{text}</p>
         </Link>
     );
 });
