@@ -143,7 +143,7 @@ export default function ShowcasesPage() {
                                 <div className="relative h-full flip-card overflow-hidden group aspect-square" key={item.id}>
                                     <img
                                         className="min-h-full min-w-full object-cover transform group-hover:scale-110 duration-200"
-                                        src={`/api/cms/assets/${item.image_preview || item.image_cover}.png`}
+                                        src={`/assets/${item.image_preview || item.image_cover}.png`}
                                         alt={item.product_title}
                                         loading="lazy"
                                         style={{

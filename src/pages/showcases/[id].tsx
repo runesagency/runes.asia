@@ -44,7 +44,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
             seo: {
                 subtitle: data.product_title,
                 description: data.translations[0].short_description,
-                image: `https://runes.asia/api/cms/assets/${data.image_cover}`,
+                image: `https://runes.asia/assets/${data.image_cover}`,
             },
         },
     };
@@ -114,7 +114,7 @@ export default function SingleShowcasePage({ data }: { data: Awaited<ReturnType<
             {
                 <img
                     className="h-full w-full max-h-screen object-cover"
-                    src={`/api/cms/assets/${showcase.image_cover}.png`}
+                    src={`/assets/${showcase.image_cover}.png`}
                     alt=""
                     style={{
                         objectPosition: `${showcase.image_cover_placement_horizontal} ${showcase.image_cover_placement_vertical}` || "center",

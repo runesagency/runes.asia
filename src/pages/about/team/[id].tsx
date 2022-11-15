@@ -36,7 +36,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
             seo: {
                 subtitle: data.name,
                 description: data.translations[0].short_description,
-                image: `https://runes.asia/api/cms/assets/${data.image}`,
+                image: `https://runes.asia/assets/${data.avatar}`,
             },
         },
     };
@@ -74,7 +74,7 @@ export default function TeamMemberPage({ data }: { data: Awaited<ReturnType<type
                     </div>
 
                     <div className="xl:aspect-square w-full pt-10 flex justify-center items-end px-4" style={{ backgroundColor: person.theme_color }}>
-                        <img src={`/api/cms/assets/${person.image}`} alt="" className="w-full md:max-w-xs lg:h-96 mx-auto object-contain object-bottom" />
+                        <img src={`/assets/${person.avatar}`} alt="" className="w-full md:max-w-xs lg:h-96 mx-auto object-contain object-bottom" />
                     </div>
                 </div>
 

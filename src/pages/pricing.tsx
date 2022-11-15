@@ -122,7 +122,7 @@ const PricingBlock = ({ locale, ...props }: PricingBlockProps) => {
     return (
         <article className="w-full border-8 flex flex-col text-black font-poppins overflow-hidden" style={{ borderColor: props.color }}>
             <div className="grid gap-8 bg-opacity-20 p-10 h-max" style={{ backgroundColor: props.color }}>
-                <img src={`/api/cms/assets/${props.image}`} alt="" className="h-14" />
+                <img src={`/assets/${props.image}`} alt="" className="h-14" />
 
                 <div className="grid gap-2">
                     <span className="text-sm">Level {(props.index + 1) * 10}</span>
@@ -231,7 +231,7 @@ export default function PricingPage() {
                                             : "border-black border-opacity-20 border-2 text-black")
                                     }
                                 >
-                                    <img src={`/api/cms/assets/${category.image}`} alt="" className="h-16" />
+                                    <img src={`/assets/${category.image}`} alt="" className="h-16" />
                                     <p>{category.name}</p>
                                 </button>
                             ))

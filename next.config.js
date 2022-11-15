@@ -22,6 +22,9 @@ const config = (phase) => {
                     source: "/api/cms/:path*",
                     destination: `${process.env.CMS_API_URL}/:path*`,
                 },
+                {
+                    source: "/assets/:path*",
+                    destination: `${process.env.CMS_API_URL}/assets/:path*`,
                 },
                 {
                     source: "/showcases/:id/:path*",

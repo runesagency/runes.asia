@@ -49,7 +49,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
             seo: {
                 subtitle: translation?.title,
                 description: translation?.short_description,
-                image: `https://runes.asia/api/cms/assets/${data.cover_image}`,
+                image: `https://runes.asia/assets/${data.cover_image}`,
             },
         },
     };
@@ -98,7 +98,7 @@ export default function SingleBlogPage({ data }: { data: Awaited<ReturnType<type
                             </div>
                         </div>
 
-                        <img src={`/api/cms/assets/${data.cover_image}`} alt="" className="h-full w-full object-cover max-h-72 lg:max-h-full order-first lg:order-none" loading="lazy" />
+                        <img src={`/assets/${data.cover_image}`} alt="" className="h-full w-full object-cover max-h-72 lg:max-h-full order-first lg:order-none" loading="lazy" />
                     </div>
                 </div>
             </section>
