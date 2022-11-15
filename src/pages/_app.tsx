@@ -7,7 +7,7 @@ import Script from "next/script";
 import ProgressBar from "nextjs-progressbar";
 import MetaTags from "@/components/Utils/MetaTags";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { ucWords } from "@/lib/functions";
 import { useLanguage } from "@/lib/hooks";
@@ -44,35 +44,11 @@ const variants: Variants = {
 const TransitionEffect = ({ children }: { children: ReactNode }) => {
     const { asPath } = useRouter();
     const shouldReduceMotion = useReducedMotion();
-    const ref = useRef<HTMLDivElement>(null);
-
-    const onStart = () => {
-        if (ref.current) {
-            ref.current.style.overflowY = "hidden";
-        }
-    };
-
-    const onFinished = () => {
-        if (ref.current) {
-            setTimeout(() => {
-                ref.current.style.overflowY = "auto";
-            }, 1000);
-        }
-    };
 
     return (
         <div className="effect-1">
             <AnimatePresence initial={true} exitBeforeEnter>
-                <motion.div
-                    ref={ref} //
-                    key={asPath}
-                    variants={!shouldReduceMotion ? variants : null}
-                    initial="in"
-                    animate={"center"}
-                    exit={"out"}
-                    onAnimationStart={onStart}
-                    onAnimationEnd={onFinished}
-                >
+                <motion.div key={asPath} variants={!shouldReduceMotion ? variants : null} initial="in" animate={"center"} exit={"out"} className="overflow-hidden">
                     {children}
                 </motion.div>
             </AnimatePresence>
