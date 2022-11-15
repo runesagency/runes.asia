@@ -66,6 +66,9 @@ export const fetchCMSAPI = async <T extends fetchCMSAPIFields | [fetchCMSAPIFiel
         const rawResponse = await fetch(parsedUrl.href, {
             method: "GET",
             headers: options.headers || {},
+            next: {
+                revalidate: 10,
+            },
         });
 
         const response = await rawResponse.json();
