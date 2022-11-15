@@ -9,7 +9,16 @@ import moment from "moment";
 import { useState } from "react";
 import { useLanguage, useCMSAPI } from "@/lib/hooks";
 import { encodeToURL } from "@/lib/functions";
+import { theme } from "tailwind.config";
 import * as localization from "@/lib/localization/pages/blog";
+
+export const getStaticProps = async () => {
+    return {
+        props: {
+            themeColor: theme.colors.black,
+        },
+    };
+};
 
 export const useBlogAPI = (lang: string) => {
     const [categoryFilters, setCategoryFilters] = useState<string[]>([]);

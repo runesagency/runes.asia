@@ -8,10 +8,61 @@ import MetaTags from "@/components/Utils/MetaTags";
 
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { theme } from "tailwind.config";
 import { ucWords } from "@/lib/functions";
 import { useLanguage } from "@/lib/hooks";
 import { languages } from "@/components/Utils/LangChooser";
+import { motion, AnimatePresence, useReducedMotion, Variants } from "framer-motion";
+
+const variants: Variants = {
+    in: {
+        height: 0,
+        style: {
+            overflowY: "hidden",
+        },
+    },
+    center: {
+        height: "auto",
+        transition: {
+            height: {
+                duration: 1.5,
+            },
+            delay: 0.3,
+        },
+        style: {
+            overflowY: "hidden",
+        },
+    },
+    out: {
+        height: 0,
+        transition: {
+            height: {
+                duration: 1.5,
+            },
+        },
+        style: {
+            overflowY: "hidden",
+        },
+    },
+};
+
+/*
+ * Read the blog post here:
+ * https://letsbuildui.dev/articles/animated-page-transitions-in-nextjs
+ */
+const TransitionEffect1 = ({ children }) => {
+    const { asPath } = useRouter();
+    const shouldReduceMotion = useReducedMotion();
+
+    return (
+        <div className="effect-1">
+            <AnimatePresence initial={true} exitBeforeEnter>
+                <motion.div key={asPath} variants={!shouldReduceMotion ? variants : null} initial="in" animate={"center"} exit={"out"}>
+                    {children}
+                </motion.div>
+            </AnimatePresence>
+        </div>
+    );
+};
 
 const App = ({ Component, pageProps }: AppProps) => {
     const { lang } = useLanguage("lang", languages);
@@ -33,7 +84,11 @@ const App = ({ Component, pageProps }: AppProps) => {
 
     useEffect(() => {
         document.body.setAttribute("lang", lang);
-    }, [lang]);
+
+        if (pageProps.themeColor) {
+            document.body.style.backgroundColor = pageProps.themeColor;
+        }
+    }, [lang, pageProps.themeColor]);
 
     return (
         <>
@@ -77,8 +132,11 @@ const App = ({ Component, pageProps }: AppProps) => {
                 }}
             />
 
-            <ProgressBar color={theme.colors.yellow.light} />
-            <Component {...pageProps} />
+            <ProgressBar color={pageProps.themeColor} />
+
+            <TransitionEffect1>
+                <Component {...pageProps} />
+            </TransitionEffect1>
 
             {process.env.NODE_ENV === "production" && (
                 <>

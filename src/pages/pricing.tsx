@@ -10,6 +10,14 @@ import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import { useFAQsAPI } from "@/pages/faq";
 import * as localization from "@/lib/localization/pages/pricing";
 
+export const getStaticProps = async () => {
+    return {
+        props: {
+            themeColor: theme.colors.yellow.light,
+        },
+    };
+};
+
 export const usePricingsAPI = (lang: string) => {
     const { data, loading } = useCMSAPI("/items/pricings", {
         defaultValue: [],

@@ -6,8 +6,17 @@ import * as Button from "@/components/Forms/Buttons";
 
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import { useState } from "react";
-import * as localization from "@/lib/localization/pages/showcases";
 import { encodeToURL } from "@/lib/functions";
+import { theme } from "tailwind.config";
+import * as localization from "@/lib/localization/pages/showcases";
+
+export const getStaticProps = async () => {
+    return {
+        props: {
+            themeColor: theme.colors.pink,
+        },
+    };
+};
 
 export const useShowcasesAPI = (lang: string) => {
     const [categoryFilters, setCategoryFilters] = useState<string[]>([]);

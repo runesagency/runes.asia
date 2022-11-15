@@ -4,9 +4,18 @@ import Footer from "@/components/Sections/Footer";
 import CTA from "@/components/Sections/CTA";
 import * as Button from "@/components/Forms/Buttons";
 
+import { theme } from "tailwind.config";
 import { useLanguage, useDragToScroll, useCMSAPI } from "@/lib/hooks";
 import { useEffect } from "react";
 import * as localization from "@/lib/localization/pages/index";
+
+export const getStaticProps = async () => {
+    return {
+        props: {
+            themeColor: theme.colors.yellow.light,
+        },
+    };
+};
 
 const Showcases = () => {
     type Portofolio = {

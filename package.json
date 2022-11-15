@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "@tailwindcss/typography": "^0.5.8",
+        "framer-motion": "^7.6.7",
         "moment": "^2.29.4",
         "next": "^13.0.3",
         "nextjs-progressbar": "^0.0.14",

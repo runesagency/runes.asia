@@ -9,6 +9,7 @@ import moment from "moment";
 import { useRouter } from "next/router";
 import { encodeToURL, fetchCMSAPI } from "@/lib/functions";
 import { useLanguage } from "@/lib/hooks";
+import { theme } from "tailwind.config";
 import * as localization from "@/lib/localization/pages/blog/single";
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
@@ -41,6 +42,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
     return {
         props: {
+            themeColor: theme.colors.black,
             data: {
                 ...data,
                 lang: translation.languages_code,

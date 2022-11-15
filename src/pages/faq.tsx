@@ -6,6 +6,14 @@ import { useEffect, useRef, useState } from "react";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/faq";
 
+export const getStaticProps = async () => {
+    return {
+        props: {
+            themeColor: theme.colors.white,
+        },
+    };
+};
+
 export const useFAQsAPI = (lang: string) => {
     const { data, loading } = useCMSAPI("/items/faqs", {
         defaultValue: [],

@@ -9,7 +9,16 @@ import * as Button from "@/components/Forms/Buttons";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useCaptcha, useLanguage } from "@/lib/hooks";
+import { theme } from "tailwind.config";
 import * as localization from "@/lib/localization/pages/contact";
+
+export const getStaticProps = async () => {
+    return {
+        props: {
+            themeColor: theme.colors.white,
+        },
+    };
+};
 
 const FormSection = ({ title, children }: { title: string; children: ReactNode }) => (
     <div className="grid gap-7 w-full">

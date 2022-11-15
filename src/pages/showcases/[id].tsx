@@ -6,6 +6,7 @@ import * as Button from "@/components/Forms/Buttons";
 
 import { useLanguage } from "@/lib/hooks";
 import { fetchCMSAPI } from "@/lib/functions";
+import { theme } from "tailwind.config";
 import * as localization from "@/lib/localization/pages/showcases/single";
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
@@ -40,6 +41,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
     return {
         props: {
+            themeColor: theme.colors.white,
             data,
             seo: {
                 subtitle: data.product_title,

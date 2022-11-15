@@ -9,6 +9,14 @@ import { useCMSAPI, useLanguage } from "@/lib/hooks";
 import { encodeToURL } from "@/lib/functions";
 import * as localization from "@/lib/localization/pages/about";
 
+export const getStaticProps = async () => {
+    return {
+        props: {
+            themeColor: theme.colors.lime,
+        },
+    };
+};
+
 export const useAboutAPI = (lang: string) => {
     const { data, loading } = useCMSAPI("/users", {
         skip: 0,

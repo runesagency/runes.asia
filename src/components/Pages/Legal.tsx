@@ -4,6 +4,15 @@ import LangChooser from "@/components/Utils/LangChooser";
 
 import moment from "moment";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
+import { theme } from "tailwind.config";
+
+export const getStaticProps = async () => {
+    return {
+        props: {
+            themeColor: theme.colors.white,
+        },
+    };
+};
 
 export default function LegalPage({ endpoint, localization }: { endpoint: `/${string}`; localization: any }) {
     const { locale, lang } = useLanguage("lang", localization);
