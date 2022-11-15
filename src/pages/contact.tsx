@@ -3,13 +3,13 @@ import type { FormEvent, ReactNode } from "react";
 import Footer from "@/components/Sections/Footer";
 import Navigation from "@/components/Sections/Navigation";
 import Input from "@/components/Forms/Input";
+import LangChooser from "@/components/Utils/LangChooser";
 import * as Button from "@/components/Forms/Buttons";
 
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useCaptcha, useLanguage } from "@/lib/hooks";
 import * as localization from "@/lib/localization/pages/contact";
-import LangChooser from "@/components/Utils/LangChooser";
 
 const FormSection = ({ title, children }: { title: string; children: ReactNode }) => (
     <div className="grid gap-7 w-full">
