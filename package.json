@@ -27,12 +27,13 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@formkit/auto-animate": "1.0.0-beta.3",
         "@tailwindcss/typography": "^0.5.8",
         "moment": "^2.29.4",
-        "next": "^12.3.3",
+        "next": "^13.0.3",
         "nextjs-progressbar": "^0.0.14",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
     },
     "devDependencies": {
         "@tailwindcss/line-clamp": "^0.4.2",
@@ -40,7 +41,7 @@
         "@types/react": "^17.0.52",
         "autoprefixer": "^10.4.13",
         "eslint": "^8.27.0",
-        "eslint-config-next": "^12.3.3",
+        "eslint-config-next": "^13.0.3",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
         "postcss": "^8.4.19",
