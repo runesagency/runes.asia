@@ -33,12 +33,12 @@ export const fetchCMSAPI = async <T extends fetchCMSAPIFields | [fetchCMSAPIFiel
     let url = "";
 
     if (typeof window !== "undefined") {
-        url = `${window.location.protocol}//${window.location.host}`;
+        url = `${window.location.protocol}//${window.location.host}/api/cms`;
     } else {
-        url = `http://${process.env.HOST}:${process.env.PORT}`;
+        url = process.env.CMS_API_URL;
     }
 
-    const parsedUrl = new URL(`${url}/api/cms${path}`);
+    const parsedUrl = new URL(url + path);
 
     if (options.fields) {
         const rawFields = Array.isArray(options.fields) ? options.fields[0] : options.fields;

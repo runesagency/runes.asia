@@ -20,7 +20,8 @@ const config = (phase) => {
             return [
                 {
                     source: "/api/cms/:path*",
-                    destination: "https://cms.runes.asia/:path*",
+                    destination: `${process.env.CMS_API_URL}/:path*`,
+                },
                 },
                 {
                     source: "/showcases/:id/:path*",
