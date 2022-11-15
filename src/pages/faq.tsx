@@ -1,6 +1,5 @@
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
-import * as Icon from "@/components/Utils/Icons";
 
 import { theme } from "tailwind.config";
 import { useEffect, useRef, useState } from "react";
@@ -209,49 +208,65 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            {!loading ? (
-                <section className="py-20 overflow-auto">
-                    <div className="container flex gap-20 overflow-auto">
-                        <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
-                            {data.map((item, index) => (
-                                <a
-                                    key={index}
-                                    id={categoryId(index)}
-                                    href={`#${boxCategoryId(index)}`}
-                                    onClick={() => setScrolling(index)}
-                                    className="px-5 py-3 border-b border-black border-opacity-30 transition-all duration-300 hover:opacity-70"
-                                >
-                                    {item.title}
-                                </a>
-                            ))}
-                        </div>
-
-                        <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins overflow-hidden">
-                            {data.map((item, index) => {
-                                const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
-                                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-                                return (
-                                    <div key={index} id={boxCategoryId(index)} className="grid gap-5 h-max" data-backgroundcolor={randomColor} data-categoryid={index}>
-                                        <h2 className="subtitle uppercase">{item.title}</h2>
-
-                                        <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
-                                            {item.list.map((item, index) => (
-                                                <div key={index} className="grid gap-4 h-max">
-                                                    <h3 className="subtitle font-bold">{item.question}</h3>
-                                                    <p className="leading-relaxed">{item.answer}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
+            <section className="py-20 overflow-auto">
+                <div className="container flex gap-20 overflow-auto">
+                    <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
+                        {!loading
+                            ? data.map((item, index) => (
+                                  <a
+                                      key={index}
+                                      id={categoryId(index)}
+                                      href={`#${boxCategoryId(index)}`}
+                                      onClick={() => setScrolling(index)}
+                                      className="px-5 py-3 border-b border-black border-opacity-30 transition-all duration-300 hover:opacity-70 animate-open"
+                                      style={{ animationDelay: `${index * 0.1}s` }}
+                                  >
+                                      {item.title}
+                                  </a>
+                              ))
+                            : Array(3)
+                                  .fill(0)
+                                  .map((_, index) => (
+                                      <div className="h-8 w-44 bg-black bg-opacity-20 animate-pulse rounded-md" key={index} /> //
+                                  ))}
                     </div>
-                </section>
-            ) : (
-                <Icon.Loader className="h-32 mx-auto fill-black col-span-full my-20" />
-            )}
+
+                    <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins overflow-hidden">
+                        {!loading
+                            ? data.map((item, index) => {
+                                  const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
+                                  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+                                  return (
+                                      <div
+                                          key={index}
+                                          id={boxCategoryId(index)}
+                                          className="grid gap-5 h-max animate-open"
+                                          data-backgroundcolor={randomColor}
+                                          data-categoryid={index}
+                                          style={{ animationDelay: `${index * 0.1}s` }}
+                                      >
+                                          <h2 className="subtitle uppercase">{item.title}</h2>
+
+                                          <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
+                                              {item.list.map((item, index) => (
+                                                  <div key={index} className="grid gap-4 h-max animate-open" style={{ animationDelay: `${index * 0.1}s` }}>
+                                                      <h3 className="subtitle font-bold">{item.question}</h3>
+                                                      <p className="leading-relaxed">{item.answer}</p>
+                                                  </div>
+                                              ))}
+                                          </div>
+                                      </div>
+                                  );
+                              })
+                            : Array(3)
+                                  .fill(0)
+                                  .map((_, index) => (
+                                      <div className="w-full h-96 bg-black bg-opacity-20 animate-pulse" key={index} /> //
+                                  ))}
+                    </div>
+                </div>
+            </section>
 
             <Footer />
         </main>

@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import Navigation from "@/components/Sections/Navigation";
 import Footer from "@/components/Sections/Footer";
-import * as Icon from "@/components/Utils/Icons";
 
 import { theme } from "tailwind.config";
 import { useCMSAPI, useLanguage } from "@/lib/hooks";
@@ -152,31 +151,40 @@ export default function AboutPage() {
                     <h2 className="title text-center">{locale.teams.title}</h2>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-11 w-full">
-                        {!loading ? (
-                            teams.map((person, index) => {
-                                return (
-                                    <article key={index} className="grid gap-7 w-full h-max">
-                                        <div className="aspect-square w-full pt-10 flex justify-center items-end px-4" style={{ backgroundColor: person.theme_color }}>
-                                            <img src={`/assets/${person.avatar}`} alt="" className="h-80 mx-auto object-contain object-bottom" />
-                                        </div>
+                        {!loading
+                            ? teams.map((person, index) => {
+                                  return (
+                                      <article key={index} className="grid gap-7 w-full h-max animate-open" style={{ animationDelay: `${index * 0.1}s` }}>
+                                          <div className="aspect-square w-full pt-10 flex justify-center items-end px-4" style={{ backgroundColor: person.theme_color }}>
+                                              <img src={`/assets/${person.avatar}`} alt="" className="h-80 mx-auto object-contain object-bottom" />
+                                          </div>
 
-                                        <div className="grid gap-4 font-poppins h-max">
-                                            <h3 className="text-4xl font-bold">{person.name}</h3>
-                                            <span className="text-sm opacity-70">{person.job_title.join(", ")}</span>
-                                            <p>{person.short_description}</p>
-                                        </div>
+                                          <div className="grid gap-4 font-poppins h-max">
+                                              <h3 className="text-4xl font-bold">{person.name}</h3>
+                                              <span className="text-sm opacity-70">{person.job_title.join(", ")}</span>
+                                              <p>{person.short_description}</p>
+                                          </div>
 
-                                        <Link href={`/about/team/${person.id}/${encodeToURL(person.name)}`}>
-                                            <a className="font-poppins border-b border-current w-max hover:opacity-70 duration-200 cursor-pointer h-max">
-                                                {locale.teams.moreButton} {person.name.split(" ")[0]}
-                                            </a>
-                                        </Link>
-                                    </article>
-                                );
-                            })
-                        ) : (
-                            <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
-                        )}
+                                          <Link href={`/about/team/${person.id}/${encodeToURL(person.name)}`}>
+                                              <a className="font-poppins border-b border-current w-max hover:opacity-70 duration-200 cursor-pointer h-max">
+                                                  {locale.teams.moreButton} {person.name.split(" ")[0]}
+                                              </a>
+                                          </Link>
+                                      </article>
+                                  );
+                              })
+                            : Array(4)
+                                  .fill(0)
+                                  .map((_, index) => (
+                                      <article key={index} className="grid gap-7 w-full h-max animate-pulse">
+                                          <div className="aspect-square w-full pt-10 flex justify-center items-end px-4 bg-black bg-opacity-20" />
+
+                                          <div className="grid gap-4 font-poppins h-max">
+                                              <div className="h-5 w-2/3 bg-black rounded-md bg-opacity-20" />
+                                              <div className="h-2 w-1/2 bg-black rounded-md bg-opacity-20" />
+                                          </div>
+                                      </article>
+                                  ))}
                     </div>
                 </div>
             </section>
@@ -187,6 +195,7 @@ export default function AboutPage() {
                     <Timeline data={locale.journey.timelines} />
                 </div>
             </section>
+
             <Footer />
         </main>
     );

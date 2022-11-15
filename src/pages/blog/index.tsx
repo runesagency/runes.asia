@@ -4,7 +4,6 @@ import Footer from "@/components/Sections/Footer";
 import NewsletterCTA from "@/components/Sections/NewsletterCTA";
 import Input from "@/components/Forms/Input";
 import * as Button from "@/components/Forms/Buttons";
-import * as Icon from "@/components/Utils/Icons";
 
 import moment from "moment";
 import { useState } from "react";
@@ -106,66 +105,70 @@ export const useBlogAPI = (lang: string) => {
     };
 };
 
-type Article = ReturnType<typeof useBlogAPI>["articles"];
+type Articles = ReturnType<typeof useBlogAPI>["articles"];
 
-const blogURL = (article: Article[0]) => `/blog/${article.id}/${encodeToURL(article.title)}`;
+const blogURL = (article: Articles[0]) => `/blog/${article.id}/${encodeToURL(article.title)}`;
 
-const BlogHeading = ({ articleList }: { articleList: Article }) => (
+const BlogHeading = ({ articleList, loading }: { articleList: Articles; loading: boolean }) => (
     <div className="flex flex-col xl:flex-row items-stretch gap-12 group">
-        <Link href={blogURL(articleList?.[0])} passHref>
-            <a className="grid place-content-start gap-7 group-hovered flex-1">
-                <img src={articleList?.[0]?.cover_image} alt={articleList?.[0]?.title} className="flex-shrink h-96 w-full object-cover object-center" loading="lazy" />
+        {!loading ? (
+            <Link href={blogURL(articleList?.[0])} passHref>
+                <a className="grid place-content-start gap-7 group-hovered flex-1 animate-open">
+                    <img src={articleList?.[0]?.cover_image} alt={articleList?.[0]?.title} className="flex-shrink h-96 w-full object-cover object-center" loading="lazy" />
 
-                <div className="grid gap-4 text-white">
-                    <h1 className="text-4.5xl font-vidaloka leading-snug">{articleList?.[0]?.title}</h1>
-                    <p className="subtitle max-h-full line-clamp-3">{articleList?.[0]?.short_description}</p>
-                    <span className="opacity-75 font-poppins capitalize">
-                        {articleList?.[0]?.tags[0]} / {articleList?.[0]?.date_created}
-                    </span>
-                </div>
+                    <div className="grid gap-4 text-white">
+                        <h1 className="text-4.5xl font-vidaloka leading-snug">{articleList?.[0]?.title}</h1>
+                        <p className="subtitle max-h-full line-clamp-3">{articleList?.[0]?.short_description}</p>
+                        <span className="opacity-75 font-poppins capitalize">
+                            {articleList?.[0]?.tags[0]} / {articleList?.[0]?.date_created}
+                        </span>
+                    </div>
 
-                <hr className="border-white opacity-30 xl:hidden" />
-            </a>
-        </Link>
+                    <hr className="border-white opacity-30 xl:hidden" />
+                </a>
+            </Link>
+        ) : (
+            <div className="flex-1 h-full w-full bg-white bg-opacity-20 animate-pulse" />
+        )}
 
         <div className="grid md:grid-cols-3 xl:grid-cols-1 gap-6 flex-1">
-            {articleList.slice(1, 4).map((article, index) => (
-                <Link key={index} href={blogURL(article)} passHref>
-                    <a className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max">
-                        <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover object-center flex-shrink-0" loading="lazy" />
+            {!loading
+                ? articleList.slice(1, 4).map((article, index) => (
+                      <Link key={index} href={blogURL(article)} passHref>
+                          <a className="flex flex-col xl:flex-row flex-shrink gap-6 group-hovered h-max animate-open" style={{ animationDelay: `${index * 0.1}s` }}>
+                              <img src={article.cover_image} alt={article.title} className="xl:w-60 h-56 object-cover object-center flex-shrink-0" loading="lazy" />
 
-                        <div className="grid gap-4 text-white">
-                            <h1 className="text-3xl font-vidaloka leading-snug line-clamp-2">{article.title}</h1>
-                            <p className="font-poppins max-h-20 line-clamp-3">{article.short_description}</p>
-                            <span className="opacity-75 text-sm font-poppins capitalize">
-                                {article.tags[0]} / {article.date_created}
-                            </span>
-                        </div>
-                    </a>
-                </Link>
-            ))}
+                              <div className="grid gap-4 text-white">
+                                  <h1 className="text-3xl font-vidaloka leading-snug line-clamp-2">{article.title}</h1>
+                                  <p className="font-poppins max-h-20 line-clamp-3">{article.short_description}</p>
+                                  <span className="opacity-75 text-sm font-poppins capitalize">
+                                      {article.tags[0]} / {article.date_created}
+                                  </span>
+                              </div>
+                          </a>
+                      </Link>
+                  ))
+                : Array(3)
+                      .fill(0)
+                      .map((_, index) => <div key={index} className="h-56 w-full bg-white bg-opacity-20 animate-pulse flex-shrink" />)}
         </div>
     </div>
 );
 
-const BlogBody = ({ articleList: articleList }: { articleList: Article }) => (
-    <div className="grid gap-6 xl:gap-11 md:grid-cols-3 group">
-        {articleList.map((article, index) => (
-            <Link passHref key={index} href={blogURL(article)}>
-                <a className="grid gap-7 h-full place-content-start group-hovered">
-                    <img src={article.cover_image} alt={article.title} className="w-full h-64 object-cover object-center" loading="lazy" />
+const Blog = ({ article, index }: { article: Articles[0]; index: number }) => (
+    <Link passHref href={blogURL(article)}>
+        <a className="grid gap-7 h-full place-content-start group-hovered animate-open" style={{ animationDelay: `${index * 0.1}s` }}>
+            <img src={article.cover_image} alt={article.title} className="w-full h-64 object-cover object-center" loading="lazy" />
 
-                    <div className="flex flex-col gap-4 text-black h-full">
-                        <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>
-                        <p className="h-full line-clamp-3 font-poppins">{article.short_description}</p>
-                        <span className="opacity-75 font-poppins flex-1 text-sm capitalize">
-                            {article.tags[0]} / {article.date_created}
-                        </span>
-                    </div>
-                </a>
-            </Link>
-        ))}
-    </div>
+            <div className="flex flex-col gap-4 text-black h-full">
+                <h1 className="text-3xl font-vidaloka leading-snug flex-1">{article.title}</h1>
+                <p className="h-full line-clamp-3 font-poppins">{article.short_description}</p>
+                <span className="opacity-75 font-poppins flex-1 text-sm capitalize">
+                    {article.tags[0]} / {article.date_created}
+                </span>
+            </div>
+        </a>
+    </Link>
 );
 
 export default function BlogPage() {
@@ -178,11 +181,8 @@ export default function BlogPage() {
             <section className="relative py-20 bg-black">
                 <div className="container grid gap-14">
                     <Navigation light />
-                    {!loading ? ( //
-                        <BlogHeading articleList={articles} />
-                    ) : (
-                        <Icon.Loader className="h-32 mx-auto fill-white col-span-full" />
-                    )}
+
+                    <BlogHeading articleList={articles} loading={loading} />
                 </div>
             </section>
 
@@ -200,38 +200,56 @@ export default function BlogPage() {
                     />
 
                     <div className="flex flex-wrap items-center gap-3">
-                        <Button.Secondary //
-                            as="button"
-                            onClick={() => setCategoryFilters([])}
-                            active={categoryFilters.length === 0}
-                        >
-                            All
-                        </Button.Secondary>
+                        {!loading ? (
+                            <>
+                                <Button.Secondary //
+                                    as="button"
+                                    onClick={() => setCategoryFilters([])}
+                                    active={categoryFilters.length === 0}
+                                    className="capitalize animate-open"
+                                >
+                                    All
+                                </Button.Secondary>
 
-                        {articleCategories.map((category, index) => (
-                            <Button.Secondary
-                                key={index}
-                                as="button"
-                                onClick={() => {
-                                    if (!categoryFilters.includes(category)) {
-                                        setCategoryFilters([...categoryFilters, category]);
-                                    } else {
-                                        setCategoryFilters(categoryFilters.filter((c) => c !== category));
-                                    }
-                                }}
-                                className="capitalize"
-                                active={categoryFilters.includes(category)}
-                            >
-                                {category}
-                            </Button.Secondary>
-                        ))}
+                                {articleCategories.map((category, index) => (
+                                    <Button.Secondary
+                                        key={index}
+                                        as="button"
+                                        onClick={() => {
+                                            if (!categoryFilters.includes(category)) {
+                                                setCategoryFilters([...categoryFilters, category]);
+                                            } else {
+                                                setCategoryFilters(categoryFilters.filter((c) => c !== category));
+                                            }
+                                        }}
+                                        active={categoryFilters.includes(category)}
+                                        className="capitalize animate-open"
+                                        style={{
+                                            animationDelay: `${(index + 1) * 100}ms`,
+                                        }}
+                                    >
+                                        {category}
+                                    </Button.Secondary>
+                                ))}
+                            </>
+                        ) : (
+                            Array(4)
+                                .fill(0)
+                                .map((_, index) => (
+                                    <Button.Secondary key={index} className="animate-pulse flex items-center h-12 w-20 bg-black bg-opacity-20" /> //
+                                ))
+                        )}
                     </div>
 
-                    {!loading ? ( //
-                        <BlogBody articleList={articleMore} />
-                    ) : (
-                        <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
-                    )}
+                    <div className="grid gap-6 xl:gap-11 md:grid-cols-3 group">
+                        {!loading //
+                            ? articleMore.map((article, index) => <Blog key={index} index={index} article={article} />)
+                            : Array(3)
+                                  .fill(0)
+                                  .map((_, index) => (
+                                      <div key={index} className="h-96 w-full bg-black bg-opacity-20 animate-pulse" /> //
+                                  ))}
+                    </div>
                 </div>
             </section>
 

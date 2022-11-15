@@ -92,7 +92,7 @@ type PricingBlockProps = ReturnType<typeof usePricingsAPI>["data"][0]["list"][0]
     index: number;
     categoryName: string;
     color: string;
-    locale: typeof localization["en"];
+    locale: typeof localization.en;
 };
 
 const PricingBlock = ({ locale, ...props }: PricingBlockProps) => {
@@ -120,7 +120,13 @@ const PricingBlock = ({ locale, ...props }: PricingBlockProps) => {
     );
 
     return (
-        <article className="w-full border-8 flex flex-col text-black font-poppins overflow-hidden" style={{ borderColor: props.color }}>
+        <article
+            className="w-full border-8 flex flex-col text-black font-poppins overflow-hidden animate-open"
+            style={{
+                borderColor: props.color,
+                animationDelay: `${props.index * 100}ms`,
+            }}
+        >
             <div className="grid gap-8 bg-opacity-20 p-10 h-max" style={{ backgroundColor: props.color }}>
                 <img src={`/assets/${props.image}`} alt="" className="h-14" />
 
@@ -182,13 +188,19 @@ const PricingBlock = ({ locale, ...props }: PricingBlockProps) => {
 type FAQBlockProps = {
     question: string;
     answer: string;
+    index: number;
 };
 
-const FAQBlock = ({ question, answer }: FAQBlockProps) => {
+const FAQBlock = ({ question, answer, index }: FAQBlockProps) => {
     const [open, setOpen] = useState(false);
 
     return (
-        <article className={`grid py-5 border-b border-black border-opacity-20 duration-200 transition-all ${open ? "gap-5" : "gap-0"}`}>
+        <article
+            className={`grid py-5 border-b border-black border-opacity-20 duration-200 transition-all animate-open ${open ? "gap-5" : "gap-0"}`}
+            style={{
+                animationDelay: `${index * 100}ms`,
+            }}
+        >
             <div className="flex justify-between items-center w-full hover:opacity-70 duration-200 cursor-pointer gap-6" onClick={() => setOpen(!open)}>
                 <h2 className="subtitle">{question}</h2>
                 <Icon.ChevronBottom className={`h-2 stroke-current fill-transparent transform origin-center duration-500 ${open && "rotate-180"}`} />
@@ -199,12 +211,33 @@ const FAQBlock = ({ question, answer }: FAQBlockProps) => {
     );
 };
 
+const FAQ = () => {
+    const { lang, locale } = useLanguage("lang", localization);
+    const { loading, data: data } = useFAQsAPI(lang);
+
+    return (
+        <section className="py-20 relative">
+            <div className="container grid gap-16 text-black">
+                <h1 className="title text-center">{locale.faq.title}</h1>
+
+                <div className="grid gap-5 w-full font-poppins max-w-4xl mx-auto">
+                    {!loading //
+                        ? data?.[0]?.list.map((faq, index) => <FAQBlock key={index} index={index} {...faq} />)
+                        : Array(3)
+                              .fill(0)
+                              .map((_, index) => (
+                                  <div key={index} className="h-10 w-full bg-black bg-opacity-20 animate-pulse rounded-md" /> //
+                              ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
 export default function PricingPage() {
     const [currentCategory, setCurrentCategory] = useState(0);
     const { lang, locale } = useLanguage("lang", localization);
-
-    const { data: pricingsData, loading: pricingsLoading } = usePricingsAPI(lang);
-    const { loading: faqsLoading, data: faqsData } = useFAQsAPI(lang);
+    const { loading, data } = usePricingsAPI(lang);
 
     return (
         <main className="relative bg-white">
@@ -219,47 +252,54 @@ export default function PricingPage() {
                     </div>
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-12 font-poppins font-semibold">
-                        {!pricingsLoading ? (
-                            pricingsData.map((category, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setCurrentCategory(index)}
-                                    className={
-                                        `flex items-center justify-center gap-4 px-10 py-3 cursor-pointer hover:opacity-70 duration-200  ` + //
-                                        (index === currentCategory //
-                                            ? "bg-black text-white"
-                                            : "border-black border-opacity-20 border-2 text-black")
-                                    }
-                                >
-                                    <img src={`/assets/${category.image}`} alt="" className="h-16" />
-                                    <p>{category.name}</p>
-                                </button>
-                            ))
-                        ) : (
-                            <Icon.Loader className="h-24 mx-auto fill-black col-span-full" />
-                        )}
+                        {!loading
+                            ? data.map((category, index) => (
+                                  <button
+                                      key={index}
+                                      onClick={() => setCurrentCategory(index)}
+                                      className={
+                                          `flex items-center justify-center gap-4 px-10 py-3 cursor-pointer hover:opacity-70 duration-200 animate-open ` + //
+                                          (index === currentCategory //
+                                              ? "bg-black text-white"
+                                              : "border-black border-opacity-20 border-2 text-black")
+                                      }
+                                      style={{
+                                          animationDelay: `${index * 0.1}s`,
+                                      }}
+                                  >
+                                      <img src={`/assets/${category.image}`} alt="" className="h-16" />
+                                      <p>{category.name}</p>
+                                  </button>
+                              ))
+                            : Array(4)
+                                  .fill(0)
+                                  .map((_, index) => (
+                                      <button key={index} className="px-10 py-3 h-24 w-full bg-black bg-opacity-20 animate-pulse" /> //
+                                  ))}
                     </div>
                 </div>
             </section>
 
             {/* Content */}
-            <section className="relative py-20">
+            <section className={`relative duration-500 py-20`}>
                 <div className="container grid gap-28">
-                    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-                        {!pricingsLoading ? (
-                            pricingsData?.[currentCategory]?.list.map((plan, index) => (
-                                <PricingBlock
-                                    {...plan} //
-                                    color={pricingsData[currentCategory].colors[index]}
-                                    categoryName={pricingsData[currentCategory].name}
-                                    locale={locale}
-                                    key={index}
-                                    index={index}
-                                />
-                            ))
-                        ) : (
-                            <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
-                        )}
+                    <div className={`grid md:grid-cols-2 xl:grid-cols-4 gap-4`}>
+                        {!loading
+                            ? data[currentCategory]?.list.map((plan, index) => (
+                                  <PricingBlock
+                                      {...plan} //
+                                      color={data[currentCategory].colors[index]}
+                                      categoryName={data[currentCategory].name}
+                                      locale={locale}
+                                      key={index}
+                                      index={index}
+                                  />
+                              ))
+                            : Array(4)
+                                  .fill(0)
+                                  .map((_, index) => (
+                                      <article key={index} className="w-full bg-black bg-opacity-20 animate-pulse h-80" /> //
+                                  ))}
                     </div>
 
                     {/* <div className="flex flex-col-reverse lg:flex-row justify-between items-center text-black bg-lime p-10 md:p-20 lg:py-0 gap-20">
@@ -298,20 +338,7 @@ export default function PricingPage() {
                 </div>
             </section>
 
-            {/* FAQ */}
-            <section className="py-20 relative">
-                <div className="container grid gap-16 text-black">
-                    <h1 className="title text-center">{locale.faq.title}</h1>
-
-                    <div className="grid gap-5 w-full font-poppins max-w-4xl mx-auto">
-                        {!faqsLoading ? ( //
-                            faqsData?.[0]?.list.map((faq, index) => <FAQBlock key={index} {...faq} />)
-                        ) : (
-                            <Icon.Loader className="h-32 mx-auto fill-black col-span-full" />
-                        )}
-                    </div>
-                </div>
-            </section>
+            <FAQ />
 
             <Footer />
         </main>

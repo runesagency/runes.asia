@@ -246,7 +246,19 @@ const Characters = () => {
 
     return (
         <div className="relative flex justify-center -space-x-10 mx-auto w-full z-10 pt-12">
-            {!loading && data.map((people, index) => <img key={index} src={`/assets/${people.avatar}`} className="max-h-44 md:max-h-72 h-auto" alt={people.first_name} loading="lazy" />)}
+            {!loading &&
+                data.map((people, index) => (
+                    <img
+                        key={index}
+                        src={`/assets/${people.avatar}`}
+                        className="max-h-44 md:max-h-72 h-auto animate-open"
+                        alt={people.first_name}
+                        loading="lazy"
+                        style={{
+                            animationDelay: `${index * 0.1}s`,
+                        }}
+                    />
+                ))}
         </div>
     );
 };
