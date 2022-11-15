@@ -13,6 +13,7 @@ const config = (phase) => {
     let settings = {
         reactStrictMode: true,
         poweredByHeader: false,
+        cleanDistDir: true,
         redirects: async () => {
             return [];
         },
