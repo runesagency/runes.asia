@@ -4,7 +4,7 @@ import Footer from "@/components/Sections/Footer";
 import CTA from "@/components/Sections/CTA";
 import * as Button from "@/components/Forms/Buttons";
 
-import { useLanguage, useDragToScroll } from "@/lib/hooks";
+import { useLanguage, useDragToScroll, useCMSAPI } from "@/lib/hooks";
 import { useEffect } from "react";
 import * as localization from "@/lib/localization/pages/index";
 
@@ -229,6 +229,28 @@ const Showcases = () => {
     );
 };
 
+const Characters = () => {
+    const { data, loading } = useCMSAPI("/users", {
+        skip: 0,
+        defaultValue: [],
+        fields: [
+            {
+                first_name: true,
+                avatar: true,
+            },
+        ],
+        filter: {
+            status: "active",
+        },
+    });
+
+    return (
+        <div className="relative flex justify-center -space-x-10 mx-auto w-full z-10 pt-12">
+            {!loading && data.map((people, index) => <img key={index} src={`/assets/${people.avatar}`} className="max-h-44 md:max-h-72 h-auto" alt={people.first_name} loading="lazy" />)}
+        </div>
+    );
+};
+
 export default function HomePage() {
     const { locale } = useLanguage("lang", localization);
 
@@ -280,12 +302,6 @@ export default function HomePage() {
         },
     ];
 
-    const characters = [
-        "Sultan", //
-        "Rafly",
-        "Yoga",
-    ];
-
     return (
         <main className="relative bg-white">
             {/* Header */}
@@ -328,11 +344,7 @@ export default function HomePage() {
                     </Link>
                 </div>
 
-                <div className="relative flex justify-center -space-x-10 mx-auto w-full z-10 pt-12">
-                    {characters.map((character, index) => (
-                        <img key={index} src={`/images/characters/${character}.png`} className="max-h-44 md:max-h-72 h-auto" alt={character} loading="lazy" />
-                    ))}
-                </div>
+                <Characters />
 
                 <svg className="absolute bottom-0 left-0 fill-lime opacity-40" viewBox="0 0 1920 266">
                     <path d="M0 0V130V265.5H1920V130V45.8333C1170.27 94.1662 749.881 86.466 0 0Z" />
