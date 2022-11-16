@@ -11,7 +11,7 @@ import * as localization from "@/lib/localization/pages/links";
 export default function LinksPage() {
     const { locale } = useLanguage("lang", localization);
     const color = [
-        theme.colors.lime, //
+        theme.colors.green, //
         theme.colors.yellow.light,
         theme.colors.pink,
     ];
@@ -19,7 +19,7 @@ export default function LinksPage() {
     return (
         <main className="relative bg-white">
             <div className="container lg:max-w-screen-md mx-auto py-20 grid gap-16">
-                <header className="grid gap-11 md:px-16 py-20 text-black border-b border-black border-opacity-20">
+                <header className="grid gap-11 md:px-16 py-20 text-black border-b border-gray">
                     <div className="flex justify-between items-center">
                         <Icon.LogoPrimary className="h-16 fill-current" />
 

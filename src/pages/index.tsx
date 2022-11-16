@@ -367,13 +367,13 @@ export default function HomePage() {
 
                 <Characters />
 
-                <svg className="absolute bottom-0 left-0 fill-lime opacity-40" viewBox="0 0 1920 266">
+                <svg className="absolute bottom-0 left-0 fill-green opacity-40" viewBox="0 0 1920 266">
                     <path d="M0 0V130V265.5H1920V130V45.8333C1170.27 94.1662 749.881 86.466 0 0Z" />
                 </svg>
             </section>
 
             {/* Clients */}
-            <section className="py-20 bg-lime">
+            <section className="py-20 bg-green">
                 <div className="container grid gap-12 text-center z-10">
                     <p className="subtitle">{locale.clients.subtitle}</p>
 
@@ -407,7 +407,7 @@ export default function HomePage() {
 
                     <div className="grid md:grid-cols-2 xl:grid-cols-4">
                         {locale.services.list.map(({ name, description, services }) => (
-                            <div key={name} className="grid gap-5 px-9 py-20 border-black border border-opacity-20 text-black font-poppins">
+                            <div key={name} className="grid gap-5 px-9 py-20 border border-gray text-black font-poppins">
                                 <img src={`/images/illustrations/services/${name}.png`} alt={name} className="w-full" />
                                 <h3 className="text-3xl font-vidaloka">{name}</h3>
                                 <p className="text-justify">{description}</p>
@@ -415,7 +415,7 @@ export default function HomePage() {
                                 <div className="grid gap-3">
                                     {services.map((service, index) => (
                                         <article key={index} className="flex gap-2">
-                                            <svg className="fill-lime flex-shrink-0 w-4" viewBox="0 0 18 18">
+                                            <svg className="fill-green flex-shrink-0 w-4" viewBox="0 0 18 18">
                                                 <path d="M15.8994 1.32533C13.5265 3.37901 11.5189 5.33398 9.68095 7.88464C8.87038 9.00964 7.96898 10.3338 7.37976 11.5839C7.04338 12.2468 6.43701 13.2827 6.23029 14.2786C5.09966 13.2267 3.88523 12.0328 2.64266 11.0976C1.75701 10.4314 -0.79393 11.7898 0.244445 12.5711C2.10548 13.9709 3.6532 15.7144 5.46332 17.1766C6.22045 17.7875 7.89838 16.4608 8.2927 15.9042C9.58701 14.0705 9.76391 11.8289 10.7072 9.82864C12.1475 6.76948 14.7018 4.25651 17.2238 2.07429C18.8947 0.515888 17.1689 0.228451 15.9019 1.32533" />
                                             </svg>
 

@@ -55,7 +55,7 @@ export default function LangChooser({ className, tooltipAlign, hideNameOnMobile,
                     <button
                         key={index}
                         className={`flex justify-start items-center gap-4 w-full p-2 rounded-sm duration-200 ${
-                            lang === code ? "bg-black text-yellow-light" : "hover:bg-black hover:bg-opacity-70 hover:text-yellow-light"
+                            lang === code ? "bg-black text-yellow-light" : "hover:bg-black hover:bg-opacity-50 hover:text-yellow-light"
                         }`}
                         onClick={() => changeLang(code)}
                     >

@@ -241,7 +241,7 @@ export default function BlogPage() {
                             Array(4)
                                 .fill(0)
                                 .map((_, index) => (
-                                    <Button.Secondary key={index} className="animate-pulse flex items-center h-12 w-20 bg-black bg-opacity-20" /> //
+                                    <Button.Secondary key={index} className="animate-pulse flex items-center h-12 w-20 bg-gray" /> //
                                 ))
                         )}
                     </div>
@@ -252,7 +252,7 @@ export default function BlogPage() {
                             : Array(3)
                                   .fill(0)
                                   .map((_, index) => (
-                                      <div key={index} className="h-96 w-full bg-black bg-opacity-20 animate-pulse" /> //
+                                      <div key={index} className="h-96 w-full bg-gray animate-pulse" /> //
                                   ))}
                     </div>
                 </div>

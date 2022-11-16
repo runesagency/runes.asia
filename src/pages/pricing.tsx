@@ -13,7 +13,7 @@ import * as localization from "@/lib/localization/pages/pricing";
 export const getStaticProps = async () => {
     return {
         props: {
-            themeColor: theme.colors.yellow.light,
+            themeColor: theme.colors.blue.light,
         },
     };
 };
@@ -58,8 +58,8 @@ export const usePricingsAPI = (lang: string) => {
         const translation = item.translations.find((item) => item.languages_code === lang);
 
         const colors = [
-            "rgba(39, 39, 39, 0.2)", //
-            theme.colors.lime,
+            theme.colors.blue.light, //
+            theme.colors.green,
             theme.colors.yellow.light,
             theme.colors.pink,
         ].sort(() => 0.5 - Math.random());
@@ -135,7 +135,7 @@ const PricingBlock = ({ locale, ...props }: PricingBlockProps) => {
                 animationDelay: `${props.index * 100}ms`,
             }}
         >
-            <div className="grid gap-8 bg-opacity-20 p-10 h-max" style={{ backgroundColor: props.color }}>
+            <div className="grid gap-8 p-10 h-max" style={{ backgroundColor: props.color }}>
                 <img src={`/assets/${props.image}`} alt="" className="h-14" />
 
                 <div className="grid gap-2">
@@ -162,7 +162,7 @@ const PricingBlock = ({ locale, ...props }: PricingBlockProps) => {
                 <div className="grid gap-5">
                     <h3 className="font-vidaloka text-xl">{locale.pricing.includedFeatures}</h3>
 
-                    <div className="grid gap-2 fill-navy">
+                    <div className="grid gap-2">
                         {(props.features_included as string[])?.map((feature, index) => (
                             <Feature text={feature} key={index} check />
                         ))}
@@ -204,7 +204,7 @@ const FAQBlock = ({ question, answer, index }: FAQBlockProps) => {
 
     return (
         <article
-            className={`grid py-5 border-b border-black border-opacity-20 duration-200 transition-all animate-open ${open ? "gap-5" : "gap-0"}`}
+            className={`grid py-5 border-b border-gray duration-200 transition-all animate-open ${open ? "gap-5" : "gap-0"}`}
             style={{
                 animationDelay: `${index * 100}ms`,
             }}
@@ -234,7 +234,7 @@ const FAQ = () => {
                         : Array(3)
                               .fill(0)
                               .map((_, index) => (
-                                  <div key={index} className="h-10 w-full bg-black bg-opacity-20 animate-pulse rounded-md" /> //
+                                  <div key={index} className="h-10 w-full bg-gray animate-pulse rounded-md" /> //
                               ))}
                 </div>
             </div>
@@ -250,7 +250,7 @@ export default function PricingPage() {
     return (
         <main className="relative bg-white">
             {/* Header */}
-            <section className="relative py-20 bg-yellow-light">
+            <section className="relative py-20 bg-blue-light">
                 <div className="container grid gap-28">
                     <Navigation />
 
@@ -269,7 +269,7 @@ export default function PricingPage() {
                                           `flex items-center justify-center gap-4 px-10 py-3 cursor-pointer hover:opacity-70 duration-200 animate-open ` + //
                                           (index === currentCategory //
                                               ? "bg-black text-white"
-                                              : "border-black border-opacity-20 border-2 text-black")
+                                              : "border-2 border-gray text-black")
                                       }
                                       style={{
                                           animationDelay: `${index * 0.1}s`,
@@ -282,7 +282,7 @@ export default function PricingPage() {
                             : Array(4)
                                   .fill(0)
                                   .map((_, index) => (
-                                      <button key={index} className="px-10 py-3 h-24 w-full bg-black bg-opacity-20 animate-pulse" /> //
+                                      <button key={index} className="px-10 py-3 h-24 w-full bg-gray animate-pulse" /> //
                                   ))}
                     </div>
                 </div>
@@ -306,11 +306,11 @@ export default function PricingPage() {
                             : Array(4)
                                   .fill(0)
                                   .map((_, index) => (
-                                      <article key={index} className="w-full bg-black bg-opacity-20 animate-pulse h-80" /> //
+                                      <article key={index} className="w-full bg-gray animate-pulse h-80" /> //
                                   ))}
                     </div>
 
-                    {/* <div className="flex flex-col-reverse lg:flex-row justify-between items-center text-black bg-lime p-10 md:p-20 lg:py-0 gap-20">
+                    {/* <div className="flex flex-col-reverse lg:flex-row justify-between items-center text-black bg-green p-10 md:p-20 lg:py-0 gap-20">
                         <div className="grid gap-10 flex-1 lg:py-20 max-w-xl">
                             <div className="grid gap-5 h-max">
                                 <h1 className="jumbo-title">{locale.priorityCTA.title}</h1>

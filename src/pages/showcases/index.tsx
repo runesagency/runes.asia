@@ -148,12 +148,12 @@ export default function ShowcasesPage() {
                             Array(4)
                                 .fill(0)
                                 .map((_, index) => (
-                                    <Button.Secondary key={index} className="animate-pulse flex items-center h-12 w-20 bg-black bg-opacity-20" /> //
+                                    <Button.Secondary key={index} className="animate-pulse flex items-center h-12 w-20 bg-gray" /> //
                                 ))
                         )}
                     </div>
 
-                    <hr className="border-black border-opacity-30" />
+                    <hr className="border-gray" />
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {!loading
@@ -175,7 +175,7 @@ export default function ShowcasesPage() {
                                           }}
                                       />
 
-                                      <div className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-black bg-opacity-75 duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center">
+                                      <div className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-gray duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center">
                                           <Link
                                               href={`/showcases/${item.id}/${encodeToURL(item.product_title)}`}
                                               className="text-yellow-light hover:opacity-75 duration-200"
@@ -190,7 +190,7 @@ export default function ShowcasesPage() {
                               ))
                             : Array(4)
                                   .fill(0)
-                                  .map((_, index) => <div className="relative h-full flip-card overflow-hidden group aspect-square bg-black bg-opacity-20 animate-pulse" key={index} />)}
+                                  .map((_, index) => <div className="relative h-full flip-card overflow-hidden group aspect-square bg-gray animate-pulse" key={index} />)}
                     </div>
                 </div>
             </section>
@@ -199,7 +199,7 @@ export default function ShowcasesPage() {
             <CTA
                 imageLink="/images/illustrations/treasure.png"
                 className={{
-                    wrapper: "bg-lime",
+                    wrapper: "bg-green",
                     container: "items-center",
                     leftContainer: "xl:max-w-3xl",
                     image: "p-10",

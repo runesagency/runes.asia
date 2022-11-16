@@ -172,7 +172,7 @@ export default function ContactPage() {
                         <textarea
                             name="details"
                             rows={10}
-                            className="p-5 w-full outline-none font-poppins text-black border border-black border-opacity-20"
+                            className="p-5 w-full outline-none font-poppins text-black border border-gray"
                             placeholder={locale.form.details.placeholder}
                             defaultValue={initialData.details}
                             required

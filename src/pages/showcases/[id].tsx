@@ -67,7 +67,7 @@ export default function SingleShowcasePage({ data }: { data: Awaited<ReturnType<
                 <div className="container grid gap-14 text-black">
                     <Navigation />
 
-                    <hr className="border-black border-opacity-30" />
+                    <hr className="border-gray" />
 
                     <Button.Back text={locale.backButton} href="/showcases" />
 

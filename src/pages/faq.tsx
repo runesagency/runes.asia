@@ -226,7 +226,7 @@ export default function FAQPage() {
                                       id={categoryId(index)}
                                       href={`#${boxCategoryId(index)}`}
                                       onClick={() => setScrolling(index)}
-                                      className="px-5 py-3 border-b border-black border-opacity-30 transition-all duration-300 hover:opacity-70 animate-open"
+                                      className="px-5 py-3 border-b border-gray transition-all duration-300 hover:opacity-70 animate-open"
                                       style={{ animationDelay: `${index * 0.1}s` }}
                                   >
                                       {item.title}
@@ -235,14 +235,14 @@ export default function FAQPage() {
                             : Array(3)
                                   .fill(0)
                                   .map((_, index) => (
-                                      <div className="h-8 w-44 bg-black bg-opacity-20 animate-pulse rounded-md" key={index} /> //
+                                      <div className="h-8 w-44 bg-gray animate-pulse rounded-md" key={index} /> //
                                   ))}
                     </div>
 
                     <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins overflow-hidden">
                         {!loading
                             ? data.map((item, index) => {
-                                  const colors = [theme.colors.lime, theme.colors.pink, theme.colors.yellow.light];
+                                  const colors = [theme.colors.green, theme.colors.pink, theme.colors.yellow.light];
                                   const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
                                   return (
@@ -270,7 +270,7 @@ export default function FAQPage() {
                             : Array(3)
                                   .fill(0)
                                   .map((_, index) => (
-                                      <div className="w-full h-96 bg-black bg-opacity-20 animate-pulse" key={index} /> //
+                                      <div className="w-full h-96 bg-gray animate-pulse" key={index} /> //
                                   ))}
                     </div>
                 </div>

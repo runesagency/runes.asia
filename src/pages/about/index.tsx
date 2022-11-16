@@ -12,7 +12,7 @@ import * as localization from "@/lib/localization/pages/about";
 export const getStaticProps = async () => {
     return {
         props: {
-            themeColor: theme.colors.lime,
+            themeColor: theme.colors.green,
         },
     };
 };
@@ -94,7 +94,7 @@ export default function AboutPage() {
         return (
             <div className="grid max-w-6xl mx-auto">
                 {Object.entries(data).map(([year, timeline], index) => {
-                    const colors = [theme.colors.lime, theme.colors.white, theme.colors.yellow.light];
+                    const colors = [theme.colors.green, theme.colors.white, theme.colors.yellow.light];
                     const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
                     return (
@@ -116,7 +116,7 @@ export default function AboutPage() {
     return (
         <main className="relative bg-white">
             {/* Header */}
-            <section className="relative py-20 bg-contain bg-no-repeat bg-right-bottom bg-lime" style={{ backgroundImage: "url(/images/illustrations/windy.png)" }}>
+            <section className="relative py-20 bg-contain bg-no-repeat bg-right-bottom bg-green" style={{ backgroundImage: "url(/images/illustrations/windy.png)" }}>
                 <div className="container grid gap-28">
                     <Navigation />
 
@@ -186,11 +186,11 @@ export default function AboutPage() {
                                   .fill(0)
                                   .map((_, index) => (
                                       <article key={index} className="grid gap-7 w-full h-max animate-pulse">
-                                          <div className="aspect-square w-full pt-10 flex justify-center items-end px-4 bg-black bg-opacity-20" />
+                                          <div className="aspect-square w-full pt-10 flex justify-center items-end px-4 bg-gray" />
 
                                           <div className="grid gap-4 font-poppins h-max">
-                                              <div className="h-5 w-2/3 bg-black rounded-md bg-opacity-20" />
-                                              <div className="h-2 w-1/2 bg-black rounded-md bg-opacity-20" />
+                                              <div className="h-5 w-2/3 bg-gray rounded-md" />
+                                              <div className="h-2 w-1/2 bg-gray rounded-md" />
                                           </div>
                                       </article>
                                   ))}
@@ -198,7 +198,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            <section id="journey" className="pt-20 bg-navy text-white">
+            <section id="journey" className="pt-20 bg-blue-dark text-white">
                 <div className="container grid gap-12">
                     <h2 className="title text-center">{locale.journey.title}</h2>
                     <Timeline data={locale.journey.timelines} />

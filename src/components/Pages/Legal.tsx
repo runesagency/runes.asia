@@ -64,7 +64,7 @@ export default function LegalPage({ endpoint, localization }: { endpoint: `/${st
                                 .map((_, index) => (
                                     <div
                                         key={index}
-                                        className="h-4 bg-black bg-opacity-20 animate-pulse rounded-md"
+                                        className="h-4 bg-gray animate-pulse rounded-md"
                                         style={{
                                             width: `${Math.floor(Math.random() * (100 - 30 + 1) + 30)}%`,
                                         }}

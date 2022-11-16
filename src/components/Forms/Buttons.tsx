@@ -32,8 +32,8 @@ export const Secondary = forwardRef(({ className, light, active, ...props }: But
     return (
         <Component
             className={
-                `font-poppins w-max px-5 py-3 cursor-pointer hover:opacity-75 duration-200 rounded-full border-opacity-40 border text-center ${className}` + //
-                (active ? (light ? " bg-white text-black" : " bg-black text-white") : light ? " border-white text-white" : " border-black text-black")
+                `font-poppins w-max px-5 py-3 cursor-pointer hover:opacity-75 duration-200 rounded-full border text-center ${className}` + //
+                (active ? (light ? " bg-white text-black" : " bg-black text-white") : light ? " border-white text-white" : " border-gray text-black")
             }
             {...props}
         />

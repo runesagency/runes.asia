@@ -10,13 +10,17 @@ module.exports = {
             current: "currentColor",
             white: "#FFFFFF",
             black: "#272727",
-            lime: "#D2D8B3",
-            navy: "#839DB5",
+            gray: "#D9D9D9",
+            green: "#D2D8B3",
             pink: "#E5989B",
             purple: "#B5838D",
             yellow: {
                 light: "#EFD09E",
-                dark: "#D4AA7D",
+                dark: "#B58266",
+            },
+            blue: {
+                light: "#B3C6D8",
+                dark: "#839DB5",
             },
         },
         fontFamily: {
