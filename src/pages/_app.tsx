@@ -47,7 +47,7 @@ const TransitionEffect = ({ children }: { children: ReactNode }) => {
 
     return (
         <div className="effect-1">
-            <AnimatePresence initial={true} mode="wait">
+            <AnimatePresence initial={true} mode="sync">
                 <motion.div key={asPath} variants={!shouldReduceMotion ? variants : null} initial="in" animate={"center"} exit={"out"} className="overflow-hidden">
                     {children}
                 </motion.div>
