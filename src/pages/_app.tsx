@@ -12,48 +12,6 @@ import { ucWords } from "@/lib/functions";
 import { useLanguage } from "@/lib/hooks";
 import { languages } from "@/components/Utils/LangChooser";
 
-const variants: Variants = {
-    in: {
-        height: 0,
-    },
-    center: {
-        height: "auto",
-        transition: {
-            height: {
-                duration: 1.5,
-            },
-            delay: 0.3,
-        },
-    },
-    out: {
-        height: 0,
-        transition: {
-            height: {
-                duration: 1.5,
-            },
-        },
-    },
-};
-
-/*
- * Read the blog post here:
- * https://letsbuildui.dev/articles/animated-page-transitions-in-nextjs
- */
-const TransitionEffect = ({ children }: { children: ReactNode }) => {
-    const { asPath } = useRouter();
-    const shouldReduceMotion = useReducedMotion();
-
-    return (
-        <div className="effect-1">
-            <AnimatePresence initial={true} mode="sync">
-                <motion.div key={asPath} variants={!shouldReduceMotion ? variants : null} initial="in" animate={"center"} exit={"out"} className="overflow-hidden">
-                    {children}
-                </motion.div>
-            </AnimatePresence>
-        </div>
-    );
-};
-
 const App = ({ Component, pageProps }: AppProps) => {
     const { lang } = useLanguage("lang", languages);
     const router = useRouter();
