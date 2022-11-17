@@ -1,5 +1,4 @@
 import type { AppProps } from "next/app";
-import type { ReactNode } from "react";
 
 import "../styles/globals.css";
 
@@ -12,7 +11,6 @@ import { useRouter } from "next/router";
 import { ucWords } from "@/lib/functions";
 import { useLanguage } from "@/lib/hooks";
 import { languages } from "@/components/Utils/LangChooser";
-import { motion, AnimatePresence, useReducedMotion, Variants } from "framer-motion";
 
 const variants: Variants = {
     in: {
@@ -76,11 +74,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
     useEffect(() => {
         document.body.setAttribute("lang", lang);
-
-        if (pageProps.themeColor) {
-            document.body.style.backgroundColor = pageProps.themeColor;
-        }
-    }, [lang, pageProps.themeColor]);
+    }, [lang]);
 
     return (
         <>
@@ -126,9 +120,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
             <ProgressBar color={pageProps.themeColor} />
 
-            <TransitionEffect>
-                <Component {...pageProps} />
-            </TransitionEffect>
+            <Component {...pageProps} />
 
             {process.env.NODE_ENV === "production" && (
                 <>
