@@ -175,7 +175,7 @@ export default function ShowcasesPage() {
                                           }}
                                       />
 
-                                      <div className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-gray duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center">
+                                      <div className="absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-black bg-opacity-75 duration-200 grid gap-1 md:gap-4 auto-rows-max px-6 py-6 place-items-center place-content-center text-center">
                                           <Link
                                               href={`/showcases/${item.id}/${encodeToURL(item.product_title)}`}
                                               className="text-yellow-light hover:opacity-75 duration-200"
