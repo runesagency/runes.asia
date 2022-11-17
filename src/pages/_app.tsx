@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { ucWords } from "@/lib/functions";
 import { useLanguage } from "@/lib/hooks";
 import { languages } from "@/components/Utils/LangChooser";
+import { theme } from "tailwind.config";
 
 const App = ({ Component, pageProps, router }: AppProps) => {
     const { lang } = useLanguage("lang", languages);
@@ -74,7 +75,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
                 }}
             />
 
-            <ProgressBar color={pageProps.themeColor} />
+            <ProgressBar color={pageProps.themeColor === theme.colors.black ? theme.colors.yellow.light : theme.colors.black} />
 
             <Component {...pageProps} />
 
