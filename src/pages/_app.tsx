@@ -7,14 +7,12 @@ import ProgressBar from "nextjs-progressbar";
 import MetaTags from "@/components/Utils/MetaTags";
 
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { ucWords } from "@/lib/functions";
 import { useLanguage } from "@/lib/hooks";
 import { languages } from "@/components/Utils/LangChooser";
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps, router }: AppProps) => {
     const { lang } = useLanguage("lang", languages);
-    const router = useRouter();
 
     let title = "";
 
