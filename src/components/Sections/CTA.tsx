@@ -17,7 +17,7 @@ type CTAProps = {
 
 export default function CTA({ children, imageLink, className }: CTAProps) {
     return (
-        <section className={className?.wrapper}>
+        <section className={`${className?.wrapper} overflow-x-hidden`}>
             <div className={`container flex flex-col-reverse lg:flex-row gap-10 justify-between items-center lg:items-stretch ${className?.container}`}>
                 <div className={`grid gap-10 lg:max-w-lg pb-20 lg:py-20 relative z-10 overflow-visible flex-shrink-0 ${className?.leftContainer}`}>{children}</div>
 
