@@ -79,18 +79,18 @@ export default function FAQPage() {
     const { locale, lang } = useLanguage("lang", localization);
     const { loading, data } = useFAQsAPI(lang);
 
-    const categoryId = (id: number) => `nav-category-${id}`;
-    const boxCategoryId = (id: number) => `category-${id}`;
-    const qnaBoxId = (id: number) => `qna-box-${id}`;
+    const qnaCategoryButtonId = (id: number) => `nav-category-${id}`; // Left navigation button id
+    const qnaOuterContainerId = (id: number) => `category-${id}`; // Outer container id (above the title)
+    const qnaContentBoxId = (id: number) => `qna-box-${id}`; // Content box id (below the title)
 
     useEffect(() => {
         let currentCategoryId = -1;
 
         const scrollHandler = () => {
             for (let i = 0; i <= data.length - 1; i++) {
-                const category = document.getElementById(categoryId(i));
-                const boxCategory = document.getElementById(boxCategoryId(i));
-                const qnaBox = document.getElementById(qnaBoxId(i));
+                const category = document.getElementById(qnaCategoryButtonId(i));
+                const boxCategory = document.getElementById(qnaOuterContainerId(i));
+                const qnaBox = document.getElementById(qnaContentBoxId(i));
 
                 if (category && boxCategory && qnaBox) {
                     const scrollTop = boxCategory.getBoundingClientRect().top * -1 + 200;
@@ -108,7 +108,7 @@ export default function FAQPage() {
                             currentCategoryId = Number(id);
 
                             if (isScrolling === false) {
-                                location.hash = boxCategoryId(Number(id));
+                                location.hash = qnaOuterContainerId(Number(id));
                             } else if (isScrolling === Number(id)) {
                                 setScrolling(false);
                             }
@@ -141,7 +141,7 @@ export default function FAQPage() {
                 }
             }
 
-            const element = document.getElementById(boxCategoryId(id));
+            const element = document.getElementById(qnaOuterContainerId(id));
 
             const countOffsetTop = (element: any) => {
                 // recursive until no parent found
@@ -149,7 +149,7 @@ export default function FAQPage() {
             };
 
             window.scroll(0, countOffsetTop(element));
-            location.hash = boxCategoryId(id);
+            location.hash = qnaOuterContainerId(id);
         };
 
         document.addEventListener("scroll", scrollHandler);
@@ -183,8 +183,8 @@ export default function FAQPage() {
                                 ? data.map((item, index) => (
                                       <a
                                           key={index}
-                                          id={categoryId(index)}
-                                          href={`#${boxCategoryId(index)}`}
+                                          id={qnaCategoryButtonId(index)}
+                                          href={`#${qnaOuterContainerId(index)}`}
                                           onClick={() => setScrolling(index)}
                                           className="px-5 py-3 border-b border-gray transition-all duration-300 hover:opacity-70 animate-open"
                                           style={{ animationDelay: `${index * 0.1}s` }}
@@ -209,7 +209,7 @@ export default function FAQPage() {
                                   return (
                                       <div
                                           key={index}
-                                          id={boxCategoryId(index)}
+                                          id={qnaOuterContainerId(index)}
                                           className="grid gap-5 h-max animate-open"
                                           data-backgroundcolor={randomColor}
                                           data-categoryid={index}
@@ -217,7 +217,7 @@ export default function FAQPage() {
                                       >
                                           <h2 className="subtitle uppercase">{item.title}</h2>
 
-                                          <div id={qnaBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
+                                          <div id={qnaContentBoxId(index)} className="grid gap-4 p-6 transition-all duration-300">
                                               {item.list.map((item, index) => (
                                                   <div key={index} className="grid gap-4 h-max animate-open" style={{ animationDelay: `${index * 0.1}s` }}>
                                                       <h3 className="subtitle font-bold">{item.question}</h3>
