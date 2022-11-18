@@ -7,7 +7,7 @@
 @layer base {
     html,
     body {
-        @apply scroll-smooth overflow-x-hidden scroll-pt-12;
+        @apply scroll-smooth scroll-pt-12;
     }
 
     * {

@@ -73,8 +73,7 @@ export const useFAQsAPI = (lang: string) => {
 };
 
 export default function FAQPage() {
-    const categoriesSection = useRef<HTMLDivElement>(null);
-    const faqsSection = useRef<HTMLDivElement>(null);
+    const faqsRef = useRef<HTMLDivElement>(null);
     const [isScrolling, setScrolling] = useState<number | false>(false);
 
     const { locale, lang } = useLanguage("lang", localization);
@@ -85,71 +84,48 @@ export default function FAQPage() {
     const qnaBoxId = (id: number) => `qna-box-${id}`;
 
     useEffect(() => {
-        let maxCategoryScrollHeight = 0;
-        let nowCategoryId = -1;
-        let resizeObserver: ResizeObserver | null = null;
+        let currentCategoryId = -1;
 
         const scrollHandler = () => {
-            // Side Menu Sticky Effect When Scrolling
-            (() => {
-                const categories = categoriesSection.current;
-                const faqs = faqsSection.current;
+            for (let i = 0; i <= data.length - 1; i++) {
+                const category = document.getElementById(categoryId(i));
+                const boxCategory = document.getElementById(boxCategoryId(i));
+                const qnaBox = document.getElementById(qnaBoxId(i));
 
-                if (categories) {
-                    const scrollTop = categories.getBoundingClientRect().top * -1;
-                    if (scrollTop >= maxCategoryScrollHeight) return;
+                if (category && boxCategory && qnaBox) {
+                    const scrollTop = boxCategory.getBoundingClientRect().top * -1 + 200;
+                    const color = boxCategory.dataset.backgroundcolor;
+                    const id = boxCategory.dataset.categoryid;
 
-                    if (scrollTop >= 0) {
-                        if (scrollTop >= faqs.clientHeight - 200) return;
-                        categories.style.paddingTop = scrollTop + 20 + "px";
-                    } else {
-                        categories.style.paddingTop = "0px";
-                    }
-                }
-            })();
-
-            // Active Category Effect When Scrolling
-            (() => {
-                for (let i = 0; i <= data.length - 1; i++) {
-                    const category = document.getElementById(categoryId(i));
-                    const boxCategory = document.getElementById(boxCategoryId(i));
-                    const qnaBox = document.getElementById(qnaBoxId(i));
-
-                    if (category && boxCategory && qnaBox) {
-                        const scrollTop = boxCategory.getBoundingClientRect().top * -1 + 200;
-                        const color = boxCategory.dataset.backgroundcolor;
-                        const id = boxCategory.dataset.categoryid;
-
-                        if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
-                            if (category) {
-                                category.style.backgroundColor = color;
-                            }
-
-                            qnaBox.style.backgroundColor = color;
-
-                            if (nowCategoryId !== Number(id)) {
-                                nowCategoryId = Number(id);
-
-                                if (isScrolling === false) {
-                                    location.hash = boxCategoryId(Number(id));
-                                } else if (isScrolling === Number(id)) {
-                                    setScrolling(false);
-                                }
-                            }
-                        } else {
-                            if (category) {
-                                category.style.backgroundColor = "transparent";
-                            }
-
-                            qnaBox.style.backgroundColor = "transparent";
+                    if (scrollTop >= 0 && scrollTop <= boxCategory.clientHeight) {
+                        if (category) {
+                            category.style.backgroundColor = color;
                         }
+
+                        qnaBox.style.backgroundColor = color;
+
+                        if (currentCategoryId !== Number(id)) {
+                            currentCategoryId = Number(id);
+
+                            if (isScrolling === false) {
+                                location.hash = boxCategoryId(Number(id));
+                            } else if (isScrolling === Number(id)) {
+                                setScrolling(false);
+                            }
+                        }
+                    } else {
+                        if (category) {
+                            category.style.backgroundColor = "transparent";
+                        }
+
+                        qnaBox.style.backgroundColor = "transparent";
                     }
                 }
-            })();
+            }
         };
 
         const keyUpHandler = (e: KeyboardEvent) => {
-            let id = nowCategoryId;
+            let id = currentCategoryId;
 
             if (e.key === "ArrowUp") {
                 id -= 1;
@@ -179,31 +155,14 @@ export default function FAQPage() {
         document.addEventListener("scroll", scrollHandler);
         document.addEventListener("keyup", keyUpHandler);
 
-        if (faqsSection.current) {
-            resizeObserver = new ResizeObserver((entries) => {
-                const currentHeight = entries[0].target.clientHeight - 100;
-
-                if (
-                    !maxCategoryScrollHeight || //
-                    currentHeight - maxCategoryScrollHeight >= 500 ||
-                    maxCategoryScrollHeight - currentHeight >= 350
-                ) {
-                    maxCategoryScrollHeight = currentHeight;
-                }
-            });
-
-            resizeObserver.observe(faqsSection.current);
-        }
-
         return () => {
             document.removeEventListener("scroll", scrollHandler);
             document.removeEventListener("keyup", keyUpHandler);
-            resizeObserver?.disconnect();
         };
     }, [data, isScrolling]);
 
     return (
-        <main className="relative bg-white overflow-auto">
+        <main className="relative bg-white">
             {/* Header */}
             <section id="header" className="relative py-20">
                 <div className="container grid gap-28">
@@ -216,30 +175,32 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            <section className="py-20 overflow-auto">
-                <div className="container flex gap-20 overflow-auto">
-                    <div ref={categoriesSection} className="hidden lg:grid gap-2 subtitle font-medium h-max self-start sticky top-0">
-                        {!loading
-                            ? data.map((item, index) => (
-                                  <a
-                                      key={index}
-                                      id={categoryId(index)}
-                                      href={`#${boxCategoryId(index)}`}
-                                      onClick={() => setScrolling(index)}
-                                      className="px-5 py-3 border-b border-gray transition-all duration-300 hover:opacity-70 animate-open"
-                                      style={{ animationDelay: `${index * 0.1}s` }}
-                                  >
-                                      {item.title}
-                                  </a>
-                              ))
-                            : Array(3)
-                                  .fill(0)
-                                  .map((_, index) => (
-                                      <div className="h-8 w-44 bg-gray animate-pulse rounded-md" key={index} /> //
-                                  ))}
-                    </div>
+            <section className="py-20">
+                <div className="container flex gap-20">
+                    <aside className="min-h-full">
+                        <div className="hidden lg:grid gap-2 subtitle font-medium sticky top-8">
+                            {!loading
+                                ? data.map((item, index) => (
+                                      <a
+                                          key={index}
+                                          id={categoryId(index)}
+                                          href={`#${boxCategoryId(index)}`}
+                                          onClick={() => setScrolling(index)}
+                                          className="px-5 py-3 border-b border-gray transition-all duration-300 hover:opacity-70 animate-open"
+                                          style={{ animationDelay: `${index * 0.1}s` }}
+                                      >
+                                          {item.title}
+                                      </a>
+                                  ))
+                                : Array(3)
+                                      .fill(0)
+                                      .map((_, index) => (
+                                          <div className="h-8 w-44 bg-gray animate-pulse rounded-md" key={index} /> //
+                                      ))}
+                        </div>
+                    </aside>
 
-                    <div ref={faqsSection} className="grid gap-14 flex-1 font-poppins overflow-hidden">
+                    <div ref={faqsRef} className="grid gap-14 flex-1 font-poppins overflow-hidden">
                         {!loading
                             ? data.map((item, index) => {
                                   const colors = [theme.colors.green, theme.colors.pink, theme.colors.yellow.light];
