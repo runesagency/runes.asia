@@ -1,3 +1,9 @@
+> Hi everyone, we decided to release this source code of our old website on **runes.asia** since we now have new website on **runes.agency**, make sure you visit our new website and we hope you can learn something through this codebase
+>
+> Even though the license was MIT, if you wanted to use this as your website for your portfolio, business, or etc, please kindly ask us first at **team@runes.agency** as we also have our Intelectual Property used on this codebase
+>
+> This website has 3 different version, make sure to check it out as we separated each version on different branches.
+
 # Next.js + Tailwind CSS + Typescript + PrismaJS
 
 > This project is created and configured using Yarn, so you might wanna add another dependencies or edit any installed dependencies using Yarn to prevent error and stuff like that.
